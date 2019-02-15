@@ -1,0 +1,166 @@
+1.
+Login interface.
+The first interface user encounters when start the application if not logged in.
+Allows user to login with username and password.
+New user can select “Register” button to create a new account.
+
+2. 
+The register interface.
+User enters unique username and identical passwords to register.
+Select “Login” button to return to the login page.
+
+3.
+Owner’s main interface.
+Can select to view the available books list, accepted book list, requested book list and borrowed book list.
+
+4.
+Available book list.
+Lists all the books that the user owns and currently is available.
+
+5. 
+Edit book information.
+Allows owner to edit the book selected.
+User can change the book title, author name, book status, description and picture.
+
+6. 
+Add book interface.
+Allows owner to add a book to the system.
+User can set the book title, author name, book status, description and picture.
+
+7.
+Delete book warning.
+Once the owner select “Delete” button when inside the edit book information interface.
+A window pops up to confirm the deletion.
+
+8.
+Requested book list.
+Displays the books that the owner owns and have been requested by other user.
+User can select “View Request” button to view the detail.
+
+9.
+Book Detail.
+Display the detail information of a selected book in the available book list.
+Shows the book title, author name, status, description and picture.
+Allows owner to edit.
+
+10
+Book Detail.
+Display the detail information of a selected book.
+Shows the book title, author name, status, description and picture.
+Disallows owner to edit.
+
+11.
+Request detail.
+Display a list of borrowers that have requested this book.
+Allows owner to accept or decline a borrower’s request.
+
+12.
+Opens camera scan the barcode to confirm borrowing and returning.
+
+13.
+Accepted book List.
+Display the accepted request list to the owner.
+Allows owner to scan the barcode or select “swap” button to confirm the borrowing in the meet up.
+
+14.
+Display and set the location for the meet up.
+Can enter a location and search on the map.
+Can write comments for the meet up.
+By selecting “DONE” button to save the location.
+
+
+
+15.
+Accept Book.
+The interface that owner set the location for the meet up and accept the request by selecting the “Accept” button.
+
+16.
+Confirm the lending action with the owner.
+Display a pop up warning after scanning or select the “Swap” button to confirm.
+User can select “Yes” to confirm or “No” to retrieve the previous action.
+
+17.
+Display a list of books that have been borrowed by others.
+User can select a book to view the book detail.
+
+
+18. 
+Request a book.
+Allows borrowers to view the description and make a request of this book to its owner by selecting “Request” button.
+
+19. 
+Borrower’s main interface.
+Can select to view the available books list, accepted book list, requested book list and borrowed book list.
+
+20.
+Borrower’s requested book list.
+Display a list of books that have been requested by the user.
+Allows user to select a book to view the book detail.
+
+21.
+Borrower’s accepted book list.
+Display a list of books that the user has requested and the owner of that book has accepted the request.
+Allows user to view the book detail and meet up location.
+Allows user to scan the barcode or select “swap” button to confirm the borrowing during the meet up.
+Allows user to search a book in this list.
+
+
+22.
+Confirm the borrowing action with the borrower.
+Display a pop up warning after scanning or select the “Swap” button to confirm.
+User can select “Yes” to confirm or “No” to retrieve the previous action.
+
+24.
+Borrower’s borrowed book list.
+Display a list of books and their owner that the user have borrowed from other user.
+
+25.
+User profile page.
+Allows users to view their own profile information.
+Allows user to edit profile by selecting “Edit Profile” button.
+Allows user to view the reviews made by others.
+
+26.
+Edit user profile.
+Allows user to edit the profile page and contact information.
+By selecting “Save” to save the edit, “Cancel” to cancel the edit.
+
+27.
+Search result.
+Display a list of users whose username contains the searched keyword.
+Select a user to view the detailed profile information.
+
+28.
+Displays others profile information.
+
+29.
+
+Display the review of a user.
+Display a rating score and a list of comments about this user.
+Allow user to review other user by selecting “Leave a comment” button.
+
+30.
+ Review a user.
+Allow user to rate a user and leave a comment about the user.
+By selecting “Save” button to save the review, “Cancel” to cancel the review.
+
+31.
+Owner book search.
+Allow owner to search his available book by entering the keyword which the book description contains.
+Selecting a book to view the book detail.
+
+32.
+Borrower book search.
+Allow borrower to search others’ available book by entering the keyword which the book description contains.
+Selecting a book to view the book detail.
+
+
+33.
+Edit photo for books.
+Allow user to manage the image for a book.
+
+34.
+Delete photo warning.
+Display a warning message when the user tries to delete a photo for a book.
+By selecting “Yes” to confirm the deletion, “No” to cancel deletion.
+
