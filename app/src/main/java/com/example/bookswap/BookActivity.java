@@ -67,7 +67,6 @@ public class BookActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            // save case
             case R.id.action_save:
                 updateEditText();
                 if (isValid()){ //validate input fields are filled
@@ -102,7 +101,7 @@ public class BookActivity extends AppCompatActivity {
 
 
     private void saveBook(){
-        //TO DO: using parcel
+        //TODO: using parcel
         String title = etTitle.getText().toString();
         String author = etAuthor.getText().toString();
         String status = etStatus.getText().toString();
@@ -114,7 +113,7 @@ public class BookActivity extends AppCompatActivity {
 
         // Setting up the intent to pass back to parent, including the Recording parcel
         Intent bookIntent = new Intent();
-        bookIntent.putExtra("BookInformation", book);
+        bookIntent.putExtra("Book", book);
 
         // Special code used to see if it was a previously existing book
         // passes up some information for existing book
