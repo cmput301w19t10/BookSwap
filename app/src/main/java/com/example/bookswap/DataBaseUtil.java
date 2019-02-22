@@ -33,7 +33,7 @@ public class DataBaseUtil {
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
     }
 
-    public ArrayList<Book> getOwnerBooks(int status){
+    public ArrayList<Book> getBooks(int status){
         ArrayList<Book> outArray = new ArrayList<>();
         Book abook = aBookinfo(1);
         outArray.add(abook);
@@ -48,15 +48,8 @@ public class DataBaseUtil {
         String description = getBookDes(bookUniKeyList.get(index));
         String ISBN = getBookISBN(bookUniKeyList.get(index));
         String status = getBookStatus(bookUniKeyList.get(index));
-        Book aBook = new Book("1","1","1","33333","321321");
+        Book aBook = new Book("1","1","1","1","1");
 
-
-//
-//        aBook =
-//        aBook.add(title);
-//        aBook.add(status);
-//        aBook.add(description);
-//        aBook.add(ISBN);
         return aBook;
     }
 
@@ -107,12 +100,11 @@ public class DataBaseUtil {
     // use this function if you want to add a new book (unfinished)
 
     public void AddNewBook(Book book){
-//        UUID number = UUID.randomUUID();
-//        String BookKey = number.toString();
-//        this.BookKey = BookKey;
-//        BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
-//        BookOwner(book.getOwner());
-//        BookDescription(book.getDes());
+        UUID number = UUID.randomUUID();
+        String BookKey = number.toString();
+        this.BookKey = BookKey;
+        BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
+        BookDescription(book.getDescription());
     }
 
     // save all book information to Firebase
@@ -158,8 +150,42 @@ public class DataBaseUtil {
     }
 
 
+    // save user to the database
+    // save the password
+    public void addPassword (String name, String password) {
+        UserDatabase.child(name).child("password").setValue(password);
+    }
 
+    // save the email
+    public void addEmail (String name, String email) {
+        UserDatabase.child(name).child("email").setValue(email);
+    }
 
+    // save the address
+    public void addAddress (String name, String address) {
+        UserDatabase.child(name).child("address").setValue(address);
+    }
+
+    //save the phone number
+    public void addPhone (String name, String phone) {
+        UserDatabase.child(name).child("phone").setValue(phone);
+    }
+
+    // get user info from data
+    // get the password
+    public String getPassword(String name){}
+
+    // get the email
+    public String getEmail(String name){}
+
+    // get the address
+    public String getAddress(String name){}
+
+    // get the phone number
+    public String getPhone(String name){}
+
+    // change book status
+    public void changeStatus(int status){}
 
 }
 
