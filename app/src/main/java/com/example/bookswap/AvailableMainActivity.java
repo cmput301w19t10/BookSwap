@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +46,7 @@ public class AvailableMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_list);
         Intent intentAva = getIntent();
-        loadFromFile();
+        //loadFromFile();
         adapter = new AvailableAdapter(this, 0, availableList);
         oldAvailableList = findViewById(R.id.mainAvailableList);
         oldAvailableList.setAdapter(adapter);
@@ -147,6 +148,8 @@ public class AvailableMainActivity extends AppCompatActivity {
         if (requestCode == ADD_BOOK_REQUEST) { // adding a new record
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
+                Log.d("PLEASE", book.getTitle());
+                book.getImage();
                 availableList.add(book);
             }
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)

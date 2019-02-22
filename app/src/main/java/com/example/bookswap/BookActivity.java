@@ -2,15 +2,25 @@ package com.example.bookswap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * Activity that allows the editting and creation UI of new available book information
@@ -24,6 +34,7 @@ public class BookActivity extends AppCompatActivity {
     private EditText etAuthor;
     private EditText etDescription;
     private EditText etStatus;
+    private static int BOOK_PHOTO_RESULT = 1;
 
     private Book book;
 
@@ -34,6 +45,15 @@ public class BookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available);
+        ImageButton photo = findViewById(R.id.bookPhotoButton);
+        photo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, BOOK_PHOTO_RESULT);
+            }
+        });
         Intent intent = getIntent();
         if (intent.getParcelableExtra("Book") != null){
             this.book = intent.getParcelableExtra("Book");
@@ -101,19 +121,22 @@ public class BookActivity extends AppCompatActivity {
 
 
     private void saveBook(){
-        //TODO: using parcel
         String title = etTitle.getText().toString();
         String author = etAuthor.getText().toString();
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
+        ImageButton bView = findViewById(R.id.bookPhotoButton);
+        Bitmap image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
 
 
-        Book book = new Book(title,author,status,description);
+        Book book = new Book(title, author, status, description, image);
         Toast.makeText(this,"Book is saved!",Toast.LENGTH_SHORT).show();
 
         // Setting up the intent to pass back to parent, including the Recording parcel
         Intent bookIntent = new Intent();
         bookIntent.putExtra("Book", book);
+        Book test = bookIntent.getParcelableExtra("Book");
+        test.getImage();
 
         // Special code used to see if it was a previously existing book
         // passes up some information for existing book
@@ -157,6 +180,29 @@ public class BookActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                ImageButton photo = findViewById(R.id.bookPhotoButton);
+                selectedImage = Bitmap.createScaledBitmap(selectedImage, 150,200,false);
+                photo.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(BookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(BookActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
     }
 
 

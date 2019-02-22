@@ -1,6 +1,7 @@
 package com.example.bookswap;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,15 +48,18 @@ public class AvailableAdapter extends ArrayAdapter<Book> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available, null);
         }
         // extract our recording from the list
+        Log.d("POSITION", Integer.toString(position));
         Book element = availableList.get(position);
 
 
         TextView title = (TextView) convertView.findViewById(R.id.listTitle);
         TextView author = (TextView) convertView.findViewById(R.id.listAuthor);
-        //ImageView bookcover = (ImageView)convertView.findViewById(R.id.book_Cover);
+        ImageView bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
         title.setText(element.getTitle());
         author.setText(element.getAuthor());
-
+        if (element.getImage() != null) {
+            bookcover.setImageBitmap(element.getImage());
+        }
 
         return convertView;
     }
