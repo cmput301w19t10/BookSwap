@@ -29,25 +29,38 @@ public class DataBaseUtil {
 
 
     public DataBaseUtil(){
-        UserDatabase = FirebaseDatabase.getInstance().getReference("User");
-        BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
+//        UserDatabase = FirebaseDatabase.getInstance().getReference("User");
+//        BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
     }
+
+    //This part is for book
 
     public ArrayList<Book> getBooks(int status){
         ArrayList<Book> outArray = new ArrayList<>();
-        Book abook = aBookinfo(1);
-        outArray.add(abook);
+        //Book abook1 = aBookinfo(0);
+        Book abook1 = new Book("1","1","1","1","1");
+        Book abook2 = new Book("2","1","2","1","1");
+        Book abook3 = new Book("3","1","3","1","1");
+        Book abook4 = new Book("4","1","4","1","1");
+        outArray.add(abook1);
+        outArray.add(abook2);
+        outArray.add(abook3);
+        outArray.add(abook4);
         return outArray;
     }
 
     // use this function if you want to get book info from firebase as a owner
     private Book aBookinfo(int index){
+//        String BookKey;
+//        String BookTitle;
+//        String BookDes;
+//        String BookISBN;
+//        String BookStatus;
 
-
-        String title = getBookTitle(bookUniKeyList.get(index));
-        String description = getBookDes(bookUniKeyList.get(index));
-        String ISBN = getBookISBN(bookUniKeyList.get(index));
-        String status = getBookStatus(bookUniKeyList.get(index));
+//        String title = getBookTitle(bookUniKeyList.get(index));
+//        String description = getBookDes(bookUniKeyList.get(index));
+//        String ISBN = getBookISBN(bookUniKeyList.get(index));
+//        String status = getBookStatus(bookUniKeyList.get(index));
         Book aBook = new Book("1","1","1","1","1");
 
         return aBook;
@@ -63,7 +76,6 @@ public class DataBaseUtil {
 
     // get book title
     private String getBookTitle(String bookUniKey){
-        //String BookName;
         DatabaseReference refBookName = UserDatabase.child("Book").child(bookUniKey).child("Title");
         refBookName.addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,16 +107,14 @@ public class DataBaseUtil {
         return BookStatus;
     }
 
-
-
     // use this function if you want to add a new book (unfinished)
 
     public void AddNewBook(Book book){
         UUID number = UUID.randomUUID();
         String BookKey = number.toString();
         this.BookKey = BookKey;
-        BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
-        BookDescription(book.getDescription());
+        //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
+        //BookDescription(book.getDescription());
     }
 
     // save all book information to Firebase
@@ -127,7 +137,7 @@ public class DataBaseUtil {
 
     // save the description
     private void BookDescription(String description){
-        BookDatabase.child(BookKey).child("Description").setValue(description);
+     //   BookDatabase.child(BookKey).child("Description").setValue(description);
     }
 
     // save the ISBN
@@ -144,55 +154,79 @@ public class DataBaseUtil {
     private void BookPhoto(){
     }
 
-    // save book to user info
-    private void UserBook(String name,String BookName){
-        UserDatabase.child(name).child("Book").child(BookKey).setValue(BookName);
+    // save OwnerBook to user info
+    private void OwnerBook(String name,String BookName){
+        UserDatabase.child(name).child("OwnerBook").child(BookKey).setValue(BookName);
     }
 
+    // save BorrowerBook to user info
+    private  void borrowerBook(String name, String BookName){};
 
+
+    // This part is for user
     // save user to the database
+    public void addNewUser (User user){}
     // save the password
-    public void addPassword (String name, String password) {
-        UserDatabase.child(name).child("password").setValue(password);
+    private void addPassword (String name, String password) {
+        //UserDatabase.child(name).child("password").setValue(password);
     }
-
     // save the email
-    public void addEmail (String name, String email) {
-        UserDatabase.child(name).child("email").setValue(email);
+    private void addEmail (String name, String email) {
+        //UserDatabase.child(name).child("email").setValue(email);
     }
-
     // save the address
-    public void addAddress (String name, String address) {
-        UserDatabase.child(name).child("address").setValue(address);
+    private void addAddress (String name, String address) {
+        //UserDatabase.child(name).child("address").setValue(address);
+    }
+    //save the phone number
+    private void addPhone (String name, String phone) {
+        //UserDatabase.child(name).child("phone").setValue(phone);
     }
 
-    //save the phone number
-    public void addPhone (String name, String phone) {
-        UserDatabase.child(name).child("phone").setValue(phone);
-    }
 
     // get user info from data
+    public User getOneUser(String name){
+        User user = new User("1","1","1","1");
+        return user;
+    }
     // get the password
-    public String getPassword(String name){}
+    private String getPassword(String name){
+        //TODO implement stub
+        return "1";
+    }
 
     // get the email
-    public String getEmail(String name){}
+    private String getEmail(String name){
+        //TODO implement stub
+        return "1";
+    }
 
     // get the address
-    public String getAddress(String name){}
+    private String getAddress(String name){
+        //TODO implement stub
+        return "1";
+    }
 
     // get the phone number
-    public String getPhone(String name){}
+    private String getPhone(String name){
+        //TODO implement stub
+        return "1";
+    }
 
+
+    // This part is for Swap book and change book status
     // change book status
     public void changeStatus(int status){}
-    
+
     // if there is a new request, this method can assign true to "request"
     // and user can be notified
     public void NewRequest(){}
 
     // get the value of "Request"
-    public boolean checkNewRequest(String name){}
+    public boolean checkNewRequest(String name){
+        //TODO implement stub
+        return true;
+    }
 
 }
 
