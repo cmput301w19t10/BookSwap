@@ -3,6 +3,9 @@ package com.example.bookswap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * display notification on a button
+ */
 public class OwnerNotification extends AppCompatActivity {
 
     @Override
