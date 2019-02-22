@@ -49,6 +49,8 @@ public class Book implements Parcelable {
 
     }
 
+    public Book(){}
+
 
     /**
      * return newly populated object
@@ -88,6 +90,21 @@ public class Book implements Parcelable {
 
     public String getImage() {
         return image;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public void setStatus(String author){
+
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
 
