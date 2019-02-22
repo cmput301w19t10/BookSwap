@@ -2,6 +2,8 @@ package com.example.bookswap;
 
 import java.util.ArrayList;
 
+// dummy list for testing and development only
+// not for prototype use
 public class User_list {
     protected ArrayList<User> User_list;
 
