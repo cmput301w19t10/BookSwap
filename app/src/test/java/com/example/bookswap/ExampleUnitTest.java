@@ -73,4 +73,12 @@ public class ExampleUnitTest {
         testArray = u.getBooks(1);
         assertEquals(2,testArray.get(2));
     }
+    
+    @Test
+    public void Request_isCorrect(){
+        DataBaseUtil u = new DataBaseUtil();
+        u.NewRequest();
+        boolean testRequest = u.checkNewRequest("Bowen");
+        assertEquals(true,testRequest);
+    }
 }
