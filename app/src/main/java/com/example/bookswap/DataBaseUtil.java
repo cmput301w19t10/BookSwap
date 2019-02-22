@@ -186,6 +186,13 @@ public class DataBaseUtil {
 
     // change book status
     public void changeStatus(int status){}
+    
+    // if there is a new request, this method can assign true to "request"
+    // and user can be notified
+    public void NewRequest(){}
+
+    // get the value of "Request"
+    public boolean checkNewRequest(String name){}
 
 }
 
