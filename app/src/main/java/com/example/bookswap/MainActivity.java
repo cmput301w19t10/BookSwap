@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //create a intent for jump to the main part
         Button accept_button = (Button) findViewById(R.id.accept);
         accept_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

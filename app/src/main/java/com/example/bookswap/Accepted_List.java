@@ -20,6 +20,7 @@ public class Accepted_List extends Activity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -33,6 +34,7 @@ public class Accepted_List extends Activity {
         //TODO when click the item can enter this pages
         /**
          * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
+         * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
          */
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Notice")
