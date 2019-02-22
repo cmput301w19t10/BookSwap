@@ -20,7 +20,7 @@ public class DummyActivity extends AppCompatActivity {
      */
     public void Dummy(View view){
         //Do something in response to button
-        Intent intent = new Intent(this, BookMainActivity.class);
+        Intent intent = new Intent(this, OwnerActivity.class);
         startActivity(intent);
     }
 }

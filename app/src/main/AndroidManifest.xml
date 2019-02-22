@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BookMainActivity"
+            android:name=".OwnerActivity"
             android:parentActivityName=".DummyActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -26,17 +26,17 @@
                 android:value=".DummyActivity" />
         </activity>
         <activity
-            android:name=".AvailableMainActivity"
-            android:parentActivityName=".BookMainActivity">
+            android:name=".OAvailableActivity"
+            android:parentActivityName=".OwnerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".BookMainActivity" />
+                android:value=".OwnerActivity" />
         </activity>
-        <activity android:name=".BookActivity"
-            android:parentActivityName=".AvailableMainActivity">
+        <activity android:name=".EditBookActivity"
+            android:parentActivityName=".OAvailableActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AvailableMainActivity" />
+                android:value=".OAvailableActivity" />
 
         </activity>
     </application>

@@ -22,9 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import static android.provider.Telephony.Mms.Part.FILENAME;
-
-public class AvailableMainActivity extends AppCompatActivity {
+public class OAvailableActivity extends AppCompatActivity {
 
     private static final String FILENAME = "AvailableBooks.sav"; // save file name
     //ID of request codes to add/edit
@@ -32,7 +30,7 @@ public class AvailableMainActivity extends AppCompatActivity {
     private static final int EDIT_BOOK_REQUEST = 2;
 
     private ArrayList<Book> availableList = new ArrayList<>();//copied into memory
-    private AvailableAdapter adapter; // initialize adapter.
+    private OAvailableAdapter adapter; // initialize adapter.
 
     /**
      * On create of the activity override
@@ -47,7 +45,7 @@ public class AvailableMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_available_list);
         Intent intentAva = getIntent();
         //loadFromFile();
-        adapter = new AvailableAdapter(this, 0, availableList);
+        adapter = new OAvailableAdapter(this, 0, availableList);
         oldAvailableList = findViewById(R.id.mainAvailableList);
         oldAvailableList.setAdapter(adapter);
 
@@ -64,7 +62,7 @@ public class AvailableMainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = availableList.get(position);
-                Intent intent = new Intent(AvailableMainActivity.this, BookActivity.class);
+                Intent intent = new Intent(OAvailableActivity.this, EditBookActivity.class);
                 intent.putExtra("BookInformation", book);
                 intent.putExtra("Index", position);
                 startActivityForResult(intent, EDIT_BOOK_REQUEST);
@@ -94,7 +92,7 @@ public class AvailableMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_create: //run NoteActivity in new note mode
-                startActivityForResult(new Intent(this, BookActivity.class), ADD_BOOK_REQUEST);
+                startActivityForResult(new Intent(this, EditBookActivity.class), ADD_BOOK_REQUEST);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -134,7 +132,7 @@ public class AvailableMainActivity extends AppCompatActivity {
     }
 
     /**
-     * On activity result, called after the BookActivity ends.
+     * On activity result, called after the EditBookActivity ends.
      * Has 2 cases, one adds a new item to the list; the other handles editing/deleting of an
      * existing item.
      *

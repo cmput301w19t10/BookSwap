@@ -9,14 +9,11 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -26,9 +23,9 @@ import java.io.InputStream;
  * Activity that allows the editting and creation UI of new available book information
  * Take owner's inputs on screen and passes the parcel to parent activity
  *
- * @see AvailableMainActivity
+ * @see OAvailableActivity
  */
-public class BookActivity extends AppCompatActivity {
+public class EditBookActivity extends AppCompatActivity {
 
     private EditText etTitle;
     private EditText etAuthor;
@@ -197,11 +194,11 @@ public class BookActivity extends AppCompatActivity {
                 photo.setImageBitmap(selectedImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                Toast.makeText(BookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditBookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
             }
 
         }else {
-            Toast.makeText(BookActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+            Toast.makeText(EditBookActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
 

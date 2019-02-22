@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Handles the view of a singular item in the list
  *
  */
-public class AvailableAdapter extends ArrayAdapter<Book> {
+public class OAvailableAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> availableList;
 
 
@@ -27,7 +27,7 @@ public class AvailableAdapter extends ArrayAdapter<Book> {
      * @param resource Android resource (used in super only)
      * @param objects ArrayList of our objects
      */
-    public AvailableAdapter(Context context, int resource, ArrayList<Book> objects) {
+    public OAvailableAdapter(Context context, int resource, ArrayList<Book> objects) {
         super(context, resource, objects);
 
         this.availableList = objects;

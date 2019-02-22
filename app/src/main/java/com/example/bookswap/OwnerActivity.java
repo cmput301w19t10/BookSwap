@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class BookMainActivity extends AppCompatActivity {
+public class OwnerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class BookMainActivity extends AppCompatActivity {
 
     public void GoToAvailable(View view){
         //Do something in response to button
-        Intent intentAva = new Intent(this, AvailableMainActivity.class);
+        Intent intentAva = new Intent(this, OAvailableActivity.class);
         startActivity(intentAva);
     }
 
