@@ -6,4 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".OtherRateActivity">
 
+    <include
+        android:id="@+id/include2"
+        layout="@layout/activity_rate"
+        android:layout_width="343dp"
+        android:layout_height="636dp" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="190dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="33dp"
+        android:text="Leave a comment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 </android.support.constraint.ConstraintLayout>
