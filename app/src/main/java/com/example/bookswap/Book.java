@@ -15,7 +15,6 @@ public class Book implements Parcelable {
     private String isbn;
     private String description;
     private byte[] image;
-    //TO DO : Location
 
 
     public void writeToParcel(Parcel out, int flag){
@@ -24,9 +23,10 @@ public class Book implements Parcelable {
         out.writeString(status);
         out.writeString(isbn);
         out.writeString(description);
-        out.writeInt(image.length);
-        out.writeByteArray(image);
-
+        if (image != null) {
+            out.writeInt(image.length);
+            out.writeByteArray(image);
+        }
     }
 
     //temporary use
@@ -95,10 +95,12 @@ public class Book implements Parcelable {
     }
 
     public void setImage(Bitmap bmp){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        image = byteArray;
+        if (bmp != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            image = byteArray;
+        }
     }
 
     public void setTitle(String title){

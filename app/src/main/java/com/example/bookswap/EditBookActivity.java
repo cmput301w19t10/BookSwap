@@ -132,8 +132,6 @@ public class EditBookActivity extends AppCompatActivity {
         // Setting up the intent to pass back to parent, including the Recording parcel
         Intent bookIntent = new Intent();
         bookIntent.putExtra("Book", book);
-        Book test = bookIntent.getParcelableExtra("Book");
-        test.getImage();
 
         // Special code used to see if it was a previously existing book
         // passes up some information for existing book
