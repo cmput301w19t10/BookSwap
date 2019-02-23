@@ -74,6 +74,16 @@ public class ExampleUnitTest {
         boolean testRequest = u.checkNewRequest("Bowen");
         assertEquals(true,testRequest);
     }
+    
+    
+    //test borrow adding
+    @Test
+    public void Borrow_isCorrect(){
+        DataBaseUtil u = new DataBaseUtil();
+        u.NewBorrow();
+        boolean testRequest = u.checkNewBorrow("Bowen");
+        assertEquals(true,testRequest);
+    }
 
 
 }
