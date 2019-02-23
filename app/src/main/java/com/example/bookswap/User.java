@@ -1,4 +1,4 @@
-package com.example.bowenhu.bookswap;
+package com.example.bookswap;
 
 public class User {
     private String name;
