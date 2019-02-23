@@ -5,14 +5,14 @@ import java.util.ArrayList;
 // dummy list for testing and development only
 // not for prototype use
 public class User_list {
-    protected ArrayList<User> User_list;
+    protected ArrayList<User> Userlist;
 
     /**
      * constructor
      * set a new User list
      */
     public User_list() {
-        User_list = new ArrayList<User>();
+        Userlist = new ArrayList<User>();
     }
 
     /**
@@ -20,14 +20,14 @@ public class User_list {
      * @param user
      */
     public void add(User user){
-        User_list.add(user);
+        Userlist.add(user);
     }
 
     /**
      * remove all the elements in the user list
      */
     public void clear(){
-        User_list.clear();
+        Userlist.clear();
     }
 
     /**
@@ -35,7 +35,7 @@ public class User_list {
      * @return
      */
     public int size(){
-        return User_list.size();
+        return Userlist.size();
     }
 
     /**
@@ -43,7 +43,7 @@ public class User_list {
      * @param index
      */
     public void cancel(int index){
-        User_list.remove(index);
+        Userlist.remove(index);
     }
 
     /**
@@ -52,10 +52,10 @@ public class User_list {
      * @param index
      */
     public void accept(int index){
-        User accept_user = User_list.get(index);
+        User accept_user = Userlist.get(index);
         change_status(accept_user);
 
-        User_list.clear();
+        Userlist.clear();
     }
 
     /**
