@@ -3,6 +3,8 @@ package com.example.bookswap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class User implements Parcelable {
 
     private String name;
@@ -10,6 +12,8 @@ public class User implements Parcelable {
     private String phone_number;
     private String address;
     private String email;
+    private ArrayList<Review> owner_reviews;
+    private ArrayList<Review> borrower_reviews;
 
     public User(int imageId, String name, String phone_number, String email, String address){
         this.name = name;
@@ -37,6 +41,14 @@ public class User implements Parcelable {
 
     public String getEmail(){
         return this.email;
+    }
+
+    public ArrayList<Review> getOwnerReviews(){
+        return this.owner_reviews;
+    }
+
+    public ArrayList<Review> getBorrowerReviews(){
+        return this.borrower_reviews;
     }
 
     @Override
