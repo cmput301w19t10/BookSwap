@@ -1,4 +1,4 @@
-package com.example.bowenhu.bookswap;
+package com.example.bookswap;
 
 import android.util.Log;
 
