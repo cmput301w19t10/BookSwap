@@ -227,7 +227,7 @@ public class DataBaseUtil {
         //TODO implement stub
         return true;
     }
-    
+
     // if there is a new borrow, this method can assign true to "borrow"
     // and user can be notified
     public void NewBorrow(){}
@@ -237,7 +237,6 @@ public class DataBaseUtil {
         //TODO implement stub
         return true;
     }
-
 
 }
 
