@@ -59,31 +59,36 @@ public class ExampleUnitTest {
     @Test
     public void chageStatus_isCorrect(){
         DataBaseUtil u = new DataBaseUtil();
-        u.changeStatus(1);
         ArrayList testArray;
         testArray = u.getBooks(1);
         Book testbook = (Book) testArray.get(0);
         assertEquals("1",testbook.getStatus());
+        u.changeStatus(2);
+        assertEquals("2",testbook.getStatus());
+
     }
 
     //test request adding
     @Test
     public void Request_isCorrect(){
         DataBaseUtil u = new DataBaseUtil();
+        boolean testRequest1 = u.checkNewRequest("Bowen");
         u.NewRequest();
-        boolean testRequest = u.checkNewRequest("Bowen");
-        assertEquals(true,testRequest);
+        boolean testRequest2 = u.checkNewRequest("Bowen");
+        assertEquals(false,testRequest1);
+        assertEquals(true,testRequest2);
+
     }
-    
-    
+
     //test borrow adding
     @Test
     public void Borrow_isCorrect(){
         DataBaseUtil u = new DataBaseUtil();
+        boolean testRequest1 = u.checkNewBorrow("Bowen");
         u.NewBorrow();
-        boolean testRequest = u.checkNewBorrow("Bowen");
-        assertEquals(true,testRequest);
+        boolean testRequest2 = u.checkNewBorrow("Bowen");
+        assertEquals(false,testRequest2);
+        assertEquals(true,testRequest2);
     }
-
 
 }
