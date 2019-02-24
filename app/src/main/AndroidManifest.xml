@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Request" />
+        <activity android:name=".RequestActivity" />
         <activity
-            android:name=".OwnerNotification"
+            android:name=".OwnerNotificationActivity"
             android:theme="@style/noActionBar" />
-        <activity android:name=".RequestedBooks" />
+        <activity android:name=".RequestedBooksActivity" />
     </application>
 
 </manifest>

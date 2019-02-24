@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Request extends AppCompatActivity {
+public class RequestActivity extends AppCompatActivity {
     /**
      * load and check book status
      * change the button depending on the status

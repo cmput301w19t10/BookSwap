@@ -6,7 +6,7 @@ import android.os.Bundle;
 /**
  * display notification on a button
  */
-public class OwnerNotification extends AppCompatActivity {
+public class OwnerNotificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,7 +3,7 @@ package com.example.bookswap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class RequestedBooks extends AppCompatActivity {
+public class RequestedBooksActivity extends AppCompatActivity {
 
     /**
      *
