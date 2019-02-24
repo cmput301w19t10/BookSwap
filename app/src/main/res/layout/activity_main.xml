@@ -10,7 +10,29 @@
         android:id="@+id/accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="205dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="258dp"
         android:text="accept"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="205dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="175dp"
+        android:text="request"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accept" />
 </android.support.constraint.ConstraintLayout>

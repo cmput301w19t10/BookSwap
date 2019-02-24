@@ -2,12 +2,10 @@ package com.example.bookswap;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertTrue;
 
-public class Accept_List_test {
-    private User_list list = new User_list();
+public class Requested_List_test {
+    private Requested_list list = new Requested_list();
     private User user1 = new User("bowen") ;
     private User user2 = new User("yifu") ;
 
@@ -50,7 +48,7 @@ public class Accept_List_test {
     public void t_size(){
         list.add(user1);
         list.add(user2);
-        assertTrue(list.size() == list.User_list.size());
+        assertTrue(list.size() == list.Userlist.size());
         list.clear();
     }
 }

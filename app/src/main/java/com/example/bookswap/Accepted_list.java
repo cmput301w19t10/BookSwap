@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 // dummy list for testing and development only
 // not for prototype use
-public class User_list {
+public class Accepted_list {
     protected ArrayList<User> Userlist;
 
     /**
      * constructor
      * set a new User list
      */
-    public User_list() {
+    public Accepted_list() {
         Userlist = new ArrayList<User>();
     }
 
@@ -42,27 +42,13 @@ public class User_list {
      * remove the specific index of user in the user list
      * @param index
      */
-    public void cancel(int index){
-        Userlist.remove(index);
-    }
+
 
     /**
-     * accept the specific index of user and change its status
-     * then remove all the elements for the user list
-     * @param index
-     */
-    public void accept(int index){
-        User accept_user = Userlist.get(index);
-        change_status(accept_user);
-
-        Userlist.clear();
-    }
-
-    /**
-     * change the user status from wait to accept
+     * swap the book for user
      * @param user
      */
-    public void change_status(User user){
+    public void swap(User user){
         //TODO
     }
 }
