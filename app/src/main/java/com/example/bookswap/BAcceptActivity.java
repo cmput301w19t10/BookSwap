@@ -31,7 +31,7 @@ public class BAcceptActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.accept_user_list_layout);
+        setContentView(R.layout.BAcceptActivity_layout);
         display_listview = (ListView) findViewById(R.id.main_listview);
         dialog = (Button) findViewById(R.id.dialog);
 
