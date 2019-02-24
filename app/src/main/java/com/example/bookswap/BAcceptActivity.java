@@ -4,21 +4,23 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.content.ContentValues.TAG;
+import java.util.ArrayList;
 
-public class RequestedBookListActivity extends Activity {
+/**
+ * each borrower exist a list that the owner agree to borrow his book
+ */
+public class BAcceptActivity extends Activity {
 
     private ListView display_listview;
     private TextView title;
-    //user_list will be connect with the database in the cloud
-    private Requested_list list = new Requested_list();
+    //accept_list will be connect with the database in the cloud
+    private ArrayList<Book> accept_list= new ArrayList<Book>();
     private Button dialog;
 
 
@@ -29,8 +31,7 @@ public class RequestedBookListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.requested_book_list_layout);
-        Log.d(TAG,"hello111111111");
+        setContentView(R.layout.accept_user_list_layout);
         display_listview = (ListView) findViewById(R.id.main_listview);
         dialog = (Button) findViewById(R.id.dialog);
 
@@ -44,14 +45,14 @@ public class RequestedBookListActivity extends Activity {
                  * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
                  * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
                  */
-                AlertDialog alertDialog = new AlertDialog.Builder(RequestedBookListActivity.this)
+                AlertDialog alertDialog = new AlertDialog.Builder(BAcceptActivity.this)
                         .setTitle("Notice")
                         .setMessage("Yifu" + " are you sure to borrow this book from " +
                                 "Danli")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(RequestedBookListActivity.this, "this is yes button", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BAcceptActivity.this, "this is yes button", Toast.LENGTH_SHORT).show();
 
                             }
                         })
@@ -59,7 +60,7 @@ public class RequestedBookListActivity extends Activity {
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(RequestedBookListActivity.this, "this is no button", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BAcceptActivity.this, "this is no button", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .create();

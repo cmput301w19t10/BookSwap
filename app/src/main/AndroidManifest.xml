@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AcceptedUserListActivity"> </activity>
-        <activity android:name=".RequestedBookListActivity"> </activity>
+        <activity android:name=".BAcceptActivity"> </activity>
+        <activity android:name=".ORequestedUserActivity"> </activity>
     </application>
 
 </manifest>

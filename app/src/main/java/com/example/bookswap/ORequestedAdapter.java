@@ -5,9 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class Adapter_Acceptedlist extends BaseAdapter {
+public class ORequestedAdapter extends BaseAdapter {
     /**
-     * How many items are in the data set represented by this Adapter_Acceptedlist.
+     * How many items are in the data set represented by this BAcceptedAdapter.
      *
      * @return Count of items.
      */

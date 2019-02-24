@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
         Button accept_button = (Button) findViewById(R.id.accept);
         accept_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent_accept = new Intent(MainActivity.this, AcceptedUserListActivity.class);
+                Intent intent_accept = new Intent(MainActivity.this, BAcceptActivity.class);
                 startActivity(intent_accept);
             }
         });
@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
         Button request_button = (Button) findViewById(R.id.request);
         request_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent_request = new Intent(MainActivity.this, RequestedBookListActivity.class);
+                Intent intent_request = new Intent(MainActivity.this, ORequestedUserActivity.class);
                 startActivity(intent_request);
                 Log.d(TAG,"hello0000000000");
             }

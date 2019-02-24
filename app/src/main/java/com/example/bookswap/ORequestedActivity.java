@@ -10,12 +10,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AcceptedUserListActivity extends Activity {
+import java.util.ArrayList;
+
+/**
+ * every owner exist a list which book have borrower want to borrow
+ */
+public class ORequestedActivity extends Activity {
 
     private ListView display_listview;
     private TextView title;
-    //user_list will be connect with the database in the cloud
-    private Accepted_list list = new Accepted_list();
+    //The book of request list will be connect with the database in the cloud
+    private  ArrayList<Book> request_Book_list = new ArrayList<Book>();
     private Button dialog;
 
 
@@ -40,14 +45,14 @@ public class AcceptedUserListActivity extends Activity {
                  * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
                  * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
                  */
-                AlertDialog alertDialog = new AlertDialog.Builder(AcceptedUserListActivity.this)
+                AlertDialog alertDialog = new AlertDialog.Builder(ORequestedActivity.this)
                         .setTitle("Notice")
                         .setMessage("Yifu" + " are you sure to borrow this book from " +
                                 "Danli")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(AcceptedUserListActivity.this, "this is yes button", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ORequestedActivity.this, "this is yes button", Toast.LENGTH_SHORT).show();
 
                             }
                         })
@@ -55,7 +60,7 @@ public class AcceptedUserListActivity extends Activity {
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(AcceptedUserListActivity.this, "this is no button", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ORequestedActivity.this, "this is no button", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .create();
