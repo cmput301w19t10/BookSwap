@@ -16,7 +16,8 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SelfProfileActivity" />
         <activity android:name=".ProfileSearchActivity"
-            android:theme="@style/SearchTheme"/>
+            android:theme = "@style/SearchTheme"
+            android:label = "Find a person"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

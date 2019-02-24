@@ -5,6 +5,6 @@
         android:id="@+id/search_person"
         android:icon="@drawable/ic_search"
         android:title="Find a person"
-        app:showAsAction="collapseActionView"
-        app:actionViewClass="android.widget.SearchView" />
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
 </menu>

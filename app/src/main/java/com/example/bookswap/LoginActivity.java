@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Toast.makeText(LoginActivity.this, "Not such Account", Toast.LENGTH_LONG).show();
                     }else{
                         Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));user
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     }
                 }
             });
