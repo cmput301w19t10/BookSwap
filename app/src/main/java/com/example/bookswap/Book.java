@@ -38,6 +38,13 @@ public class Book implements Parcelable {
         setImage(bmp);
     }
 
+    public Book(String title, String author, String status, String description){
+        this.title = title;
+        this.author = author;
+        this.status = status;
+        this.description = description;
+    }
+
 
     public Book(Parcel parcel){
         title = parcel.readString();
@@ -110,7 +117,8 @@ public class Book implements Parcelable {
     public void setAuthor(String author) {
         this.author = author;
     }
-    public void setStatus(String author){
+    public void setStatus(String status){
+        this.status = status;
 
     }
 

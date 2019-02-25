@@ -33,7 +33,7 @@ public class ProfileSearchActivity extends AppCompatActivity {
     private void initUsers(){
         List<String> example_names = Arrays.asList("Andy", "Bob", "Vincent", "Catherine", "Sherlock", "George");
         for (int i=0; i<6; i++){
-            User user = new User(R.drawable.user_image, example_names.get(i), "586921321", "595542478@qq.com", "xxx-xxx-xxxxx");
+            User user = new User(example_names.get(i), "586921321", "595542478@qq.com", "xxx-xxx-xxxxx");
             userList.add(user);
         }
     }
