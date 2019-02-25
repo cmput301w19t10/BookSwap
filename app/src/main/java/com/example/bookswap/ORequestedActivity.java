@@ -31,7 +31,7 @@ public class ORequestedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.BAcceptActivity_layout);
+        setContentView(R.layout.activity_baccept);
         display_listview = (ListView) findViewById(R.id.main_listview);
         dialog = (Button) findViewById(R.id.dialog);
 

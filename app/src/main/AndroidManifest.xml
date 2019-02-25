@@ -9,19 +9,57 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".OtherRateActivity" />
+        <activity android:name=".OtherProfileActivity" />
+        <activity android:name=".SelfRateActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".DummyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".BAcceptActivity"> </activity>
         <activity android:name=".ORequestedActivity"> </activity>
         <activity android:name=".ORequestedUserActivity"> </activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:launchMode="singleTop" />
+
+        <activity android:name=".RequestActivity" />
+        <activity
+            android:name=".OwnerNotificationActivity"
+            android:theme="@style/noActionBar" />
+        <activity android:name=".RequestedBooksActivity" />
+
+        <activity
+            android:name=".OwnerActivity"
+            android:parentActivityName=".DummyActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DummyActivity" />
+        </activity>
+        <activity
+            android:name=".OAvailableActivity"
+            android:parentActivityName=".OwnerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OwnerActivity" />
+        </activity>
+        <activity android:name=".EditBookActivity"
+            android:parentActivityName=".OAvailableActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OAvailableActivity" />
+        </activity>
     </application>
 
 </manifest>
-
 

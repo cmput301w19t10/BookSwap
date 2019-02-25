@@ -27,7 +27,7 @@ public class ORequestedUserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ORequestedUserActivity_layout);
+        setContentView(R.layout.activity_orequesteduser);
         display_listview = (ListView) findViewById(R.id.main_listview);
 
 

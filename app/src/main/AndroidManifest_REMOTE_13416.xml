@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.bookswap">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".DummyActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".RequestActivity" />
+        <activity
+            android:name=".OwnerNotificationActivity"
+            android:theme="@style/noActionBar" />
+        <activity android:name=".RequestedBooksActivity" />
+
+        <activity
+            android:name=".OwnerActivity"
+            android:parentActivityName=".DummyActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DummyActivity" />
+        </activity>
+        <activity
+            android:name=".OAvailableActivity"
+            android:parentActivityName=".OwnerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OwnerActivity" />
+        </activity>
+        <activity android:name=".EditBookActivity"
+            android:parentActivityName=".OAvailableActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OAvailableActivity" />
+
+        </activity>
+
+    </application>
+
+</manifest>

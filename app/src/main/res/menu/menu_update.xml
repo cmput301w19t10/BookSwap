@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Menu button to save book from EditBookActivity -->
+    <item
+        android:enabled="true"
+        android:title="saveBook"
+        android:id="@+id/action_save"
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="0"
+        app:showAsAction="always"/>
+
+    <!-- Menu button to delete book from EditBookActivity -->
+    <item
+        android:enabled="true"
+        android:title="deleteBook"
+        android:id="@+id/action_delete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:orderInCategory="1"
+        app:showAsAction="always"/>
+
+</menu>
