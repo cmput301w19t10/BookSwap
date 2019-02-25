@@ -11,10 +11,10 @@ public class DataBaseUnitTest {
     @Test
     public void BookAddAndGet_isCorrect(){
         DataBaseUtil u = new DataBaseUtil();
-        Book newBook1 = new Book("1","1","1","1","1");
-        Book newBook2 = new Book("2","1","2","1","1");
-        Book newBook3 = new Book("3","1","3","1","1");
-        Book newBook4 = new Book("4","1","4","1","1");
+        Book newBook1 = new Book("1","1","1","1");
+        Book newBook2 = new Book("2","1","2","1");
+        Book newBook3 = new Book("3","1","3","1");
+        Book newBook4 = new Book("4","1","4","1");
         u.AddNewBook(newBook1);
         u.AddNewBook(newBook2);
         u.AddNewBook(newBook3);
@@ -24,9 +24,9 @@ public class DataBaseUnitTest {
         ArrayList testArray3 = u.getBooks(3);
         ArrayList testArray4 = u.getBooks(4);
         Book testBook1 = (Book) testArray1.get(0);
-        Book testBook2 = (Book) testArray1.get(1);
-        Book testBook3 = (Book) testArray1.get(2);
-        Book testBook4 = (Book) testArray1.get(3);
+        Book testBook2 = (Book) testArray2.get(1);
+        Book testBook3 = (Book) testArray3.get(2);
+        Book testBook4 = (Book) testArray4.get(3);
         assertEquals("1",testBook1.getStatus());
         assertEquals("2",testBook2.getStatus());
         assertEquals("3",testBook3.getStatus());
