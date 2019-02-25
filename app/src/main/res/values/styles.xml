@@ -7,21 +7,15 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-<<<<<<< HEAD
 
-    <style name="SearchTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-=======
+    <style name="SearchTheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
+
     <style name="noActionBar" parent="Theme.AppCompat.Light.NoActionBar">
->>>>>>> 5cb59e43795f5cc6de17e302e8ae40c07ab23e2b
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-<<<<<<< HEAD
 
 
-
-=======
->>>>>>> 5cb59e43795f5cc6de17e302e8ae40c07ab23e2b
 </resources>

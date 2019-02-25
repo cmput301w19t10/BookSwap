@@ -9,25 +9,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+<<<<<<< HEAD
         <activity android:name=".CommentActivity"></activity>
         <activity android:name=".OtherRateActivity" />
         <activity android:name=".OtherProfileActivity" />
         <activity android:name=".SelfRateActivity" />
         <activity android:name=".EditProfileActivity" />
+        <activity android:name=".SelfProfileActivity" />
+        <activity android:name=".ProfileSearchActivity"
+            android:theme = "@style/SearchTheme"
+            android:label = "Find a person"/>
+        <activity android:name=".MainActivity">
+=======
         <activity android:name=".DummyActivity">
+>>>>>>> 5cb59e43795f5cc6de17e302e8ae40c07ab23e2b
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+<<<<<<< HEAD
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".LoginActivity"
             android:launchMode="singleTop" />
+=======
 
         <activity android:name=".RequestActivity" />
         <activity
@@ -56,7 +64,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OAvailableActivity" />
+
         </activity>
+
+>>>>>>> 5cb59e43795f5cc6de17e302e8ae40c07ab23e2b
     </application>
 
 </manifest>
