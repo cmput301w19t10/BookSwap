@@ -1,7 +1,12 @@
 package com.example.bookswap;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import java.io.ByteArrayOutputStream;
 
 public class Book implements Parcelable {
     private String title;
@@ -9,34 +14,28 @@ public class Book implements Parcelable {
     private String status;
     private String isbn;
     private String description;
-    private String image;
-    //TO DO : Location
+    private byte[] image;
 
 
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
         out.writeString(author);
+        out.writeString(status);
         out.writeString(isbn);
         out.writeString(description);
-        out.writeString(image);
-
+        if (image != null) {
+            out.writeInt(image.length);
+            out.writeByteArray(image);
+        }
     }
 
     //temporary use
-    public Book(String title, String author, String status, String description){
+    public Book(String title, String author, String status, String description, Bitmap bmp){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
-    }
-
-    public Book(String title, String author, String status, String isbn, String description, String image){
-        this.title = title;
-        this.author = author;
-        this.status = status;
-        this.isbn = isbn;
-        this.description = description;
-        this.image = image;
+        setImage(bmp);
     }
 
 
@@ -45,9 +44,13 @@ public class Book implements Parcelable {
         author = parcel.readString();
         status = parcel.readString();
         isbn = parcel.readString();
-        description =parcel.readString();
+        description = parcel.readString();
+        this.image = new byte[parcel.readInt()];
+        parcel.readByteArray(this.image);
 
     }
+
+    public Book(){}
 
 
     /**
@@ -86,8 +89,33 @@ public class Book implements Parcelable {
         return isbn;
     }
 
-    public String getImage() {
-        return image;
+    public Bitmap getImage() {
+        Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+        return bmp;
+    }
+
+    public void setImage(Bitmap bmp){
+        if (bmp != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            image = byteArray;
+        }
+    }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public void setStatus(String author){
+
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
 

@@ -5,25 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class BookMainActivity extends AppCompatActivity {
+public class DummyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_main);
-
-        Intent intent = getIntent();
+        setContentView(R.layout.activity_main);
     }
+
     /**
-     * called when the user tap the Available button
+     * called when the user tap the BOOK button
      *
      * @param view
      */
-
-    public void GoToAvailable(View view){
+    public void Dummy(View view){
         //Do something in response to button
-        Intent intentAva = new Intent(this, AvailableMainActivity.class);
-        startActivity(intentAva);
+        Intent intent = new Intent(this, OwnerActivity.class);
+        startActivity(intent);
     }
-
 }

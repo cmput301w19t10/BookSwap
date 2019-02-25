@@ -1,6 +1,7 @@
 package com.example.bookswap;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  * Handles the view of a singular item in the list
  *
  */
-public class AvailableAdapter extends ArrayAdapter<Book> {
+public class OAvailableAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> availableList;
 
 
@@ -26,7 +27,7 @@ public class AvailableAdapter extends ArrayAdapter<Book> {
      * @param resource Android resource (used in super only)
      * @param objects ArrayList of our objects
      */
-    public AvailableAdapter(Context context, int resource, ArrayList<Book> objects) {
+    public OAvailableAdapter(Context context, int resource, ArrayList<Book> objects) {
         super(context, resource, objects);
 
         this.availableList = objects;
@@ -47,15 +48,18 @@ public class AvailableAdapter extends ArrayAdapter<Book> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available, null);
         }
         // extract our recording from the list
+        Log.d("POSITION", Integer.toString(position));
         Book element = availableList.get(position);
 
 
         TextView title = (TextView) convertView.findViewById(R.id.listTitle);
         TextView author = (TextView) convertView.findViewById(R.id.listAuthor);
-        //ImageView bookcover = (ImageView)convertView.findViewById(R.id.book_Cover);
+        ImageView bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
         title.setText(element.getTitle());
         author.setText(element.getAuthor());
-
+        if (element.getImage() != null) {
+            bookcover.setImageBitmap(element.getImage());
+        }
 
         return convertView;
     }
