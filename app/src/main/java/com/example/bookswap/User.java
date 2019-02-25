@@ -15,9 +15,10 @@ public class User implements Parcelable {
     private ArrayList<Review> owner_reviews;
     private ArrayList<Review> borrower_reviews;
 
-    public User(int imageId, String name, String phone_number, String email, String address){
+
+
+    public User(String name, String phone_number, String email, String address){
         this.name = name;
-        this.imageId = imageId;
         this.phone_number = phone_number;
         this.address = address;
         this.email = email;
@@ -26,10 +27,10 @@ public class User implements Parcelable {
     public String getName(){
         return this.name;
     }
-
     public int getImageId(){
         return this.imageId;
     }
+
 
     public String getPhone_number(){
         return this.phone_number;
