@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Book Swap</string>
+
+    <string name="Request_Title_textview">TextView</string>
+    <string name="Request_Author_Textview">TextView</string>
+    <string name="Request_Request_button">Request</string>
+    <string name="Request_BookImage_imageview">Book image</string>
+
     <string name="button1">BOOK</string>
     <string name="button_a">Available</string>
     <string name="button_b">Accepted</string>
     <string name="button_c">Requested</string>
     <string name="button_d">Borrowed</string>
+
 </resources>

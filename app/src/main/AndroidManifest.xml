@@ -16,6 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".RequestActivity" />
+        <activity
+            android:name=".OwnerNotificationActivity"
+            android:theme="@style/noActionBar" />
+        <activity android:name=".RequestedBooksActivity" />
+
         <activity
             android:name=".OwnerActivity"
             android:parentActivityName=".DummyActivity">
@@ -39,6 +46,7 @@
                 android:value=".OAvailableActivity" />
 
         </activity>
+
     </application>
 
 </manifest>
