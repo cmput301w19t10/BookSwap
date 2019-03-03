@@ -14,6 +14,7 @@ public class Book implements Parcelable {
     private String status;
     private String isbn;
     private String description;
+    private String owner;
     private byte[] image;
 
 
@@ -23,6 +24,7 @@ public class Book implements Parcelable {
         out.writeString(status);
         out.writeString(isbn);
         out.writeString(description);
+        out.writeString(owner);
         if (image != null) {
             out.writeInt(image.length);
             out.writeByteArray(image);
@@ -52,6 +54,7 @@ public class Book implements Parcelable {
         status = parcel.readString();
         isbn = parcel.readString();
         description = parcel.readString();
+        owner = parcel.readString();
         this.image = new byte[parcel.readInt()];
         parcel.readByteArray(this.image);
 
@@ -96,6 +99,10 @@ public class Book implements Parcelable {
         return isbn;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
     public Bitmap getImage() {
         Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
         return bmp;
@@ -126,6 +133,9 @@ public class Book implements Parcelable {
         this.description = description;
     }
 
+    public void setOwner(String  owner){
+        this.owner = owner;
+    }
 
     // required for parcelable
     //return hashcode of object

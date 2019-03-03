@@ -1,6 +1,8 @@
 package com.example.bookswap;
 
 
+import android.support.v4.media.AudioAttributesCompat;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,6 +37,14 @@ public class BookTest {
         book.setDescription(description);
         assertEquals(description, book.getDescription());
 
+    }
+
+    @Test
+    public void GetOwner(){
+        Book book = new Book();
+        String owner = "John Doe";
+        book.setOwner(owner);
+        assertEquals(owner,book.getOwner());
     }
 
 
