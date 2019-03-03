@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -15,8 +16,7 @@ public class Book implements Parcelable {
     private String isbn;
     private String description;
     private String owner;
-    private byte[] image;
-
+    private String image;
 
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
@@ -26,8 +26,7 @@ public class Book implements Parcelable {
         out.writeString(description);
         out.writeString(owner);
         if (image != null) {
-            out.writeInt(image.length);
-            out.writeByteArray(image);
+            out.writeString(image);
         }
     }
 
@@ -55,9 +54,7 @@ public class Book implements Parcelable {
         isbn = parcel.readString();
         description = parcel.readString();
         owner = parcel.readString();
-        this.image = new byte[parcel.readInt()];
-        parcel.readByteArray(this.image);
-
+        image = parcel.readString();
     }
 
     public Book(){}
@@ -103,17 +100,26 @@ public class Book implements Parcelable {
         return owner;
     }
 
+    // Storing bitmap as String:
+    // https://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
     public Bitmap getImage() {
-        Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
-        return bmp;
+        try {
+            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+            Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
+                    encodeByte.length);
+            return bmp;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 
     public void setImage(Bitmap bmp){
         if (bmp != null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            image = byteArray;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            this.image = Base64.encodeToString(b, Base64.DEFAULT);
         }
     }
 
