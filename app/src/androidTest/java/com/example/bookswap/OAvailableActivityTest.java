@@ -33,6 +33,11 @@ public class OAvailableActivityTest extends ActivityTestRule<OAvailableActivity>
         Activity activity = rule.getActivity();
     }
 
+    @Test
+    public void checkAvailable(){
+
+    }
+
 
 
 }

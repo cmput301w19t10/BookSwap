@@ -31,7 +31,7 @@ public class Book implements Parcelable {
         }
     }
 
-    //temporary use
+
     public Book(String title, String author, String status, String description, Bitmap bmp){
         this.title = title;
         this.author = author;
