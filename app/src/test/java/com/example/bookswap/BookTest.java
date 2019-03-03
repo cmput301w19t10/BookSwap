@@ -1,6 +1,8 @@
 package com.example.bookswap;
 
 
+import android.support.v4.media.AudioAttributesCompat;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,23 +20,31 @@ public class BookTest {
     public void GetAuthor(){
         Book book = new Book();
         String author = "author nobody";
-        book.setTitle(author);
+        book.setAuthor(author);
         assertEquals(author, book.getAuthor());
     }
     @Test
     public void GetStatus(){
         Book book = new Book();
         String status = "available";
-        book.setTitle(status);
+        book.setStatus(status);
         assertEquals(status, book.getStatus());
     }
     @Test
     public void GetDescription(){
         Book book = new Book();
         String description = "Umm... Interesting";
-        book.setTitle(description);
+        book.setDescription(description);
         assertEquals(description, book.getDescription());
 
+    }
+
+    @Test
+    public void GetOwner(){
+        Book book = new Book();
+        String owner = "John Doe";
+        book.setOwner(owner);
+        assertEquals(owner,book.getOwner());
     }
 
 

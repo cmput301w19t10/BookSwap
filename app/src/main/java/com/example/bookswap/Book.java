@@ -15,8 +15,8 @@ public class Book implements Parcelable {
     private String status;
     private String isbn;
     private String description;
+    private String owner;
     private String image;
-
 
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
@@ -24,18 +24,26 @@ public class Book implements Parcelable {
         out.writeString(status);
         out.writeString(isbn);
         out.writeString(description);
+        out.writeString(owner);
         if (image != null) {
             out.writeString(image);
         }
     }
 
-    //temporary use
+
     public Book(String title, String author, String status, String description, Bitmap bmp){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
         setImage(bmp);
+    }
+
+    public Book(String title, String author, String status, String description){
+        this.title = title;
+        this.author = author;
+        this.status = status;
+        this.description = description;
     }
 
 
@@ -45,6 +53,7 @@ public class Book implements Parcelable {
         status = parcel.readString();
         isbn = parcel.readString();
         description = parcel.readString();
+        owner = parcel.readString();
         image = parcel.readString();
     }
 
@@ -87,6 +96,9 @@ public class Book implements Parcelable {
         return isbn;
     }
 
+    public String getOwner() {
+        return owner;
+    }
 
     // Storing bitmap as String:
     // https://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
@@ -118,7 +130,8 @@ public class Book implements Parcelable {
     public void setAuthor(String author) {
         this.author = author;
     }
-    public void setStatus(String author){
+    public void setStatus(String status){
+        this.status = status;
 
     }
 
@@ -126,6 +139,9 @@ public class Book implements Parcelable {
         this.description = description;
     }
 
+    public void setOwner(String  owner){
+        this.owner = owner;
+    }
 
     // required for parcelable
     //return hashcode of object

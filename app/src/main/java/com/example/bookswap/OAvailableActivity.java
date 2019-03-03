@@ -40,6 +40,7 @@ public class OAvailableActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().show();
         ListView oldAvailableList;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_list);
