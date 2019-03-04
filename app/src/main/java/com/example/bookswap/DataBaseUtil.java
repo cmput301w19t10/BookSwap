@@ -39,7 +39,7 @@ public class DataBaseUtil {
     private DatabaseReference UserDatabase;
 
 
-    public DataBaseUtil(){
+    public DataBaseUtil(String userName){
         UserDatabase = FirebaseDatabase.getInstance().getReference("User");
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
         this.userName = userName;
@@ -49,16 +49,7 @@ public class DataBaseUtil {
     //the Status should be int (TODO)
     public ArrayList<Book> getBooks(String status){
         ArrayList<Book> outArray = new ArrayList<>();
-        //Book abook1 = aBookinfo(0);
-//        Book abook1 = new Book("1","1","1","1","1");
-//        Book abook2 = new Book("2","1","2","1","1");
-//        Book abook3 = new Book("3","1","3","1","1");
-//        Book abook4 = new Book("4","1","4","1","1");
-//        outArray.add(abook1);
-//        outArray.add(abook2);
-//        outArray.add(abook3);
-//        outArray.add(abook4);
-
+        bookUniKey(userName);
         int UniKeySize = bookUniKeyList.size();
         for (int i = 0; i < UniKeySize; i++){
             Book abook = aBookinfo(i);
@@ -77,7 +68,7 @@ public class DataBaseUtil {
         String BookISBN = getBookISBN(bookUniKeyList.get(index));
         String BookStatus = getBookStatus(bookUniKeyList.get(index));
         String BookAuthor = getBookAuthour(bookUniKeyList.get(index));
-        Book aBook = new Book(BookTitle,"1",BookStatus,BookDes);
+        Book aBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
 
         return aBook;
     }
@@ -85,9 +76,10 @@ public class DataBaseUtil {
     // get all book's unikeya and return that array
     private void bookUniKey(String name){
         //String bookUniKey;
-        DatabaseReference User = BookDatabase.child(name);
+        DatabaseReference User = UserDatabase.child(name);
         //addListenerForSingleValueEvent() (might be better)
-        User.addValueEventListener(new ValueEventListener() {
+        //addValueEventListener
+        User.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
@@ -105,9 +97,22 @@ public class DataBaseUtil {
         //return bookUniKeyList;
     }
 
+//    private void bookUniKey(){
+//        String name = "Bowen";
+//        DataSnapshot a = DataSnapshot.child(name);
+//    }
+
+//    private void bookUniKey(DataSnapshot dataSnapshot){
+//        for (DataSnapshot ds: dataSnapshot.getChildren()){
+//                    BookKey = ds.getKey();
+//                    Log.i("MainActivity", ds.getKey());
+//                    bookUniKeyList.add(BookKey);
+//        }
+//    }
+
     // get book title
     private String getBookTitle(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child("Book").child(bookUniKey).child("Title");
+        DatabaseReference refBookName = BookDatabase.child(bookUniKey).child("Title");
         refBookName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,7 +130,7 @@ public class DataBaseUtil {
 
     // get book description
     private String getBookDes(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child("Book").child(bookUniKey).child("Description");
+        DatabaseReference refBookName = BookDatabase.child(bookUniKey).child("Description");
         refBookName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -144,7 +149,7 @@ public class DataBaseUtil {
 
     // get book ISBN
     private String getBookISBN(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child("Book").child(bookUniKey).child("ISBN");
+        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("ISBN");
         refBookName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -163,7 +168,7 @@ public class DataBaseUtil {
 
     //get book status
     private String getBookStatus(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child("Book").child(bookUniKey).child("Status");
+        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("Status");
         refBookName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -182,7 +187,7 @@ public class DataBaseUtil {
 
     //get book author
     private String getBookAuthour(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child("Book").child(bookUniKey).child("author");
+        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("author");
         refBookName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -239,7 +244,7 @@ public class DataBaseUtil {
 
     // save the description
     private void BookDescription(String description){
-        //   BookDatabase.child(BookKey).child("Description").setValue(description);
+        BookDatabase.child(BookKey).child("Description").setValue(description);
     }
 
     // save the ISBN

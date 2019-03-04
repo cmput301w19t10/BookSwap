@@ -36,7 +36,6 @@ public class ORequestedActivity extends Activity {
         dialog = (Button) findViewById(R.id.dialog);
 
 
-
         dialog.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO when click the item can enter this pages
