@@ -2,14 +2,14 @@ package com.example.bookswap;
 
 import android.util.Log;
 
-import com.google.firebase.FirebaseError;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -76,13 +76,12 @@ public class DataBaseUtil {
     // get all book's unikeya and return that array
     private void bookUniKey(String name){
         //String bookUniKey;
-        DatabaseReference User = UserDatabase.child(name);
-        //addListenerForSingleValueEvent() (might be better)
-        //addValueEventListener
-        User.addListenerForSingleValueEvent(new ValueEventListener() {
+        Firebase ref = new Firebase("https://all-acticity.firebaseio.com/User");
+        ref = ref.child(name);
+        ref.addValueEventListener(new com.firebase.client.ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
+            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+                for (com.firebase.client.DataSnapshot child: dataSnapshot.getChildren()) {
                     BookKey = child.getKey();
                     Log.i("MainActivity", child.getKey());
                     bookUniKeyList.add(BookKey);
@@ -90,25 +89,34 @@ public class DataBaseUtil {
             }
 
             @Override
-            public void onCancelled(DatabaseError firebaseError) {
-                Log.e("MainActivity", "onCancelled", firebaseError.toException());
+            public void onCancelled(FirebaseError firebaseError) {
+
             }
         });
+
+
+
+
+//        DatabaseReference User = UserDatabase.child(name);
+//        //addListenerForSingleValueEvent() (might be better)
+//        //addValueEventListener
+//        User.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot child: dataSnapshot.getChildren()) {
+//                    BookKey = child.getKey();
+//                    Log.i("MainActivity", child.getKey());
+//                    bookUniKeyList.add(BookKey);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError firebaseError) {
+//                Log.e("MainActivity", "onCancelled", firebaseError.toException());
+//            }
+//        });
         //return bookUniKeyList;
     }
-
-//    private void bookUniKey(){
-//        String name = "Bowen";
-//        DataSnapshot a = DataSnapshot.child(name);
-//    }
-
-//    private void bookUniKey(DataSnapshot dataSnapshot){
-//        for (DataSnapshot ds: dataSnapshot.getChildren()){
-//                    BookKey = ds.getKey();
-//                    Log.i("MainActivity", ds.getKey());
-//                    bookUniKeyList.add(BookKey);
-//        }
-//    }
 
     // get book title
     private String getBookTitle(String bookUniKey){

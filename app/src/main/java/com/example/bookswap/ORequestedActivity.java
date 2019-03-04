@@ -2,8 +2,10 @@ package com.example.bookswap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.arch.core.executor.DefaultTaskExecutor;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * every owner exist a list which book have borrower want to borrow
@@ -35,6 +39,9 @@ public class ORequestedActivity extends Activity {
         display_listview = (ListView) findViewById(R.id.main_listview);
         dialog = (Button) findViewById(R.id.dialog);
 
+        DataBaseUtil u = new DataBaseUtil("Bowen");
+        request_Book_list = u.getBooks("Available");
+        Log.d(TAG,"Bowen "+request_Book_list.size()+" ");
 
         dialog.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
