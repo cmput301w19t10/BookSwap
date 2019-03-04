@@ -127,13 +127,10 @@ public class EditBookActivity extends AppCompatActivity {
         Bitmap image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
 
 
-        //Book book = new Book(title, author, status, description);
-
         Book book = new Book(title, author, status, description, image);
         Toast.makeText(this,"Book is saved!",Toast.LENGTH_SHORT).show();
 
-        // DataBaseUtil u = new DataBaseUtil();
-        // u.AddNewBook(book);
+
         // Setting up the intent to pass back to parent, including the Recording parcel
         Intent bookIntent = new Intent();
         bookIntent.putExtra("Book", book);
