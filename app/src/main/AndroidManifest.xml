@@ -22,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".BAcceptActivity"> </activity>
+        <activity android:name=".ORequestedActivity"> </activity>
+        <activity android:name=".ORequestedUserActivity"> </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterActivity" />
         <activity
@@ -60,3 +62,4 @@
     </application>
 
 </manifest>
+

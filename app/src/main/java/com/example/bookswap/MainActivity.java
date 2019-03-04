@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,5 +28,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SelfProfileActivity.class));
             }
         });
+    }
+
+    /**
+     * called when the user tap the BOOK button
+     *
+     * @param view
+     */
+    public void Dummy(View view){
+        //Do something in response to button
+        Intent intent = new Intent(this, OwnerActivity.class);
+        startActivity(intent);
     }
 }

@@ -7,7 +7,6 @@
     tools:context=".DummyActivity">
 
     <Button
-<<<<<<< HEAD
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +27,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-=======
+
+    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,5 +39,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/button1" />
->>>>>>> 5cb59e43795f5cc6de17e302e8ae40c07ab23e2b
+
 </android.support.constraint.ConstraintLayout>

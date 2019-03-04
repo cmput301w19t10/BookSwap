@@ -38,14 +38,6 @@ public class DataBaseUtil {
     public ArrayList<Book> getBooks(int status){
         ArrayList<Book> outArray = new ArrayList<>();
         //Book abook1 = aBookinfo(0);
-        Book abook1 = new Book("1","1","1","1","1");
-        Book abook2 = new Book("2","1","2","1","1");
-        Book abook3 = new Book("3","1","3","1","1");
-        Book abook4 = new Book("4","1","4","1","1");
-        outArray.add(abook1);
-        outArray.add(abook2);
-        outArray.add(abook3);
-        outArray.add(abook4);
         return outArray;
     }
 
@@ -61,7 +53,7 @@ public class DataBaseUtil {
 //        String description = getBookDes(bookUniKeyList.get(index));
 //        String ISBN = getBookISBN(bookUniKeyList.get(index));
 //        String status = getBookStatus(bookUniKeyList.get(index));
-        Book aBook = new Book("1","1","1","1","1");
+        Book aBook = new Book();
 
         return aBook;
     }
