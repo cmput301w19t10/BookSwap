@@ -1,7 +1,9 @@
 package com.example.bookswap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,8 +18,13 @@ public class ORequestedUserActivity extends Activity {
     private ListView display_listview;
     private TextView title;
     //user_list will be connect with book from the database in the cloud
-    private ArrayList<User> request_list = new ArrayList<User>();
-    private Button dialog;
+    private ArrayList<User> request_User_list = new ArrayList<User>();
+
+    //remember load the database to the book
+    private ArrayList<Book> requestedList = new ArrayList<Book>();
+    private ArrayList<String>UserList = new ArrayList<>();
+    private ORequestedUsersAdapter adapter;
+
 
 
 
@@ -29,6 +36,20 @@ public class ORequestedUserActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orequesteduser);
         display_listview = (ListView) findViewById(R.id.main_listview);
+
+
+        String position=getIntent().getStringExtra("indexrequest");
+        int positon=Integer.parseInt(position);
+        Book book = requestedList.get(positon);
+
+//        Userlist = book.getUserList();
+
+
+        adapter = new ORequestedUsersAdapter(this,book,UserList);
+        display_listview.setAdapter(adapter);
+
+
+//        for click listview event ,todo.
 
 
     }

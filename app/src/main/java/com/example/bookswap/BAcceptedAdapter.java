@@ -1,42 +1,34 @@
 package com.example.bookswap;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class BAcceptedAdapter extends BaseAdapter {
-    /**
-     * How many items are in the data set represented by this BAcceptedAdapter.
-     *
-     * @return Count of items.
-     */
-    @Override
-    public int getCount() {
-        return 0;
-    }
+import java.util.ArrayList;
+
+public class BAcceptedAdapter extends ArrayAdapter<Book> {
+
+    private ArrayList<Book> acceptList;
 
     /**
-     * Get the data item associated with the specified position in the data set.
+     * Constructor
      *
-     * @param position Position of the item whose data we want within the adapter's
-     *                 data set.
-     * @return The data at the specified position.
+     * @param context  The current context.
+     * @param resource The resource ID for a layout file containing a TextView to use when
+     *                 instantiating views.
+     * @param acceptList  The objects to represent in the ListView.
      */
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    /**
-     * Get the row id associated with the specified position in the list.
-     *
-     * @param position The position of the item within the adapter's data set whose row id we want.
-     * @return The id of the item at the specified position.
-     */
-    @Override
-    public long getItemId(int position) {
-        return 0;
+    public BAcceptedAdapter(Context context, int resource,  ArrayList<Book> acceptList) {
+        super(context, resource, acceptList);
+        this.acceptList = acceptList;
     }
 
     /**
@@ -59,11 +51,84 @@ public class BAcceptedAdapter extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        BAcceptedAdapter.ViewHolder holder = null;
+
+        /**
+         * about how to add a button into the listview item and how to using viewholder
+         * i get the source from:https://blog.csdn.net/comeonyangzi/article/details/26858875
+         */
+        if (convertView == null){ // check if given view is null, if it is we inflate
+            holder = new ViewHolder();
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_baccept, null);
+            holder.title = (TextView) convertView.findViewById(R.id.listUsername);
+            holder.author = (TextView) convertView.findViewById(R.id.listBookname);
+            holder.bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
+            holder.button_swap = (Button)convertView.findViewById(R.id.ba_swap);
+            convertView.setTag(holder);
+        }
+        else {
+            holder = (ViewHolder)convertView.getTag();
+        }
+        // extract our recording from the list
+        Log.d("POSITION", Integer.toString(position));
+        final Book element = acceptList.get(position);
+
+        holder.title.setText((String)element.getTitle());
+        holder.author.setText((String)element.getAuthor());
+        holder.button_swap.setTag(position);
+
+        holder.button_swap.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                //TODO when click the item can enter this pages
+                /**
+                 * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
+                 * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
+                 * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
+                 */
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                        .setTitle("Notice")
+                        .setMessage("《" + element.getTitle() + "》"+ " are you sure to borrow this book from " +
+                                "yifu")//get brower
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //element change status
+
+                            }
+                        })
+
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //element change status
+                            }
+                        })
+                        .create();
+                alertDialog.show();
+            }
+        });
 
 
 
+        if (element.getImage() != null) {
+            holder.bookcover.setImageBitmap(element.getImage());
+        }
+
+        return convertView;
     }
+
+
+
+    public final class ViewHolder {
+        public TextView title;
+        public TextView author;
+        public ImageView bookcover;
+        public Button button_swap;
+    }
+
+
+
 
 
 

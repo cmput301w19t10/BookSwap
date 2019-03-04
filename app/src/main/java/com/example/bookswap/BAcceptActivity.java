@@ -21,7 +21,10 @@ public class BAcceptActivity extends Activity {
     private TextView title;
     //accept_list will be connect with the database in the cloud
     private ArrayList<Book> accept_list= new ArrayList<Book>();
+    private static final int ADD_BOOK_REQUEST = 1;
+    private static final int EDIT_BOOK_REQUEST = 2;
     private Button dialog;
+    private BAcceptedAdapter adapter;
 
 
 
@@ -33,7 +36,8 @@ public class BAcceptActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baccept);
         display_listview = (ListView) findViewById(R.id.main_listview);
-        dialog = (Button) findViewById(R.id.dialog);
+//        dialog = (Button) findViewById(R.id.dialog);
+        adapter = new BAcceptedAdapter(this,0,accept_list);
 
 
 

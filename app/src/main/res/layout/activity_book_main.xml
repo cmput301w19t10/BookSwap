@@ -42,6 +42,7 @@
         android:layout_marginTop="60dp"
         android:text="Requested"
         android:textStyle="bold"
+        android:onClick="GoToRequestActivity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2"
         tools:text="@string/button_c" />

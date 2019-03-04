@@ -1,28 +1,27 @@
 package com.example.bookswap;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static android.support.v4.content.ContextCompat.startActivity;
+public class ORequestedUsersAdapter extends ArrayAdapter<String> {
+    private Context context;
+    private Book book;
+    private ArrayList<String> userList;
 
-public class ORequestedAdapter extends ArrayAdapter<Book> {
-    private ArrayList<Book> requestedList;
-//    private customButtonListener customListner;
-
-
-    public ORequestedAdapter(Context context, int resource, ArrayList<Book> objects) {
-        super(context,resource,objects);
-        this.requestedList = objects;
+    public ORequestedUsersAdapter(Context context, Book book, ArrayList<String> userList) {
+        super(context, 0, userList);
+        this.context = context;
+        this.book = book;
+        this.userList = userList;
     }
 
 
@@ -44,8 +43,10 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
      * @param parent      The parent that this view will eventually be attached to
      * @return A View corresponding to the data at the specified position.
      */
+
+
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
         /**
@@ -54,50 +55,50 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
          */
         if (convertView == null){ // check if given view is null, if it is we inflate
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_orequested, null);
-            holder.title = (TextView) convertView.findViewById(R.id.listUsername);
-            holder.author = (TextView) convertView.findViewById(R.id.listBookname);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_orequesteduser, null);
+            holder.Username = (TextView) convertView.findViewById(R.id.listUsername);
+            holder.Bookname = (TextView) convertView.findViewById(R.id.listBookname);
             holder.bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
-            holder.button_request = (Button)convertView.findViewById(R.id.or_view);
+            holder.button_accept = (Button)convertView.findViewById(R.id.oru_accept);
+            holder.button_decline = (Button)convertView.findViewById(R.id.oru_decline);
             convertView.setTag(holder);
         }
         else {
-            holder = (ViewHolder)convertView.getTag();
+            holder = (ORequestedUsersAdapter.ViewHolder)convertView.getTag();
         }
-        // extract our recording from the list
 
-//        some thing wrong here
-        Log.d("POSITION", Integer.toString(position));
-        Book element = requestedList.get(position);
+        //holder.Username.setText((String)book.getUser());
+        holder.Bookname.setText((String)book.getTitle());
 
-        holder.title.setText((String)element.getTitle());
-        holder.author.setText((String)element.getAuthor());
-        holder.button_request.setTag(position);
-
-        holder.button_request.setOnClickListener(new View.OnClickListener() {
-
+        holder.button_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //when click the button will jump to the new activity that show all the user request for this book
-                Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
-                toORequestedUser.putExtra("index", position);
-                getContext().startActivity(toORequestedUser);
+                //change status of the book
+            }
+        });
+
+        holder.button_decline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // delete this user
             }
         });
 
 
-        if (element.getImage() != null) {
-            holder.bookcover.setImageBitmap(element.getImage());
+        if (book.getImage() != null) {
+            holder.bookcover.setImageBitmap(book.getImage());
         }
 
         return convertView;
+
     }
 
     public final class ViewHolder {
-        public TextView title;
-        public TextView author;
+        public TextView Username;
+        public TextView Bookname;
         public ImageView bookcover;
-        public Button button_request;
+        public Button button_accept;
+        public Button button_decline;
     }
 
 
