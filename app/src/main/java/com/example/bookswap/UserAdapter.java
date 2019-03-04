@@ -109,7 +109,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         protected void publishResults(CharSequence constraint, FilterResults results) {
             userList.clear();
             userList.addAll(((List<User>)results.values));
-            notifyDataSetChanged();
         }
     };
 }
