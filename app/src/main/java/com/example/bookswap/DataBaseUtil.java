@@ -215,6 +215,7 @@ public class DataBaseUtil {
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
         BookStatus();
+        OwnerBook(userName,BookTitle);
         //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
         //BookDescription(book.getDescription());
     }

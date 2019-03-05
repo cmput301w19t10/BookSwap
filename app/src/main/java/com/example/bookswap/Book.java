@@ -103,15 +103,18 @@ public class Book implements Parcelable {
     // Storing bitmap as String:
     // https://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
     public Bitmap getImage() {
-        try {
-            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
-            Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
-                    encodeByte.length);
-            return bmp;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
+        if (image != null) {
+            try {
+                byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
+                        encodeByte.length);
+                return bmp;
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
         }
+        return null;
     }
 
     public void setImage(Bitmap bmp){

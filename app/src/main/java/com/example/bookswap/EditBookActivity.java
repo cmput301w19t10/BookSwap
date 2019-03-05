@@ -31,6 +31,7 @@ public class EditBookActivity extends AppCompatActivity {
     private EditText etAuthor;
     private EditText etDescription;
     private EditText etStatus;
+    private ImageButton imageButton;
     private static int BOOK_PHOTO_RESULT = 1;
 
     private Book book;
@@ -52,8 +53,8 @@ public class EditBookActivity extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
-        if (intent.getParcelableExtra("Book") != null){
-            this.book = intent.getParcelableExtra("Book");
+        if (intent.getParcelableExtra("BookInformation") != null){
+            this.book = intent.getParcelableExtra("BookInformation");
             fillText();
         }
 
@@ -124,9 +125,10 @@ public class EditBookActivity extends AppCompatActivity {
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
         ImageButton bView = findViewById(R.id.bookPhotoButton);
-        Bitmap image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
-
-
+        Bitmap image = null;
+        if((BitmapDrawable) bView.getDrawable() != null) {
+            image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
+        }
         Book book = new Book(title, author, status, description, image);
         Toast.makeText(this,"Book is saved!",Toast.LENGTH_SHORT).show();
 
@@ -155,6 +157,7 @@ public class EditBookActivity extends AppCompatActivity {
         etAuthor = ((EditText)findViewById(R.id.etAuthor));
         etStatus = ((EditText)findViewById(R.id.etStatus));
         etDescription = ((EditText)findViewById(R.id.etDescription));
+        imageButton = findViewById(R.id.bookPhotoButton);
     }
 
     /**
@@ -162,12 +165,14 @@ public class EditBookActivity extends AppCompatActivity {
      */
 
     private void fillText(){
-        //updateEditText();
+        updateEditText();
 
         etTitle.setText(String.valueOf(book.getTitle()));
         etAuthor.setText(String.valueOf(book.getAuthor()));
         etDescription.setText(String.valueOf(book.getDescription()));
         etStatus.setText("Available");
+        imageButton.setImageBitmap(book.getImage());
+
 
     }
     private boolean isValid(){
@@ -190,7 +195,8 @@ public class EditBookActivity extends AppCompatActivity {
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 ImageButton photo = findViewById(R.id.bookPhotoButton);
-                selectedImage = Bitmap.createScaledBitmap(selectedImage, 150,200,false);
+                //placeholder, change in future
+                selectedImage = Bitmap.createScaledBitmap(selectedImage, 300,500,false);
                 photo.setImageBitmap(selectedImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

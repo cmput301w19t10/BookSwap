@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".CommentActivity" />
         <activity android:name=".OtherRateActivity" />
         <activity android:name=".OtherProfileActivity" />
         <activity android:name=".SelfRateActivity" />
@@ -22,19 +21,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BAcceptActivity"> </activity>
-        <activity android:name=".ORequestedActivity"> </activity>
-        <activity android:name=".ORequestedUserActivity"> </activity>
+        <activity android:name=".BAcceptActivity"></activity>
+        <activity android:name=".ORequestedActivity"></activity>
+        <activity android:name=".ORequestedUserActivity"></activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".LoginActivity"
             android:launchMode="singleTop" />
-
         <activity android:name=".RequestActivity" />
-        <activity android:name=".OwnerNotificationActivity"/>
+        <activity android:name=".OwnerNotificationActivity" />
         <activity android:name=".RequestedBooksActivity" />
-
         <activity
             android:name=".OwnerActivity"
             android:parentActivityName=".DummyActivity">
@@ -51,13 +48,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OwnerActivity" />
         </activity>
-        <activity android:name=".EditBookActivity"
+        <activity
+            android:name=".EditBookActivity"
             android:parentActivityName=".OAvailableActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OAvailableActivity" />
         </activity>
+        <activity android:name=".ViewBookActivity"></activity>
     </application>
 
 </manifest>
-
