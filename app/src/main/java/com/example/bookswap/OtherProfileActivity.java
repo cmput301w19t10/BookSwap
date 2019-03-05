@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * activity for showing others's info
+ */
 public class OtherProfileActivity extends AppCompatActivity {
 
     @Override

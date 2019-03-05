@@ -6,9 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
+/**
+ * activity for testing different parts of the app
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * create this activity
+     * create a button for going to login
+     * create a button for going to profile
+     * create a button for going to book
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -13,11 +13,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * activity for searching a person
+ */
 public class ProfileSearchActivity extends AppCompatActivity {
 
     private List<User> userList = new ArrayList<>();
     private UserAdapter adapter;
 
+    /**
+     * create views and create adapter for the search view
+     * @param savedInstanceState the state saved t start the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +37,9 @@ public class ProfileSearchActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * initialize users for testing
+     */
     private void initUsers(){
         List<String> example_names = Arrays.asList("Andy", "Bob", "Vincent", "Catherine", "Sherlock", "George");
         for (int i=0; i<6; i++){
@@ -38,6 +48,11 @@ public class ProfileSearchActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * create the search menu Ui
+     * @param menu the menu for search person
+     * @return always true to enable creating menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

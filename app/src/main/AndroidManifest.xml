@@ -15,7 +15,7 @@
         <activity android:name=".OtherProfileActivity" />
         <activity android:name=".SelfRateActivity" />
         <activity android:name=".EditProfileActivity" />
-        <activity android:name=".DummyActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,8 +25,11 @@
         <activity android:name=".BAcceptActivity"> </activity>
         <activity android:name=".ORequestedActivity"> </activity>
         <activity android:name=".ORequestedUserActivity"> </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".SelfProfileActivity"></activity>
+        <activity android:name=".ProfileSearchActivity"
+            android:theme = "@style/SearchTheme"
+            android:label = "Search person"></activity>
+        <activity android:name=".RegisterActivity" ></activity>
         <activity
             android:name=".LoginActivity"
             android:launchMode="singleTop" />
