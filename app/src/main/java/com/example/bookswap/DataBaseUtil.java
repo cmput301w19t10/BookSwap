@@ -2,8 +2,6 @@ package com.example.bookswap;
 
 import android.util.Log;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,8 +47,14 @@ public class DataBaseUtil {
     //the Status should be int (TODO)
     public ArrayList<Book> getBooks(String status){
         ArrayList<Book> outArray = new ArrayList<>();
-        bookUniKey(userName);
+        bookUniKey(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<String> value) {
+                bookUniKeyList = value;
+            }
+        });
         int UniKeySize = bookUniKeyList.size();
+        Log.i("Bowen","  Bowen  " + UniKeySize);
         for (int i = 0; i < UniKeySize; i++){
             Book abook = aBookinfo(i);
             if (abook.getStatus() == status) {
@@ -74,48 +78,27 @@ public class DataBaseUtil {
     }
 
     // get all book's unikeya and return that array
-    private void bookUniKey(String name){
+    private void bookUniKey(final MyCallback myCallback){
         //String bookUniKey;
-        Firebase ref = new Firebase("https://all-acticity.firebaseio.com/User");
-        ref = ref.child(name);
-        ref.addValueEventListener(new com.firebase.client.ValueEventListener() {
+        DatabaseReference User = UserDatabase.child(userName);
+        //addListenerForSingleValueEvent() (might be better)
+        //addValueEventListener
+        User.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-                for (com.firebase.client.DataSnapshot child: dataSnapshot.getChildren()) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
                     BookKey = child.getKey();
                     Log.i("MainActivity", child.getKey());
                     bookUniKeyList.add(BookKey);
+                    myCallback.onCallback(bookUniKeyList);
                 }
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
+            public void onCancelled(DatabaseError firebaseError) {
+                Log.e("MainActivity", "onCancelled", firebaseError.toException());
             }
         });
-
-
-
-
-//        DatabaseReference User = UserDatabase.child(name);
-//        //addListenerForSingleValueEvent() (might be better)
-//        //addValueEventListener
-//        User.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot child: dataSnapshot.getChildren()) {
-//                    BookKey = child.getKey();
-//                    Log.i("MainActivity", child.getKey());
-//                    bookUniKeyList.add(BookKey);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError firebaseError) {
-//                Log.e("MainActivity", "onCancelled", firebaseError.toException());
-//            }
-//        });
-        //return bookUniKeyList;
     }
 
     // get book title
