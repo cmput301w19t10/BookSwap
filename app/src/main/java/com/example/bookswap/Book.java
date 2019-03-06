@@ -97,8 +97,11 @@ public class Book implements Parcelable {
     }
 
     public Bitmap getImage() {
-        Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
-        return bmp;
+        if (image != null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+            return bmp;
+        }
+        return null;
     }
 
     public void setImage(Bitmap bmp){

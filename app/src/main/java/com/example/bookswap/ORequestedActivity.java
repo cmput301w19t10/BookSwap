@@ -13,6 +13,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
@@ -44,22 +50,55 @@ public class ORequestedActivity extends Activity {
         Intent intentpas = getIntent();
 
 
-        DataBaseUtil u = new DataBaseUtil("Bowen");
-        requestedList = u.getBooks("Available");
-//        Book book1 = new Book(null,null,null,null,null);
-//        requestedList.add(book1);
+
+
         Log.d(TAG,"apple"+requestedList.size()+"");
 
 
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://all-acticity.firebaseio.com/");
 
-
-
-
-
-
+        //addListenerForSingleValueEvent() (might be better)
+        //addValueEventListener
         adapter = new ORequestedAdapter(this, 0, requestedList);
         display_listview = (ListView) findViewById(R.id.main_listview);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> temp = new ArrayList<>();
+                for (DataSnapshot child: dataSnapshot.child("User").child("Bowen").child("Book").getChildren()) {
+                    String BookKey = child.getKey();
+                    Log.i("MainActivity", BookKey);
+                    Log.i("MainActivity","Book"+temp.size());
+                    temp.add(BookKey);
+                    Book abook = new Book("1","2","3","4");
+                    requestedList.add(abook);
+//                    display_listview.setAdapter(adapter);
+                }
+
+//                int arraysize = temp.size();
+//                ArrayList<String> tempBookList = new ArrayList<>();
+//                DatabaseReference BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
+//                for (int i = 0;i < arraysize;i++){
+//                    String bookDes = BookDatabase
+//                }
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Log.e("MainActivity", "onCancelled", firebaseError.toException());
+            }
+        });
+
         display_listview.setAdapter(adapter);
+
+
+
+        //adapter = new ORequestedAdapter(this, 0, requestedList);
+        //display_listview = (ListView) findViewById(R.id.main_listview);
+        //display_listview.setAdapter(adapter);
 
         dialog = (Button) findViewById(R.id.dialog);
 

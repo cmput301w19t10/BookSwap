@@ -1,8 +1,8 @@
 package com.example.bookswap;
 
+import android.database.DatabaseUtils;
 import android.util.Log;
 
-import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,13 +33,16 @@ public class DataBaseUtil {
 
 
 
-
     private ArrayList<String> bookUniKeyList = new ArrayList<String>();
     private DatabaseReference BookDatabase;
     private DatabaseReference UserDatabase;
 
+    public DataBaseUtil(){
+        UserDatabase = FirebaseDatabase.getInstance().getReference("User");
+        BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
+    }
 
-    public DataBaseUtil(String userName){
+     DataBaseUtil(String userName){
         UserDatabase = FirebaseDatabase.getInstance().getReference("User");
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
         this.userName = userName;
@@ -47,12 +50,14 @@ public class DataBaseUtil {
 
     //This part is for book
     //the Status should be int (TODO)
-    public ArrayList<Book> getBooks(String status){
+    public ArrayList<Book> getBooks(String status,ArrayList<String> temp){
         ArrayList<Book> outArray = new ArrayList<>();
         bookUniKey(userName);
-        int UniKeySize = bookUniKeyList.size();
+        int UniKeySize = temp.size();
+        Log.i("apple","bowen" + temp.size());
         for (int i = 0; i < UniKeySize; i++){
-            Book abook = aBookinfo(i);
+            Book abook = aBookinfo(i,temp);
+            //Log.d("Bowen",abook.getStatus().toString());
             if (abook.getStatus() == status) {
                 outArray.add(abook);
             }
@@ -61,13 +66,19 @@ public class DataBaseUtil {
     }
 
     // use this function if you want to get book info from firebase as a owner
-    private Book aBookinfo(int index){
+    private Book aBookinfo(int index,ArrayList<String> temp){
+//
+//        String BookTitle = getBookTitle(bookUniKeyList.get(index));
+//        String BookDes = getBookDes(bookUniKeyList.get(index));
+//        String BookISBN = getBookISBN(bookUniKeyList.get(index));
+//        String BookStatus = getBookStatus(bookUniKeyList.get(index));
+//        String BookAuthor = getBookAuthour(bookUniKeyList.get(index));
 
-        String BookTitle = getBookTitle(bookUniKeyList.get(index));
-        String BookDes = getBookDes(bookUniKeyList.get(index));
-        String BookISBN = getBookISBN(bookUniKeyList.get(index));
-        String BookStatus = getBookStatus(bookUniKeyList.get(index));
-        String BookAuthor = getBookAuthour(bookUniKeyList.get(index));
+        String BookTitle = getBookTitle(temp.get(index));
+        String BookDes = getBookDes(temp.get(index));
+        //String BookISBN = getBookISBN(temp.get(index));
+        String BookStatus = getBookStatus(temp.get(index));
+        String BookAuthor = getBookAuthour(temp.get(index));
         Book aBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
 
         return aBook;
@@ -76,17 +87,24 @@ public class DataBaseUtil {
     // get all book's unikeya and return that array
     private void bookUniKey(String name){
         //String bookUniKey;
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://all-acticity.firebaseio.com/User/Bowen/Book");
         DatabaseReference User = UserDatabase.child(name);
+        final ArrayList<String> temp = new ArrayList<>();
         //addListenerForSingleValueEvent() (might be better)
         //addValueEventListener
-        User.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     BookKey = child.getKey();
-                    Log.i("MainActivity", child.getKey());
-                    bookUniKeyList.add(BookKey);
+                    Log.i("MainActivity", BookKey);
+                    Log.i("MainActivity",""+temp.size());
+                    temp.add(BookKey);
+
                 }
+                setBookUniKeyList(temp);
             }
 
             @Override
@@ -94,21 +112,12 @@ public class DataBaseUtil {
                 Log.e("MainActivity", "onCancelled", firebaseError.toException());
             }
         });
-        //return bookUniKeyList;
     }
 
-//    private void bookUniKey(){
-//        String name = "Bowen";
-//        DataSnapshot a = DataSnapshot.child(name);
-//    }
-
-//    private void bookUniKey(DataSnapshot dataSnapshot){
-//        for (DataSnapshot ds: dataSnapshot.getChildren()){
-//                    BookKey = ds.getKey();
-//                    Log.i("MainActivity", ds.getKey());
-//                    bookUniKeyList.add(BookKey);
-//        }
-//    }
+    private void setBookUniKeyList(ArrayList<String> array){
+        Log.i("MainActivity","Return size: "+array.size());
+        this.bookUniKeyList = array;
+    }
 
     // get book title
     private String getBookTitle(String bookUniKey){
@@ -117,7 +126,6 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookTitle = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -135,7 +143,6 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookDes = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -154,7 +161,6 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookISBN = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -173,7 +179,6 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookStatus = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -192,7 +197,6 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookAuthor = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -220,6 +224,7 @@ public class DataBaseUtil {
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
         BookStatus();
+        OwnerBook(userName,BookTitle);
         //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
         //BookDescription(book.getDescription());
     }
@@ -269,10 +274,6 @@ public class DataBaseUtil {
 
     // save BorrowerBook to user info
     private  void borrowerBook(String name, String BookName){};
-
-
-
-
 
 
     // This part is for user
