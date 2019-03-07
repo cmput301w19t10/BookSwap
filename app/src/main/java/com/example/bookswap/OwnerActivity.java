@@ -26,4 +26,10 @@ public class OwnerActivity extends AppCompatActivity {
         startActivity(intentAva);
     }
 
+    public void GoToRequestActivity(View view){
+        //Do something in response to button
+        Intent intent = new Intent(this, ORequestedActivity.class);
+        startActivity(intent);
+    }
+
 }

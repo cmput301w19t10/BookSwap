@@ -52,8 +52,8 @@ public class OAvailableAdapter extends ArrayAdapter<Book> {
         Book element = availableList.get(position);
 
 
-        TextView title = (TextView) convertView.findViewById(R.id.listTitle);
-        TextView author = (TextView) convertView.findViewById(R.id.listAuthor);
+        TextView title = (TextView) convertView.findViewById(R.id.listUsername);
+        TextView author = (TextView) convertView.findViewById(R.id.listBookname);
         ImageView bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
         title.setText(element.getTitle());
         author.setText(element.getAuthor());

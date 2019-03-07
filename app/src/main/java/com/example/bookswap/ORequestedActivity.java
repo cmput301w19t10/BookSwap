@@ -4,13 +4,21 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.core.executor.DefaultTaskExecutor;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,8 +31,11 @@ public class ORequestedActivity extends Activity {
 
     private ListView display_listview;
     private TextView title;
+    private static final int ADD_BOOK_REQUEST = 1;
+    private static final int EDIT_BOOK_REQUEST = 2;
     //The book of request list will be connect with the database in the cloud
-    private  ArrayList<Book> request_Book_list = new ArrayList<Book>();
+    private ArrayList<Book> requestedList = new ArrayList<>();
+    private ORequestedAdapter adapter;
     private Button dialog;
 
 
@@ -33,15 +44,46 @@ public class ORequestedActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+//        getSupportActionBar().show();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baccept);
+        setContentView(R.layout.activity_orequested);
+        Intent intentpas = getIntent();
+
+
+
+
+        Log.d(TAG,"apple"+requestedList.size()+"");
+
+
+
+        //addListenerForSingleValueEvent() (might be better)
+        //addValueEventListener
+        adapter = new ORequestedAdapter(this, 0, requestedList);
         display_listview = (ListView) findViewById(R.id.main_listview);
+        display_listview.setAdapter(adapter);
+
+
+
         dialog = (Button) findViewById(R.id.dialog);
 
+
         DataBaseUtil u = new DataBaseUtil("Bowen");
-        request_Book_list = u.getBooks("Available");
-        Log.d(TAG,"Bowen "+request_Book_list.size()+" ");
+        requestedList = u.getBooks("Available");
+
+        display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Book book = requestedList.get(position);
+                Intent intent = new Intent(ORequestedActivity.this , EditBookActivity.class);
+                intent.putExtra("BookInformation", book);
+                intent.putExtra("Index", position+"");
+                startActivityForResult(intent, EDIT_BOOK_REQUEST);
+            }
+        });
+
+
+
 
         dialog.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

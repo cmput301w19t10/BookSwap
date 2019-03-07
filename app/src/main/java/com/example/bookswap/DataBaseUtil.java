@@ -2,19 +2,31 @@ package com.example.bookswap;
 
 import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+//import com.google.firebase.firestore.CollectionReference;
+//import com.google.firebase.firestore.FirebaseFirestore;
+//import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static android.content.ContentValues.TAG;
 
 public class DataBaseUtil {
 
+//    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+//    private CollectionReference chatMessageReference = firestore.collection("User");
+//    private Query johnMessagesQuery = chatMessageReference.whereEqualTo("User","");
 
     private String BookKey;
     private String BookTitle;
@@ -30,37 +42,61 @@ public class DataBaseUtil {
     private String getAddress;
 
 
-
-
     private ArrayList<String> bookUniKeyList = new ArrayList<String>();
+    public ArrayList<Book> bookArray = new ArrayList<Book>();
     private DatabaseReference BookDatabase;
     private DatabaseReference UserDatabase;
 
-
-    public DataBaseUtil(String userName){
+    //This part is for book
+    //the Status should be int (TODO)
+    public DataBaseUtil(){
         UserDatabase = FirebaseDatabase.getInstance().getReference("User");
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
-        this.userName = userName;
     }
 
+    public DataBaseUtil(String name){
+        UserDatabase = FirebaseDatabase.getInstance().getReference("User");
+        BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
+        this.userName = name;
+    }
+    boolean flag = true;
     //This part is for book
     //the Status should be int (TODO)
     public ArrayList<Book> getBooks(String status){
         ArrayList<Book> outArray = new ArrayList<>();
-        bookUniKey(new MyCallback() {
-            @Override
-            public void onCallback(ArrayList<String> value) {
-                bookUniKeyList = value;
-            }
-        });
+        boolean executed = true;
+        CompletableFuture<ArrayList<String>> bookUniKeyList;
+
+        bookUniKey();
+
+
+//        final TaskCompletionSource<List<Objects>> tcs = new TaskCompletionSource<>();
+
+
+//            bookUniKey(new MyCallback() {
+//                @Override
+//                public  ArrayList<String> onCallback(ArrayList<String> value) {
+//                    Log.i("BOWEN", " BOWEN " + value.get(0));
+//                    bookUniKeyList = value;
+//
+//                    return  bookUniKeyList;
+////                    int UniKeySize = bookUniKeyList.size();
+////                    Log.i("apple","bowen" + bookUniKeyList.size());
+//                }
+//            });
+
+//        Task<List<Object>> t = tcs.getTask();
+
+//
         int UniKeySize = bookUniKeyList.size();
-        Log.i("Bowen","  Bowen  " + UniKeySize);
+        Log.i("apple","bowen" + bookUniKeyList.size());
         for (int i = 0; i < UniKeySize; i++){
             Book abook = aBookinfo(i);
             if (abook.getStatus() == status) {
                 outArray.add(abook);
             }
         }
+
         return outArray;
     }
 
@@ -78,20 +114,37 @@ public class DataBaseUtil {
     }
 
     // get all book's unikeya and return that array
-    private void bookUniKey(final MyCallback myCallback){
+    private ArrayList<String> bookUniKey(final MyCallback myCallback){
         //String bookUniKey;
+        final TaskCompletionSource<ArrayList<String>> tcs = new TaskCompletionSource<>();
+
         DatabaseReference User = UserDatabase.child(userName);
         //addListenerForSingleValueEvent() (might be better)
         //addValueEventListener
         User.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                ArrayList<String> temp = new ArrayList<>();
+                //Map<DataSnapshot, List<Object>> mapper = dataSnapshot.getChildr;
+                for (DataSnapshot child : dataSnapshot.child("Book").getChildren()) {
                     BookKey = child.getKey();
                     Log.i("MainActivity", child.getKey());
                     bookUniKeyList.add(BookKey);
-                    myCallback.onCallback(bookUniKeyList);
                 }
+                a(bookUniKeyList);
+//                tcs.setResult(bookUniKeyList);
+//                Task<ArrayList<String>> t = tcs.getTask();
+//                try {
+//                    Tasks.await(t);
+//                } catch (ExecutionException | InterruptedException e) {
+//                    t = Tasks.forException(e);
+//                }
+//                ArrayList<String> result;
+//                if(t.isSuccessful()) {
+//                    result = t.getResult();
+//                    Log.i("Bowen","Bowen" + result.size());
+//                }
+//                Log.i("Bowen","Nothing");
             }
 
             @Override
@@ -99,6 +152,21 @@ public class DataBaseUtil {
                 Log.e("MainActivity", "onCancelled", firebaseError.toException());
             }
         });
+
+
+
+     return bookUniKeyList;
+    }
+
+    private ArrayList<String> a(ArrayList<String> booklist){
+        bookUniKeyList = booklist;
+        return bookUniKeyList;
+    }
+
+
+    private void setBookUniKeyList(ArrayList<String> array){
+        Log.i("MainActivity","Return size: "+array.size());
+        this.bookUniKeyList = array;
     }
 
     // get book title
@@ -108,7 +176,6 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookTitle = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -126,7 +193,7 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookDes = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
+
             }
 
             @Override
@@ -146,6 +213,7 @@ public class DataBaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 BookISBN = dataSnapshot.getValue(String.class);
                 Log.i(TAG, dataSnapshot.getValue(String.class));
+
             }
 
             @Override
@@ -211,6 +279,7 @@ public class DataBaseUtil {
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
         BookStatus();
+        OwnerBook(userName,BookTitle);
         //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
         //BookDescription(book.getDescription());
     }
