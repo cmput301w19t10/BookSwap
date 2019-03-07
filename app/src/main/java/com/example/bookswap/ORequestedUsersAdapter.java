@@ -70,6 +70,9 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         //holder.Username.setText((String)book.getUser());
         holder.Bookname.setText((String)book.getTitle());
 
+
+
+        //todo part for database
         holder.button_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +83,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         holder.button_decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // delete this user
             }
         });

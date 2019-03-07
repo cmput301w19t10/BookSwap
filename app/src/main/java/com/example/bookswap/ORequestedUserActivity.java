@@ -37,11 +37,12 @@ public class ORequestedUserActivity extends Activity {
         setContentView(R.layout.activity_orequesteduser);
         display_listview = (ListView) findViewById(R.id.main_listview);
 
-
-        String position=getIntent().getStringExtra("indexrequest");
-        int positon=Integer.parseInt(position);
-        Book book = requestedList.get(positon);
-
+        Book book1 = new Book("dsfsdf","dsfsdf","sddsfdsf","sddf",null);
+        requestedList.add(book1);
+        int position=getIntent().getIntExtra("index",0);
+//        int positon=Integer.parseInt(position);
+        Book book = requestedList.get(position);
+        UserList.add("yifu");
 //        Userlist = book.getUserList();
 
 

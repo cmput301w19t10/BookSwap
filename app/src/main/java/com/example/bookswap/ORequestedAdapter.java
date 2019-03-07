@@ -13,11 +13,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static android.content.Intent.getIntent;
 import static android.support.v4.content.ContextCompat.startActivity;
 
 public class ORequestedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> requestedList;
-//    private customButtonListener customListner;
+
 
 
     public ORequestedAdapter(Context context, int resource, ArrayList<Book> objects) {
@@ -67,6 +68,7 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
         // extract our recording from the list
 
 //        some thing wrong here
+
         Log.d("POSITION", Integer.toString(position));
         Book element = requestedList.get(position);
 

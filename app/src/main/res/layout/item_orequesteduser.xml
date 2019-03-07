@@ -40,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
         android:text="Accept" />
 
     <Button
@@ -50,6 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/oru_accept"
         android:layout_alignBottom="@+id/bookCover"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="20dp"
         android:text="Decline" />
 
 </RelativeLayout>

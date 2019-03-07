@@ -37,40 +37,13 @@ public class BAcceptActivity extends Activity {
         setContentView(R.layout.activity_baccept);
         display_listview = (ListView) findViewById(R.id.main_listview);
 //        dialog = (Button) findViewById(R.id.dialog);
+        Book book = new Book("ssjs","shsjs","hsjsh","sdasd",null);
+        accept_list.add(book);
         adapter = new BAcceptedAdapter(this,0,accept_list);
+        display_listview.setAdapter(adapter);
 
 
 
-        dialog.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //TODO when click the item can enter this pages
-                /**
-                 * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
-                 * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
-                 * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
-                 */
-                AlertDialog alertDialog = new AlertDialog.Builder(BAcceptActivity.this)
-                        .setTitle("Notice")
-                        .setMessage("Yifu" + " are you sure to borrow this book from " +
-                                "Danli")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(BAcceptActivity.this, "this is yes button", Toast.LENGTH_SHORT).show();
-
-                            }
-                        })
-
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(BAcceptActivity.this, "this is no button", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .create();
-                alertDialog.show();
-            }
-        });
 
         //TODO when click the item can enter this pages
         /**
