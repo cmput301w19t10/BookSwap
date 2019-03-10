@@ -37,7 +37,7 @@ public class BAcceptActivity extends Activity {
         setContentView(R.layout.activity_baccept);
         display_listview = (ListView) findViewById(R.id.main_listview);
 //        dialog = (Button) findViewById(R.id.dialog);
-        Book book = new Book("ssjs","shsjs","hsjsh","sdasd",null);
+        Book book = new Book("title","author","status","discription",null);
         accept_list.add(book);
         adapter = new BAcceptedAdapter(this,0,accept_list);
         display_listview.setAdapter(adapter);

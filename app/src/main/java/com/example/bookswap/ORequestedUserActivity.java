@@ -37,16 +37,31 @@ public class ORequestedUserActivity extends Activity {
         setContentView(R.layout.activity_orequesteduser);
         display_listview = (ListView) findViewById(R.id.main_listview);
 
-        Book book1 = new Book("dsfsdf","dsfsdf","sddsfdsf","sddf",null);
-        requestedList.add(book1);
-        int position=getIntent().getIntExtra("index",0);
-//        int positon=Integer.parseInt(position);
-        Book book = requestedList.get(position);
-        UserList.add("yifu");
+
+
+        /**
+         * how to get parcel for a book
+         * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
+         */
+        Intent intent = getIntent();
+        Book book = intent.getParcelableExtra("index");
+
+
+//        int position=getIntent().getIntExtra("index",0);
+//        Book book = requestedList.get(position);
+//        requestedList.add(book);
+        UserList.add("yifu1");
+        UserList.add("yifu2");
 //        Userlist = book.getUserList();
 
+//    book for UI test
+        Book bookForTest = new Book("title","author","status","discription",null);
 
-        adapter = new ORequestedUsersAdapter(this,book,UserList);
+
+
+
+
+        adapter = new ORequestedUsersAdapter(this,bookForTest,UserList);
         display_listview.setAdapter(adapter);
 
 

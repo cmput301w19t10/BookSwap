@@ -37,7 +37,6 @@ public class ORequestedActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
-//        getSupportActionBar().show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orequested);
@@ -46,7 +45,7 @@ public class ORequestedActivity extends Activity {
 
         DataBaseUtil u = new DataBaseUtil("Bowen");
         requestedList = u.getBooks("Available");
-        Book book1 = new Book("dsfsdf","dsfsdf","sddsfdsf","sddf",null);
+        Book book1 = new Book("title","test book","test book","test book",null);
         requestedList.add(book1);
         Log.d(TAG,"apple"+requestedList.size()+"");
 
@@ -81,42 +80,7 @@ public class ORequestedActivity extends Activity {
 
 
 
-//        dialog.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                //TODO when click the item can enter this pages
-//                /**
-//                 * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
-//                 * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
-//                 * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
-//                 */
-//                AlertDialog alertDialog = new AlertDialog.Builder(ORequestedActivity.this)
-//                        .setTitle("Notice")
-//                        .setMessage("Yifu" + " are you sure to borrow this book from " +
-//                                "Danli")
-//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                Toast.makeText(ORequestedActivity.this, "this is yes button", Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                        })
-//
-//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                Toast.makeText(ORequestedActivity.this, "this is no button", Toast.LENGTH_SHORT).show();
-//                            }
-//                        })
-//                        .create();
-//                alertDialog.show();
-//            }
-//        });
 
-        //TODO when click the item can enter this pages
-        /**
-         * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
-         * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
-         */
 
     }
 

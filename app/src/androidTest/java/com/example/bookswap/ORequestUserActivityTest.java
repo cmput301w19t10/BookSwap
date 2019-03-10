@@ -20,18 +20,18 @@ import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
 
-public class ORequestActivityTest extends ActivityTestRule<ORequestedActivity> {
+public class ORequestUserActivityTest extends ActivityTestRule<ORequestedUserActivity> {
 
     private Solo solo;
 
 
-    public ORequestActivityTest() {
-        super(ORequestedActivity.class);
+    public ORequestUserActivityTest() {
+        super(ORequestedUserActivity.class);
     }
 
     @Rule
-    public ActivityTestRule<ORequestedActivity> rule =
-            new ActivityTestRule<>(ORequestedActivity.class, true, true
+    public ActivityTestRule<ORequestedUserActivity> rule =
+            new ActivityTestRule<>(ORequestedUserActivity.class, true, true
             );
 
     @Before
@@ -45,21 +45,10 @@ public class ORequestActivityTest extends ActivityTestRule<ORequestedActivity> {
     }
 
     @Test
-    public void checkbook(){
-        solo.assertCurrentActivity("wrong activity" , ORequestedActivity.class);
+    public void checkbook() {
+        solo.assertCurrentActivity("wrong activity", ORequestedUserActivity.class);
         assertTrue(solo.searchText("title"));
+        assertTrue(solo.searchText("yifu1"));
+        assertTrue(solo.searchText("yifu2"));
     }
-
-    @Test
-    public void checkpassvalue(){
-        ORequestedActivity activity = (ORequestedActivity) solo.getCurrentActivity();
-        solo.assertCurrentActivity("wrong activity", ORequestedActivity.class);
-
-        solo.clickOnButton("View Request");
-        solo.assertCurrentActivity("Wrong Activity", ORequestedUserActivity.class);
-        assertTrue(solo.waitForText("title"));
-        solo.goBack();
-        solo.assertCurrentActivity("wrong activity" , ORequestedActivity.class);
-    }
-
 }

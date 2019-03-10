@@ -81,8 +81,12 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 //when click the button will jump to the new activity that show all the user request for this book
+                /**
+                 * how to get parcel for a book
+                 * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
+                 */
                 Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
-                toORequestedUser.putExtra("index", position);
+                toORequestedUser.putExtra("index", requestedList.get(position));
                 getContext().startActivity(toORequestedUser);
             }
         });

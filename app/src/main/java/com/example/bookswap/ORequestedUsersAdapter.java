@@ -67,7 +67,8 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
             holder = (ORequestedUsersAdapter.ViewHolder)convertView.getTag();
         }
 
-        //holder.Username.setText((String)book.getUser());
+        holder.Username.setText(userList.get(position));
+//        some bug happend here
         holder.Bookname.setText((String)book.getTitle());
 
 
