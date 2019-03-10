@@ -1,5 +1,8 @@
 package com.example.bookswap;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
@@ -12,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +61,23 @@ public class DataBaseUtil {
         this.userName = name;
     }
 
+    // interface for get Book info
+    public interface getNewBook{
+        void getNewBook(Book aBook);
+    }
+
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
     // get book info
     // this function is for Owner
     // It can get all owner Book
@@ -74,7 +95,9 @@ public class DataBaseUtil {
                     String Status = dataSnapshot.child("Book").child(key).child("Status").getValue(String.class);
                     String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
                     String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
-                    Book abook = new Book(Title,"321",Status,"4");
+                    String image = dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class);
+                    Bitmap tempImage = StringToBitMap(image);
+                    Book abook = new Book(Title,"321",Status,"4",tempImage);
                     allBook.add(abook);
                     callBack.getNewBook(abook);
                 }
@@ -88,40 +111,30 @@ public class DataBaseUtil {
 
     }
 
-    public interface OnDataReceiveCallBack{
-        void onDataReceived(ArrayList<String> arry);
-        //void onStringReceived(String value);
-    }
-
-    public interface GetBooksArray{
-        void onBookReceived(ArrayList<Book> value);
-    }
-
-    public interface getNewBook{
-        void getNewBook(Book aBook);
-    }
-
-
-
     // this function is for Borrower
     // it will get all Borrower book
     // and it can be filtered by the status
-    public void getBorrowerBok(final getNewBook callBack){
+    public void getBorrowerBook(final getNewBook callBack){
         ALlData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> allBookkey = new ArrayList<>();
+                //ArrayList<String> allBookkey = new ArrayList<>();
                 ArrayList<Book> allBook = new ArrayList<>();
-                for (DataSnapshot bookKeys: dataSnapshot.child("User").child(userName).child("Book").child("Borrower").getChildren()){
-                    String key = bookKeys.getKey();
-                    allBookkey.add(key);
-                    String Des = dataSnapshot.child("Book").child(key).child("Description").getValue(String.class);
-                    String Status = dataSnapshot.child("Book").child(key).child("Status").getValue(String.class);
-                    String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
-                    String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
-                    Book abook = new Book(Title,"321",Status,"4");
-                    allBook.add(abook);
-                    callBack.getNewBook(abook);
+                for (DataSnapshot bookKey: dataSnapshot.child("Book").getChildren()){
+                    String key = bookKey.getKey();
+                    for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren()) {
+                        if (userName.equals(bookborrower.getValue(String.class))) {
+                            //allBookkey.add(key);
+                            String Des = dataSnapshot.child("Book").child(key).child("Description").getValue(String.class);
+                            String Status = dataSnapshot.child("Book").child(key).child("Status").getValue(String.class);
+                            String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
+                            String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
+                            String image = dataSnapshot.child("Book").child(key).child("image").getValue(String.class);
+                            Book abook = new Book(Title, "321", Status, "4");
+                            //allBook.add(abook);
+                            callBack.getNewBook(abook);
+                        }
+                    }
                 }
             }
 
@@ -139,13 +152,13 @@ public class DataBaseUtil {
     }
 
 
-
-
-
-
-
-
-
+    private String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp=Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
 
 
 
@@ -158,6 +171,8 @@ public class DataBaseUtil {
         //BookOwner(book.getOwner());(TODO)
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
+        String image = BitMapToString(book.getImage());
+        BookPhoto(image);
         BookStatus();
         OwnerBook(userName,BookTitle);
         //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
@@ -199,7 +214,8 @@ public class DataBaseUtil {
     }
 
     // save the photo
-    private void BookPhoto(){
+    private void BookPhoto(String image){
+        BookDatabase.child(BookKey).child("Photo").setValue(image);
     }
 
     // save OwnerBook to user info
@@ -213,32 +229,36 @@ public class DataBaseUtil {
 
 
 
-
-
     // This part is for user
     // save user to the database
     // addPassword TODO
     public void addNewUser (User user){
-        addEmail(user.getName(),user.getEmail());
-        addAddress(user.getName(),user.getAddress());
-        addPhone(user.getName(),user.getPhone_number());
+//        addEmail(user.getName(),user.getEmail());
+//        addAddress(user.getName(),user.getAddress());
+//        addPhone(user.getName(),user.getPhone_number());
+
+
+        //UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
+        UserDatabase.child(user.getName()).child("address").setValue(user.getAddress());
+        UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
+        UserDatabase.child(user.getName()).child("phone").setValue(user.getPhone_number());
     }
-    // save the password
-    private void addPassword (String name, String password) {
-        UserDatabase.child(name).child("password").setValue(password);
-    }
-    // save the email
-    private void addEmail (String name, String email) {
-        UserDatabase.child(name).child("email").setValue(email);
-    }
-    // save the address
-    private void addAddress (String name, String address) {
-        UserDatabase.child(name).child("address").setValue(address);
-    }
-    //save the phone number
-    private void addPhone (String name, String phone) {
-        UserDatabase.child(name).child("phone").setValue(phone);
-    }
+//    // save the password
+//    private void addPassword (String name, String password) {
+//        UserDatabase.child(name).child("password").setValue(password);
+//    }
+//    // save the email
+//    private void addEmail (String name, String email) {
+//        UserDatabase.child(name).child("email").setValue(email);
+//    }
+//    // save the address
+//    private void addAddress (String name, String address) {
+//        UserDatabase.child(name).child("address").setValue(address);
+//    }
+//    //save the phone number
+//    private void addPhone (String name, String phone) {
+//        UserDatabase.child(name).child("phone").setValue(phone);
+//    }
 
 
 
@@ -345,6 +365,9 @@ public class DataBaseUtil {
 //        });
 //        //return "1";
 //    }
+
+
+
 
 
     // the interface for status
