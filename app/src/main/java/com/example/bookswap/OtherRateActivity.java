@@ -13,6 +13,7 @@ import android.widget.TextView;
  */
 public class OtherRateActivity extends AppCompatActivity {
 
+    private User user;
     /**
      * create all views and button to add a comment
      * @param savedInstanceState saved state to create this activity
@@ -22,6 +23,10 @@ public class OtherRateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_rate);
         TextView comment = findViewById(R.id.comment);
+        /*
+        Intent intent = getIntent();
+        user = intent.getExtras().getParcelable("user");
+        */
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,10 +47,17 @@ public class OtherRateActivity extends AppCompatActivity {
         switch (requestCode){
             case 1:{
                 if (resultCode == RESULT_OK){
+                    /*
                     Review review = data.getExtras().getParcelable("review");
+                    user.addOwner_reviews(review);
+                    */
+                    //TODO
+                    //update this user in database since a review is added
                     break;
                 }
             }default: break;
         }
     }
+
+
 }

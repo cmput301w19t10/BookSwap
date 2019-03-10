@@ -3,6 +3,7 @@ package com.example.bookswap;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,14 @@ public class EditProfileActivity extends AppCompatActivity {
         edit_phoneNumber = findViewById(R.id.edit_phoneNumber);
         edit_address = findViewById(R.id.edit_address);
 
+        /*
+        Intent intent = getIntent();
+        User user = intent.getExtras().getParcelable("user");
+        edit_name.setText(user.getName());
+        edit_email.setText(user.getEmail());
+        edit_phoneNumber.setText(user.getPhone_number());
+        edit_address.setText(user.getAddress());
+        */
         Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,8 +49,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 String email = edit_email.getText().toString().trim();
                 String phoneNumber = edit_phoneNumber.getText().toString().trim();
                 String address =edit_address.getText().toString().trim();
-                if (check(email, phoneNumber)){
-                    User user = new User(name, phoneNumber, email, address);
+                if (check(name, email, phoneNumber, address)){
+                    User user = new User(name, phoneNumber, email, address, null);
                     Intent intent = new Intent(EditProfileActivity.this, SelfProfileActivity.class);
                     intent.putExtra("user", user);
                     setResult(RESULT_OK, intent);
@@ -57,11 +66,16 @@ public class EditProfileActivity extends AppCompatActivity {
      * @param phoneNumber a string
      * @return
      */
-    private boolean check(String email, String phoneNumber){
+    private boolean check(String name, String email, String phoneNumber, String address){
+        if (name.length() == 0 || email.length() == 0 || phoneNumber.length() == 0 || address.length() == 0){
+            Toast.makeText(EditProfileActivity.this, "Don't leave fields empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         try {
             Integer.parseInt(phoneNumber);
         } catch (Exception e){
-            Toast.makeText(EditProfileActivity.this, "phone number is not valid", Toast.LENGTH_SHORT);
+            Toast.makeText(EditProfileActivity.this, "phone number is not valid", Toast.LENGTH_SHORT).show();
             return false;
         }
 

@@ -21,57 +21,94 @@ public class User implements Parcelable {
     private String phone_number;
     private String address;
     private String email;
-    private String password = "";
-    private List<Review> owner_reviews;
-    private List<Review> borrower_reviews;
+    private String password;
+    private List<Review> owner_reviews = new ArrayList<>();
+    private List<Review> borrower_reviews = new ArrayList<>();
 
 
     /**
      *
-     * @param name
-     * @param phone_number
-     * @param email
-     * @param address
+     * @param name name
+     * @param phone_number phone number
+     * @param email email
+     * @param address address
      */
-    public User(String name, String phone_number, String email, String address){
+    public User(String name, String phone_number, String email, String address, String password){
         this.name = name;
         this.phone_number = phone_number;
         this.address = address;
         this.email = email;
+        this.password = password;
     }
 
+    /**
+     * get name
+     * @return String of name
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * get image if in xml file
+     * @return a int of this id
+     */
     public int getImageId(){
         return this.imageId;
     }
 
+    /**
+     * get phone number
+     * @return a String of phone number
+     */
     public String getPhone_number(){
         return this.phone_number;
     }
 
+    /**
+     * get address
+     * @return a String of address
+     */
     public String getAddress(){
         return this.address;
     }
 
+    /**
+     * get email
+     * @return a String of email
+     */
     public String getEmail(){
         return this.email;
     }
 
+    /**
+     * get password
+     * @return a String of password
+     */
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * get reviews of owner
+     * @return
+     */
     public List<Review> getOwnerReviews(){
         return this.owner_reviews;
     }
 
+    /**
+     * get reviews of borrower
+     * @return
+     */
     public List<Review> getBorrowerReviews(){
         return this.borrower_reviews;
     }
 
+    /**
+     * get image
+     * @return a Bitmap of image
+     */
     public Bitmap getImage() {
         try {
             byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
@@ -84,38 +121,74 @@ public class User implements Parcelable {
         }
     }
 
+    /**
+     * set name
+     * @param name name
+     */
     public void setName(String name){
         this.name = name;
     }
 
+    /**
+     * set imageId in xml file
+     * @param imageId a id in xml file
+     */
     public void setImageId(int imageId){
         this.imageId = imageId;
     }
 
+    /**
+     * set phone number
+     * @param number a string of phone number
+     */
     public void setPhone_number(String number){
         this.phone_number = number;
     }
 
+    /**
+     * set address
+     * @param address a string of address
+     */
     public void setAddress(String address){
         this.address = address;
     }
 
+    /**
+     * set email
+     * @param email a string of email
+     */
     public void setEmail(String email){
         this.email = email;
     }
 
+    /**
+     * set password
+     * @param password a string of password
+     */
     public void setPassword(String password){
         this.password = password;
     }
 
-    public void setBorrower_reviews(List<Review> borrower_reviews) {
-        this.borrower_reviews = borrower_reviews;
+    /**
+     * add a review in borrower reviews
+     * @param review a Review
+     */
+    public void addBorrower_reviews(Review review) {
+        this.borrower_reviews.add(review);
     }
 
-    public void setOwner_reviews(List<Review> owner_reviews) {
-        this.owner_reviews = owner_reviews;
+    /**
+     * add a review in owner reviews
+     * @param review a Review
+     */
+    public void addOwner_reviews(Review review) {
+        this.owner_reviews.add(review);
     }
 
+    /**
+     * set image
+     * @param bmp a Bitmap of image
+     */
     public void setImage(Bitmap bmp){
         if (bmp != null) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

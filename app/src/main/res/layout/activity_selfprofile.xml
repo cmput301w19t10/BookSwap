@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/include3"
+        android:id="@+id/self_include"
         layout="@layout/activity_profile"
         android:layout_width="403dp"
         android:layout_height="500dp"
@@ -27,7 +27,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="33dp"
         android:text="edit"
-        app:layout_constraintBottom_toTopOf="@+id/include3"
+        app:layout_constraintBottom_toTopOf="@+id/self_include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/find_others"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include3" />
+        app:layout_constraintTop_toBottomOf="@+id/self_include" />
 
     <TextView
         android:id="@+id/find_others"
@@ -54,7 +54,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="13dp"
         android:text="find others"
-        app:layout_constraintBottom_toTopOf="@+id/include3"
+        app:layout_constraintBottom_toTopOf="@+id/self_include"
         app:layout_constraintEnd_toStartOf="@+id/edit_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -27,6 +27,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText user_confirmpassword;
     private ProgressBar progress_bar;
     private FirebaseAuth firebaseAuth;
+    private String email;
+    private String password;
 
     /**
      * set all kinds of views
@@ -56,8 +58,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * when one of the fields is empty or password does not match password typed second time or email is not valid, register would failed
      */
     private void registerUser(){
-        String email = user_name.getText().toString();
-        String password = user_password.getText().toString();
+        email = user_name.getText().toString();
+        password = user_password.getText().toString();
         String confirm_password = user_confirmpassword.getText().toString();
 
         if (TextUtils.isEmpty(email)){
@@ -80,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    User user = new User("","",email, "",password);
+                    // TODO
+                    // add this user into database
                     Toast.makeText(RegisterActivity.this, "register successfully", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }else{

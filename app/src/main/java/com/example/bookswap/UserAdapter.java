@@ -78,13 +78,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_item, viewGroup, false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.userImage.setOnClickListener(new View.OnClickListener() {
+        holder.userView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 User user = userList.get(position);
                 Context context = holder.userView.getContext();
-                context.startActivity(new Intent(context, OtherProfileActivity.class));
+                Intent intent = new Intent(context, OtherProfileActivity.class);
+                intent.putExtra("user", user);
+                context.startActivity(intent);
             }
         });
         return holder;
