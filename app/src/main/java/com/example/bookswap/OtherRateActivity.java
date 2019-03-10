@@ -2,6 +2,8 @@ package com.example.bookswap;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +29,12 @@ public class OtherRateActivity extends AppCompatActivity {
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("user");
         */
+
+        ViewPager viewPager = findViewById(R.id.container);
+        setupViewPager(viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +65,13 @@ public class OtherRateActivity extends AppCompatActivity {
                 }
             }default: break;
         }
+    }
+
+    private void setupViewPager(ViewPager viewPager){
+        CommentPageAdapter adapter = new CommentPageAdapter(getSupportFragmentManager());
+        adapter.addFragment(new CommentOwnerFragment(), "Owner");
+        adapter.addFragment(new CommentBorrowerFragment(), "Borrower");
+        viewPager.setAdapter(adapter);
     }
 
 
