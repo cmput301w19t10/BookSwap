@@ -71,46 +71,16 @@ public class ORequestedActivity extends Activity {
 
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.testAllInfoBook__2(new DataBaseUtil.getNewBook(){
+        u.getBorrowerBok(new DataBaseUtil.getNewBook(){
             @Override
             public void getNewBook(Book a){
-                //Book newBook = new Book("1","1","1","1");
-                requestedList.add(a);
+                if(true) {
+                    requestedList.add(a);
+                }
                 display_listview.setAdapter(adapter);
             }
         });
 
-
-//        u.testAllInfoBook(new DataBaseUtil.GetBooksArray(){
-//            @Override
-//            public void onBookReceived(ArrayList<Book> a){
-//                //Book newBook = new Book("1","1","1","1");
-//                requestedList = a;
-//                display_listview.setAdapter(adapter);
-//            }
-//        });
-
-
-
-//        u.bookUniKey(new DataBaseUtil.OnDataReceiveCallBack() {
-//            @Override
-//            public void onDataReceived(ArrayList<String> arry) {
-//                int size = arry.size();
-//                for (int a = 0;a < size;a++){
-//                    Log.i("the key value is: ", arry.get(a));
-//                }
-//                Book book = new Book("1","1","1","1");
-//                requestedList.add(book);
-//                Log.i("the key value is:","Test 5 HHHHHHH");
-//                //adapter = new ORequestedAdapter(this, 0, requestedList);
-//                display_listview.setAdapter(adapter);
-//            }
-//        });
-
-//        adapter = new ORequestedAdapter(this, 0, requestedList);
-//        display_listview.setAdapter(adapter);
-        //ArrayList<Book> n = u.getBooks("Available");
-        Log.i("the key value is:","Test 2 HHHHHHH");
 
         display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

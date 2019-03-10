@@ -57,36 +57,27 @@ public class DataBaseUtil {
         this.userName = name;
     }
 
-
-
-
-    public void testAllInfoBook__2(final getNewBook callBack){
+    // get book info
+    // this function is for Owner
+    // It can get all owner Book
+    // And it can be filtered by status in the activity
+    public void testAllInfoBook__3(final getNewBook callBack){
         ALlData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> allBookkey = new ArrayList<>();
                 ArrayList<Book> allBook = new ArrayList<>();
-                //Book abook;
-                for (DataSnapshot bookKeys: dataSnapshot.child("Book").getChildren()){
-                    //String aBookKey = bookKeys.getKey();
-                    Log.i("BowenTestHHHH ","Bowen HHHHHH 2");
-                    String Des = bookKeys.child("Description").getValue(String.class);
-                    String Status = bookKeys.child("Status").getValue(String.class);
-                    String Title = bookKeys.child("Title").getValue(String.class);
-                    String author = bookKeys.child("author").getValue(String.class);
+                for (DataSnapshot bookKeys: dataSnapshot.child("User").child(userName).child("Book").getChildren()){
+                    String key = bookKeys.getKey();
+                    allBookkey.add(key);
+                    String Des = dataSnapshot.child("Book").child(key).child("Description").getValue(String.class);
+                    String Status = dataSnapshot.child("Book").child(key).child("Status").getValue(String.class);
+                    String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
+                    String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
                     Book abook = new Book(Title,"321",Status,"4");
-                    Book newBook = new Book("1","2","3","4");
                     allBook.add(abook);
-
-                    Log.i("BowenTestHHHH ",allBook.get(0).getTitle()+" "+allBook.get(0).getAuthor()+" "+allBook.get(0).getStatus()+" ");
-
-                    Log.i("BowenTestHHHH ","Bowen HHHHHH 1");
-                    //if (aBook.getStatus().equals(i)) {
                     callBack.getNewBook(abook);
                 }
-                Log.i("BowenTestHHHH","1321321321321321321321");
-                //callBack.onBookReceived(allBook);
-//                callBack.onNewBookReceived(newBook);
             }
 
             @Override
@@ -96,7 +87,6 @@ public class DataBaseUtil {
         });
 
     }
-
 
     public interface OnDataReceiveCallBack{
         void onDataReceived(ArrayList<String> arry);
@@ -111,33 +101,28 @@ public class DataBaseUtil {
         void getNewBook(Book aBook);
     }
 
-    public void testAllInfoBook(final GetBooksArray callBack){
+
+
+    // this function is for Borrower
+    // it will get all Borrower book
+    // and it can be filtered by the status
+    public void getBorrowerBok(final getNewBook callBack){
         ALlData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> allBookkey = new ArrayList<>();
                 ArrayList<Book> allBook = new ArrayList<>();
-                //Book abook;
-                for (DataSnapshot bookKeys: dataSnapshot.child("Book").getChildren()){
-                    //String aBookKey = bookKeys.getKey();
-                    Log.i("BowenTestHHHH ","Bowen Test 2");
-                    String Des = bookKeys.child("Description").getValue(String.class);
-                    String Status = bookKeys.child("Status").getValue(String.class);
-                    String Title = bookKeys.child("Title").getValue(String.class);
-                    String author = bookKeys.child("author").getValue(String.class);
+                for (DataSnapshot bookKeys: dataSnapshot.child("User").child(userName).child("Book").child("Borrower").getChildren()){
+                    String key = bookKeys.getKey();
+                    allBookkey.add(key);
+                    String Des = dataSnapshot.child("Book").child(key).child("Description").getValue(String.class);
+                    String Status = dataSnapshot.child("Book").child(key).child("Status").getValue(String.class);
+                    String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
+                    String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
                     Book abook = new Book(Title,"321",Status,"4");
-                    Book newBook = new Book("1","2","3","4");
                     allBook.add(abook);
-
-                    Log.i("BowenTestHHHH ",allBook.get(0).getTitle()+" "+allBook.get(0).getAuthor()+" "+allBook.get(0).getStatus()+" ");
-
-                    Log.i("BowenTestHHHH ","Bowen Test 1");
-                    //if (aBook.getStatus().equals(i)) {
-                    callBack.onBookReceived(allBook);
+                    callBack.getNewBook(abook);
                 }
-                Log.i("BowenTestHHHH","1321321321321321321321");
-                //callBack.onBookReceived(allBook);
-//                callBack.onNewBookReceived(newBook);
             }
 
             @Override
@@ -149,290 +134,9 @@ public class DataBaseUtil {
     }
 
 
-
-//    //This part is for book
-//    //the Status should be int (TODO)
-//    public void getBooks(final String status,final GetBooksArray callBack ){
-//
-//        bookUniKey(new OnDataReceiveCallBack() {
-//            @Override
-//            public void onDataReceived(ArrayList<String> arry) {
-//                bookUniKeyList = arry;
-//                int UniKeySize = bookUniKeyList.size();
-//                for (int i = 0; i < UniKeySize; i++){
-//                    getBookinfo(i, new onBookReceived() {
-//                        @Override
-//                        public void onNewBookReceived(Book NewBook) {
-//                            aBook = NewBook;
-//                            Log.i("Bowen","Test 2");
-//                            if (aBook.getStatus() == status) {
-//                                bookArray.add(aBook);
-//
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//    }
-//
-//    public void testGetBooks(final String status,GetBooksArray callBack){
-//
-//        int UniKeySize = bookUniKeyList.size();
-//        for (int i = 0; i < UniKeySize; i++){
-//            getBookinfo(i, new getBooks() {
-//                @Override
-//                public void onNewBookReceived(Book NewBook) {
-//                    aBook = NewBook;
-//                    Log.i("Bowen","Test 2");
-//                    if (aBook.getStatus() == status) {
-//                        bookArray.add(aBook);
-//
-//                    }
-//                }
-//            });
-//        }
-//        callBack.onBookReceived(bookArray);
-
-//      }
-        //callBack.onBookReceived(bookArray);
-        //callBack.onBookReceived(bookArray);
-//        DatabaseReference refBookName = BookDatabase;
-//        refBookName.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                int UniKeySize = bookUniKeyList.size();
-//                for (int i = 0; i < UniKeySize; i++){
-//                    aBookinfo(i);
-//                    Log.i("Bowen","Test 2");
-//                    if (aBook.getStatus() == status) {
-//                        bookArray.add(aBook);
-//                    }
-//                }
-//                Log.i("Bowen","Test 3");
-                //callBack.onBookReceived(bookArray);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//        int UniKeySize = bookUniKeyList.size();
-//        for (int i = 0; i < UniKeySize; i++){
-//            aBookinfo(i);
-//            Log.i("Bowen","Test 2");
-//            if (aBook.getStatus() == status) {
-//                bookArray.add(aBook);
-//            }
-//        }
-//        Log.i("Bowen","Test 3");
-//
-//        callBack.onBookReceived(bookArray);
-
-        //return bookArray;
-
-    // get book title
-    private void getBookinfo(int i,final getNewBook callBack){
-        DatabaseReference refBookName = BookDatabase.child(bookUniKeyList.get(i));
-        refBookName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                BookTitle = dataSnapshot.child("Title").getValue(String.class);
-                BookDes = dataSnapshot.child("Description").getValue(String.class);
-                BookISBN = dataSnapshot.child("ISBN").getValue(String.class);
-                BookStatus = dataSnapshot.child("Status").getValue(String.class);
-                BookAuthor = dataSnapshot.child("author").getValue(String.class);
-                Book NewBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
-                callBack.getNewBook(NewBook);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-        //return BookTitle;
-    }
-
-    // use this function if you want to get book info from firebase as a owner
-//    private void aBookinfo(int index){
-//
-//        getBookinfo(bookUniKeyList.get(index),);
-//        aBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
-//
-//        //return aBook;
-//    }
-
-    // get all book's unikeya and return that array
-    private void bookUniKey(final OnDataReceiveCallBack callBack){
-        //String bookUniKey;
-
-        DatabaseReference User = UserDatabase.child(userName);
-        //addListenerForSingleValueEvent() (might be better)
-        //addValueEventListener
-        User.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> temp = new ArrayList<>();
-                //Map<DataSnapshot, List<Object>> mapper = dataSnapshot.getChildr;
-                for (DataSnapshot child : dataSnapshot.child("Book").getChildren()) {
-                    BookKey = child.getKey();
-                    Log.i("MainActivity", child.getKey());
-                    bookUniKeyList.add(BookKey);
-                    callBack.onDataReceived(temp);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError firebaseError) {
-                Log.e("MainActivity", "onCancelled", firebaseError.toException());
-            }
-        });
+    public void acceptBook(Book book){
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    // get book description
-//    private void getBookDes(String bookUniKey){
-//        DatabaseReference refBookName = BookDatabase.child(bookUniKey).child("Description");
-//        refBookName.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                BookDes = dataSnapshot.getValue(String.class);
-//                //callBack.onStringReceived(BookDes);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//
-//        //return BookDes;
-//    }
-//
-//    // get book ISBN
-//    private void getBookISBN(String bookUniKey){
-//        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("ISBN");
-//        refBookName.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                BookISBN = dataSnapshot.getValue(String.class);
-//                Log.i(TAG, dataSnapshot.getValue(String.class));
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//
-//        //return BookISBN;
-//    }
-//
-//    //get book status
-//    private void getBookStatus(String bookUniKey){
-//        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("Status");
-//        refBookName.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                BookStatus = dataSnapshot.getValue(String.class);
-//                Log.i(TAG, dataSnapshot.getValue(String.class));
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//
-//        //return BookStatus;
-//    }
-//
-//    //get book author
-//    private void getBookAuthour(String bookUniKey){
-//        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("author");
-//        refBookName.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                BookAuthor = dataSnapshot.getValue(String.class);
-//                Log.i(TAG, dataSnapshot.getValue(String.class));
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//
-//        //return BookAuthor;
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -500,7 +204,7 @@ public class DataBaseUtil {
 
     // save OwnerBook to user info
     private void OwnerBook(String name,String BookName){
-        UserDatabase.child(name).child("OwnerBook").child(BookKey).child("Title").setValue(BookName);
+        UserDatabase.child(name).child("Book").child(BookKey).child("Title").setValue(BookName);
     }
 
     // save BorrowerBook to user info
@@ -540,25 +244,24 @@ public class DataBaseUtil {
 
 
 
+    // the interface for User
+    public interface getUserInfo{
+        void getNewUser(User value);
+    }
+
 
     // get user info from data
-    public User getOneUser(String name){
-        getPassword(name);
-        getEmail(name);
-        getPhone(name);
-        getAddress(name);
-        User user = new User(name,getPhone,getEmail,getAddress);
-        return user;
-    }
-    // get the password
-    private void getPassword(String name){
-        //String getName;
-        DatabaseReference User = UserDatabase.child(name).child("password");
-        User.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getOneUser(final getUserInfo callBack){
+
+        UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                getPassword = (String) dataSnapshot.getValue().toString();
-                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
+                getPassword = (String) dataSnapshot.getValue(String.class);
+                getEmail = (String) dataSnapshot.getValue(String.class);
+                getAddress = (String) dataSnapshot.getValue(String.class);
+                getPhone = (String) dataSnapshot.getValue(String.class);
+                User user = new User(userName,getPhone,getEmail,getAddress);
+                callBack.getNewUser(user);
             }
 
             @Override
@@ -566,73 +269,93 @@ public class DataBaseUtil {
                 Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
-        //return getName;
     }
 
-    // get the email
-    private void getEmail(String name){
-        DatabaseReference User = UserDatabase.child(name).child("email");
-        User.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                getEmail = (String) dataSnapshot.getValue().toString();
-                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
-            }
+//
+//
+//    // get the password
+//    private void getPassword(){
+//        //String getName;
+//        DatabaseReference User = UserDatabase.child(userName).child("password");
+//        User.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                getPassword = (String) dataSnapshot.getValue().toString();
+//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//        //return getName;
+//    }
+//
+//    // get the email
+//    private void getEmail(){
+//        DatabaseReference User = UserDatabase.child(userName).child("email");
+//        User.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                getEmail = (String) dataSnapshot.getValue().toString();
+//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//        //return "1";
+//    }
+//
+//    // get the address
+//    private void getAddress(){
+//        DatabaseReference User = UserDatabase.child(userName).child("address");
+//        User.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                getAddress = (String) dataSnapshot.getValue().toString();
+//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//        //return "1";
+//    }
+//
+//    // get the phone number
+//    private void getPhone(){
+//        DatabaseReference User = UserDatabase.child(userName).child("phone");
+//        User.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                getPhone = (String) dataSnapshot.getValue().toString();
+//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//        //return "1";
+//    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-        //return "1";
+
+    // the interface for status
+    public interface getStatus{
+        void getStatus(String value);
     }
-
-    // get the address
-    private void getAddress(String name){
-        DatabaseReference User = UserDatabase.child(name).child("address");
-        User.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                getAddress = (String) dataSnapshot.getValue().toString();
-                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-        //return "1";
-    }
-
-    // get the phone number
-    private void getPhone(String name){
-        DatabaseReference User = UserDatabase.child(name).child("phone");
-        User.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                getPhone = (String) dataSnapshot.getValue().toString();
-                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-        //return "1";
-    }
-
-
-
-
-
-
 
     // This part is for Swap book and change book status
     // change book status
-    public void changeStatus(String key, int status){
-        BookDatabase.child(key).child("Status").setValue("Available");
+    public void changeStatus(String key, String status){
+        BookDatabase.child(key).child("Status").setValue(status);
     }
 
     // if there is a new request, this method can assign true to "request"
@@ -643,21 +366,47 @@ public class DataBaseUtil {
     }
 
     // get the value of "Request"
-    public boolean checkNewRequest(String name){
-        //TODO implement stub
-        return true;
+    public void checkBorrowNotification(final getStatus callBack){
+//        TODO implement stub
+//        return true;
+        UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String status;
+                status = dataSnapshot.child("User").child(userName).child("Borrow").getValue(String.class);
+                callBack.getStatus(status);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
     }
 
     // if there is a new borrow, this method can assign true to "borrow"
     // and user can be notified
     public void NewBorrow(User user){
-        UserDatabase.child(user.getName()).child("request").child("True");
+        UserDatabase.child(user.getName()).child("Borrow").child("True");
     }
 
     // get the value of "Borrow"
-    public boolean checkNewBorrow(String name){
-        //TODO implement stub
-        return true;
+    public void checkRequestNotification(final getStatus callBack){
+//        TODO implement stub
+//        return true;
+        UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String status;
+                status = dataSnapshot.child("User").child(userName).child("Request").getValue(String.class);
+                callBack.getStatus(status);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
     }
 }
 
