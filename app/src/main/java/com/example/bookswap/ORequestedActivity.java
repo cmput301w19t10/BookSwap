@@ -61,8 +61,7 @@ public class ORequestedActivity extends Activity {
         //addValueEventListener
         adapter = new ORequestedAdapter(this, 0, requestedList);
         display_listview = (ListView) findViewById(R.id.main_listview);
-        //Book newBook = new Book("1","1","1","1");
-        //requestedList.add(newBook);
+
         //display_listview.setAdapter(adapter);
 
 
@@ -72,15 +71,24 @@ public class ORequestedActivity extends Activity {
 
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.testAllInfoBook(new DataBaseUtil.getBooks(){
+        u.testAllInfoBook__2(new DataBaseUtil.getNewBook(){
             @Override
-            public void onNewBookReceived(Book value){
+            public void getNewBook(Book a){
                 //Book newBook = new Book("1","1","1","1");
-                requestedList.add(value);
-//                requestedList = a;
+                requestedList.add(a);
                 display_listview.setAdapter(adapter);
             }
         });
+
+
+//        u.testAllInfoBook(new DataBaseUtil.GetBooksArray(){
+//            @Override
+//            public void onBookReceived(ArrayList<Book> a){
+//                //Book newBook = new Book("1","1","1","1");
+//                requestedList = a;
+//                display_listview.setAdapter(adapter);
+//            }
+//        });
 
 
 
@@ -156,15 +164,5 @@ public class ORequestedActivity extends Activity {
          */
 
     }
-
-
-
-
-
-
-
-
-
-
 
 }

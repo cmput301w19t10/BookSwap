@@ -57,7 +57,10 @@ public class DataBaseUtil {
         this.userName = name;
     }
 
-    public void testAllInfoBook(final getBooks callBack){
+
+
+
+    public void testAllInfoBook__2(final getNewBook callBack){
         ALlData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,18 +69,74 @@ public class DataBaseUtil {
                 //Book abook;
                 for (DataSnapshot bookKeys: dataSnapshot.child("Book").getChildren()){
                     //String aBookKey = bookKeys.getKey();
-                    //Log.i("BowenTestHHHH",bookKeys.child("Title").getValue(String.class));
+                    Log.i("BowenTestHHHH ","Bowen HHHHHH 2");
                     String Des = bookKeys.child("Description").getValue(String.class);
                     String Status = bookKeys.child("Status").getValue(String.class);
                     String Title = bookKeys.child("Title").getValue(String.class);
                     String author = bookKeys.child("author").getValue(String.class);
-                    Book abook = new Book(Des,Status,Title,author);
-                    //Book newBook = new Book("1","1","1","1");
-                    //Log.i("BowenTestHHHH","1321321321321321321321");
+                    Book abook = new Book(Title,"321",Status,"4");
+                    Book newBook = new Book("1","2","3","4");
+                    allBook.add(abook);
+
+                    Log.i("BowenTestHHHH ",allBook.get(0).getTitle()+" "+allBook.get(0).getAuthor()+" "+allBook.get(0).getStatus()+" ");
+
+                    Log.i("BowenTestHHHH ","Bowen HHHHHH 1");
                     //if (aBook.getStatus().equals(i)) {
-                    //allBook.add(newBook);
-                    callBack.onNewBookReceived(abook);
+                    callBack.getNewBook(abook);
                 }
+                Log.i("BowenTestHHHH","1321321321321321321321");
+                //callBack.onBookReceived(allBook);
+//                callBack.onNewBookReceived(newBook);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+
+    }
+
+
+    public interface OnDataReceiveCallBack{
+        void onDataReceived(ArrayList<String> arry);
+        //void onStringReceived(String value);
+    }
+
+    public interface GetBooksArray{
+        void onBookReceived(ArrayList<Book> value);
+    }
+
+    public interface getNewBook{
+        void getNewBook(Book aBook);
+    }
+
+    public void testAllInfoBook(final GetBooksArray callBack){
+        ALlData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> allBookkey = new ArrayList<>();
+                ArrayList<Book> allBook = new ArrayList<>();
+                //Book abook;
+                for (DataSnapshot bookKeys: dataSnapshot.child("Book").getChildren()){
+                    //String aBookKey = bookKeys.getKey();
+                    Log.i("BowenTestHHHH ","Bowen Test 2");
+                    String Des = bookKeys.child("Description").getValue(String.class);
+                    String Status = bookKeys.child("Status").getValue(String.class);
+                    String Title = bookKeys.child("Title").getValue(String.class);
+                    String author = bookKeys.child("author").getValue(String.class);
+                    Book abook = new Book(Title,"321",Status,"4");
+                    Book newBook = new Book("1","2","3","4");
+                    allBook.add(abook);
+
+                    Log.i("BowenTestHHHH ",allBook.get(0).getTitle()+" "+allBook.get(0).getAuthor()+" "+allBook.get(0).getStatus()+" ");
+
+                    Log.i("BowenTestHHHH ","Bowen Test 1");
+                    //if (aBook.getStatus().equals(i)) {
+                    callBack.onBookReceived(allBook);
+                }
+                Log.i("BowenTestHHHH","1321321321321321321321");
+                //callBack.onBookReceived(allBook);
 //                callBack.onNewBookReceived(newBook);
             }
 
@@ -91,51 +150,51 @@ public class DataBaseUtil {
 
 
 
-    //This part is for book
-    //the Status should be int (TODO)
-    public void getBooks(final String status,final GetBooksArray callBack ){
+//    //This part is for book
+//    //the Status should be int (TODO)
+//    public void getBooks(final String status,final GetBooksArray callBack ){
+//
+//        bookUniKey(new OnDataReceiveCallBack() {
+//            @Override
+//            public void onDataReceived(ArrayList<String> arry) {
+//                bookUniKeyList = arry;
+//                int UniKeySize = bookUniKeyList.size();
+//                for (int i = 0; i < UniKeySize; i++){
+//                    getBookinfo(i, new onBookReceived() {
+//                        @Override
+//                        public void onNewBookReceived(Book NewBook) {
+//                            aBook = NewBook;
+//                            Log.i("Bowen","Test 2");
+//                            if (aBook.getStatus() == status) {
+//                                bookArray.add(aBook);
+//
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//    }
+//
+//    public void testGetBooks(final String status,GetBooksArray callBack){
+//
+//        int UniKeySize = bookUniKeyList.size();
+//        for (int i = 0; i < UniKeySize; i++){
+//            getBookinfo(i, new getBooks() {
+//                @Override
+//                public void onNewBookReceived(Book NewBook) {
+//                    aBook = NewBook;
+//                    Log.i("Bowen","Test 2");
+//                    if (aBook.getStatus() == status) {
+//                        bookArray.add(aBook);
+//
+//                    }
+//                }
+//            });
+//        }
+//        callBack.onBookReceived(bookArray);
 
-        bookUniKey(new OnDataReceiveCallBack() {
-            @Override
-            public void onDataReceived(ArrayList<String> arry) {
-                bookUniKeyList = arry;
-                int UniKeySize = bookUniKeyList.size();
-                for (int i = 0; i < UniKeySize; i++){
-                    getBookinfo(i, new getBooks() {
-                        @Override
-                        public void onNewBookReceived(Book NewBook) {
-                            aBook = NewBook;
-                            Log.i("Bowen","Test 2");
-                            if (aBook.getStatus() == status) {
-                                bookArray.add(aBook);
-
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    public void testGetBooks(final String status,GetBooksArray callBack){
-
-        int UniKeySize = bookUniKeyList.size();
-        for (int i = 0; i < UniKeySize; i++){
-            getBookinfo(i, new getBooks() {
-                @Override
-                public void onNewBookReceived(Book NewBook) {
-                    aBook = NewBook;
-                    Log.i("Bowen","Test 2");
-                    if (aBook.getStatus() == status) {
-                        bookArray.add(aBook);
-
-                    }
-                }
-            });
-        }
-        callBack.onBookReceived(bookArray);
-
-    }
+//      }
         //callBack.onBookReceived(bookArray);
         //callBack.onBookReceived(bookArray);
 //        DatabaseReference refBookName = BookDatabase;
@@ -174,7 +233,7 @@ public class DataBaseUtil {
         //return bookArray;
 
     // get book title
-    private void getBookinfo(int i,final getBooks callBack){
+    private void getBookinfo(int i,final getNewBook callBack){
         DatabaseReference refBookName = BookDatabase.child(bookUniKeyList.get(i));
         refBookName.addValueEventListener(new ValueEventListener() {
             @Override
@@ -186,7 +245,7 @@ public class DataBaseUtil {
                 BookStatus = dataSnapshot.child("Status").getValue(String.class);
                 BookAuthor = dataSnapshot.child("author").getValue(String.class);
                 Book NewBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
-                callBack.onNewBookReceived(NewBook);
+                callBack.getNewBook(NewBook);
             }
 
             @Override
@@ -234,18 +293,6 @@ public class DataBaseUtil {
 
     }
 
-    public interface OnDataReceiveCallBack{
-        void onDataReceived(ArrayList<String> arry);
-        //void onStringReceived(String value);
-    }
-
-    public interface GetBooksArray{
-        void onBookReceived(ArrayList<Book> value);
-    }
-
-    public interface getBooks {
-        void onNewBookReceived(Book NewBook);
-    }
 
 
 
