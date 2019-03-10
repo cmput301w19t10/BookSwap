@@ -1,6 +1,7 @@
 package com.example.bookswap;
 
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -10,9 +11,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-//import com.google.firebase.firestore.CollectionReference;
-//import com.google.firebase.firestore.FirebaseFirestore;
-//import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +21,6 @@ import java.util.concurrent.CompletableFuture;
 import static android.content.ContentValues.TAG;
 
 public class DataBaseUtil {
-
-//    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-//    private CollectionReference chatMessageReference = firestore.collection("User");
-//    private Query johnMessagesQuery = chatMessageReference.whereEqualTo("User","");
 
     private String BookKey;
     private String BookTitle;
@@ -43,9 +37,11 @@ public class DataBaseUtil {
 
 
     private ArrayList<String> bookUniKeyList = new ArrayList<String>();
+    private Book aBook;
     public ArrayList<Book> bookArray = new ArrayList<Book>();
     private DatabaseReference BookDatabase;
     private DatabaseReference UserDatabase;
+    private DatabaseReference ALlData;
 
     //This part is for book
     //the Status should be int (TODO)
@@ -57,71 +53,167 @@ public class DataBaseUtil {
     public DataBaseUtil(String name){
         UserDatabase = FirebaseDatabase.getInstance().getReference("User");
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
+        ALlData = FirebaseDatabase.getInstance().getReference();
         this.userName = name;
     }
-    boolean flag = true;
+
+    public void testAllInfoBook(final getBooks callBack){
+        ALlData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> allBookkey = new ArrayList<>();
+                ArrayList<Book> allBook = new ArrayList<>();
+                //Book abook;
+                for (DataSnapshot bookKeys: dataSnapshot.child("Book").getChildren()){
+                    //String aBookKey = bookKeys.getKey();
+                    //Log.i("BowenTestHHHH",bookKeys.child("Title").getValue(String.class));
+                    String Des = bookKeys.child("Description").getValue(String.class);
+                    String Status = bookKeys.child("Status").getValue(String.class);
+                    String Title = bookKeys.child("Title").getValue(String.class);
+                    String author = bookKeys.child("author").getValue(String.class);
+                    Book abook = new Book(Des,Status,Title,author);
+                    //Book newBook = new Book("1","1","1","1");
+                    //Log.i("BowenTestHHHH","1321321321321321321321");
+                    //if (aBook.getStatus().equals(i)) {
+                    //allBook.add(newBook);
+                    callBack.onNewBookReceived(abook);
+                }
+//                callBack.onNewBookReceived(newBook);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+
+    }
+
+
+
     //This part is for book
     //the Status should be int (TODO)
-    public ArrayList<Book> getBooks(String status){
-        ArrayList<Book> outArray = new ArrayList<>();
-        boolean executed = true;
-        CompletableFuture<ArrayList<String>> bookUniKeyList;
+    public void getBooks(final String status,final GetBooksArray callBack ){
 
-        bookUniKey();
+        bookUniKey(new OnDataReceiveCallBack() {
+            @Override
+            public void onDataReceived(ArrayList<String> arry) {
+                bookUniKeyList = arry;
+                int UniKeySize = bookUniKeyList.size();
+                for (int i = 0; i < UniKeySize; i++){
+                    getBookinfo(i, new getBooks() {
+                        @Override
+                        public void onNewBookReceived(Book NewBook) {
+                            aBook = NewBook;
+                            Log.i("Bowen","Test 2");
+                            if (aBook.getStatus() == status) {
+                                bookArray.add(aBook);
 
-
-//        final TaskCompletionSource<List<Objects>> tcs = new TaskCompletionSource<>();
-
-
-//            bookUniKey(new MyCallback() {
-//                @Override
-//                public  ArrayList<String> onCallback(ArrayList<String> value) {
-//                    Log.i("BOWEN", " BOWEN " + value.get(0));
-//                    bookUniKeyList = value;
-//
-//                    return  bookUniKeyList;
-////                    int UniKeySize = bookUniKeyList.size();
-////                    Log.i("apple","bowen" + bookUniKeyList.size());
-//                }
-//            });
-
-//        Task<List<Object>> t = tcs.getTask();
-
-//
-        int UniKeySize = bookUniKeyList.size();
-        Log.i("apple","bowen" + bookUniKeyList.size());
-        for (int i = 0; i < UniKeySize; i++){
-            Book abook = aBookinfo(i);
-            if (abook.getStatus() == status) {
-                outArray.add(abook);
+                            }
+                        }
+                    });
+                }
             }
-        }
+        });
+    }
 
-        return outArray;
+    public void testGetBooks(final String status,GetBooksArray callBack){
+
+        int UniKeySize = bookUniKeyList.size();
+        for (int i = 0; i < UniKeySize; i++){
+            getBookinfo(i, new getBooks() {
+                @Override
+                public void onNewBookReceived(Book NewBook) {
+                    aBook = NewBook;
+                    Log.i("Bowen","Test 2");
+                    if (aBook.getStatus() == status) {
+                        bookArray.add(aBook);
+
+                    }
+                }
+            });
+        }
+        callBack.onBookReceived(bookArray);
+
+    }
+        //callBack.onBookReceived(bookArray);
+        //callBack.onBookReceived(bookArray);
+//        DatabaseReference refBookName = BookDatabase;
+//        refBookName.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                int UniKeySize = bookUniKeyList.size();
+//                for (int i = 0; i < UniKeySize; i++){
+//                    aBookinfo(i);
+//                    Log.i("Bowen","Test 2");
+//                    if (aBook.getStatus() == status) {
+//                        bookArray.add(aBook);
+//                    }
+//                }
+//                Log.i("Bowen","Test 3");
+                //callBack.onBookReceived(bookArray);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//        int UniKeySize = bookUniKeyList.size();
+//        for (int i = 0; i < UniKeySize; i++){
+//            aBookinfo(i);
+//            Log.i("Bowen","Test 2");
+//            if (aBook.getStatus() == status) {
+//                bookArray.add(aBook);
+//            }
+//        }
+//        Log.i("Bowen","Test 3");
+//
+//        callBack.onBookReceived(bookArray);
+
+        //return bookArray;
+
+    // get book title
+    private void getBookinfo(int i,final getBooks callBack){
+        DatabaseReference refBookName = BookDatabase.child(bookUniKeyList.get(i));
+        refBookName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                BookTitle = dataSnapshot.child("Title").getValue(String.class);
+                BookDes = dataSnapshot.child("Description").getValue(String.class);
+                BookISBN = dataSnapshot.child("ISBN").getValue(String.class);
+                BookStatus = dataSnapshot.child("Status").getValue(String.class);
+                BookAuthor = dataSnapshot.child("author").getValue(String.class);
+                Book NewBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
+                callBack.onNewBookReceived(NewBook);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+        //return BookTitle;
     }
 
     // use this function if you want to get book info from firebase as a owner
-    private Book aBookinfo(int index){
-
-        String BookTitle = getBookTitle(bookUniKeyList.get(index));
-        String BookDes = getBookDes(bookUniKeyList.get(index));
-        String BookISBN = getBookISBN(bookUniKeyList.get(index));
-        String BookStatus = getBookStatus(bookUniKeyList.get(index));
-        String BookAuthor = getBookAuthour(bookUniKeyList.get(index));
-        Book aBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
-
-        return aBook;
-    }
+//    private void aBookinfo(int index){
+//
+//        getBookinfo(bookUniKeyList.get(index),);
+//        aBook = new Book(BookTitle,BookAuthor,BookStatus,BookDes);
+//
+//        //return aBook;
+//    }
 
     // get all book's unikeya and return that array
-    private ArrayList<String> bookUniKey(final MyCallback myCallback){
+    private void bookUniKey(final OnDataReceiveCallBack callBack){
         //String bookUniKey;
-        final TaskCompletionSource<ArrayList<String>> tcs = new TaskCompletionSource<>();
 
         DatabaseReference User = UserDatabase.child(userName);
         //addListenerForSingleValueEvent() (might be better)
         //addValueEventListener
-        User.addListenerForSingleValueEvent(new ValueEventListener() {
+        User.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> temp = new ArrayList<>();
@@ -130,21 +222,8 @@ public class DataBaseUtil {
                     BookKey = child.getKey();
                     Log.i("MainActivity", child.getKey());
                     bookUniKeyList.add(BookKey);
+                    callBack.onDataReceived(temp);
                 }
-                a(bookUniKeyList);
-//                tcs.setResult(bookUniKeyList);
-//                Task<ArrayList<String>> t = tcs.getTask();
-//                try {
-//                    Tasks.await(t);
-//                } catch (ExecutionException | InterruptedException e) {
-//                    t = Tasks.forException(e);
-//                }
-//                ArrayList<String> result;
-//                if(t.isSuccessful()) {
-//                    result = t.getResult();
-//                    Log.i("Bowen","Bowen" + result.size());
-//                }
-//                Log.i("Bowen","Nothing");
             }
 
             @Override
@@ -153,115 +232,165 @@ public class DataBaseUtil {
             }
         });
 
-
-
-     return bookUniKeyList;
     }
 
-    private ArrayList<String> a(ArrayList<String> booklist){
-        bookUniKeyList = booklist;
-        return bookUniKeyList;
+    public interface OnDataReceiveCallBack{
+        void onDataReceived(ArrayList<String> arry);
+        //void onStringReceived(String value);
+    }
+
+    public interface GetBooksArray{
+        void onBookReceived(ArrayList<Book> value);
+    }
+
+    public interface getBooks {
+        void onNewBookReceived(Book NewBook);
     }
 
 
-    private void setBookUniKeyList(ArrayList<String> array){
-        Log.i("MainActivity","Return size: "+array.size());
-        this.bookUniKeyList = array;
-    }
 
-    // get book title
-    private String getBookTitle(String bookUniKey){
-        DatabaseReference refBookName = BookDatabase.child(bookUniKey).child("Title");
-        refBookName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                BookTitle = dataSnapshot.getValue(String.class);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-        return BookTitle;
-    }
 
-    // get book description
-    private String getBookDes(String bookUniKey){
-        DatabaseReference refBookName = BookDatabase.child(bookUniKey).child("Description");
-        refBookName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                BookDes = dataSnapshot.getValue(String.class);
 
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
 
-        return BookDes;
-    }
 
-    // get book ISBN
-    private String getBookISBN(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("ISBN");
-        refBookName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                BookISBN = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
 
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
 
-        return BookISBN;
-    }
 
-    //get book status
-    private String getBookStatus(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("Status");
-        refBookName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                BookStatus = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
 
-        return BookStatus;
-    }
 
-    //get book author
-    private String getBookAuthour(String bookUniKey){
-        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("author");
-        refBookName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                BookAuthor = dataSnapshot.getValue(String.class);
-                Log.i(TAG, dataSnapshot.getValue(String.class));
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
 
-        return BookAuthor;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    // get book description
+//    private void getBookDes(String bookUniKey){
+//        DatabaseReference refBookName = BookDatabase.child(bookUniKey).child("Description");
+//        refBookName.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                BookDes = dataSnapshot.getValue(String.class);
+//                //callBack.onStringReceived(BookDes);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//
+//        //return BookDes;
+//    }
+//
+//    // get book ISBN
+//    private void getBookISBN(String bookUniKey){
+//        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("ISBN");
+//        refBookName.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                BookISBN = dataSnapshot.getValue(String.class);
+//                Log.i(TAG, dataSnapshot.getValue(String.class));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//
+//        //return BookISBN;
+//    }
+//
+//    //get book status
+//    private void getBookStatus(String bookUniKey){
+//        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("Status");
+//        refBookName.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                BookStatus = dataSnapshot.getValue(String.class);
+//                Log.i(TAG, dataSnapshot.getValue(String.class));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//
+//        //return BookStatus;
+//    }
+//
+//    //get book author
+//    private void getBookAuthour(String bookUniKey){
+//        DatabaseReference refBookName = UserDatabase.child(bookUniKey).child("author");
+//        refBookName.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                BookAuthor = dataSnapshot.getValue(String.class);
+//                Log.i(TAG, dataSnapshot.getValue(String.class));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//
+//        //return BookAuthor;
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

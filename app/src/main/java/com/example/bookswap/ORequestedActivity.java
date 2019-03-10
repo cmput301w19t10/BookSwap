@@ -38,7 +38,7 @@ public class ORequestedActivity extends Activity {
     private ORequestedAdapter adapter;
     private Button dialog;
 
-
+    //private DataBaseUtil u = new DataBaseUtil("Bowen");
 
 
 
@@ -61,15 +61,48 @@ public class ORequestedActivity extends Activity {
         //addValueEventListener
         adapter = new ORequestedAdapter(this, 0, requestedList);
         display_listview = (ListView) findViewById(R.id.main_listview);
-        display_listview.setAdapter(adapter);
+        //Book newBook = new Book("1","1","1","1");
+        //requestedList.add(newBook);
+        //display_listview.setAdapter(adapter);
 
 
 
         dialog = (Button) findViewById(R.id.dialog);
 
 
-        DataBaseUtil u = new DataBaseUtil("Bowen");
-        requestedList = u.getBooks("Available");
+        DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.testAllInfoBook(new DataBaseUtil.getBooks(){
+            @Override
+            public void onNewBookReceived(Book value){
+                //Book newBook = new Book("1","1","1","1");
+                requestedList.add(value);
+//                requestedList = a;
+                display_listview.setAdapter(adapter);
+            }
+        });
+
+
+
+//        u.bookUniKey(new DataBaseUtil.OnDataReceiveCallBack() {
+//            @Override
+//            public void onDataReceived(ArrayList<String> arry) {
+//                int size = arry.size();
+//                for (int a = 0;a < size;a++){
+//                    Log.i("the key value is: ", arry.get(a));
+//                }
+//                Book book = new Book("1","1","1","1");
+//                requestedList.add(book);
+//                Log.i("the key value is:","Test 5 HHHHHHH");
+//                //adapter = new ORequestedAdapter(this, 0, requestedList);
+//                display_listview.setAdapter(adapter);
+//            }
+//        });
+
+//        adapter = new ORequestedAdapter(this, 0, requestedList);
+//        display_listview.setAdapter(adapter);
+        //ArrayList<Book> n = u.getBooks("Available");
+        Log.i("the key value is:","Test 2 HHHHHHH");
 
         display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
