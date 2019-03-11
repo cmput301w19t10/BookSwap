@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void helpme(){
-        Log.d("wtf", "222");
+
         Intent intent = new Intent(MainActivity.this, BorrowerActivity.class);
-        Log.d("wtf", "333");
+
         startActivity(intent);
-        Log.d("wtf", "444");
+
     }
     /**
      * called when the user tap the BOOK button
