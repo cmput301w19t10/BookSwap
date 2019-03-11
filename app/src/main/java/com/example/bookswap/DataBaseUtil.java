@@ -131,7 +131,7 @@ public class DataBaseUtil {
                             String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
                             String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
                             String image = dataSnapshot.child("Book").child(key).child("image").getValue(String.class);
-                            Book abook = new Book(Title, "321", Status, "4");
+                            Book abook = new Book(Title, "321", Status, "4","laofuqin");
                             //allBook.add(abook);
                             callBack.getNewBook(abook);
                         }

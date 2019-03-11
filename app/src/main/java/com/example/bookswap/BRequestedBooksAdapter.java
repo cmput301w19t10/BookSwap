@@ -37,7 +37,7 @@ class BRequestedBooksAdapter extends ArrayAdapter<Book> {
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
-        holder.owner.setText("Owner: "+(String)element.getOwner());
+        holder.owner.setText("Owner: "+ (String)element.getOwner());
         //holder.bookcover.setImageBitmap(element.getImage());
 //        LayoutInflater inflater = LayoutInflater.from(getContext());
 //        View customView = inflater.inflate(R.layout.requested_book_row, parent, false);
