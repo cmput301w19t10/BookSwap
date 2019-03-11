@@ -12,21 +12,29 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * owner comment intreface
+ */
 public class CommentBorrowerFragment extends Fragment {
 
     private static final String TAG = "Borrower";
+    private TextView name;
+    private RatingBar rating;
+    private TextView comment;
+    private User user;
+    private List<Review> list_reviews;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_borrower_comment, container, false);
 
-        User user = getArguments().getParcelable("user");
+        user = getArguments().getParcelable("user");
         View include = view.findViewById(R.id.review);
-        TextView name = include.findViewById(R.id.name);
-        RatingBar rating = include.findViewById(R.id.ratingBar);
-        TextView comment = include.findViewById(R.id.comment);
-        List<Review> list_reviews = user.getBorrowerReviews();
+        name = include.findViewById(R.id.name);
+        rating = include.findViewById(R.id.ratingBar);
+        comment = include.findViewById(R.id.comment);
+        list_reviews = user.getBorrowerReviews();
         if (list_reviews.size() > 0){
             int len = list_reviews.size();
             comment.setText(list_reviews.get(len-1).getComment());
@@ -35,5 +43,18 @@ public class CommentBorrowerFragment extends Fragment {
         name.setText(user.getName());
 
         return view;
+    }
+
+    /**
+     * for refresh
+     */
+    public void onStart(){
+        super.onStart();
+        if (list_reviews.size() > 0){
+            int len = list_reviews.size();
+            comment.setText(list_reviews.get(len-1).getComment());
+            rating.setRating(Float.parseFloat(list_reviews.get(len-1).getRating()));
+        }
+        name.setText(user.getName());
     }
 }

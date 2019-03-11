@@ -10,8 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+/**
+ * borrower interface in home
+ */
 public class BorrowerFragment extends Fragment {
 
+    /**
+     *  create all views including two buttons
+     * @param inflater inflater to inflate views to this fragment
+     * @param container the view contains this fragment
+     * @param savedInstanceState instance saved to start this fragment
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -3,11 +3,15 @@ package com.example.bookswap;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * activity for showing the rating for other users
@@ -15,6 +19,7 @@ import android.widget.TextView;
 public class OtherRateActivity extends AppCompatActivity {
 
     private User user;
+    private List<Fragment> fragments;
     SectionsPageAdapter adapter;
 
     /**
@@ -27,23 +32,27 @@ public class OtherRateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_other_rate);
         TextView comment = findViewById(R.id.comment);
 
-        Intent intent = getIntent();
-        user = intent.getExtras().getParcelable("user");
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("user", user);
-        adapter.getItem(0).setArguments(bundle);
-        adapter.getItem(1).setArguments(bundle);
-
         ViewPager viewPager = findViewById(R.id.container);
         setupViewPager(viewPager);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        Intent intent = getIntent();
+        user = intent.getExtras().getParcelable("user");
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", user);
+        fragments.get(0).setArguments(bundle);
+        fragments.get(1).setArguments(bundle);
+
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(OtherRateActivity.this, CommentActivity.class), 1);
+                if (fragments.get(0).isVisible()) {
+                    startActivityForResult(new Intent(OtherRateActivity.this, CommentActivity.class), 1);
+                } else {
+                    startActivityForResult(new Intent(OtherRateActivity.this, CommentActivity.class), 2);
+                }
             }
         });
     }
@@ -60,22 +69,28 @@ public class OtherRateActivity extends AppCompatActivity {
         switch (requestCode){
             case 1:{
                 if (resultCode == RESULT_OK){
-                    /*
                     Review review = data.getExtras().getParcelable("review");
-                    user.addOwner_reviews(review);
-                    */
-                    //TODO
-                    //update this user in database since a review is added
+                    user.addOwner_review(review);
+
                     break;
                 }
+            }case 2:{
+                if (resultCode == RESULT_OK){
+                    Review review = data.getExtras().getParcelable("review");
+                    user.addBorrower_review(review);
+                }
+                break;
             }default: break;
         }
     }
 
     private void setupViewPager(ViewPager viewPager){
         adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CommentOwnerFragment(), "Owner");
-        adapter.addFragment(new CommentBorrowerFragment(), "Borrower");
+        fragments = new ArrayList<>();
+        fragments.add(new CommentOwnerFragment());
+        fragments.add(new CommentBorrowerFragment());
+        adapter.addFragment(fragments.get(0), "Owner");
+        adapter.addFragment(fragments.get(1), "Borrower");
         viewPager.setAdapter(adapter);
     }
 
