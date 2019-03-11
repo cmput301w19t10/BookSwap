@@ -179,6 +179,14 @@ public class DataBaseUtil {
 
     }
 
+    /**
+     *
+     * @param book the book you are checking
+     * @param status
+     */
+    public void changeStatus(Book book, String status){
+        BookDatabase.child(book.getUnikey()).child("Status").setValue(status);
+    }
 
     /**
      *  Adding a new book to database
@@ -197,7 +205,7 @@ public class DataBaseUtil {
         //BookOwner(book.getOwner());(TODO)
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
-        //BookPhoto(book.getUnencodedImage());
+        BookPhoto(book.getUnencodedImage());
         BookStatus();
         OwnerBook(userName,book.getTitle());
         BookUniKey();
@@ -258,22 +266,33 @@ public class DataBaseUtil {
         BookDatabase.child(BookKey).child("Status").setValue("Available");
     }
 
-    // save the photo
+    /**
+     * set a image to the user
+     * @param image the image they want to pass
+     */
     private void BookPhoto(String image){
         BookDatabase.child(BookKey).child("Photo").setValue(image);
     }
 
+    /**
+     * set a book unikey to a book
+     */
     private void BookUniKey(){
         BookDatabase.child(BookKey).child("UniKey").setValue(BookKey);
     }
 
-    // save OwnerBook to user info
+    /**
+     *
+     * set this book to user
+     * @param name
+     * @param BookName
+     */
     private void OwnerBook(String name,String BookName){
         UserDatabase.child(name).child("Book").child(BookKey).child("Title").setValue(BookName);
     }
 
     // save BorrowerBook to user info
-    private  void borrowerBook(String name, String BookName){};
+    // private  void borrowerBook(String name, String BookName){};
 
 
 
@@ -290,10 +309,9 @@ public class DataBaseUtil {
     }
 
 
-
-
-
-    // the interface for User
+    /**
+     * the interface for User
+     */
     public interface getUserInfo{
         void getNewUser(User user,List<Review> commentList);
     }
@@ -374,14 +392,19 @@ public class DataBaseUtil {
         BookDatabase.child(key).child("Status").setValue(status);
     }
 
-    // if there is a new request, this method can assign true to "request"
-    // and user can be notified
-    // int would be better TODO
+    /**
+     * Dset the request to true so that the book
+     * @param user
+     */
     public void NewRequest(User user){
         UserDatabase.child(user.getName()).child("request").child("True");
     }
 
-    // get the value of "Request"
+    /**
+     * check the user borrow status
+     * if it is true, user can be notified
+     * @param callBack
+     */
     public void checkBorrowNotification(final getStatus callBack){
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -398,13 +421,19 @@ public class DataBaseUtil {
         });
     }
 
-    // if there is a new borrow, this method can assign true to "borrow"
-    // and user can be notified
+    /**
+     * set user borrow to true
+     * @param user
+     */
     public void NewBorrow(User user){
         UserDatabase.child(user.getName()).child("Borrow").child("True");
     }
 
-    // get the value of "Borrow"
+    /**
+     * check the user request status
+     * if it is true, user can be notified
+     * @param callBack
+     */
     public void checkRequestNotification(final getStatus callBack){
 //        TODO implement stub
 //        return true;
@@ -429,7 +458,11 @@ public class DataBaseUtil {
         void getBorrower(String value);
     }
 
-
+    /**
+     * get all borrower of one book.
+     * @param book
+     * @param callBack
+     */
     public void getBookBorrower(Book book,final getBorrowerList callBack){
         BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -449,3 +482,4 @@ public class DataBaseUtil {
 
 
 }
+
