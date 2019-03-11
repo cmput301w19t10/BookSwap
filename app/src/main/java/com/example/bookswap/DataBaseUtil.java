@@ -209,6 +209,7 @@ public class DataBaseUtil {
         BookStatus();
         OwnerBook(userName,book.getTitle());
         BookUniKey();
+        bookAuthor(book.getAuthor());
         //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
         BookDescription(book.getDescription());
     }
@@ -279,6 +280,10 @@ public class DataBaseUtil {
      */
     private void BookUniKey(){
         BookDatabase.child(BookKey).child("UniKey").setValue(BookKey);
+    }
+
+    private void bookAuthor(String author){
+        BookDatabase.child(BookKey).child("Author").setValue(author);
     }
 
     /**
