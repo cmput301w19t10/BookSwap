@@ -10,6 +10,11 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * Activity to display available books
+ * Using a custom adapter
+ * @see BAvailableAdapter
+ */
 public class BAvailableActivity extends AppCompatActivity {
     private ListView availableBooks;
     private ArrayList<Book> ava_book = new ArrayList<Book>();

@@ -32,15 +32,20 @@ public class Book implements Parcelable {
     }
 
     //temporary use
-    public Book(String title, String author, String status, String description, Bitmap bmp, String owner){
+    public Book(String title, String author, String status, String description, Bitmap bmp){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
         setImage(bmp);
-        this.owner = owner;
     }
 
+    public Book(String title, String author, String status, String description){
+        this.title = title;
+        this.author = author;
+        this.status = status;
+        this.description = description;
+    }
     public Book(String title, String author, String status, String description, String owner){
         this.title = title;
         this.author = author;
@@ -93,7 +98,7 @@ public class Book implements Parcelable {
         return status;
     }
 
-    //added for requested books need implementation
+    //added for requested books 
     public String getOwner() {
         return owner;
     }

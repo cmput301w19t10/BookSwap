@@ -9,6 +9,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * Display a list of books that borrower has requested(not accepted)
+ * @author Chaoran
+ * @version 1.0
+ * @see BRequestedBooksAdapter
+ */
 public class BRequestedBooksActivity extends AppCompatActivity {
     private ListView requestedbooks;
     private ArrayList<Book> req_book = new ArrayList<Book>();

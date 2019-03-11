@@ -7,6 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * Request a book as a borrower(in progress)
+ * @author Chaoran
+ *
+ *
+ */
 public class BRequestActivity extends AppCompatActivity {
     private Button request;
     /**
