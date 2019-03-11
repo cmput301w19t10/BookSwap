@@ -41,6 +41,9 @@ public class DataBaseTest {
         });
     }
 
+    /**
+     * This one is adding user and getting user
+     */
     @Test
     public void AddAndGet_isCorrect(){
         DataBaseUtil u = new DataBaseUtil("Bowen");
@@ -53,6 +56,11 @@ public class DataBaseTest {
             }
         });
     }
+
+    /**
+     *
+     * this one is checking book status
+     */
     @Test
     public void changeAndCheckStatus(){
         DataBaseUtil u = new DataBaseUtil("Bowen");

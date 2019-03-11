@@ -173,10 +173,18 @@ public class Book implements Parcelable {
         }
         return null;
     }
+    /**
+     * getter for book cover used for database
+     * @return status of owner
+     */
 
     public String getUnencodedImage(){
         return image;
     }
+    /**
+     * setter of image for database
+     * @return status of owner
+     */
 
     public void setUnencodedImage(String image){
         this.image = image;
@@ -242,12 +250,19 @@ public class Book implements Parcelable {
     public void setOwner(String  owner){
         this.owner = owner;
     }
+    /**
+     * setter for unikey
+     * @param s Unikey of the book
+     */
 
     public void setUnikey(String s){
         this.uniKey = s;
     }
 
-
+    /**
+     * getter for unikey
+     * @return Unikey of the book
+     */
     public String getUnikey(){
         return uniKey;
     }
