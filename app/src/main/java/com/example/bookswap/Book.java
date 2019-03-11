@@ -174,6 +174,14 @@ public class Book implements Parcelable {
         return null;
     }
 
+    public String getUnencodedImage(){
+        return image;
+    }
+
+    public void setUnencodedImage(String image){
+        this.image = image;
+    }
+
     /**
      * setter for image
      * @param bmp book cover owner saved
