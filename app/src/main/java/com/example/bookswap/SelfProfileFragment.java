@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import static android.app.Activity.RESULT_OK;
 
 public class SelfProfileFragment extends Fragment implements View.OnClickListener{
@@ -49,7 +51,7 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
 
         u.getOwnerUser(new DataBaseUtil.getUserInfo() {
             @Override
-            public void getNewUser(User user) {
+            public void getNewUser(User user, List<Review> commentList) {
                 Log.d("wtf","12www"+user.getPhone_number());
                 image.setImageResource(R.drawable.user_image);
                 name.setText(user.getName());
@@ -73,7 +75,7 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
             case R.id.review_self:
                 u.getOwnerUser(new DataBaseUtil.getUserInfo() {
                     @Override
-                    public void getNewUser(User user) {
+                    public void getNewUser(User user, List<Review> commentList) {
                         Log.d("wtf","2222222222"+user.getPhone_number());
                         intent = new Intent(getActivity(), SelfRateActivity.class);
                         intent.putExtra("user", user);
@@ -84,7 +86,7 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
             case R.id.find_others:
                 u.getOwnerUser(new DataBaseUtil.getUserInfo() {
                     @Override
-                    public void getNewUser(User user) {
+                    public void getNewUser(User user, List<Review> commentList) {
                         Log.d("wtf","333333333333"+user.getPhone_number());
                         intent = new Intent(getActivity(), ProfileSearchActivity.class);
                         startActivity(intent);

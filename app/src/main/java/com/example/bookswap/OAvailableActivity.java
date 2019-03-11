@@ -40,7 +40,7 @@ public class OAvailableActivity extends AppCompatActivity {
     private static final int EDIT_BOOK_REQUEST = 2;
 
     DataBaseUtil util = new DataBaseUtil("no one");
-    private ArrayList<Book> availableList = util.getBooks("Available");//copied into memory
+    private ArrayList<Book> availableList;//copied into memory
     private OAvailableAdapter adapter; // initialize adapter.
 
     /**
@@ -160,7 +160,7 @@ public class OAvailableActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
                 availableList.add(book);
-                util.AddNewBook(book);
+                util.addNewBook(book);
             }
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)
             if (resultCode == Activity.RESULT_OK) {
