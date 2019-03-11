@@ -4,10 +4,26 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 
+
+/**
+ * Book class contains getters and setters for book details
+ *
+ * @title Title of a book
+ * @author Author of a book
+ * @status unique string to determine what state the book is in, in regads to swap.
+ * @isbn bar code of a book
+ * @description description of a book
+ * @owner owner of books
+ * @image Cover of a book
+ *
+ * Parcelable object code/learning:
+ * https://www.sitepoint.com/transfer-data-between-activities-with-android-parcelable/
+ */
 public class Book implements Parcelable {
     private String title;
     private String author;
@@ -15,8 +31,14 @@ public class Book implements Parcelable {
     private String isbn;
     private String description;
     private String owner;
-    private byte[] image;
 
+    private String image;
+    /**
+     * writes the current state of the book information to a parcel for use in other activities
+     *
+     * @param out  parcel object to be outputted for useage
+     * @param flag flags (0/1) for Parcelable
+     */
 
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
@@ -25,13 +47,11 @@ public class Book implements Parcelable {
         out.writeString(isbn);
         out.writeString(description);
         out.writeString(owner);
-        if (image != null) {
-            out.writeInt(image.length);
-            out.writeByteArray(image);
-        }
+        out.writeString(image);
+
     }
 
-    //temporary use
+
     public Book(String title, String author, String status, String description, Bitmap bmp){
         this.title = title;
         this.author = author;
@@ -62,8 +82,7 @@ public class Book implements Parcelable {
         isbn = parcel.readString();
         description = parcel.readString();
         owner = parcel.readString();
-        this.image = new byte[parcel.readInt()];
-        parcel.readByteArray(this.image);
+        image = parcel.readString();
 
     }
 
@@ -71,7 +90,7 @@ public class Book implements Parcelable {
 
 
     /**
-     * return newly populated object
+     * return newly populated book object
      */
     public static final Parcelable.Creator<Book> CREATOR
             = new Parcelable.Creator<Book>() {
@@ -86,64 +105,139 @@ public class Book implements Parcelable {
         }
     };
 
+    /**
+     * getter for title
+     * @return title of book
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * getter for author
+     * @return author of book
+     */
     public String getAuthor() {
         return author;
     }
-
+    /**
+     * getter for status
+     * @return status of book
+     */
     public String getStatus() {
         return status;
     }
 
-    //added for requested books
-    public String getOwner() {
-        return owner;
-    }
 
+    /**
+     * getter for description
+     * @return desceiption of book
+     */
     public String getDescription() {
         return description;
     }
-
+    /**
+     * getter for ISBN
+     * @return ISBN of book
+     */
     public String getISBN() {
         return isbn;
     }
-
+    /**
+     * getter for owner
+     * @return status of owner
+     */
+    public String getOwner() {
+        return owner;
+    }
+    /**
+     * getter for image
+     * @return image of book
+     *
+     * Storing bitmap as String:
+     * https://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
+     *
+     */
     public Bitmap getImage() {
-        Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
-        return bmp;
+        if (image != null) {
+            try {
+                byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
+                        encodeByte.length);
+                return bmp;
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+        }
+        return null;
     }
 
+    /**
+     * setter for image
+     * @param bmp book cover owner saved
+     */
     public void setImage(Bitmap bmp){
         if (bmp != null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            image = byteArray;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            this.image = Base64.encodeToString(b, Base64.DEFAULT);
         }
     }
-
+    /**
+     * setter for title
+     * @param title title of the book owner saved
+     */
     public void setTitle(String title){
         this.title = title;
     }
 
+    /**
+     * setter for author
+     * @param author author of the book owner saved in
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    /**
+     * setter for status
+     * @param status the status of the book
+     */
     public void setStatus(String status){
         this.status = status;
 
     }
+    /**
+     * setter for isbn
+     * @param isbn bar code of the book
+     */
 
+    public void setISBN(String isbn) {
+        this.isbn = isbn;
+    }
+
+    /**
+     * setter for description
+     * @param description the description of the book
+     */
     public void setDescription(String description){
         this.description = description;
     }
 
+    /**
+     * setter for owner
+     * @param owner the name of the owner
+     */
+    public void setOwner(String  owner){
+        this.owner = owner;
+    }
 
-    // required for parcelable
-    //return hashcode of object
+    /**
+     * required for parcelable
+     * @return hashcode of object book
+     */
     public int describeContents() {
         return hashCode();
     }

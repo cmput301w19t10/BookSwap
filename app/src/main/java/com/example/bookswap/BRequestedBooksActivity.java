@@ -46,7 +46,7 @@ public class BRequestedBooksActivity extends AppCompatActivity {
 
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.getBorrowerBok(new DataBaseUtil.getNewBook(){
+        u.getBorrowerBook(new DataBaseUtil.getNewBook(){
             @Override
             public void getNewBook(Book a){
                 if(true) {

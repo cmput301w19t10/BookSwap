@@ -38,7 +38,7 @@ public class BAvailableActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-        //todo display requested book list
+        //todo display available book list
 
 
 
@@ -47,7 +47,7 @@ public class BAvailableActivity extends AppCompatActivity {
 
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.getBorrowerBok(new DataBaseUtil.getNewBook(){
+        u.getBorrowerBook(new DataBaseUtil.getNewBook(){
             @Override
             public void getNewBook(Book a){
                 if(true) {
@@ -59,7 +59,7 @@ public class BAvailableActivity extends AppCompatActivity {
         Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
         ava_book.add(abook);
         availableBooks.setAdapter(adapter);
-        //todo: onclick listener: once select a book
-        //todo: once clicked start activity: list user requested
+        //todo: onclick listener: once select a book goto BrequestActivity
+
     }
 }
