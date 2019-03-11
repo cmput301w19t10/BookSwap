@@ -11,17 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
-/**
- * Custom adapter for the listview of available books
- * Handles the view of a singular item in the list
- *
- * @see OAvailableActivity
- *
- */
-public class OAvailableAdapter extends ArrayAdapter<Book> {
+public class ViewBookAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> availableList;
-
 
     /**
      * standard constructor from parent
@@ -29,13 +20,11 @@ public class OAvailableAdapter extends ArrayAdapter<Book> {
      * @param resource Android resource (used in super only)
      * @param objects ArrayList of our objects
      */
-    public OAvailableAdapter(Context context, int resource, ArrayList<Book> objects) {
+    public ViewBookAdapter(Context context, int resource, ArrayList<Book> objects) {
         super(context, resource, objects);
 
         this.availableList = objects;
     }
-
-
 
     /**
      * Method used to create the view for each individual item
@@ -54,8 +43,11 @@ public class OAvailableAdapter extends ArrayAdapter<Book> {
         Book element = availableList.get(position);
 
 
-        TextView title = (TextView) convertView.findViewById(R.id.listTitle);
-        TextView author = (TextView) convertView.findViewById(R.id.listAuthor);
+        TextView title = (TextView) convertView.findViewById(R.id.vTitle);
+        TextView author = (TextView) convertView.findViewById(R.id.vAuthor);
+        TextView status = (TextView) convertView.findViewById(R.id.vStatus);
+        TextView description = (TextView) convertView.findViewById(R.id.vdescription);
+        //TextView owner = (TextView) convertView.findViewById(R.id.owner);
         ImageView bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
         title.setText(element.getTitle());
         author.setText(element.getAuthor());
