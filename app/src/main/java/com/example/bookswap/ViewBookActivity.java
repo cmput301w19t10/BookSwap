@@ -1,20 +1,24 @@
 package com.example.bookswap;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import static android.content.ContentValues.TAG;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class ViewBookActivity extends AppCompatActivity {
 
@@ -34,9 +38,6 @@ public class ViewBookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.d(TAG,"nibaba");
-
         setContentView(R.layout.activity_view_book);
         ImageButton photo = findViewById(R.id.bookPhotoButton);
         // TODO: view image as larger size
@@ -113,7 +114,4 @@ public class ViewBookActivity extends AppCompatActivity {
             Toast.makeText(ViewBookActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 }

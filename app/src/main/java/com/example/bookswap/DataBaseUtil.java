@@ -165,6 +165,7 @@ public class DataBaseUtil {
 
 
     // use this function if you want to add a new book (unfinished)
+
     public void addNewBook(Book book){
         if (book.getUnikey() == null) {
             UUID number = UUID.randomUUID();
@@ -262,13 +263,14 @@ public class DataBaseUtil {
 
     // the interface for User
     public interface getUserInfo{
+
         void getNewUser(User user);
+
     }
 
 
     // get user info from data
     public void getOwnerUser(final getUserInfo callBack){
-
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -389,10 +391,26 @@ public class DataBaseUtil {
             }
         });
     }
-
-
-
-
-
 }
+    public interface getBorrowerList{
+        void getBorrower(String value);
+    }
 
+
+    public void getBookBorrower(Book book,final getBorrowerList callBack){
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot borrower: dataSnapshot.child("Borrower").getChildren()){
+                    String borrowerName = borrower.getKey();
+                    callBack.getBorrower(borrowerName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+}

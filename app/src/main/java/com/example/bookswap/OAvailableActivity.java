@@ -22,6 +22,16 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+
+/**
+ * OAvailableActivity represents the list view on the main screen
+ * also should load from database, selecting an available book(list of item), and
+ * add a new available book
+ *
+ * @see OAvailableAdapter
+ * @see EditBookActivity
+ */
+
 public class OAvailableActivity extends AppCompatActivity {
 
     private static final String FILENAME = "AvailableBooks.sav"; // save file name
@@ -29,12 +39,13 @@ public class OAvailableActivity extends AppCompatActivity {
     private static final int ADD_BOOK_REQUEST = 1;
     private static final int EDIT_BOOK_REQUEST = 2;
 
-    private ArrayList<Book> availableList = new ArrayList<>();//copied into memory
+    DataBaseUtil util = new DataBaseUtil("no one");
+    private ArrayList<Book> availableList = util.getBooks("Available");//copied into memory
     private OAvailableAdapter adapter; // initialize adapter.
 
     /**
      * On create of the activity override
-     * loads the file, sets up the adapter, loads file into arraylist, sets on click listener for
+     * loads the file, sets up the adapter, loads file into array list, sets on click listener for
      * recordings in the listview
      * @param savedInstanceState Android bundle object
      */
@@ -64,6 +75,7 @@ public class OAvailableActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = availableList.get(position);
                 Intent intent = new Intent(OAvailableActivity.this, EditBookActivity.class);
+                System.out.println(position);
                 intent.putExtra("BookInformation", book);
                 intent.putExtra("Index", position);
                 startActivityForResult(intent, EDIT_BOOK_REQUEST);
@@ -147,9 +159,8 @@ public class OAvailableActivity extends AppCompatActivity {
         if (requestCode == ADD_BOOK_REQUEST) { // adding a new record
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
-                Log.d("PLEASE", book.getTitle());
-                book.getImage();
                 availableList.add(book);
+                util.AddNewBook(book);
             }
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)
             if (resultCode == Activity.RESULT_OK) {

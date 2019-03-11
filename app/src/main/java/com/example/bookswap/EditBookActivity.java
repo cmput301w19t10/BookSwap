@@ -20,8 +20,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * Activity that allows the editting and creation UI of new available book information
- * Take owner's inputs on screen and passes the parcel to parent activity
+ * Activity that allows the editing and creation UI of new available book information
+ * Take owner's inputs on screen and passes the parcel to OAvailableActivity
+ * also responsible for deleting an existing book
  *
  * @see OAvailableActivity
  */
@@ -33,10 +34,18 @@ public class EditBookActivity extends AppCompatActivity {
     private EditText etStatus;
     private ImageButton imageButton;
     private static int BOOK_PHOTO_RESULT = 1;
+    private Intent intent;
+    //private int index;
 
     private Book book;
 
-
+    /**
+     * On create of the activity override
+     * sets on click listener for image button to add book cover
+     * get existed book information from data.
+     *
+     * @param savedInstanceState
+     */
 
 
     @Override
@@ -52,7 +61,7 @@ public class EditBookActivity extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, BOOK_PHOTO_RESULT);
             }
         });
-        Intent intent = getIntent();
+        this.intent = getIntent();
         if (intent.getParcelableExtra("BookInformation") != null){
             this.book = intent.getParcelableExtra("BookInformation");
             fillText();
@@ -98,7 +107,6 @@ public class EditBookActivity extends AppCompatActivity {
             // deletion case
             case R.id.action_delete:
                 Intent retIntent = new Intent(); // intent to return to parent activity (main)
-                Intent intent = getIntent(); // get intent sent from parent
                 int i = intent.getIntExtra("Index",-1);
                 if (i == -1) { // Can't delete an non-existing file
                     Toast.makeText(this,"nothing to delete", Toast.LENGTH_SHORT).show();
@@ -117,7 +125,10 @@ public class EditBookActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * allow getting book information from getters, populated and as a book object
+     * passes the parcel
+     */
 
     private void saveBook(){
         String title = etTitle.getText().toString();
@@ -130,6 +141,7 @@ public class EditBookActivity extends AppCompatActivity {
             image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
         }
         Book book = new Book(title, author, status, description, image);
+
         Toast.makeText(this,"Book is saved!",Toast.LENGTH_SHORT).show();
 
 
@@ -139,7 +151,6 @@ public class EditBookActivity extends AppCompatActivity {
 
         // Special code used to see if it was a previously existing book
         // passes up some information for existing book
-        Intent intent = getIntent();
         int i = intent.getIntExtra("Index",0);
         if (i != 0){
             bookIntent.putExtra("Index", i);
@@ -175,6 +186,11 @@ public class EditBookActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Check whether owner has input title and author before saving
+     * @return result of the check
+     */
     private boolean isValid(){
         if (TextUtils.isEmpty(etTitle.getText().toString())){
             return false;
@@ -184,6 +200,12 @@ public class EditBookActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * responsible for control of adding an image for book cover
+     * @param reqCode should be 1 for photo select
+     * @param resultCode should be -1 after selecting an image
+     * @param data returned intent
+     */
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);

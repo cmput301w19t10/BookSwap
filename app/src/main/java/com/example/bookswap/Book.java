@@ -33,12 +33,14 @@ public class Book implements Parcelable {
     private String owner;
     private String image;
     private String uniKey;
+  
     /**
      * writes the current state of the book information to a parcel for use in other activities
      *
      * @param out  parcel object to be outputted for useage
      * @param flag flags (0/1) for Parcelable
      */
+  
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
         out.writeString(author);
@@ -48,6 +50,7 @@ public class Book implements Parcelable {
         out.writeString(owner);
         out.writeString(image);
         out.writeString(uniKey);
+
     }
 
 
@@ -65,6 +68,13 @@ public class Book implements Parcelable {
         this.status = status;
         this.description = description;
     }
+    public Book(String title, String author, String status, String description, String owner){
+        this.title = title;
+        this.author = author;
+        this.status = status;
+        this.description = description;
+        this.owner = owner;
+    }
 
 
     public Book(Parcel parcel){
@@ -76,6 +86,7 @@ public class Book implements Parcelable {
         owner = parcel.readString();
         image = parcel.readString();
         uniKey = parcel.readString();
+
     }
 
     public Book(){}
@@ -119,6 +130,7 @@ public class Book implements Parcelable {
     public String getStatus() {
         return status;
     }
+  
     /**
      * getter for description
      * @return desceiption of book
@@ -198,6 +210,14 @@ public class Book implements Parcelable {
     public void setStatus(String status){
         this.status = status;
 
+    }
+    /**
+     * setter for isbn
+     * @param isbn bar code of the book
+     */
+
+    public void setISBN(String isbn) {
+        this.isbn = isbn;
     }
 
     /**
