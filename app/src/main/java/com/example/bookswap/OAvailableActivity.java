@@ -40,7 +40,7 @@ public class OAvailableActivity extends AppCompatActivity {
     private static final int EDIT_BOOK_REQUEST = 2;
 
     DataBaseUtil util = new DataBaseUtil("no one");
-    private ArrayList<Book> availableList;//copied into memory
+    private ArrayList<Book> availableList = new ArrayList<>();//copied into memory
     private OAvailableAdapter adapter; // initialize adapter.
 
     /**

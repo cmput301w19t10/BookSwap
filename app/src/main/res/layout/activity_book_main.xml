@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="85dp"
+        android:onClick="GoToAvailable"
         android:text="Available"
         android:textStyle="bold"
-        android:onClick="GoToAvailable"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/button_a" />

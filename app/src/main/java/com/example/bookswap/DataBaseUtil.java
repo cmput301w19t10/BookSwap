@@ -199,7 +199,7 @@ public class DataBaseUtil {
         BookISBN(book.getISBN());
         //BookPhoto(book.getUnencodedImage());
         BookStatus();
-        OwnerBook(userName,BookTitle);
+        OwnerBook(userName,book.getTitle());
         BookUniKey();
         //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
         BookDescription(book.getDescription());

@@ -106,7 +106,9 @@ public class OAvailableActivityTest extends ActivityTestRule<OAvailableActivity>
         solo.clickOnView(solo.getView(R.id.action_save));
         assertTrue(solo.waitForText("test book",1,2000));
         assertTrue(solo.waitForText("test author",1,2000));
-        assertTrue(solo.waitForText("test description",1,2000));
+        // solo.clickInList(0);
+        // assertTrue(solo.waitForText("test description",1,2000));
+        // solo.clickOnView(solo.getView(R.id.action_save));
 
         solo.clickInList(0);
         solo.clearEditText((EditText) solo.getView(R.id.etTitle));
@@ -117,6 +119,7 @@ public class OAvailableActivityTest extends ActivityTestRule<OAvailableActivity>
         assertFalse(solo.searchText("test book"));
         assertFalse(solo.searchText("test description"));
         assertTrue(solo.waitForText("Title Test",1,2000));
+        solo.clickInList(0);
         assertTrue(solo.waitForText("new description",1,2000));
 
     }
