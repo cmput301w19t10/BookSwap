@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "1081425781228",
-    "firebase_url": "https://project-52f50.firebaseio.com",
-    "project_id": "project-52f50",
-    "storage_bucket": "project-52f50.appspot.com"
+    "project_number": "517223519497",
+    "firebase_url": "https://all-acticity.firebaseio.com",
+    "project_id": "all-acticity",
+    "storage_bucket": "all-acticity.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1081425781228:android:cf097c16a85c1a80",
+        "mobilesdk_app_id": "1:517223519497:android:cf097c16a85c1a80",
         "android_client_info": {
           "package_name": "com.example.bookswap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1081425781228-67ub67qu0rpk2pav4cdaq5k0k5ftb87c.apps.googleusercontent.com",
+          "client_id": "517223519497-f3p0f12210bbma8q291nadfd057ghcan.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDBN1zP4nJwVjMr-s_5gb5-eQyfHIkm_TA"
+          "current_key": "AIzaSyCxGpMoHjXlOkqczYNE4VZ00ZfrfnShTmU"
         }
       ],
       "services": {

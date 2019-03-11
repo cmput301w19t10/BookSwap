@@ -1,11 +1,14 @@
 package com.example.bookswap;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class RequestActivity extends AppCompatActivity {
+public class BRequestActivity extends AppCompatActivity {
+    private Button request;
     /**
      * load and check book status
      * change the button depending on the status
@@ -15,7 +18,7 @@ public class RequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
-
+        Intent intent = getIntent();
         //todo: load from
         //Todo: Check if user had already booked this book. If booked, button unclickable.
 
@@ -30,7 +33,11 @@ public class RequestActivity extends AppCompatActivity {
             //todo: on click listener make a request on this book(chang book status).
             @Override
             public void onClick(View v){
+
                 //todo: start make request function
+                if (!makeRequest()){
+                    Toast.makeText(BRequestActivity.this, "Request Failed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

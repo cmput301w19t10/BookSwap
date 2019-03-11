@@ -14,6 +14,7 @@ public class Book implements Parcelable {
     private String status;
     private String isbn;
     private String description;
+    private String owner;
     private byte[] image;
 
 
@@ -23,6 +24,7 @@ public class Book implements Parcelable {
         out.writeString(status);
         out.writeString(isbn);
         out.writeString(description);
+        out.writeString(owner);
         if (image != null) {
             out.writeInt(image.length);
             out.writeByteArray(image);
@@ -30,19 +32,21 @@ public class Book implements Parcelable {
     }
 
     //temporary use
-    public Book(String title, String author, String status, String description, Bitmap bmp){
+    public Book(String title, String author, String status, String description, Bitmap bmp, String owner){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
         setImage(bmp);
+        this.owner = owner;
     }
 
-    public Book(String title, String author, String status, String description){
+    public Book(String title, String author, String status, String description, String owner){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
+        this.owner = owner;
     }
 
 
@@ -52,6 +56,7 @@ public class Book implements Parcelable {
         status = parcel.readString();
         isbn = parcel.readString();
         description = parcel.readString();
+        owner = parcel.readString();
         this.image = new byte[parcel.readInt()];
         parcel.readByteArray(this.image);
 
@@ -86,6 +91,11 @@ public class Book implements Parcelable {
 
     public String getStatus() {
         return status;
+    }
+
+    //added for requested books need implementation
+    public String getOwner() {
+        return owner;
     }
 
     public String getDescription() {
