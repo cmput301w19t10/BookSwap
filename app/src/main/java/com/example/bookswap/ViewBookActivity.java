@@ -114,7 +114,4 @@ public class ViewBookActivity extends AppCompatActivity {
             Toast.makeText(ViewBookActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 }

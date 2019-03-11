@@ -33,14 +33,14 @@ public class Book implements Parcelable {
     private String owner;
     private String image;
     private String uniKey;
-
+  
     /**
      * writes the current state of the book information to a parcel for use in other activities
      *
      * @param out  parcel object to be outputted for useage
      * @param flag flags (0/1) for Parcelable
      */
-
+  
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
         out.writeString(author);
@@ -130,7 +130,7 @@ public class Book implements Parcelable {
     public String getStatus() {
         return status;
     }
-
+  
     /**
      * getter for description
      * @return desceiption of book
@@ -236,18 +236,19 @@ public class Book implements Parcelable {
         this.owner = owner;
     }
 
-    /**
-     * required for parcelable
-     * @return hashcode of object book
-     */
-    public int describeContents() {
-        return hashCode();
-    }
     public void setUnikey(String s){
         this.uniKey = s;
     }
 
     public String getUnikey(){
         return uniKey;
+    }
+
+    /**
+     * required for parcelable
+     * @return hashcode of object book
+     */
+    public int describeContents() {
+        return hashCode();
     }
 }

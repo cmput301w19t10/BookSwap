@@ -165,20 +165,27 @@ public class DataBaseUtil {
 
 
     // use this function if you want to add a new book (unfinished)
-    public void AddNewBook(Book book){
-        UUID number = UUID.randomUUID();
-        String BookKey = number.toString();
-        this.BookKey = BookKey;
+
+    public void addNewBook(Book book){
+        if (book.getUnikey() == null) {
+            UUID number = UUID.randomUUID();
+            String BookKey = number.toString();
+            this.BookKey = BookKey;
+        }
+        else{
+            this.BookKey = book.getUnikey();
+        }
         BookName(book.getTitle());
         //BookOwner(book.getOwner());(TODO)
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
-        String image = BitMapToString(book.getImage());
-        BookPhoto(image);
+//        String image = BitMapToString(book.getImage());
+//        BookPhoto(image);
         BookStatus();
         OwnerBook(userName,BookTitle);
+        BookUniKey();
         //BookDatabase.child(BookKey).child("Title").setValue(book.getTitle());
-        //BookDescription(book.getDescription());
+        BookDescription(book.getDescription());
     }
 
     // save all book information to Firebase
@@ -256,13 +263,14 @@ public class DataBaseUtil {
 
     // the interface for User
     public interface getUserInfo{
-        void getNewUser(User value);
+
+        void getNewUser(User user);
+
     }
 
 
     // get user info from data
     public void getOwnerUser(final getUserInfo callBack){
-
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -270,8 +278,8 @@ public class DataBaseUtil {
                 getEmail = (String) dataSnapshot.child("Email").getValue(String.class);
                 getAddress = (String) dataSnapshot.child("Address").getValue(String.class);
                 getPhone = (String) dataSnapshot.child("Phone").getValue(String.class);
-                User user = new User(userName,getPhone,getEmail,getAddress);
-                callBack.getNewUser(user);
+//                User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
+//                callBack.getNewUser(user);
             }
 
             @Override
@@ -283,6 +291,14 @@ public class DataBaseUtil {
 
 
 
+
+    //delete a book
+    public void deleteBook(Book book){
+        BookDatabase.child(book.getUnikey()).removeValue();
+    }
+
+
+    //accept a borrower and delete other borrower
     public void acceptAndDeleteOther(String BorrowerName,Book book){
 
         BookDatabase.child(book.getUnikey()).child("Borrow").removeValue();
@@ -375,9 +391,26 @@ public class DataBaseUtil {
             }
         });
     }
+}
+    public interface getBorrowerList{
+        void getBorrower(String value);
+    }
 
 
+    public void getBookBorrower(Book book,final getBorrowerList callBack){
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot borrower: dataSnapshot.child("Borrower").getChildren()){
+                    String borrowerName = borrower.getKey();
+                    callBack.getBorrower(borrowerName);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-
+            }
+        });
+    }
 }

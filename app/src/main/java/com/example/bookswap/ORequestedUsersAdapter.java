@@ -1,37 +1,37 @@
 package com.example.bookswap;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
-import static android.content.Intent.getIntent;
-import static android.support.v4.content.ContextCompat.startActivity;
 
 
 /**
- *  This is the ORequestedActivity adapter, can be using to display
- *  the book for owner requested list
+ *  This is the ORequestedUserActivity adapter, can be using to display
+ *  the user list for Owner book
  */
-public class ORequestedAdapter extends ArrayAdapter<Book> {
-    private ArrayList<Book> requestedList;
-
+public class ORequestedUsersAdapter extends ArrayAdapter<String> {
+    private Context context;
+    private Book book;
+    private ArrayList<String> userList;
 
     /**
      * constructor
      * @param context
-     * @param resource
-     * @param objects
+     * @param book
+     * @param userList
      */
-    public ORequestedAdapter(Context context, int resource, ArrayList<Book> objects) {
-        super(context,resource,objects);
-        this.requestedList = objects;
+    public ORequestedUsersAdapter(Context context, Book book, ArrayList<String> userList) {
+        super(context, 0, userList);
+        this.context = context;
+        this.book = book;
+        this.userList = userList;
     }
 
 
@@ -63,55 +63,62 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
          */
         if (convertView == null){ // check if given view is null, if it is we inflate
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_orequested, null);
-            holder.title = (TextView) convertView.findViewById(R.id.listUsername);
-            holder.author = (TextView) convertView.findViewById(R.id.listBookname);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_orequesteduser, null);
+            holder.Username = (TextView) convertView.findViewById(R.id.listUsername);
+            holder.Bookname = (TextView) convertView.findViewById(R.id.listBookname);
             holder.bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
-            holder.button_request = (Button)convertView.findViewById(R.id.or_view);
+            holder.button_accept = (Button)convertView.findViewById(R.id.oru_accept);
+            holder.button_decline = (Button)convertView.findViewById(R.id.oru_decline);
             convertView.setTag(holder);
         }
         else {
-            holder = (ViewHolder)convertView.getTag();
+            holder = (ORequestedUsersAdapter.ViewHolder)convertView.getTag();
         }
 
+        holder.Username.setText(userList.get(position));
+        holder.Bookname.setText((String)book.getTitle());
 
-        Book element = requestedList.get(position);
 
-        holder.title.setText((String)element.getTitle());
-        holder.author.setText((String)element.getAuthor());
-        holder.button_request.setTag(position);
-        holder.button_request.setOnClickListener(new View.OnClickListener() {
-            //when click the button will jump to the new activity that show all the user request for this book
-            /**
-             * how to get parcel for a book
-             * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
-             * @param v
-             */
+        /**
+         * get the userlist who want to borrow this book
+         * from database
+         */
+        holder.button_accept.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
-                Log.i("Bowen Test", " AAAAAA " + requestedList.get(position).getUnikey());
-                toORequestedUser.putExtra("index", requestedList.get(position));
-                getContext().startActivity(toORequestedUser);
+                DataBaseUtil u = new DataBaseUtil("Bowen");
+                u.acceptAndDeleteOther(userList.get(position), book);
+            }
+        });
+
+        holder.button_decline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // delete this user
+                // TODO
             }
         });
 
 
-        if (element.getImage() != null) {
-            holder.bookcover.setImageBitmap(element.getImage());
+        if (book.getImage() != null) {
+            holder.bookcover.setImageBitmap(book.getImage());
         }
 
         return convertView;
+
     }
 
     /**
-     * build ViewHolder
+     * build the ViewHolder
      */
     public final class ViewHolder {
-        public TextView title;
-        public TextView author;
+        public TextView Username;
+        public TextView Bookname;
         public ImageView bookcover;
-        public Button button_request;
+        public Button button_accept;
+        public Button button_decline;
     }
 
 
