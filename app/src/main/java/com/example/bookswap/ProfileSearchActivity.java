@@ -48,7 +48,7 @@ public class ProfileSearchActivity extends AppCompatActivity {
     private void initUsers(){
         u.getOwnerUser(new DataBaseUtil.getUserInfo() {
             @Override
-            public void getNewUser(User user) {
+            public void getNewUser(User user, List<Review> commentList) {
                 only_user.setName(user.getName());
                 only_user.setEmail(user.getEmail());
                 only_user.setAddress(user.getAddress());

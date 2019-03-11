@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * activity for showing others's info
@@ -39,7 +40,7 @@ public class OtherProfileActivity extends AppCompatActivity {
 
         u.getOwnerUser(new DataBaseUtil.getUserInfo() {
             @Override
-            public void getNewUser(User user) {
+            public void getNewUser(User user, List<Review> commentList) {
                 name.setText(user.getName());
                 email.setText(user.getEmail());
                 address.setText(user.getAddress());
@@ -54,7 +55,7 @@ public class OtherProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 u.getOwnerUser(new DataBaseUtil.getUserInfo() {
                     @Override
-                    public void getNewUser(User user) {
+                    public void getNewUser(User user, List<Review> commentList) {
                         Intent intent = new Intent(OtherProfileActivity.this, OtherRateActivity.class);
                         intent.putExtra("user", user);
                         startActivity(intent);
