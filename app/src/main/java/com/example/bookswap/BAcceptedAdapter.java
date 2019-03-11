@@ -14,6 +14,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
+/**
+ *  This is the BAccepteActivity adapter, can be using to display
+ *  a list wait for owner agree to swap
+ *
+ */
 public class BAcceptedAdapter extends ArrayAdapter<Book> {
 
     private ArrayList<Book> acceptList;
@@ -69,7 +75,7 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
         else {
             holder = (ViewHolder)convertView.getTag();
         }
-        // extract our recording from the list
+
         Log.d("POSITION", Integer.toString(position));
         final Book element = acceptList.get(position);
 
@@ -119,7 +125,9 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
     }
 
 
-
+    /**
+     * builld ViewHolder
+     */
     public final class ViewHolder {
         public TextView title;
         public TextView author;

@@ -13,12 +13,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
 /**
- * every owner exist a list which book have borrower want to borrow
+ * For owner page , when owner click the request button
+ * then the owner can view which books are be requested.(it is a requested list)
  */
 public class ORequestedActivity extends Activity {
 
@@ -32,9 +39,9 @@ public class ORequestedActivity extends Activity {
     private Button dialog;
 
 
-
-
-
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -42,39 +49,33 @@ public class ORequestedActivity extends Activity {
         setContentView(R.layout.activity_orequested);
 
 
-
         adapter = new ORequestedAdapter(this, 0, requestedList);
         display_listview = (ListView) findViewById(R.id.main_listview);
 
-//
-        DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
-        u.testAllInfoBook__3(new DataBaseUtil.getNewBook(){
-            @Override
-            public void getNewBook(Book a){
-                if(true) {
-                    Log.d(TAG,"nimama");
-                    requestedList.add(a);
-                    Book testbook = new Book("nihao","nihao","nihao","niha");
-                    requestedList.add(testbook);
+        //For offline UI test
+        if (getIntent().getBooleanExtra("TEST", false)){
+            Book book = getIntent().getParcelableExtra("Book");
+            requestedList.add(book);
+            display_listview.setAdapter(adapter);
+
+        } else {
+            DataBaseUtil u;
+            u = new DataBaseUtil("Bowen");
+            u.getBorrowerBook(new DataBaseUtil.getNewBook() {
+                /**
+                 * get the requestedlist from database and then load it into the local listview
+                 *
+                 * @param a
+                 */
+                @Override
+                public void getNewBook(Book a) {
+                    if (true) {
+                        requestedList.add(a);
+                    }
+                    display_listview.setAdapter(adapter);
                 }
-                display_listview.setAdapter(adapter);
-            }
-        });
-
-//        Book testbook = new Book("nihao","nihao","nihao","niha");
-//        requestedList.add(testbook);
-//        adapter = new ORequestedAdapter(this, 0, requestedList);
-//        display_listview.setAdapter(adapter);
-
-
-
-
-
-
-//        adapter = new ORequestedAdapter(this, 0, requestedList);
-//        display_listview = (ListView) findViewById(R.id.main_listview);
-//        display_listview.setAdapter(adapter);
+            });
+        }
 
 
         /**
@@ -82,15 +83,20 @@ public class ORequestedActivity extends Activity {
          * learn that from https://www.youtube.com/watch?v=WBbsvqSu0is
          */
         display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * click
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = requestedList.get(position);
-                Intent intent = new Intent(ORequestedActivity.this , ViewBookActivity.class);
+                Intent intent = new Intent(ORequestedActivity.this , EditBookActivity.class);
                 intent.putExtra("BookInformation", book);
-//                intent.putExtra("Index", position+"");
-                Log.d(TAG,"nimama");
-                startActivity(intent);
-
+                intent.putExtra("Index", position+"");
+                startActivityForResult(intent, EDIT_BOOK_REQUEST);
             }
         });
 

@@ -9,14 +9,24 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
+
+/**
+ *  This is the ORequestedUserActivity adapter, can be using to display
+ *  the user list for Owner book
+ */
 public class ORequestedUsersAdapter extends ArrayAdapter<String> {
     private Context context;
     private Book book;
     private ArrayList<String> userList;
 
+    /**
+     * constructor
+     * @param context
+     * @param book
+     * @param userList
+     */
     public ORequestedUsersAdapter(Context context, Book book, ArrayList<String> userList) {
         super(context, 0, userList);
         this.context = context;
@@ -43,10 +53,8 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
      * @param parent      The parent that this view will eventually be attached to
      * @return A View corresponding to the data at the specified position.
      */
-
-
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
         /**
@@ -68,16 +76,19 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         }
 
         holder.Username.setText(userList.get(position));
-//        some bug happend here
         holder.Bookname.setText((String)book.getTitle());
 
 
-
-        //todo part for database
+        /**
+         * get the userlist who want to borrow this book
+         * from database
+         */
         holder.button_accept.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                
+                DataBaseUtil u = new DataBaseUtil("Bowen");
+                u.acceptAndDeleteOther(userList.get(position), book);
             }
         });
 
@@ -86,6 +97,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
 
                 // delete this user
+                // TODO
             }
         });
 
@@ -98,6 +110,9 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 
     }
 
+    /**
+     * build the ViewHolder
+     */
     public final class ViewHolder {
         public TextView Username;
         public TextView Bookname;

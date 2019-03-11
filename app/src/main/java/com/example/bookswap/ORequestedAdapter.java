@@ -10,17 +10,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import static android.content.Intent.getIntent;
 import static android.support.v4.content.ContextCompat.startActivity;
 
+
+/**
+ *  This is the ORequestedActivity adapter, can be using to display
+ *  the book for owner requested list
+ */
 public class ORequestedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> requestedList;
 
 
-
+    /**
+     * constructor
+     * @param context
+     * @param resource
+     * @param objects
+     */
     public ORequestedAdapter(Context context, int resource, ArrayList<Book> objects) {
         super(context,resource,objects);
         this.requestedList = objects;
@@ -65,27 +73,24 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
         else {
             holder = (ViewHolder)convertView.getTag();
         }
-        // extract our recording from the list
 
-//        some thing wrong here
 
-        Log.d("POSITION", Integer.toString(position));
         Book element = requestedList.get(position);
 
         holder.title.setText((String)element.getTitle());
         holder.author.setText((String)element.getAuthor());
         holder.button_request.setTag(position);
-
         holder.button_request.setOnClickListener(new View.OnClickListener() {
-
+            //when click the button will jump to the new activity that show all the user request for this book
+            /**
+             * how to get parcel for a book
+             * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
+             * @param v
+             */
             @Override
             public void onClick(View v) {
-                //when click the button will jump to the new activity that show all the user request for this book
-                /**
-                 * how to get parcel for a book
-                 * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
-                 */
                 Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
+                Log.i("Bowen Test", " AAAAAA " + requestedList.get(position).getUnikey());
                 toORequestedUser.putExtra("index", requestedList.get(position));
                 getContext().startActivity(toORequestedUser);
             }
@@ -99,6 +104,9 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
         return convertView;
     }
 
+    /**
+     * build ViewHolder
+     */
     public final class ViewHolder {
         public TextView title;
         public TextView author;

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * each borrower exist a list that the owner agree to borrow his book
+ * each borrower exist a list that the wait for owner agree to borrow his book
  */
 public class BAcceptActivity extends Activity {
 
@@ -27,40 +27,31 @@ public class BAcceptActivity extends Activity {
     private BAcceptedAdapter adapter;
 
 
-
-
-
+    /**
+     * running for activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baccept);
         display_listview = (ListView) findViewById(R.id.main_listview);
-//        dialog = (Button) findViewById(R.id.dialog);
-        Book book = new Book("title","author","status","discription",null);
-        accept_list.add(book);
+
+        // for offline UI test
+        if (getIntent().getBooleanExtra("TEST", false)) {
+            Book book = getIntent().getParcelableExtra("Book");
+            accept_list.add(book);
+        } else{
+            //TODO link database
+        }
+
+
         adapter = new BAcceptedAdapter(this,0,accept_list);
         display_listview.setAdapter(adapter);
 
 
-
-
-        //TODO when click the item can enter this pages
-        /**
-         * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
-         * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
-         */
-
     }
-
-
-
-
-
-
-
-
-
 
 
 }
