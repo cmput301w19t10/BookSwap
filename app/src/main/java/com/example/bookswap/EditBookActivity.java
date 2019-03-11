@@ -20,8 +20,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * Activity that allows the editting and creation UI of new available book information
- * Take owner's inputs on screen and passes the parcel to parent activity
+ * Activity that allows the editing and creation UI of new available book information
+ * Take owner's inputs on screen and passes the parcel to OAvailableActivity
+ * also responsible for deleting an existing book
  *
  * @see OAvailableActivity
  */
@@ -38,7 +39,13 @@ public class EditBookActivity extends AppCompatActivity {
 
     private Book book;
 
-
+    /**
+     * On create of the activity override
+     * sets on click listener for image button to add book cover
+     * get existed book information from data.
+     *
+     * @param savedInstanceState
+     */
 
 
     @Override
@@ -55,10 +62,9 @@ public class EditBookActivity extends AppCompatActivity {
             }
         });
         this.intent = getIntent();
-        System.out.print(intent.getIntExtra("Index", -2));
+
         if (intent.getParcelableExtra("BookInformation") != null){
             this.book = intent.getParcelableExtra("BookInformation");
-            //this.index = intent.getIntExtra("Index", -1);
             fillText();
         }
 
@@ -120,7 +126,10 @@ public class EditBookActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * allow getting book information from getters, populated and as a book object
+     * passes the parcel
+     */
 
     private void saveBook(){
         String title = etTitle.getText().toString();
@@ -177,6 +186,11 @@ public class EditBookActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Check whether owner has input title and author before saving
+     * @return result of the check
+     */
     private boolean isValid(){
         if (TextUtils.isEmpty(etTitle.getText().toString())){
             return false;
@@ -186,6 +200,12 @@ public class EditBookActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * responsible for control of adding an image for book cover
+     * @param reqCode should be 1 for photo select
+     * @param resultCode should be -1 after selecting an image
+     * @param data returned intent
+     */
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);

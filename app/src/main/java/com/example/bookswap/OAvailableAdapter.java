@@ -16,6 +16,8 @@ import java.util.ArrayList;
  * Custom adapter for the listview of available books
  * Handles the view of a singular item in the list
  *
+ * @see OAvailableActivity
+ *
  */
 public class OAvailableAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> availableList;

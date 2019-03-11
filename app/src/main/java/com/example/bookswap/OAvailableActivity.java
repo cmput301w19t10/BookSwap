@@ -22,6 +22,16 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+
+/**
+ * OAvailableActivity represents the list view on the main screen
+ * also should load from database, selecting an available book(list of item), and
+ * add a new available book
+ *
+ * @see OAvailableAdapter
+ * @see EditBookActivity
+ */
+
 public class OAvailableActivity extends AppCompatActivity {
 
     private static final String FILENAME = "AvailableBooks.sav"; // save file name
@@ -35,7 +45,7 @@ public class OAvailableActivity extends AppCompatActivity {
 
     /**
      * On create of the activity override
-     * loads the file, sets up the adapter, loads file into arraylist, sets on click listener for
+     * loads the file, sets up the adapter, loads file into array list, sets on click listener for
      * recordings in the listview
      * @param savedInstanceState Android bundle object
      */
@@ -150,7 +160,7 @@ public class OAvailableActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
                 availableList.add(book);
-                //util.AddNewBook(book);
+                util.AddNewBook(book);
             }
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)
             if (resultCode == Activity.RESULT_OK) {
