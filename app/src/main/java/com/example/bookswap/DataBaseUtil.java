@@ -130,7 +130,8 @@ public class DataBaseUtil {
                             String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
                             String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
                             String image = dataSnapshot.child("Book").child(key).child("image").getValue(String.class);
-                            Book abook = new Book(Title, "321", Status, "4");
+                            String Unikey = dataSnapshot.child("Book").child(key).child("Unikey").getValue(String.class);
+                            Book abook = new Book(Title, "321", Status, "4",Unikey);
                             //allBook.add(abook);
                             callBack.getNewBook(abook);
                         }
@@ -243,22 +244,6 @@ public class DataBaseUtil {
         UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
         UserDatabase.child(user.getName()).child("phone").setValue(user.getPhone_number());
     }
-//    // save the password
-//    private void addPassword (String name, String password) {
-//        UserDatabase.child(name).child("password").setValue(password);
-//    }
-//    // save the email
-//    private void addEmail (String name, String email) {
-//        UserDatabase.child(name).child("email").setValue(email);
-//    }
-//    // save the address
-//    private void addAddress (String name, String address) {
-//        UserDatabase.child(name).child("address").setValue(address);
-//    }
-//    //save the phone number
-//    private void addPhone (String name, String phone) {
-//        UserDatabase.child(name).child("phone").setValue(phone);
-//    }
 
 
 
@@ -291,81 +276,14 @@ public class DataBaseUtil {
         });
     }
 
-//
-//
-//    // get the password
-//    private void getPassword(){
-//        //String getName;
-//        DatabaseReference User = UserDatabase.child(userName).child("password");
-//        User.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                getPassword = (String) dataSnapshot.getValue().toString();
-//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//        //return getName;
-//    }
-//
-//    // get the email
-//    private void getEmail(){
-//        DatabaseReference User = UserDatabase.child(userName).child("email");
-//        User.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                getEmail = (String) dataSnapshot.getValue().toString();
-//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//        //return "1";
-//    }
-//
-//    // get the address
-//    private void getAddress(){
-//        DatabaseReference User = UserDatabase.child(userName).child("address");
-//        User.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                getAddress = (String) dataSnapshot.getValue().toString();
-//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//        //return "1";
-//    }
-//
-//    // get the phone number
-//    private void getPhone(){
-//        DatabaseReference User = UserDatabase.child(userName).child("phone");
-//        User.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                getPhone = (String) dataSnapshot.getValue().toString();
-//                //Log.i(TAG, dataSnapshot.child("ZNAME").getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//        //return "1";
-//    }
 
+
+    public void acceptAndDeleteOther(User user,Book book){
+
+        BookDatabase.child(book.getUnikey()).child("Borrow").removeValue();
+        BookDatabase.child(book.getUnikey()).child("Borrow").child(user.getName()).setValue(user.getName());
+
+    }
 
 
 

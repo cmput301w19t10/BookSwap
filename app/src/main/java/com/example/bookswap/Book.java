@@ -14,6 +14,7 @@ public class Book implements Parcelable {
     private String status;
     private String isbn;
     private String description;
+    private String Unikey;
     private byte[] image;
 
 
@@ -38,11 +39,12 @@ public class Book implements Parcelable {
         setImage(bmp);
     }
 
-    public Book(String title, String author, String status, String description){
+    public Book(String title, String author, String status, String description,String Unikey){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
+        this.Unikey = Unikey;
     }
 
 
@@ -96,6 +98,10 @@ public class Book implements Parcelable {
         return isbn;
     }
 
+    public String getUnikey(){
+        return Unikey;
+    }
+
     public Bitmap getImage() {
         if (image != null) {
             Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
@@ -129,6 +135,9 @@ public class Book implements Parcelable {
         this.description = description;
     }
 
+    public void setUnikey(String unikey) {
+        this.Unikey = unikey;
+    }
 
     // required for parcelable
     //return hashcode of object
