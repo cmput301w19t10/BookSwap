@@ -196,6 +196,14 @@ public class Book implements Parcelable {
         this.status = status;
 
     }
+    /**
+     * setter for isbn
+     * @param isbn bar code of the book
+     */
+
+    public void setISBN(String isbn) {
+        this.isbn = isbn;
+    }
 
     /**
      * setter for description

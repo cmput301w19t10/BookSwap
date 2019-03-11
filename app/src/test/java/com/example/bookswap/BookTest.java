@@ -47,5 +47,13 @@ public class BookTest {
         assertEquals(owner,book.getOwner());
     }
 
+    @Test
+    public void GetISBN(){
+        Book book = new Book();
+        String isbn = "G123456789";
+        book.setISBN(isbn);
+        assertEquals(isbn,book.getISBN());
+    }
+
 
 }
