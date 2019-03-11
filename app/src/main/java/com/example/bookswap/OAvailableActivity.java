@@ -65,6 +65,7 @@ public class OAvailableActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = availableList.get(position);
                 Intent intent = new Intent(OAvailableActivity.this, EditBookActivity.class);
+                System.out.println(position);
                 intent.putExtra("BookInformation", book);
                 intent.putExtra("Index", position);
                 startActivityForResult(intent, EDIT_BOOK_REQUEST);
@@ -148,10 +149,8 @@ public class OAvailableActivity extends AppCompatActivity {
         if (requestCode == ADD_BOOK_REQUEST) { // adding a new record
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
-                Log.d("PLEASE", book.getTitle());
-                book.getImage();
                 availableList.add(book);
-                util.AddNewBook(book);
+                //util.AddNewBook(book);
             }
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)
             if (resultCode == Activity.RESULT_OK) {

@@ -33,6 +33,8 @@ public class EditBookActivity extends AppCompatActivity {
     private EditText etStatus;
     private ImageButton imageButton;
     private static int BOOK_PHOTO_RESULT = 1;
+    private Intent intent;
+    //private int index;
 
     private Book book;
 
@@ -52,9 +54,11 @@ public class EditBookActivity extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, BOOK_PHOTO_RESULT);
             }
         });
-        Intent intent = getIntent();
+        this.intent = getIntent();
+        System.out.print(intent.getIntExtra("Index", -2));
         if (intent.getParcelableExtra("BookInformation") != null){
             this.book = intent.getParcelableExtra("BookInformation");
+            //this.index = intent.getIntExtra("Index", -1);
             fillText();
         }
 
@@ -98,7 +102,6 @@ public class EditBookActivity extends AppCompatActivity {
             // deletion case
             case R.id.action_delete:
                 Intent retIntent = new Intent(); // intent to return to parent activity (main)
-                Intent intent = getIntent(); // get intent sent from parent
                 int i = intent.getIntExtra("Index",-1);
                 if (i == -1) { // Can't delete an non-existing file
                     Toast.makeText(this,"nothing to delete", Toast.LENGTH_SHORT).show();
@@ -139,7 +142,6 @@ public class EditBookActivity extends AppCompatActivity {
 
         // Special code used to see if it was a previously existing book
         // passes up some information for existing book
-        Intent intent = getIntent();
         int i = intent.getIntExtra("Index",0);
         if (i != 0){
             bookIntent.putExtra("Index", i);

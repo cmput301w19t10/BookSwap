@@ -25,9 +25,7 @@ public class Book implements Parcelable {
         out.writeString(isbn);
         out.writeString(description);
         out.writeString(owner);
-        if (image != null) {
-            out.writeString(image);
-        }
+        out.writeString(image);
     }
 
 
