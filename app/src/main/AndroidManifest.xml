@@ -8,19 +8,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
+
         android:theme="@style/Theme.AppCompat">
+        <activity android:name=".BAvailableActivity"></activity>
+        <activity android:name=".BorrowerActivity" />
+        <activity android:name=".ORequestedBooksActivity" />
         <activity android:name=".CommentActivity" />
         <activity android:name=".OtherRateActivity" />
         <activity android:name=".OtherProfileActivity" />
         <activity android:name=".SelfRateActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".DummyActivity">
+        <activity android:name=".SelfProfileActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".DummyActivity" />
+
+
         <activity android:name=".BAcceptActivity"></activity>
         <activity android:name=".ORequestedActivity"></activity>
         <activity android:name=".ORequestedUserActivity"></activity>
@@ -29,6 +39,10 @@
         <activity
             android:name=".LoginActivity"
             android:launchMode="singleTop" />
+
+
+        <activity android:name=".BRequestActivity" />
+        <activity android:name=".BRequestedBooksActivity" />
         <activity android:name=".RequestActivity" />
         <activity android:name=".OwnerNotificationActivity" />
         <activity android:name=".RequestedBooksActivity" />
