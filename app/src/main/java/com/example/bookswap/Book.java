@@ -98,7 +98,7 @@ public class Book implements Parcelable {
         return status;
     }
 
-    //added for requested books 
+    //added for requested books
     public String getOwner() {
         return owner;
     }

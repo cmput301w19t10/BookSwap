@@ -98,7 +98,7 @@ public class DataBaseUtil {
                     String image = dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class);
                     String owner = dataSnapshot.child("Book").child(key).child("owner").getValue(String.class);
                     Bitmap tempImage = StringToBitMap(image);
-                    Book abook = new Book(Title,"321",Status,"4",tempImage,owner);
+                    Book abook = new Book(Title,"321",Status,"4",tempImage);
                     allBook.add(abook);
                     callBack.getNewBook(abook);
                 }
