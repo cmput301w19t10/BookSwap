@@ -43,22 +43,38 @@ public class ORequestedActivity extends Activity {
 
 
 
-        DataBaseUtil u = new DataBaseUtil("Bowen");
-        requestedList = u.getBooks("Available");
-        Book book1 = new Book("title","test book","test book","test book",null);
-        requestedList.add(book1);
-        Log.d(TAG,"apple"+requestedList.size()+"");
-
-
-
-
-
-
-
-
         adapter = new ORequestedAdapter(this, 0, requestedList);
         display_listview = (ListView) findViewById(R.id.main_listview);
-        display_listview.setAdapter(adapter);
+
+//
+        DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.testAllInfoBook__3(new DataBaseUtil.getNewBook(){
+            @Override
+            public void getNewBook(Book a){
+                if(true) {
+                    Log.d(TAG,"nimama");
+                    requestedList.add(a);
+                    Book testbook = new Book("nihao","nihao","nihao","niha");
+                    requestedList.add(testbook);
+                }
+                display_listview.setAdapter(adapter);
+            }
+        });
+
+//        Book testbook = new Book("nihao","nihao","nihao","niha");
+//        requestedList.add(testbook);
+//        adapter = new ORequestedAdapter(this, 0, requestedList);
+//        display_listview.setAdapter(adapter);
+
+
+
+
+
+
+//        adapter = new ORequestedAdapter(this, 0, requestedList);
+//        display_listview = (ListView) findViewById(R.id.main_listview);
+//        display_listview.setAdapter(adapter);
 
 
         /**
@@ -69,10 +85,12 @@ public class ORequestedActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = requestedList.get(position);
-                Intent intent = new Intent(ORequestedActivity.this , EditBookActivity.class);
+                Intent intent = new Intent(ORequestedActivity.this , ViewBookActivity.class);
                 intent.putExtra("BookInformation", book);
-                intent.putExtra("Index", position+"");
-                startActivityForResult(intent, EDIT_BOOK_REQUEST);
+//                intent.putExtra("Index", position+"");
+                Log.d(TAG,"nimama");
+                startActivity(intent);
+
             }
         });
 

@@ -77,7 +77,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         holder.button_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //change status of the book
+                
             }
         });
 

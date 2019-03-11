@@ -88,7 +88,7 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
                  */
                 AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                         .setTitle("Notice")
-                        .setMessage("《" + element.getTitle() + "》"+ " are you sure to borrow this book from " +
+                        .setMessage("《" + element.getTitle() + "》"+ " , are you sure to lend this book from " +
                                 "yifu")//get brower
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
                             @Override
