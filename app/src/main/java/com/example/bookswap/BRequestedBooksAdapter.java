@@ -24,7 +24,7 @@ class BRequestedBooksAdapter extends ArrayAdapter<Book> {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.requested_book_row, parent, false);
-            holder.title = (TextView) convertView.findViewById(R.id.BRB_title_textview);
+            holder.title = (TextView) convertView.findViewById(R.id.BAB_title_textview);
             holder.author = (TextView) convertView.findViewById(R.id.BRB_author_textview);
             holder.owner = (TextView) convertView.findViewById(R.id.RBR_owner_textview);
             holder.bookcover = (ImageView) convertView.findViewById(R.id.BRB_bookCover_imageview);

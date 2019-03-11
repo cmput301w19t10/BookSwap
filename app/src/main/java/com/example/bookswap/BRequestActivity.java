@@ -19,6 +19,7 @@ public class BRequestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
         Intent intent = getIntent();
+        //Book abook = intent.getExtras();
         //todo: load from
         //Todo: Check if user had already booked this book. If booked, button unclickable.
 
