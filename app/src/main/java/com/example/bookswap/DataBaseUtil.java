@@ -164,6 +164,7 @@ public class DataBaseUtil {
 
 
 
+
     // use this function if you want to add a new book (unfinished)
 
     public void addNewBook(Book book){
@@ -175,10 +176,12 @@ public class DataBaseUtil {
         else{
             this.BookKey = book.getUnikey();
         }
+
         BookName(book.getTitle());
         //BookOwner(book.getOwner());(TODO)
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
+
 //        String image = BitMapToString(book.getImage());
 //        BookPhoto(image);
         BookStatus();
@@ -263,7 +266,6 @@ public class DataBaseUtil {
 
     // the interface for User
     public interface getUserInfo{
-
         void getNewUser(User user);
 
     }
@@ -271,6 +273,7 @@ public class DataBaseUtil {
 
     // get user info from data
     public void getOwnerUser(final getUserInfo callBack){
+
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -278,8 +281,8 @@ public class DataBaseUtil {
                 getEmail = (String) dataSnapshot.child("Email").getValue(String.class);
                 getAddress = (String) dataSnapshot.child("Address").getValue(String.class);
                 getPhone = (String) dataSnapshot.child("Phone").getValue(String.class);
-//                User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
-//                callBack.getNewUser(user);
+                User user = new User(userName,getPhone,getEmail,getAddress, getPassword);
+                callBack.getNewUser(user);
             }
 
             @Override
@@ -288,9 +291,6 @@ public class DataBaseUtil {
             }
         });
     }
-
-
-
 
     //delete a book
     public void deleteBook(Book book){

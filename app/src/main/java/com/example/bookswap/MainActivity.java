@@ -7,9 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-
+/**
+ * activity for testing different parts of the app
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * create this activity
+     * create a button for going to login
+     * create a button for going to profile
+     * create a button for going to book
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         go_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
             }
         });
 
