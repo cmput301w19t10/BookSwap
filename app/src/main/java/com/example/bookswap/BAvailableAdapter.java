@@ -23,7 +23,7 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
 
         if (convertView == null) {
             holder = new BAvailableAdapter.ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available2, parent, false);
             holder.title = (TextView) convertView.findViewById(R.id.BAB_title_textview);
             holder.author = (TextView) convertView.findViewById(R.id.BAB_author_textview);
 
