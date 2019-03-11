@@ -28,6 +28,7 @@
         android:layout_marginEnd="60dp"
         android:text="Accepted"
         android:textStyle="bold"
+        android:onClick="GoToBacceptActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/button2"
@@ -42,6 +43,7 @@
         android:layout_marginTop="60dp"
         android:text="Requested"
         android:textStyle="bold"
+        android:onClick="GoToRequestActivity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2"
         tools:text="@string/button_c" />

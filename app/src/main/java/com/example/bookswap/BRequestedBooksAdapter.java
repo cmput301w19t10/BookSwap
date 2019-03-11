@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
+/**
+ * The adapter for borrower's requested book list
+ */
 class BRequestedBooksAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> req_booklist;
     public BRequestedBooksAdapter(Context context, ArrayList<Book> req_books) {
@@ -17,8 +21,17 @@ class BRequestedBooksAdapter extends ArrayAdapter<Book> {
         this.req_booklist = req_books;
     }
 
+
+    /**
+     * Attach the adapter to a list view
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convert view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        /*Using viewHolder to increase efficiency*/
         ViewHolder holder = null;
 
         if (convertView == null) {
@@ -42,9 +55,12 @@ class BRequestedBooksAdapter extends ArrayAdapter<Book> {
 //        LayoutInflater inflater = LayoutInflater.from(getContext());
 //        View customView = inflater.inflate(R.layout.requested_book_row, parent, false);
 //
-        return convertView;
+    return convertView;
     }
 
+    /**
+     * View holder variables
+     */
     public static class ViewHolder {
         public TextView title;
         public TextView author;

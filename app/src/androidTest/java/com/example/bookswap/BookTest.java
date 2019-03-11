@@ -18,6 +18,7 @@ public class BookTest {
         book.setAuthor("Author");
         book.setStatus("available");
         book.setDescription("some description");
+        book.setOwner("Owner");
 
         Parcel parcel = Parcel.obtain();
         book.writeToParcel(parcel, book.describeContents());

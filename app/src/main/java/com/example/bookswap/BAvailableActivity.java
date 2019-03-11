@@ -10,6 +10,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+
+/**
+ * Activity to display available books
+ * Using a custom adapter
+ * @see BAvailableAdapter
+ */
 public class BAvailableActivity extends AppCompatActivity {
     private ListView availableBooks;
     private ArrayList<Book> ava_book = new ArrayList<Book>();
@@ -33,7 +39,9 @@ public class BAvailableActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-        //todo display requested book list
+
+        //todo display available book list
+
 
 
 
@@ -51,6 +59,7 @@ public class BAvailableActivity extends AppCompatActivity {
                 availableBooks.setAdapter(adapter);
             }
         });
+
         //Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
         //ava_book.add(abook);
         availableBooks.setAdapter(adapter);
@@ -58,3 +67,4 @@ public class BAvailableActivity extends AppCompatActivity {
         //todo: once clicked start activity: list user requested
     }
 }
+

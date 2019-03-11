@@ -33,14 +33,23 @@
             android:name=".ProfileSearchActivity"
             android:label="Search person"
             android:theme="@style/SearchTheme" />
+=======
+
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".DummyActivity" />
+
+
+        <activity android:name=".BAcceptActivity"></activity>
+        <activity android:name=".ORequestedActivity"></activity>
+        <activity android:name=".ORequestedUserActivity"></activity>
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".LoginActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".BRequestActivity" />
+        <activity android:name=".BRequestedBooksActivity" />
         <activity android:name=".RequestActivity" />
-        <activity
-            android:name=".OwnerNotificationActivity"
-            android:theme="@style/noActionBar" />
+        <activity android:name=".OwnerNotificationActivity" />
         <activity android:name=".RequestedBooksActivity" />
         <activity
             android:name=".OwnerActivity"
@@ -65,6 +74,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OAvailableActivity" />
         </activity>
+        <activity android:name=".ViewBookActivity"></activity>
     </application>
 
 </manifest>

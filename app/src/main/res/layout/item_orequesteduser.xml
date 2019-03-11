@@ -15,7 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="137dp"
         android:layout_marginTop="3dp"
-        android:text="Title"
+        android:text="Username"
         android:textSize="18sp" />
 
     <TextView
@@ -26,12 +26,33 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="87dp"
-        android:text="Author" />
+        android:text="Bookname" />
 
     <ImageView
         android:id="@+id/bookCover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/oru_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="25dp"
+        android:text="Accept" />
+
+
+    <Button
+        android:id="@+id/oru_decline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/oru_accept"
+        android:layout_marginTop="54dp"
+        android:layout_marginRight="-89dp"
+        android:layout_toLeftOf="@id/oru_accept"
+        android:text="Decline" />
 
 </RelativeLayout>

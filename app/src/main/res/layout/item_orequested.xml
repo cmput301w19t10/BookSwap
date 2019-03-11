@@ -34,4 +34,14 @@
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <Button
+        android:id="@+id/or_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listBookname"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="-87dp"
+        android:text="View Request" />
+
 </RelativeLayout>
