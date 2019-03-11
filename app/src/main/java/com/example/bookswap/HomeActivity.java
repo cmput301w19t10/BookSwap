@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * Home inteface after login
+ */
 public class HomeActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +23,10 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    /**
+     * set up adapter for fragments
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new OwnerFragment(), "Owner");
