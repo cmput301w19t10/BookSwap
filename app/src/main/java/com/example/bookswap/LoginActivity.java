@@ -117,13 +117,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     Log.d("wtf", "123");
                     if (!task.isSuccessful()) {
+                        Log.d("wtf", "000");
                         Toast.makeText(LoginActivity.this, "No such Account", Toast.LENGTH_LONG).show();
                     }else{
+                        Log.d("wtf", "999");
                         Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, SelfProfileActivity.class);
                         //TODO
                         // if (User == null){
-                        //     User = getUser() (get this user by email and password); }
+                        //     User user = getUser() (get this user by email and password); }
                         // intent. putExtra("user", user);
                         startActivity(intent);
                     }

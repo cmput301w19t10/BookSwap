@@ -110,15 +110,18 @@ public class User implements Parcelable {
      * @return a Bitmap of image
      */
     public Bitmap getImage() {
-        try {
-            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
-            Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
-                    encodeByte.length);
-            return bmp;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
+        if (image != null) {
+            try {
+                byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
+                        encodeByte.length);
+                return bmp;
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
         }
+        return null;
     }
 
     /**
@@ -173,7 +176,8 @@ public class User implements Parcelable {
      * add a review in borrower reviews
      * @param review a Review
      */
-    public void addBorrower_reviews(Review review) {
+
+    public void addBorrower_review(Review review) {
         this.borrower_reviews.add(review);
     }
 
@@ -181,7 +185,7 @@ public class User implements Parcelable {
      * add a review in owner reviews
      * @param review a Review
      */
-    public void addOwner_reviews(Review review) {
+    public void addOwner_review(Review review) {
         this.owner_reviews.add(review);
     }
 

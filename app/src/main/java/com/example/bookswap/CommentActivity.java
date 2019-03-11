@@ -1,11 +1,14 @@
 package com.example.bookswap;
 
 import android.content.Intent;
+import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -13,8 +16,9 @@ import android.widget.Toast;
  */
 public class CommentActivity extends AppCompatActivity {
 
-    EditText edit_comment;
-    EditText edit_rating;
+    private EditText edit_comment;
+    private TextView tv_rating;
+    private RatingBar ratingBar;
 
     /**
      * create all views and a button to save this comment and rating to that user
@@ -25,13 +29,14 @@ public class CommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         edit_comment = findViewById(R.id.edit_comment);
-        edit_rating = findViewById(R.id.edit_rating);
+        tv_rating = findViewById(R.id.edit_rating);
+        ratingBar = findViewById(R.id.ratingBar);
         Button save_button = findViewById(R.id.save_comment);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String comment = edit_comment.getText().toString().trim();
-                String rating = edit_rating.getText().toString().toString();
+                String rating = String.valueOf(ratingBar.getRating());
                 if (check(comment, rating)){
                     Review review = new Review(comment, rating);
                     Intent intent = new Intent(CommentActivity.this, OtherRateActivity.class);
@@ -39,6 +44,14 @@ public class CommentActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                 }
+            }
+        });
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                String text = "Rating: " + ratingBar.getRating() + "/5.";
+                tv_rating.setText(text);
             }
         });
 

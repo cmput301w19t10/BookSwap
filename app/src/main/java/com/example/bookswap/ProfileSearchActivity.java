@@ -1,5 +1,6 @@
 package com.example.bookswap;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +20,11 @@ import java.util.List;
  */
 public class ProfileSearchActivity extends AppCompatActivity {
 
-    private List<User> userList = new ArrayList<>();
+    private User only_user;
+    private List<User> userList;
     private UserAdapter adapter;
+    RecyclerView recyclerView;
+    DataBaseUtil u = new DataBaseUtil("Bowen");
 
     /**
      * create views and create adapter for the search view
@@ -30,8 +35,8 @@ public class ProfileSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_search);
         initUsers();
-        RecyclerView recyclerView = findViewById(R.id.user_search);
         LinearLayoutManager manager = new LinearLayoutManager(this);
+        recyclerView = findViewById(R.id.user_search);
         recyclerView.setLayoutManager(manager);
         adapter = new UserAdapter(userList);
         recyclerView.setAdapter(adapter);
@@ -41,11 +46,19 @@ public class ProfileSearchActivity extends AppCompatActivity {
      * initialize users for testing
      */
     private void initUsers(){
-        List<String> example_names = Arrays.asList("Andy", "Bob", "Vincent", "Catherine", "Sherlock", "George");
-        for (int i=0; i<6; i++){
-            User user = new User(example_names.get(i), "586921321", "595542478@qq.com", "xxx-xxx-xxxxx", "123213");
-            userList.add(user);
-        }
+        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+            @Override
+            public void getNewUser(User user) {
+                only_user.setName(user.getName());
+                only_user.setEmail(user.getEmail());
+                only_user.setAddress(user.getAddress());
+                only_user.setPassword(user.getPassword());
+                userList = new ArrayList<>();
+                userList.add(only_user);
+                adapter = new UserAdapter(userList);
+                recyclerView.setAdapter(adapter);
+            }
+        });
     }
 
     /**
@@ -61,6 +74,7 @@ public class ProfileSearchActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.search_person);
         SearchView searchView = (SearchView)searchItem.getActionView();
 
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -74,5 +88,11 @@ public class ProfileSearchActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initUsers();
     }
 }

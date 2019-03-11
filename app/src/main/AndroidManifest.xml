@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".BAvailableActivity"></activity>
+        <activity android:name=".BRequestedBooksActivity" />
+        <activity android:name=".BorrowerActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".CommentActivity" />
         <activity android:name=".OtherRateActivity" />
         <activity android:name=".OtherProfileActivity" />
         <activity android:name=".SelfRateActivity" />
@@ -22,24 +25,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BAcceptActivity"> </activity>
-        <activity android:name=".ORequestedActivity"> </activity>
-        <activity android:name=".ORequestedUserActivity"> </activity>
-        <activity android:name=".SelfProfileActivity"></activity>
-        <activity android:name=".ProfileSearchActivity"
-            android:theme = "@style/SearchTheme"
-            android:label = "Search person"></activity>
-        <activity android:name=".RegisterActivity" ></activity>
+        <activity android:name=".BAcceptActivity" />
+        <activity android:name=".ORequestedActivity" />
+        <activity android:name=".ORequestedUserActivity" />
+        <activity android:name=".SelfProfileActivity" />
+        <activity
+            android:name=".ProfileSearchActivity"
+            android:label="Search person"
+            android:theme="@style/SearchTheme" />
+        <activity android:name=".RegisterActivity" />
         <activity
             android:name=".LoginActivity"
             android:launchMode="singleTop" />
-
         <activity android:name=".RequestActivity" />
         <activity
             android:name=".OwnerNotificationActivity"
             android:theme="@style/noActionBar" />
         <activity android:name=".RequestedBooksActivity" />
-
         <activity
             android:name=".OwnerActivity"
             android:parentActivityName=".DummyActivity">
@@ -56,7 +58,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OwnerActivity" />
         </activity>
-        <activity android:name=".EditBookActivity"
+        <activity
+            android:name=".EditBookActivity"
             android:parentActivityName=".OAvailableActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -65,4 +68,3 @@
     </application>
 
 </manifest>
-
