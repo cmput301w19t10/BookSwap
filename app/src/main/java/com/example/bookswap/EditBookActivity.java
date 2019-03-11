@@ -137,7 +137,6 @@ public class EditBookActivity extends AppCompatActivity {
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
         ImageButton bView = findViewById(R.id.bookPhotoButton);
-
         Bitmap image = null;
         if((BitmapDrawable) bView.getDrawable() != null) {
             image = ((BitmapDrawable) bView.getDrawable()).getBitmap();

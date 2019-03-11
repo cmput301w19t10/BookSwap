@@ -33,6 +33,7 @@ public class Book implements Parcelable {
     private String owner;
     private String image;
     private String uniKey;
+
     /**
      * writes the current state of the book information to a parcel for use in other activities
      *
@@ -85,6 +86,7 @@ public class Book implements Parcelable {
         owner = parcel.readString();
         image = parcel.readString();
         uniKey = parcel.readString();
+
     }
 
     public Book(){}
@@ -128,7 +130,6 @@ public class Book implements Parcelable {
     public String getStatus() {
         return status;
     }
-
 
     /**
      * getter for description

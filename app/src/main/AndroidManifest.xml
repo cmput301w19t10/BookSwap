@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
 
-        android:theme="@style/AppTheme">
+
+        android:theme="@style/Theme.AppCompat">
         <activity android:name=".BAvailableActivity"></activity>
         <activity android:name=".BorrowerActivity" />
         <activity android:name=".ORequestedBooksActivity" />
-
         <activity android:name=".CommentActivity" />
         <activity android:name=".OtherRateActivity" />
         <activity android:name=".OtherProfileActivity" />
@@ -30,6 +30,7 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".DummyActivity" />
 
+
         <activity android:name=".BAcceptActivity"></activity>
         <activity android:name=".ORequestedActivity"></activity>
         <activity android:name=".ORequestedUserActivity"></activity>
@@ -39,12 +40,12 @@
             android:name=".LoginActivity"
             android:launchMode="singleTop" />
 
+
         <activity android:name=".BRequestActivity" />
         <activity android:name=".BRequestedBooksActivity" />
         <activity android:name=".RequestActivity" />
         <activity android:name=".OwnerNotificationActivity" />
         <activity android:name=".RequestedBooksActivity" />
-
         <activity
             android:name=".OwnerActivity"
             android:parentActivityName=".DummyActivity">

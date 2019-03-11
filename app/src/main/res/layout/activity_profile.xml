@@ -15,13 +15,13 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/author"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/user_image" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/author"
         android:layout_width="131dp"
         android:layout_height="61dp"
         android:layout_marginStart="28dp"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/description"
         android:layout_width="286dp"
         android:layout_height="34dp"
         android:layout_marginStart="29dp"
@@ -55,13 +55,13 @@
         android:layout_marginEnd="96dp"
         android:layout_marginBottom="8dp"
         android:text="email"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/lStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/lStatus"
         android:layout_width="290dp"
         android:layout_height="37dp"
         android:layout_marginStart="29dp"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <TextView
         android:id="@+id/textView6"
@@ -87,6 +87,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/lStatus" />
 
 </android.support.constraint.ConstraintLayout>
