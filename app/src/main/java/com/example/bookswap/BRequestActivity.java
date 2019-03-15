@@ -85,10 +85,19 @@ public class BRequestActivity extends AppCompatActivity {
      * @return request success or not
      */
     public boolean makeRequest(){
+        //这是用来把borrower加到选中的book的borrowerlist的method，也就是request
+
+        //我想在点击按钮时 再次确认book仍是available的
+        //怎么用你的interface function: getStatus?
+        //
+        // 另外没在databaseUtil里找到可以把borrower 加入 一本书的borrowerlist 的method
+        //BookBorrower 看起来有点像 但是是个private function
+
         DataBaseUtil u;
-        u = new DataBaseUtil(String.valueOf(book.getOwner()));
-        //getStatus要的String是什么。。title？
+        u = new DataBaseUtil("who？");
+
         //todo: check book status see if it is requested or available
+        //getStatus要的String是什么。。title？
         //u.getStatus(String.valueOf(book.getTitle()); 红线。。应该怎么call interface？
         //todo if available change to requested
 
