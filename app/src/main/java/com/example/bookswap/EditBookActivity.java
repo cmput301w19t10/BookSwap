@@ -62,7 +62,6 @@ public class EditBookActivity extends AppCompatActivity {
             }
         });
         this.intent = getIntent();
-
         if (intent.getParcelableExtra("BookInformation") != null){
             this.book = intent.getParcelableExtra("BookInformation");
             fillText();

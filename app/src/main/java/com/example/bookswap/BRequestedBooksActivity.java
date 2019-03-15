@@ -55,10 +55,11 @@ public class BRequestedBooksActivity extends AppCompatActivity {
                 requestedbooks.setAdapter(adapter);
             }
         });
-        Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
-        req_book.add(abook);
+//        Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
+//        req_book.add(abook);
         requestedbooks.setAdapter(adapter);
         //todo: onclick listener: once select a book
-            //todo: once clicked start activity: list user requested
+        //todo: once clicked start activity: list user requested
+
     }
 }

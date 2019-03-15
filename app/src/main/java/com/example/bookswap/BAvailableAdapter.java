@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
 /**
  * Adapter for the list of requested books for borrower
  *
@@ -51,10 +52,11 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
 
         //holder.bookcover.setImageBitmap(element.getImage());
 //        LayoutInflater inflater = LayoutInflater.from(getContext());
-//        View customView = inflater.inflate(R.layout.element_available, parent, false);
+//        View customView = inflater.inflate(R.layout.element_available2, parent, false);
 //
         return convertView;
     }
+
 
     /**
      * view holder for the  adapter

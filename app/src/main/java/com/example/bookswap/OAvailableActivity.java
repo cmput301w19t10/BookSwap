@@ -40,9 +40,9 @@ public class OAvailableActivity extends AppCompatActivity {
     private static final int EDIT_BOOK_REQUEST = 2;
 
     DataBaseUtil util = new DataBaseUtil("no one");
-    private ArrayList<Book> availableList = util.getBooks("Available");//copied into memory
+    private ArrayList<Book> availableList = new ArrayList<>();//copied into memory
     private OAvailableAdapter adapter; // initialize adapter.
-
+    private ListView oldAvailableList;
     /**
      * On create of the activity override
      * loads the file, sets up the adapter, loads file into array list, sets on click listener for
@@ -52,14 +52,24 @@ public class OAvailableActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().show();
-        ListView oldAvailableList;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_list);
         Intent intentAva = getIntent();
         //loadFromFile();
         adapter = new OAvailableAdapter(this, 0, availableList);
         oldAvailableList = findViewById(R.id.mainAvailableList);
-        oldAvailableList.setAdapter(adapter);
+        util.testAllInfoBook__3(new DataBaseUtil.getNewBook() {
+            @Override
+            public void getNewBook(Book aBook) {
+                if (aBook.getStatus().equals("Available")){
+                    availableList.add(aBook);
+                    oldAvailableList.setAdapter(adapter);
+                }
+            }
+        });
+
+
 
         // On click listener to find if a list item is tapped
         oldAvailableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -160,7 +170,7 @@ public class OAvailableActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
                 availableList.add(book);
-                util.AddNewBook(book);
+                util.addNewBook(book);
             }
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)
             if (resultCode == Activity.RESULT_OK) {

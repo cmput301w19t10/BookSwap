@@ -36,7 +36,7 @@
         tools:layout_editor_absoluteY="293dp" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/name"
         android:layout_width="13dp"
         android:layout_height="17dp"
         android:text="0"

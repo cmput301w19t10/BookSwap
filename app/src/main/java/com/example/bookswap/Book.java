@@ -34,13 +34,13 @@ public class Book implements Parcelable {
     private String image;
     private String uniKey;
 
+  
     /**
      * writes the current state of the book information to a parcel for use in other activities
      *
      * @param out  parcel object to be outputted for useage
      * @param flag flags (0/1) for Parcelable
      */
-
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
         out.writeString(author);
@@ -50,7 +50,6 @@ public class Book implements Parcelable {
         out.writeString(owner);
         out.writeString(image);
         out.writeString(uniKey);
-
     }
 
 
@@ -86,7 +85,6 @@ public class Book implements Parcelable {
         owner = parcel.readString();
         image = parcel.readString();
         uniKey = parcel.readString();
-
     }
 
     public Book(){}
@@ -131,6 +129,7 @@ public class Book implements Parcelable {
         return status;
     }
 
+  
     /**
      * getter for description
      * @return desceiption of book
@@ -173,6 +172,22 @@ public class Book implements Parcelable {
             }
         }
         return null;
+    }
+    /**
+     * getter for book cover used for database
+     * @return status of owner
+     */
+
+    public String getUnencodedImage(){
+        return image;
+    }
+    /**
+     * setter of image for database
+     * @return status of owner
+     */
+
+    public void setUnencodedImage(String image){
+        this.image = image;
     }
 
     /**
@@ -235,6 +250,23 @@ public class Book implements Parcelable {
     public void setOwner(String  owner){
         this.owner = owner;
     }
+    /**
+     * setter for unikey
+     * @param s Unikey of the book
+     */
+
+    public void setUnikey(String s){
+        this.uniKey = s;
+    }
+
+    /**
+     * getter for unikey
+     * @return Unikey of the book
+     */
+    public String getUnikey(){
+        return uniKey;
+    }
+
 
     /**
      * required for parcelable
@@ -242,12 +274,5 @@ public class Book implements Parcelable {
      */
     public int describeContents() {
         return hashCode();
-    }
-    public void setUnikey(String s){
-        this.uniKey = s;
-    }
-
-    public String getUnikey(){
-        return uniKey;
     }
 }

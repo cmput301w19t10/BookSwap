@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
 /**
  * The adapter for borrower's requested book list
  */
@@ -19,6 +20,7 @@ class BRequestedBooksAdapter extends ArrayAdapter<Book> {
         super(context,R.layout.requested_book_row , req_books);
         this.req_booklist = req_books;
     }
+
 
     /**
      * Attach the adapter to a list view

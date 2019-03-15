@@ -6,23 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".OtherRateActivity">
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/activity_rate"
-        android:layout_width="343dp"
-        android:layout_height="636dp" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="379dp"
+        android:layout_height="523dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/tabs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="390dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="53dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </android.support.design.widget.TabLayout>
 
     <TextView
         android:id="@+id/comment"
-        android:layout_width="190dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="33dp"
+        android:layout_width="244dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="100dp"
+        android:gravity="center"
         android:text="Leave a comment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="25sp"
+        android:fontFamily="@font/dancing_script"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

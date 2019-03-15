@@ -18,11 +18,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * User adapter for recycler view
+ */
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> implements Filterable {
 
     private List<User> userList;
     private List<User> userListFull;
 
+    /**
+     * viewholder for all views related to user
+     */
     static class ViewHolder extends RecyclerView.ViewHolder{
         View userView;
         ImageView userImage;
@@ -42,33 +48,55 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         }
     }
 
+    /**
+     * create a User adapter
+     * @param userList a list of Users
+     */
     public UserAdapter(List<User> userList){
         this.userList = userList;
         this.userListFull = new ArrayList<>(userList);
     }
 
+    /**
+     * return the size of the user list
+     * @return a int for size of the list
+     */
     @Override
     public int getItemCount() {
         return userList.size();
     }
 
+    /**
+     * create a viewholder related to layout user_item
+     * and set a click listener for image to go the profile of this user
+     * @param viewGroup the context of this holder
+     * @param viewType type if this view
+     * @return ViewHolder
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_item, viewGroup, false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.userImage.setOnClickListener(new View.OnClickListener() {
+        holder.userView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 User user = userList.get(position);
                 Context context = holder.userView.getContext();
-                context.startActivity(new Intent(context, OtherProfileActivity.class));
+                Intent intent = new Intent(context, OtherProfileActivity.class);
+                intent.putExtra("userName", user.getName());
+                context.startActivity(intent);
             }
         });
         return holder;
     }
 
+    /**
+     * binds the values to the views of view holder
+     * @param holder a view holder
+     * @param i position of the corresponding user in the list the viewholder binds to
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         User user = userList.get(i);
@@ -79,13 +107,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         holder.userAddress.setText(user.getAddress());
     }
 
+    /**
+     * return a user filter
+     * @return Filter
+     */
     @Override
     public Filter getFilter() {
         return UserFilter;
     }
 
+    /**
+     * create a user filter
+     * performing filtering by check the typed word to user name
+     * put filtered list to userList
+     */
     private Filter UserFilter = new Filter() {
         @Override
+
         protected FilterResults performFiltering(CharSequence constraint) {
             List<User> filteredList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0){
@@ -109,7 +147,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         protected void publishResults(CharSequence constraint, FilterResults results) {
             userList.clear();
             userList.addAll(((List<User>)results.values));
-            notifyDataSetChanged();
         }
     };
 }

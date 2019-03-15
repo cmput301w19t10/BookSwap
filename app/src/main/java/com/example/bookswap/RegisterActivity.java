@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * activity for user to register a new account with email and password
+ */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText user_name;
@@ -24,7 +27,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText user_confirmpassword;
     private ProgressBar progress_bar;
     private FirebaseAuth firebaseAuth;
+    private String email;
+    private String password;
 
+    /**
+     * set all kinds of views
+     * set two buttons: login button to go to login activity, register button to register
+     * set Auth
+     * @param savedInstanceState saved state for creating activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +53,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * register user with an valid email and password
+     * when one of the fields is empty or password does not match password typed second time or email is not valid, register would failed
+     */
     private void registerUser(){
-        String email = user_name.getText().toString();
-        String password = user_password.getText().toString();
+        email = user_name.getText().toString();
+        password = user_password.getText().toString();
         String confirm_password = user_confirmpassword.getText().toString();
 
         if (TextUtils.isEmpty(email)){
@@ -67,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    User user = new User("","",email, "",password);
+                    // TODO
+                    // add this user into database
                     Toast.makeText(RegisterActivity.this, "register successfully", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }else{
@@ -78,6 +96,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /**
+     * execute different operations depends on different views user clicked on
+     * if user clicked on login button:  go to login activity
+     * else if use clicked on register activity:   try registering user
+     * @param v view the user clicked on
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){

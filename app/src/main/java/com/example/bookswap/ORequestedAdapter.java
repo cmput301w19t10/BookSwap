@@ -1,43 +1,39 @@
 package com.example.bookswap;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import java.util.ArrayList;
+import static android.content.Intent.getIntent;
+import static android.support.v4.content.ContextCompat.startActivity;
 
-public class ORequestedAdapter extends BaseAdapter {
-    /**
-     * How many items are in the data set represented by this BAcceptedAdapter.
-     *
-     * @return Count of items.
-     */
-    @Override
-    public int getCount() {
-        return 0;
-    }
 
-    /**
-     * Get the data item associated with the specified position in the data set.
-     *
-     * @param position Position of the item whose data we want within the adapter's
-     *                 data set.
-     * @return The data at the specified position.
-     */
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
+/**
+ *  This is the ORequestedActivity adapter, can be using to display
+ *  the book for owner requested list
+ */
+public class ORequestedAdapter extends ArrayAdapter<Book> {
+    private ArrayList<Book> requestedList;
+
 
     /**
-     * Get the row id associated with the specified position in the list.
-     *
-     * @param position The position of the item within the adapter's data set whose row id we want.
-     * @return The id of the item at the specified position.
+     * constructor
+     * @param context
+     * @param resource
+     * @param objects
      */
-    @Override
-    public long getItemId(int position) {
-        return 0;
+    public ORequestedAdapter(Context context, int resource, ArrayList<Book> objects) {
+        super(context,resource,objects);
+        this.requestedList = objects;
     }
+
 
     /**
      * Get a View that displays the data at the specified position in the data set. You can either
@@ -58,13 +54,65 @@ public class ORequestedAdapter extends BaseAdapter {
      * @return A View corresponding to the data at the specified position.
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
+
+        /**
+         * about how to add a button into the listview item and how to using viewholder
+         * i get the source from:https://blog.csdn.net/comeonyangzi/article/details/26858875
+         */
+        if (convertView == null){ // check if given view is null, if it is we inflate
+            holder = new ViewHolder();
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_orequested, null);
+            holder.title = (TextView) convertView.findViewById(R.id.listUsername);
+            holder.author = (TextView) convertView.findViewById(R.id.listBookname);
+            holder.bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
+            holder.button_request = (Button)convertView.findViewById(R.id.or_view);
+            convertView.setTag(holder);
+        }
+        else {
+            holder = (ViewHolder)convertView.getTag();
+        }
 
 
+        Book element = requestedList.get(position);
 
+        holder.title.setText((String)element.getTitle());
+        holder.author.setText((String)element.getAuthor());
+        holder.button_request.setTag(position);
+        holder.button_request.setOnClickListener(new View.OnClickListener() {
+            //when click the button will jump to the new activity that show all the user request for this book
+            /**
+             * how to get parcel for a book
+             * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
+                Log.i("Bowen Test", " AAAAAA " + requestedList.get(position).getUnikey());
+                toORequestedUser.putExtra("index", requestedList.get(position));
+                getContext().startActivity(toORequestedUser);
+            }
+        });
+
+
+        if (element.getImage() != null) {
+            holder.bookcover.setImageBitmap(element.getImage());
+        }
+
+        return convertView;
     }
 
+    /**
+     * build ViewHolder
+     */
+    public final class ViewHolder {
+        public TextView title;
+        public TextView author;
+        public ImageView bookcover;
+        public Button button_request;
+    }
 
 
 

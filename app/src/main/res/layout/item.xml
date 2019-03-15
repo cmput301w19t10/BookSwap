@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/self_image"
         android:layout_width="109dp"
         android:layout_height="88dp"
         tools:srcCompat="@tools:sample/avatars" />
