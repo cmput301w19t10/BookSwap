@@ -40,7 +40,7 @@ public class BRequestedBooksActivity extends AppCompatActivity {
         //todo display requested book list
 
 
-
+        req_book.clear();  
 
         adapter = new BRequestedBooksAdapter(this, req_book);
 
