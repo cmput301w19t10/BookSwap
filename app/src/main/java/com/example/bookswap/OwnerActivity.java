@@ -16,7 +16,7 @@ public class OwnerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        button_accept = (Button)findViewById(R.id.button3);
+        button_accept = (Button)findViewById(R.id.accept);
         button_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -42,6 +42,11 @@ public class User implements Parcelable {
     }
 
     /**
+     *
+     */
+    public User(){}
+
+    /**
      * get name
      * @return String of name
      */

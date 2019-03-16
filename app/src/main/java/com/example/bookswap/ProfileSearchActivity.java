@@ -20,11 +20,10 @@ import java.util.List;
  */
 public class ProfileSearchActivity extends AppCompatActivity {
 
-    private User only_user;
+    private User user;
     private List<User> userList;
     private UserAdapter adapter;
     RecyclerView recyclerView;
-    DataBaseUtil u = new DataBaseUtil("Bowen");
 
     /**
      * create views and create adapter for the search view
@@ -34,6 +33,9 @@ public class ProfileSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_search);
+
+        Intent intent = getIntent();
+        user = intent.getExtras().getParcelable("user");
         initUsers();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.user_search);
@@ -46,19 +48,8 @@ public class ProfileSearchActivity extends AppCompatActivity {
      * initialize users for testing
      */
     private void initUsers(){
-        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
-            @Override
-            public void getNewUser(User user, List<Review> commentList) {
-                only_user.setName(user.getName());
-                only_user.setEmail(user.getEmail());
-                only_user.setAddress(user.getAddress());
-                only_user.setPassword(user.getPassword());
-                userList = new ArrayList<>();
-                userList.add(only_user);
-                adapter = new UserAdapter(userList);
-                recyclerView.setAdapter(adapter);
-            }
-        });
+        userList = new ArrayList<>();
+        userList.add(user);
     }
 
     /**
