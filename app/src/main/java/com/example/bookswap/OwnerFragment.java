@@ -13,9 +13,12 @@ import android.widget.Button;
 /**
  * owner interface of home
  */
-public class OwnerFragment extends Fragment {
+public class OwnerFragment extends Fragment implements View.OnClickListener{
 
     private Button button_accept;
+    private Button button_request;
+    private Button button_available;
+    private Button button_borrow;
 
     /**
      * create all views
@@ -29,41 +32,41 @@ public class OwnerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_book_main, container, false);
 
-        button_accept = (Button)view.findViewById(R.id.button3);
-        button_accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BAcceptActivity.class);
-                startActivity(intent);
-            }
-        });
+        button_accept = view.findViewById(R.id.accept);
+        button_accept.setOnClickListener(this);
+        button_request = view.findViewById(R.id.request);
+        button_request.setOnClickListener(this);
+        button_available = view.findViewById(R.id.available);
+        button_available.setOnClickListener(this);
+        button_borrow = view.findViewById(R.id.borrow);
+        button_borrow.setOnClickListener(this);
         return view;
     }
 
     /**
-     * called when the user tap the Available button
-     *
-     * @param view
+     * actions for four buttons
+     * @param v view of the clicked button
      */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.accept:{
+                Intent intent = new Intent(getActivity(), BAcceptActivity.class);
+                startActivity(intent);
+                break;
+            }case R.id.request:{
+                Intent intent = new Intent(getActivity(), ORequestedActivity.class);
+                startActivity(intent);
+                break;
+            }case R.id.available:{
+                Intent intent = new Intent(getActivity(), OAvailableActivity.class);
+                startActivity(intent);
+                break;
+            }case R.id.borrow:{
 
-    public void GoToAvailable(View view){
-        //Do something in response to button
-        Intent intentAva = new Intent(getActivity(), OAvailableActivity.class);
-        startActivity(intentAva);
+                break;
+            }
+            default: break;
+        }
     }
-
-    public void GoToRequestActivity(View view){
-        //Do something in response to button
-        Intent intent = new Intent(getActivity(), ORequestedActivity.class);
-        startActivity(intent);
-    }
-
-//    public void GoToBacceptActivity(View view){
-//        //Do something in response to button
-//        Intent intent = new Intent(this, BAcceptActivity.class);
-//        startActivity(intent);
-//    }
-
-
-
 }
