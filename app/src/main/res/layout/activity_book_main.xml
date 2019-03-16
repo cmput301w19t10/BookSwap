@@ -7,7 +7,7 @@
     tools:context=".OwnerActivity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/available"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -20,7 +20,7 @@
         tools:text="@string/button_a" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -31,12 +31,12 @@
         android:onClick="GoToBacceptActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/available"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/button_b" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -45,11 +45,11 @@
         android:textStyle="bold"
         android:onClick="GoToRequestActivity"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/available"
         tools:text="@string/button_c" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/borrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -59,7 +59,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/request"
+        app:layout_constraintTop_toBottomOf="@+id/accept"
         tools:text="@string/button_d" />
 </android.support.constraint.ConstraintLayout>
