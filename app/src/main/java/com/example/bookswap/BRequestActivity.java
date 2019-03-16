@@ -3,11 +3,14 @@ package com.example.bookswap;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 /**
  * Request a book as a borrower(in progress)
@@ -53,61 +56,36 @@ public class BRequestActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-
+        Log.d("here","wenthere");
         title.setText("Title: "+String.valueOf(book.getTitle()));
         author.setText("Athor: " + String.valueOf(book.getAuthor()));
         description.setText("Description: "+String.valueOf(book.getDescription()));
         owner.setText("Owner: "+String.valueOf(book.getOwner()));
         status.setText("Status: "+String.valueOf(book.getStatus()));
         bookCover.setImageBitmap(book.getImage());
-
+        Log.d("bbbook",book.getUnikey());
         request.setOnClickListener(new View.OnClickListener(){
             //todo: on click listener make a request on this book(chang book status).
             @Override
             public void onClick(View v){
 
                 //todo: start make request function
-                if (!makeRequest()){
-                    Toast.makeText(BRequestActivity.this, "Request Failed", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(BRequestActivity.this, "Request Succeeded(not really)", Toast.LENGTH_SHORT).show();
-                    onBackPressed();
-                }
+                DataBaseUtil u;
+                u = new DataBaseUtil("Bowen");
+
+                u.addNewBorrow(book, new DataBaseUtil.addBorrowerSucceed() {
+                    @Override
+                    public void addNewBorrower(boolean value) {
+                        if (value) {
+                            Toast.makeText(BRequestActivity.this, "Request Successful(not really)", Toast.LENGTH_LONG).show();
+                            onBackPressed();
+                        } else {
+                            Toast.makeText(BRequestActivity.this, "Request Failed", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
         });
-
-
-    }
-
-    /**
-     * make a request to a book
-     * @return request success or not
-     */
-    public boolean makeRequest(){
-        //这是用来把borrower加到选中的book的borrowerlist的method，也就是request
-
-        //我想在点击按钮时 再次确认book仍是available的
-        //怎么用你的interface function: getStatus?
-        //
-        // 另外没在databaseUtil里找到可以把borrower 加入 一本书的borrowerlist 的method
-        //BookBorrower 看起来有点像 但是是个private function
-
-        DataBaseUtil u;
-        u = new DataBaseUtil("who？");
-
-        //todo: check book status see if it is requested or available
-        //getStatus要的String是什么。。title？
-        //u.getStatus(String.valueOf(book.getTitle()); 红线。。应该怎么call interface？
-        //todo if available change to requested
-
-
-        //好像没有让我加borrower的method？ 现在是private，
-        // 并且现在DataUtil里面我是不是应该pass书和名字给你啊
-        // 但是现在只要我pass borrower的名字，database并不知道我要request哪本书吧？
-        //u.BookBorrower("borrower_1");这个是private 红线
-        //todo: if not requested or available request fails return false
-        //todo: if requested or available: add user name to book attribute's borrower list return true
-        return true;
     }
 }
+
