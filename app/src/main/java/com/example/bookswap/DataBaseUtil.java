@@ -101,7 +101,7 @@ public class DataBaseUtil {
      *  this function is for Owner
      *  It can get all owner Book
      *  And it can be filtered by status in the activity
-     * @param callBack a interface for
+     *  @param callBack a interface for
      */
     public void testAllInfoBook__3(final getNewBook callBack){
         ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,17 +119,7 @@ public class DataBaseUtil {
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
                     book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                    //allBook.add(abook);
                     callBack.getNewBook(book);
-//                    String Des = dataSnapshot.child("Book").child(key).child("Description").getValue(String.class);
-//                    String Status = dataSnapshot.child("Book").child(key).child("Status").getValue(String.class);
-//                    String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
-//                    String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
-//                    String image = dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class);
-//                    Bitmap tempImage = StringToBitMap(image);
-//                    Book abook = new Book(Title,"321",Status,"4",tempImage);
-//                    allBook.add(abook);
-//                    callBack.getNewBook(abook);
                 }
             }
 
@@ -220,8 +210,6 @@ public class DataBaseUtil {
      * @param BookName a bookName for
      */
     private void BookName(String BookName) {
-        //public UUID number = UUID.randomUUID();
-        //public String BookKey = number.toString();
         BookDatabase.child(BookKey).child("Title").setValue(BookName);
     }
 
@@ -399,9 +387,10 @@ public class DataBaseUtil {
 
     /**
      * Dset the request to true so that the book
+     * a new request Notification
      * @param user
      */
-    public void NewRequest(User user){
+    public void NewRequestNotification(User user){
         UserDatabase.child(user.getName()).child("request").child("True");
     }
 
@@ -428,9 +417,10 @@ public class DataBaseUtil {
 
     /**
      * set user borrow to true
+     * add a new borrow notification
      * @param user
      */
-    public void NewBorrow(User user){
+    public void newBorrowNotification(User user){
         UserDatabase.child(user.getName()).child("Borrow").child("True");
     }
 
@@ -485,6 +475,40 @@ public class DataBaseUtil {
         });
     }
 
+
+    /**
+     * Chaoran Part
+     * add a username to the selected book's borrower list
+     */
+    public interface addBorrowerSucceed{
+        void addNewBorrower(boolean value);
+    }
+
+
+    /**
+     * for Chaoran part
+     * add a new borrower to that book borrower list
+     * @param book
+     */
+    public void addNewBorrow(final Book book, final addBorrowerSucceed callBack) {
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String status = dataSnapshot.child("Status").getValue(String.class);
+                if (status.equals("Available")){
+                    BookDatabase.child(book.getUnikey()).child(userName).child(userName);
+                    callBack.addNewBorrower(true);
+                } else {
+                    callBack.addNewBorrower(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }
 
