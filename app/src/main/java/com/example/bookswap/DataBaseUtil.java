@@ -355,19 +355,6 @@ public class DataBaseUtil {
     }
 
 
-    /**
-     *
-     * acccept a user and delete others
-     * @param BorrowerName
-     * @param book
-     */
-    public void acceptAndDeleteOther(String BorrowerName,Book book){
-
-        BookDatabase.child(book.getUnikey()).child("Borrow").removeValue();
-        BookDatabase.child(book.getUnikey()).child("Borrow").child(BorrowerName).setValue(BorrowerName);
-
-    }
-
 
     /**
      * a intereface for getting data
@@ -383,6 +370,103 @@ public class DataBaseUtil {
      */
     public void changeStatus(String key, String status){
         BookDatabase.child(key).child("Status").setValue(status);
+    }
+
+
+    /**
+     * Yifu part
+     * 1. get borrower list
+     * 2. accept or decline a user
+     */
+
+    public interface getBorrowerList{
+        void getBorrower(String value);
+    }
+
+    /**
+     * get all borrower of one book.
+     * @param book
+     * @param callBack
+     */
+    public void getBookBorrower(Book book,final getBorrowerList callBack){
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot borrower: dataSnapshot.child("Borrower").getChildren()){
+                    String borrowerName = borrower.getKey();
+                    callBack.getBorrower(borrowerName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    /**
+     * acccept a user and delete others
+     * @param BorrowerName
+     * @param book
+     */
+    public void acceptAndDeleteOther(String BorrowerName,Book book){
+
+        BookDatabase.child(book.getUnikey()).child("Borrower").removeValue();
+        BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).setValue(BorrowerName);
+
+    }
+
+    public void declineUser(String BorrowerName,Book book){
+        BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).removeValue();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Chaoran Part
+     * add a username to the selected book's borrower list
+     */
+    public interface addBorrowerSucceed{
+        void addNewBorrower(boolean value);
+    }
+
+
+    /**
+     * for Chaoran part
+     * add a new borrower to that book borrower list
+     * @param book
+     */
+    public void addNewBorrow(final Book book, final addBorrowerSucceed callBack) {
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String status = dataSnapshot.child("Status").getValue(String.class);
+                if (status.equals("Available")){
+                    BookDatabase.child(book.getUnikey()).child("Borrower").child(userName).setValue(userName);
+                    callBack.addNewBorrower(true);
+                } else {
+                    callBack.addNewBorrower(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /**
@@ -448,66 +532,6 @@ public class DataBaseUtil {
     }
 
 
-
-    public interface getBorrowerList{
-        void getBorrower(String value);
-    }
-
-    /**
-     * get all borrower of one book.
-     * @param book
-     * @param callBack
-     */
-    public void getBookBorrower(Book book,final getBorrowerList callBack){
-        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot borrower: dataSnapshot.child("Borrower").getChildren()){
-                    String borrowerName = borrower.getKey();
-                    callBack.getBorrower(borrowerName);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
-    /**
-     * Chaoran Part
-     * add a username to the selected book's borrower list
-     */
-    public interface addBorrowerSucceed{
-        void addNewBorrower(boolean value);
-    }
-
-
-    /**
-     * for Chaoran part
-     * add a new borrower to that book borrower list
-     * @param book
-     */
-    public void addNewBorrow(final Book book, final addBorrowerSucceed callBack) {
-        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String status = dataSnapshot.child("Status").getValue(String.class);
-                if (status.equals("Available")){
-                    BookDatabase.child(book.getUnikey()).child(userName).child(userName);
-                    callBack.addNewBorrower(true);
-                } else {
-                    callBack.addNewBorrower(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+    //chaoRan part finish
 
 }

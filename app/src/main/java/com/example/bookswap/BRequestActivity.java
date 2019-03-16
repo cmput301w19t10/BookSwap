@@ -56,7 +56,7 @@ public class BRequestActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-        Log.d("here","wenthere");
+        //Log.d("here","wenthere");
         title.setText("Title: "+String.valueOf(book.getTitle()));
         author.setText("Athor: " + String.valueOf(book.getAuthor()));
         description.setText("Description: "+String.valueOf(book.getDescription()));
