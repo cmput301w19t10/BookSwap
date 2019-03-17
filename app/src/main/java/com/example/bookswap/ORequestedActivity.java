@@ -69,7 +69,7 @@ public class ORequestedActivity extends Activity {
                  */
                 @Override
                 public void getNewBook(Book a) {
-                    if (true) {
+                    if (a.getStatus().equals("Available")) {
                         requestedList.add(a);
                     }
                     display_listview.setAdapter(adapter);

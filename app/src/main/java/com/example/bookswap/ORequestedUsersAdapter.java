@@ -1,6 +1,7 @@
 package com.example.bookswap;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +89,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 DataBaseUtil u = new DataBaseUtil("Bowen");
+                Log.d("diedie",book.getUnikey());
                 u.acceptAndDeleteOther(userList.get(position), book);
             }
         });
@@ -95,9 +97,11 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         holder.button_decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataBaseUtil u = new DataBaseUtil("Bowen");
+                Log.d("nimama",book.getUnikey());
+                u.declineUser(userList.get(position), book);
 
-                // delete this user
-                // TODO
+
             }
         });
 

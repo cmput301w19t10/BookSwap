@@ -101,7 +101,7 @@ public class DataBaseUtil {
      *  this function is for Owner
      *  It can get all owner Book
      *  And it can be filtered by status in the activity
-     * @param callBack a interface for
+     *  @param callBack a interface for
      */
     public void testAllInfoBook__3(final getNewBook callBack){
         ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,17 +119,7 @@ public class DataBaseUtil {
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
                     book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                    //allBook.add(abook);
                     callBack.getNewBook(book);
-//                    String Des = dataSnapshot.child("Book").child(key).child("Description").getValue(String.class);
-//                    String Status = dataSnapshot.child("Book").child(key).child("Status").getValue(String.class);
-//                    String Title = dataSnapshot.child("Book").child(key).child("Title").getValue(String.class);
-//                    String author = dataSnapshot.child("Book").child(key).child("author").getValue(String.class);
-//                    String image = dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class);
-//                    Bitmap tempImage = StringToBitMap(image);
-//                    Book abook = new Book(Title,"321",Status,"4",tempImage);
-//                    allBook.add(abook);
-//                    callBack.getNewBook(abook);
                 }
             }
 
@@ -220,8 +210,6 @@ public class DataBaseUtil {
      * @param BookName a bookName for
      */
     private void BookName(String BookName) {
-        //public UUID number = UUID.randomUUID();
-        //public String BookKey = number.toString();
         BookDatabase.child(BookKey).child("Title").setValue(BookName);
     }
 
@@ -367,19 +355,6 @@ public class DataBaseUtil {
     }
 
 
-    /**
-     *
-     * acccept a user and delete others
-     * @param BorrowerName
-     * @param book
-     */
-    public void acceptAndDeleteOther(String BorrowerName,Book book){
-
-        BookDatabase.child(book.getUnikey()).child("Borrow").removeValue();
-        BookDatabase.child(book.getUnikey()).child("Borrow").child(BorrowerName).setValue(BorrowerName);
-
-    }
-
 
     /**
      * a intereface for getting data
@@ -397,67 +372,12 @@ public class DataBaseUtil {
         BookDatabase.child(key).child("Status").setValue(status);
     }
 
-    /**
-     * Dset the request to true so that the book
-     * @param user
-     */
-    public void NewRequest(User user){
-        UserDatabase.child(user.getName()).child("request").child("True");
-    }
 
     /**
-     * check the user borrow status
-     * if it is true, user can be notified
-     * @param callBack
+     * Yifu part
+     * 1. get borrower list
+     * 2. accept or decline a user
      */
-    public void checkBorrowNotification(final getStatus callBack){
-        UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String status;
-                status = dataSnapshot.child("User").child(userName).child("Borrow").getValue(String.class);
-                callBack.getStatus(status);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-    }
-
-    /**
-     * set user borrow to true
-     * @param user
-     */
-    public void NewBorrow(User user){
-        UserDatabase.child(user.getName()).child("Borrow").child("True");
-    }
-
-    /**
-     * check the user request status
-     * if it is true, user can be notified
-     * @param callBack
-     */
-    public void checkRequestNotification(final getStatus callBack){
-//        TODO implement stub
-//        return true;
-        UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String status;
-                status = dataSnapshot.child("User").child(userName).child("Request").getValue(String.class);
-                callBack.getStatus(status);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-    }
-
-
 
     public interface getBorrowerList{
         void getBorrower(String value);
@@ -485,6 +405,134 @@ public class DataBaseUtil {
         });
     }
 
+
+    /**
+     * acccept a user and delete others
+     * @param BorrowerName
+     * @param book
+     */
+    public void acceptAndDeleteOther(String BorrowerName,Book book){
+
+        BookDatabase.child(book.getUnikey()).child("Borrower").removeValue();
+        BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).setValue(BorrowerName);
+        BookDatabase.child(book.getUnikey()).child("Status").setValue("accepted");
+    }
+
+    public void declineUser(String BorrowerName,Book book){
+        BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).removeValue();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Chaoran Part
+     * add a username to the selected book's borrower list
+     */
+    public interface addBorrowerSucceed{
+        void addNewBorrower(boolean value);
+    }
+
+
+    /**
+     * for Chaoran part
+     * add a new borrower to that book borrower list
+     * @param book
+     */
+    public void addNewBorrow(final Book book, final addBorrowerSucceed callBack) {
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String status = dataSnapshot.child("Status").getValue(String.class);
+                if (status.equals("Available")){
+                    BookDatabase.child(book.getUnikey()).child("Borrower").child(userName).setValue(userName);
+                    callBack.addNewBorrower(true);
+                } else {
+                    callBack.addNewBorrower(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * Dset the request to true so that the book
+     * a new request Notification
+     * @param user
+     */
+    public void NewRequestNotification(User user){
+        UserDatabase.child(user.getName()).child("request").child("True");
+    }
+
+    /**
+     * check the user borrow status
+     * if it is true, user can be notified
+     * @param callBack
+     */
+    public void checkBorrowNotification(final getStatus callBack){
+        UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String status;
+                status = dataSnapshot.child("User").child(userName).child("Borrow").getValue(String.class);
+                callBack.getStatus(status);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    /**
+     * set user borrow to true
+     * add a new borrow notification
+     * @param user
+     */
+    public void newBorrowNotification(User user){
+        UserDatabase.child(user.getName()).child("Borrow").child("True");
+    }
+
+    /**
+     * check the user request status
+     * if it is true, user can be notified
+     * @param callBack
+     */
+    public void checkRequestNotification(final getStatus callBack){
+//        TODO implement stub
+//        return true;
+        UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String status;
+                status = dataSnapshot.child("User").child(userName).child("Request").getValue(String.class);
+                callBack.getStatus(status);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+
+    //chaoRan part finish
 
 }
 
