@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
@@ -22,6 +23,10 @@ public class BorrowerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Button requested = (Button) findViewById(R.id.Borrower_requested_btn);
         Button available = (Button) findViewById(R.id.Borrower_available_btn);
+        TextView reddot = (TextView) findViewById(R.id.reddot);
+        if(false){
+            reddot.setVisibility(View.INVISIBLE);
+        }
         requested.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
