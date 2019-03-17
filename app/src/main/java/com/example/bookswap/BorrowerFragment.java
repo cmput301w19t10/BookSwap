@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * borrower interface in home
@@ -20,6 +21,7 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
     private Button button_available;
     private Button button_accept;
     private Button button_borrow;
+    private TextView reddot;
     /**
      *  create all views including two buttons
      * @param inflater inflater to inflate views to this fragment
@@ -41,7 +43,10 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
         button_accept.setOnClickListener(this);
         button_borrow = view.findViewById(R.id.Borrower_borrowed_btn);
         button_borrow.setOnClickListener(this);
-
+        reddot = view.findViewById(R.id.reddot);
+        if(false){
+            reddot.setVisibility(View.INVISIBLE);
+        }
 
         return view;
     }
