@@ -50,6 +50,7 @@ public class BAvailableActivity extends AppCompatActivity {
 
 
 
+
         adapter = new BAvailableAdapter(this, ava_book);
 
         DataBaseUtil u;
@@ -65,6 +66,7 @@ public class BAvailableActivity extends AppCompatActivity {
                 }
             }
         });
+
 //        u.getBorrowerBook(new DataBaseUtil.getNewBook(){
 ////            @Override
 ////            public void getNewBook(Book a){
@@ -75,10 +77,12 @@ public class BAvailableActivity extends AppCompatActivity {
 ////            }
 ////        });
 
+
         //Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
         //ava_book.add(abook);
         availableBooks.setAdapter(adapter);
         //todo: onclick listener: once select a book
+
         availableBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -96,6 +100,7 @@ public class BAvailableActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         //todo: once clicked start activity: list user requested
     }
 }
