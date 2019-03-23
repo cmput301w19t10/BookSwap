@@ -3,6 +3,7 @@ package com.example.bookswap;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,36 +85,45 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
         holder.button_swap.setTag(position);
 
         holder.button_swap.setOnClickListener(new View.OnClickListener() {
-
+            @Override
             public void onClick(View v) {
-                //TODO when click the item can enter this pages
-                /**
-                 * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
-                 * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
-                 * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
-                 */
-                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                        .setTitle("Notice")
-                        .setMessage("《" + element.getTitle() + "》"+ " , are you sure to lend this book from " +
-                                "yifu")//get brower
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //element change status
-
-                            }
-                        })
-
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //element change status
-                            }
-                        })
-                        .create();
-                alertDialog.show();
+                Intent toSwapPage = new Intent(getContext(),BAcceptedSwapActivity.class);
+                toSwapPage.putExtra("book",element);
+                getContext().startActivity(toSwapPage);
             }
         });
+
+//        holder.button_swap.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View v) {
+//                //TODO when click the item can enter this pages
+//                /**
+//                 * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
+//                 * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
+//                 * This block of code is using for create a alertdialog to show : do owner make sure borrow the book
+//                 */
+//                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+//                        .setTitle("Notice")
+//                        .setMessage("《" + element.getTitle() + "》"+ " , are you sure to lend this book from " +
+//                                "yifu")//get brower
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                //element change status
+//
+//                            }
+//                        })
+//
+//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                //element change status
+//                            }
+//                        })
+//                        .create();
+//                alertDialog.show();
+//            }
+//        });
 
 
 

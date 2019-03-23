@@ -11,9 +11,17 @@
         android:layout_height="wrap_content"
         android:text="Requested Book" />
 
-    <ListView
-        android:id="@+id/main_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <android.support.v4.widget.SwipeRefreshLayout
 
+        android:id="@+id/Swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/main_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

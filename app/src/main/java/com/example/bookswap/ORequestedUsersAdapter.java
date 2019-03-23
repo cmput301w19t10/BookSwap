@@ -100,6 +100,9 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
                 DataBaseUtil u = new DataBaseUtil("Bowen");
                 Log.d("nimama",book.getUnikey());
                 u.declineUser(userList.get(position), book);
+                ORequestedUserActivity activity = new ORequestedUserActivity();
+                activity.refresh();
+
 
 
             }
