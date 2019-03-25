@@ -372,11 +372,7 @@ public class DataBaseUtil {
     public void changeStatus(String key, String status){
         BookDatabase.child(key).child("Status").setValue(status);
     }
-
-
-
-
-
+    
     /**
      * Yifu part
      * 1. get borrower list
@@ -426,12 +422,29 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).removeValue();
     }
 
+//    public void declineUser(String BorrowerName,Book book){
+//        BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).removeValue();
+//    }
+
     public void setSwap(String people,Book book,boolean string){
         BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     /**
+<<<<<<< HEAD
      *   this function is for Owner
      *   check all the book which is filter by status
      * @param callBack
@@ -484,6 +497,7 @@ public class DataBaseUtil {
     public interface addBorrowerSucceed{
         void addNewBorrower(boolean value);
     }
+
 
 
     /**
@@ -547,7 +561,9 @@ public class DataBaseUtil {
      * @param user
      */
     public void newBorrowNotification(User user){
+
         UserDatabase.child(user.getName()).child("Borrow").setValue("True");
+
     }
 
     /**
@@ -611,6 +627,8 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
     }
     //finish swap part
+
+
 
 
 }
