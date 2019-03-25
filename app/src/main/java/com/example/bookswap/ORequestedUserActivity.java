@@ -58,8 +58,6 @@ public class ORequestedUserActivity extends Activity {
          * link the database
          */
 
-
-
         DataBaseUtil u = new DataBaseUtil("Bowen");
         u.getBookBorrower(book,new DataBaseUtil.getBorrowerList(){
             /**
@@ -74,66 +72,10 @@ public class ORequestedUserActivity extends Activity {
         });
 
 
-        //       sourse https://stackoverflow.com/questions/14814714/update-textview-every-second
-//        Thread t = new Thread() {
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    while (!isInterrupted()) {
-//                        Thread.sleep(1000);
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                DataBaseUtil u = new DataBaseUtil("Bowen");
-//                                u.getBookBorrower(book,new DataBaseUtil.getBorrowerList(){
-//                                    /**
-//                                     * load database information into the local arraylist
-//                                     * @param value
-//                                     */
-//                                    @Override
-//                                    public void getBorrower(String value){
-//                                        UserList.add(value);
-//                                        display_listview.setAdapter(adapter);
-//                                    }
-//                                });
-//
-//
-//                            }
-//
-//
-//                        });
-//                    }
-//                } catch (InterruptedException e) {
-//                }
-//            }
-//        };
-//
-//        t.start();
     }
 
-    public void refresh(){
-        finish();
-        startActivity(getIntent());
-    }
 
-//public void loaddata(Book book ) {
-//    DataBaseUtil u = new DataBaseUtil("Bowen");
-//    u.getBookBorrower(book,new DataBaseUtil.getBorrowerList(){
-//        /**
-//         * load database information into the local arraylist
-//         * @param value
-//         */
-//        @Override
-//        public void getBorrower(String value){
-//            UserList.add(value);
-//            display_listview.setAdapter(adapter);
-//        }
-//    });
-//
-//}
 
-//}
 
 
 

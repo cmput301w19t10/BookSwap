@@ -63,6 +63,7 @@ public class ORequestedActivity extends Activity {
 
         } else {
             DataBaseUtil u;
+
             u = new DataBaseUtil("Bowen");
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
@@ -72,7 +73,7 @@ public class ORequestedActivity extends Activity {
                  */
                 @Override
                 public void getNewBook(Book a) {
-                    if (a.getStatus().equals("Available")) {
+                    if (a.getStatus().equals("Requested")) {
                         requestedList.add(a);
                     }
                     display_listview.setAdapter(adapter);
@@ -83,12 +84,13 @@ public class ORequestedActivity extends Activity {
         /**
          * how to set swipe refresh layout
          * resourse:https://www.youtube.com/watch?v=KLrq8nQeIn8
-         */
+//         */
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.Swipe);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                requestedList.clear();
                 DataBaseUtil u;
                 u = new DataBaseUtil("Bowen");
                 u.getBorrowerBook(new DataBaseUtil.getNewBook() {
@@ -99,7 +101,7 @@ public class ORequestedActivity extends Activity {
                      */
                     @Override
                     public void getNewBook(Book a) {
-                        if (a.getStatus().equals("Available")) {
+                        if (a.getStatus().equals("Requested")) {
                             requestedList.add(a);
                         }
                         display_listview.setAdapter(adapter);
@@ -111,7 +113,7 @@ public class ORequestedActivity extends Activity {
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                },4000);
+                },1000);
             }
         });
 
@@ -136,33 +138,16 @@ public class ORequestedActivity extends Activity {
              */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("nimama","hellonima1");
                 Book book = requestedList.get(position);
-                Log.d("nimama","hellonima2");
                 Intent intent = new Intent(ORequestedActivity.this , EditBookActivity.class);
-                Log.d("nimama","hellonima3");
                 intent.putExtra("BookInformation", book);
                 intent.putExtra("Index", position+"");
-                Log.d("nimama","hellonima4");
                 startActivityForResult(intent, EDIT_BOOK_REQUEST);
             }
         });
 
 
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
 
 
 

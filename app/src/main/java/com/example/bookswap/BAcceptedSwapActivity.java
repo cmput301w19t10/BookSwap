@@ -66,7 +66,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                hourOfDay = hourOfDay+1;
+                hourOfDay = hourOfDay;
 
                 String stringtime = hourOfDay + ":" + minute;
                 time.setText(stringtime);
@@ -102,7 +102,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month+1;
 
-                String stringdate = month + "-" + dayOfMonth +  "-" + year;
+                String stringdate = year + "-" + month +  "-" + dayOfMonth;
                 date.setText(stringdate);
             }
         };
@@ -116,8 +116,8 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                TODO map activity
-                Intent intentmap = new Intent();
-                startActivity(intentmap);
+//                Intent intentmap = new Intent();
+//                startActivity(intentmap);
             }
         });
 

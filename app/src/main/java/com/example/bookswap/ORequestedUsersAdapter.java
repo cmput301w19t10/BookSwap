@@ -1,6 +1,7 @@
 package com.example.bookswap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,8 +90,11 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 DataBaseUtil u = new DataBaseUtil("Bowen");
-                Log.d("diedie",book.getUnikey());
                 u.acceptAndDeleteOther(userList.get(position), book);
+                userList.clear();
+                notifyDataSetChanged();
+                Intent back = new Intent(getContext(),ORequestedActivity.class);
+                getContext().startActivity(back);
             }
         });
 
@@ -98,12 +102,9 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 DataBaseUtil u = new DataBaseUtil("Bowen");
-                Log.d("nimama",book.getUnikey());
                 u.declineUser(userList.get(position), book);
-                ORequestedUserActivity activity = new ORequestedUserActivity();
-                activity.refresh();
-
-
+                userList.remove(position);
+                notifyDataSetChanged();
 
             }
         });
