@@ -592,10 +592,24 @@ public class DataBaseUtil {
      * Swap part
      * add location, date, comment
      */
-    public void addDate(Book book, Date date){
-        BookDatabase.child(book.getUnikey()).child("Swap")
+
+    /**
+     * add a date to firebase
+     * @param book
+     * @param swap
+     */
+    public void addDate(Book book, Swap swap){
+        BookDatabase.child(book.getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
     }
 
+    /**
+     * add a comment to firebase
+     * @param book
+     * @param swap
+     */
+    public void addComment(Book book, Swap swap){
+        BookDatabase.child(book.getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
+    }
     //finish swap part
 
 
