@@ -137,7 +137,7 @@ public class DataBaseUtil {
      *   and it can be filtered by the status
      * @param callBack
      */
-    public void getBorrowerBook(final getNewBook callBack){
+    public void getBorrowerBook(String status,final getNewBook callBack){
         ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -146,7 +146,8 @@ public class DataBaseUtil {
                 for (DataSnapshot bookKey: dataSnapshot.child("Book").getChildren()){
                     String key = bookKey.getKey();
                     for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren()) {
-                        if (userName.equals(bookborrower.getValue(String.class))) {
+                        if (userName.equals(bookborrower.getValue(String.class)) &&
+                                dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()) {
                             //allBookkey.add(key);
                             Book book = new Book();
                             book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
@@ -373,6 +374,9 @@ public class DataBaseUtil {
     }
 
 
+
+
+
     /**
      * Yifu part
      * 1. get borrower list
@@ -422,12 +426,50 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).removeValue();
     }
 
+    public void setSwap(String people,Book book,boolean string){
+        BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
+    }
 
 
+    /**
+     *   this function is for Owner
+     *   check all the book which is filter by status
+     * @param callBack
+     * @param status
+     */
+    public void getBookOwner(final String status, final getNewBook callBack){
+        ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot bookKey: dataSnapshot.child("User").child(userName).child("Book").getChildren()){
+                    String key = bookKey.getKey();
+                    if (dataSnapshot.child("Book").child(key).child("Status").getValue(String.class).equals(status) && dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
+                        //for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren())
+                        //if (userName.equals(bookborrower.getValue(String.class))) {
+                        //allBookkey.add(key);
+                        Book book = new Book();
+                        book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
+                        book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
+                        book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
+                        book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
+                        //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
+                        book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
+                        callBack.getNewBook(book);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+
+    }
 
 
-
-
+    //Yifu part finish
 
 
 
@@ -505,7 +547,7 @@ public class DataBaseUtil {
      * @param user
      */
     public void newBorrowNotification(User user){
-        UserDatabase.child(user.getName()).child("Borrow").child("True");
+        UserDatabase.child(user.getName()).child("Borrow").setValue("True");
     }
 
     /**
@@ -529,6 +571,17 @@ public class DataBaseUtil {
                 Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
+    }
+
+    /**
+     * change status
+     * @param part
+     * @param status
+     * @param name
+     */
+
+    public void changeNotificationStatus(String part, String status,String name){
+        UserDatabase.child(name).child(part).setValue(status);
     }
 
 
