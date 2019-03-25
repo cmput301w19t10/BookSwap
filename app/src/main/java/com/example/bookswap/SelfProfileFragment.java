@@ -22,7 +22,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class SelfProfileFragment extends Fragment implements View.OnClickListener{
 
-    private User user = new User("Bowen", "dsadsadsa", "bh1", "dsadsaa" ,"ewqewq");
+    private User user = new User("1", "1", "1", "1" ,"1");
     ImageView image;
     TextView name;
     TextView email;
@@ -87,9 +87,15 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.edit_profile:
-                intent = new Intent(getActivity(), EditProfileActivity.class);
-                intent.putExtra("user", user);
-                startActivityForResult(intent, 1);
+                u = new DataBaseUtil("Bowen");
+                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+                    @Override
+                    public void getNewUser(User user, List<Review> commentList) {
+                        intent = new Intent(getActivity(), EditProfileActivity.class);
+                        intent.putExtra("user", user);
+                        startActivityForResult(intent, 1);
+                    }
+                });
                 break;
             case R.id.review_self:
                 intent = new Intent(getActivity(), SelfRateActivity.class);

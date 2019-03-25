@@ -47,7 +47,7 @@ public class ORequestedUserActivity extends Activity {
          * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
          */
         Intent intent = getIntent();
-        Book book = intent.getParcelableExtra("index");
+        final Book book = intent.getParcelableExtra("index");
 
 
 
@@ -70,7 +70,42 @@ public class ORequestedUserActivity extends Activity {
             }
         });
 
+        //       sourse https://stackoverflow.com/questions/14814714/update-textview-every-second
+        Thread t = new Thread() {
 
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                DataBaseUtil u = new DataBaseUtil("Bowen");
+                                u.getBookBorrower(book,new DataBaseUtil.getBorrowerList(){
+                                    /**
+                                     * load database information into the local arraylist
+                                     * @param value
+                                     */
+                                    @Override
+                                    public void getBorrower(String value){
+                                        UserList.add(value);
+                                        display_listview.setAdapter(adapter);
+                                    }
+                                });
+
+
+                            }
+
+
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        t.start();
 
 
     }
