@@ -1,6 +1,8 @@
 package com.example.bookswap;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,15 +91,21 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 DataBaseUtil u = new DataBaseUtil("Bowen");
                 u.acceptAndDeleteOther(userList.get(position), book);
+                userList.clear();
+                notifyDataSetChanged();
+                Intent back = new Intent(getContext(),ORequestedActivity.class);
+                getContext().startActivity(back);
             }
         });
 
         holder.button_decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataBaseUtil u = new DataBaseUtil("Bowen");
+                u.declineUser(userList.get(position), book);
+                userList.remove(position);
+                notifyDataSetChanged();
 
-                // delete this user
-                // TODO
             }
         });
 

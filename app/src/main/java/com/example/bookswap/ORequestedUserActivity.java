@@ -47,7 +47,7 @@ public class ORequestedUserActivity extends Activity {
          * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
          */
         Intent intent = getIntent();
-        Book book = intent.getParcelableExtra("index");
+        final Book book = intent.getParcelableExtra("index");
 
 
 
@@ -57,6 +57,7 @@ public class ORequestedUserActivity extends Activity {
         /**
          * link the database
          */
+
         DataBaseUtil u = new DataBaseUtil("Bowen");
         u.getBookBorrower(book,new DataBaseUtil.getBorrowerList(){
             /**
@@ -71,9 +72,10 @@ public class ORequestedUserActivity extends Activity {
         });
 
 
-
-
     }
+
+
+
 
 
 

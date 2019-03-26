@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".BAvailableActivity"></activity>
+        <activity android:name=".BAvailableActivity" />
         <activity android:name=".BRequestedBooksActivity" />
         <activity android:name=".BorrowerActivity" />
         <activity android:name=".HomeActivity" />
@@ -21,6 +21,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,7 +33,6 @@
             android:name=".ProfileSearchActivity"
             android:label="Search person"
             android:theme="@style/SearchTheme" />
-
         <activity android:name=".DummyActivity" />
         <activity android:name=".RegisterActivity" />
         <activity
@@ -64,7 +64,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OAvailableActivity" />
         </activity>
-        <activity android:name=".ViewBookActivity"></activity>
+        <activity android:name=".ViewBookActivity" />
+        <activity android:name=".BAcceptedSwapActivity"></activity>
     </application>
 
 </manifest>
