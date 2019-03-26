@@ -7,7 +7,12 @@ public class Swap {
     private String comment;
     private String borrowname;
     private String ownername;
-    private Date date;
+    private String time;
+
+
+
+
+    private String date;
     private boolean borrowerPermit;
     private boolean ownerPermit;
 
@@ -17,6 +22,12 @@ public class Swap {
     //TODO find how google maps stores GPS location
     public void setLocation(String Location){
         this.location = Location;
+    }
+
+
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setComment(String Comment){
@@ -31,7 +42,7 @@ public class Swap {
         this.ownername = OwnerName;
     }
 
-    public void setDate(Date Date){
+    public void setDate(String Date){
         this.date = Date;
     }
 
@@ -52,7 +63,7 @@ public class Swap {
     }
 
     //Should reuturn date type
-    public Date getDate(){
+    public String getDate(){
         return date;
     }
 
@@ -62,6 +73,10 @@ public class Swap {
 
     public String getBorrower(){
         return borrowname;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public boolean isBorrowerPermit() {

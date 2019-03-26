@@ -26,6 +26,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView comment;
     private Button swap;
     private Button back;
+    private Swap swapclass = new Swap();
 
 
     @Override
@@ -70,6 +71,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
                 String stringtime = hourOfDay + ":" + minute;
                 time.setText(stringtime);
+                swapclass.setTime(stringtime);
             }
         };
 
@@ -104,17 +106,18 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
                 String stringdate = year + "-" + month +  "-" + dayOfMonth;
                 date.setText(stringdate);
+                swapclass.setDate(stringdate);
             }
         };
 
         String stringcomment = comment.getText().toString();
-        // TODO
-        // bookBorrower comment.setcomment(stringcomment);
+        swapclass.setComment(stringcomment);
 
 
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swapclass.setBorrowerPermit(true);
 //                TODO map activity
 //                Intent intentmap = new Intent();
 //                startActivity(intentmap);
