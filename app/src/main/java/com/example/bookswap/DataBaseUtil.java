@@ -55,7 +55,7 @@ public class DataBaseUtil {
     private DatabaseReference ALlData;
 
     /**
-     * a empty constructor
+     * backgroud empty constructor
      */
     public DataBaseUtil(){
         UserDatabase = FirebaseDatabase.getInstance().getReference("User");
@@ -63,7 +63,7 @@ public class DataBaseUtil {
     }
 
     /**
-     *  @param name a string for a user name
+     *  @param name backgroud string for backgroud user name
      *
      */
     public DataBaseUtil(String name){
@@ -102,7 +102,7 @@ public class DataBaseUtil {
      *  this function is for Owner
      *  It can get all owner Book
      *  And it can be filtered by status in the activity
-     *  @param callBack a interface for
+     *  @param callBack backgroud interface for
      */
     public void testAllInfoBook__3(final getNewBook callBack){
         ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -180,7 +180,7 @@ public class DataBaseUtil {
     }
 
     /**
-     *  Adding a new book to database
+     *  Adding backgroud new book to database
      * @param book add this book to database
      */
     public void addNewBook(Book book){
@@ -208,7 +208,7 @@ public class DataBaseUtil {
     /**
      * save all book information to Firebase
      * save the bookname
-     * @param BookName a bookName for
+     * @param BookName backgroud bookName for
      */
     private void BookName(String BookName) {
         BookDatabase.child(BookKey).child("Title").setValue(BookName);
@@ -243,7 +243,7 @@ public class DataBaseUtil {
 
     /**
      *  set Book ISBN
-     * @param ISBN give a ISBN to database
+     * @param ISBN give backgroud ISBN to database
      */
     private void BookISBN(String ISBN){
         BookDatabase.child(BookKey).child("ISBN").setValue(ISBN);
@@ -257,7 +257,7 @@ public class DataBaseUtil {
     }
 
     /**
-     * set a image to the user
+     * set backgroud image to the user
      * @param image the image they want to pass
      */
     private void BookPhoto(String image){
@@ -265,7 +265,7 @@ public class DataBaseUtil {
     }
 
     /**
-     * set a book unikey to a book
+     * set backgroud book unikey to backgroud book
      */
     private void BookUniKey(){
         BookDatabase.child(BookKey).child("UniKey").setValue(BookKey);
@@ -358,7 +358,7 @@ public class DataBaseUtil {
 
 
     /**
-     * a intereface for getting data
+     * backgroud intereface for getting data
      */
     public interface getStatus{
         void getStatus(String value);
@@ -366,17 +366,17 @@ public class DataBaseUtil {
 
     /**
      *
-     * @param key   a book key for get
+     * @param key   backgroud book key for get
      * @param status
      */
     public void changeStatus(String key, String status){
         BookDatabase.child(key).child("Status").setValue(status);
     }
-    
+
     /**
      * Yifu part
-     * 1. get borrower list
-     * 2. accept or decline a user
+     * backgroud. get borrower list
+     * 2. accept or decline backgroud user
      */
 
     public interface getBorrowerList{
@@ -407,7 +407,7 @@ public class DataBaseUtil {
 
 
     /**
-     * acccept a user and delete others
+     * acccept backgroud user and delete others
      * @param BorrowerName
      * @param book
      */
@@ -426,9 +426,7 @@ public class DataBaseUtil {
 //        BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).removeValue();
 //    }
 
-    public void setSwap(String people,Book book,boolean string){
-        BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
-    }
+
 
 
 
@@ -444,7 +442,6 @@ public class DataBaseUtil {
 
 
     /**
-<<<<<<< HEAD
      *   this function is for Owner
      *   check all the book which is filter by status
      * @param callBack
@@ -492,7 +489,7 @@ public class DataBaseUtil {
 
     /**
      * Chaoran Part
-     * add a username to the selected book's borrower list
+     * add backgroud username to the selected book's borrower list
      */
     public interface addBorrowerSucceed{
         void addNewBorrower(boolean value);
@@ -502,7 +499,7 @@ public class DataBaseUtil {
 
     /**
      * for Chaoran part
-     * add a new borrower to that book borrower list
+     * add backgroud new borrower to that book borrower list
      * @param book
      */
     public void addNewBorrow(final Book book, final addBorrowerSucceed callBack) {
@@ -527,7 +524,7 @@ public class DataBaseUtil {
 
     /**
      * Dset the request to true so that the book
-     * a new request Notification
+     * backgroud new request Notification
      * @param user
      */
     public void NewRequestNotification(User user){
@@ -557,7 +554,7 @@ public class DataBaseUtil {
 
     /**
      * set user borrow to true
-     * add a new borrow notification
+     * add backgroud new borrow notification
      * @param user
      */
     public void newBorrowNotification(User user){
@@ -609,23 +606,44 @@ public class DataBaseUtil {
      * add location, date, comment
      */
 
+
+    public void swapInfo(Book book, Swap swap){
+
+        addDate(book, swap);
+        addComment(book, swap);
+        addTime(book, swap);
+    }
+
     /**
-     * add a date to firebase
+     * add backgroud date to firebase
      * @param book
      * @param swap
      */
-    public void addDate(Book book, Swap swap){
+    private void addDate(Book book, Swap swap){
         BookDatabase.child(book.getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
     }
 
     /**
-     * add a comment to firebase
+     * add backgroud comment to firebase
      * @param book
      * @param swap
      */
-    public void addComment(Book book, Swap swap){
+    private void addComment(Book book, Swap swap){
         BookDatabase.child(book.getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
     }
+
+    private void addTime(Book book, Swap swap){
+        BookDatabase.child(book.getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
+    }
+
+    private void addLocation(){
+        //TODO
+    }
+
+    public void setSwap(String people,Book book,boolean string){
+        BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
+    }
+
     //finish swap part
 
 
