@@ -13,6 +13,7 @@ import android.widget.Button;
 /**
  * borrower interface in home
  */
+
 public class BorrowerFragment extends Fragment implements View.OnClickListener{
 
     private Button button_request;
@@ -31,6 +32,7 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_borrower, container, false);
         Intent intent = getActivity().getIntent();
+
         button_request = view.findViewById(R.id.Borrower_requested_btn);
         button_request.setOnClickListener(this);
         button_available = view.findViewById(R.id.Borrower_available_btn);
