@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".OAcceptedActivity"/>
+        <activity android:name=".OBorrowedActivity"></activity>
+        <activity android:name=".OAcceptedActivity" />
         <activity android:name=".BReturn" />
         <activity android:name=".BBorrowedActivity" />
         <activity android:name=".BAvailableActivity" />
@@ -68,8 +69,8 @@
                 android:value=".OAvailableActivity" />
         </activity>
         <activity android:name=".ViewBookActivity" />
-        <activity android:name=".BAcceptedSwapActivity"></activity>
-        <activity android:name="ORequestedSwapActivity"></activity>
+        <activity android:name=".BAcceptedSwapActivity" />
+        <activity android:name=".ORequestedSwapActivity" />
     </application>
 
 </manifest>

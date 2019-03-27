@@ -9,26 +9,22 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class BBorrowedActivity extends AppCompatActivity {
+public class OBorrowedActivity extends AppCompatActivity {
     private ListView borrowedBooks;
     private ArrayList<Book> bro_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bborrowed);
-        borrowedBooks = (ListView)findViewById(R.id.BBB_listview);
+        setContentView(R.layout.activity_oborrowed);
+        borrowedBooks = (ListView)findViewById(R.id.OBB_listview);
         Intent intent = getIntent();
-
     }
-
     @Override
     protected void onStart() {
         super.onStart();
         bro_book.clear();
-        adapter = new BBorrowedAdapter(this, bro_book);
+        adapter = new OBorrowedAdapter(this, bro_book);
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
