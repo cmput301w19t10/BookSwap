@@ -40,7 +40,7 @@ public class BReturn extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
         comment = (TextView) findViewById(R.id.commont_text) ;
-        swap = (Button) findViewById(R.id.confirm);
+        swap = (Button) findViewById(R.id.swap);
         back = (Button) findViewById(R.id.back);
 
         Intent intent = getIntent();
