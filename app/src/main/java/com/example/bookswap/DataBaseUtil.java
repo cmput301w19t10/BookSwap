@@ -415,6 +415,7 @@ public class DataBaseUtil {
 
         BookDatabase.child(book.getUnikey()).child("Borrower").removeValue();
         BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).setValue(BorrowerName);
+        BookDatabase.child(book.getUnikey()).child("Status").setValue("accepted");
 
     }
 
