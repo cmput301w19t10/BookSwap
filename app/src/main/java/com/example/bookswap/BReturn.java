@@ -21,21 +21,37 @@ public class BReturn extends AppCompatActivity {
     private TimePickerDialog.OnTimeSetListener timeSetListener;
     private TextView date;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-
     private TextView comment;
     private Button swap;
     private Button back;
     private Swap swapclass = new Swap();
+    private Book swapingBook;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breturn);
+        /**
+         * hwo to change actionbar title
+         * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
+         */
+        getSupportActionBar().setTitle("Borrower Confirm Return");
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
         comment = (TextView) findViewById(R.id.commont_text) ;
-        swap = (Button) findViewById(R.id.swap);
+        swap = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
+
+        Intent intent = getIntent();
+        final Book swapingBook = intent.getParcelableExtra("book");
+        swapclass.setBook(swapingBook);
+
+
+        /**
+         * https://www.cnblogs.com/huanyou/p/5087044.html
+         * create the time select dialog
+         */
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,16 +70,38 @@ public class BReturn extends AppCompatActivity {
 
             }
         });
+
         timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                hourOfDay = hourOfDay;
 
-                String stringtime = hourOfDay + ":" + minute;
+                String hour;
+                if(hourOfDay < 10){
+                    hour = "0"+ hourOfDay;
+                }
+                else{
+                    hour = hourOfDay + "";
+                }
+
+                String min;
+                if(minute < 10){
+                    min = "0" + minute;
+                }else{
+                    min = ""+minute;
+                }
+
+
+                String stringtime = hour + ":" + min;
                 time.setText(stringtime);
                 swapclass.setTime(stringtime);
             }
         };
+
+
+        /**
+         * https://www.youtube.com/watch?v=hwe1abDO2Ag
+         * create the date select dialog
+         */
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,9 +140,9 @@ public class BReturn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 swapclass.setBorrowerPermit(true);
-//                TODO map activity
-//                Intent intentmap = new Intent();
-//                startActivity(intentmap);
+                DataBaseUtil u = new DataBaseUtil("Bowen");
+                u.swapInfo(swapingBook,swapclass);
+                finish();
             }
         });
 
@@ -112,11 +150,8 @@ public class BReturn extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentback = new Intent(BReturn.this,BBorrowedActivity.class);
-                startActivity(intentback);
+                finish();
             }
         });
-    
     }
-
 }
