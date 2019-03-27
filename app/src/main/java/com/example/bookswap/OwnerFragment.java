@@ -64,7 +64,8 @@ public class OwnerFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             }case R.id.borrow:{
-
+                Intent intent = new Intent(getActivity(), OBorrowedActivity.class);
+                startActivity(intent);
                 break;
             }
             default: break;
