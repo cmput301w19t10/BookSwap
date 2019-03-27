@@ -66,6 +66,7 @@
         </activity>
         <activity android:name=".ViewBookActivity" />
         <activity android:name=".BAcceptedSwapActivity"></activity>
+        <activity android:name="ORequestedSwapActivity"></activity>
     </application>
 
 </manifest>

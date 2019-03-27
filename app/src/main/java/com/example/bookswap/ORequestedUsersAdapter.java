@@ -89,12 +89,14 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 
             @Override
             public void onClick(View v) {
-                DataBaseUtil u = new DataBaseUtil("Bowen");
-                u.acceptAndDeleteOther(userList.get(position), book);
-                userList.clear();
-                notifyDataSetChanged();
-                Intent back = new Intent(getContext(),ORequestedActivity.class);
-                getContext().startActivity(back);
+//                TODO consider put them in other position
+//                DataBaseUtil u = new DataBaseUtil("Bowen");
+//                u.acceptAndDeleteOther(userList.get(position), book);
+//                userList.clear();
+//                notifyDataSetChanged();
+                Intent goSwap = new Intent(getContext(),ORequestedSwapActivity.class);
+                goSwap.putExtra("book",book);
+                getContext().startActivity(goSwap);
             }
         });
 

@@ -8,16 +8,19 @@ public class Swap {
     private String borrowname;
     private String ownername;
     private String time;
-
-
-
-
+    private Book book;
     private String date;
     private boolean borrowerPermit;
     private boolean ownerPermit;
 
 
     public Swap(){}
+
+
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
     //TODO find how google maps stores GPS location
     public void setLocation(String Location){
@@ -77,6 +80,10 @@ public class Swap {
 
     public String getTime() {
         return time;
+    }
+
+    public Book getBook(){
+        return book;
     }
 
     public boolean isBorrowerPermit() {

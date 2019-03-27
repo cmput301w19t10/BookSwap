@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +30,7 @@ import static android.content.ContentValues.TAG;
  * For owner page , when owner click the request button
  * then the owner can view which books are be requested.(it is a requested list)
  */
-public class ORequestedActivity extends Activity {
+public class ORequestedActivity extends AppCompatActivity {
 
     private ListView display_listview;
     private TextView title;
@@ -50,6 +51,12 @@ public class ORequestedActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orequested);
+
+        /**
+         * hwo to change actionbar title
+         * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
+         */
+        getSupportActionBar().setTitle("Owner Requested List");
 
 
         adapter = new ORequestedAdapter(this, 0, requestedList);
