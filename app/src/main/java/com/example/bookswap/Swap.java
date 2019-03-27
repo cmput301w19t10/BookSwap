@@ -59,7 +59,7 @@ public class Swap {
 
     public String getLocation(){
         return location;
-    }
+        }
 
     public String getComment(){
         return comment;

@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +30,7 @@ import static android.content.ContentValues.TAG;
  * For owner page , when owner click the request button
  * then the owner can view which books are be requested.(it is a requested list)
  */
-public class ORequestedActivity extends Activity {
+public class ORequestedActivity extends AppCompatActivity {
 
     private ListView display_listview;
     private TextView title;
@@ -37,6 +40,7 @@ public class ORequestedActivity extends Activity {
     private ArrayList<Book> requestedList = new ArrayList<>();
     private ORequestedAdapter adapter;
     private Button dialog;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     /**
@@ -47,6 +51,12 @@ public class ORequestedActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orequested);
+
+        /**
+         * hwo to change actionbar title
+         * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
+         */
+        getSupportActionBar().setTitle("Owner Requested List");
 
 
         adapter = new ORequestedAdapter(this, 0, requestedList);
@@ -60,6 +70,7 @@ public class ORequestedActivity extends Activity {
 
         } else {
             DataBaseUtil u;
+
             u = new DataBaseUtil("Bowen");
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
@@ -69,7 +80,7 @@ public class ORequestedActivity extends Activity {
                  */
                 @Override
                 public void getNewBook(Book a) {
-                    if (true) {
+                    if (a.getStatus().equals("Requested")) {
                         requestedList.add(a);
                     }
                     display_listview.setAdapter(adapter);
@@ -77,11 +88,53 @@ public class ORequestedActivity extends Activity {
             });
         }
 
+        /**
+         * how to set swipe refresh layout
+         * resourse:https://www.youtube.com/watch?v=KLrq8nQeIn8
+//         */
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.Swipe);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestedList.clear();
+                DataBaseUtil u;
+                u = new DataBaseUtil("Bowen");
+                u.getBorrowerBook(new DataBaseUtil.getNewBook() {
+                    /**
+                     * get the requestedlist from database and then load it into the local listview
+                     *
+                     * @param a
+                     */
+                    @Override
+                    public void getNewBook(Book a) {
+                        if (a.getStatus().equals("Requested")) {
+                            requestedList.add(a);
+                        }
+                        display_listview.setAdapter(adapter);
+                    }
+                });
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1000);
+            }
+        });
+
+
+
+
+
+
 
         /**
          * about passing the percel item
          * learn that from https://www.youtube.com/watch?v=WBbsvqSu0is
          */
+        Log.d("nimama","hellonima0");
         display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             /**
              * click
@@ -101,20 +154,7 @@ public class ORequestedActivity extends Activity {
         });
 
 
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
 
 
 

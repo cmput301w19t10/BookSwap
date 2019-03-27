@@ -90,7 +90,6 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
-                Log.i("Bowen Test", " AAAAAA " + requestedList.get(position).getUnikey());
                 toORequestedUser.putExtra("index", requestedList.get(position));
                 getContext().startActivity(toORequestedUser);
             }
