@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -138,11 +139,15 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringcomment = comment.getText().toString();
-                swapclass.setComment(stringcomment);
-                DataBaseUtil u = new DataBaseUtil("Bowen");
-                u.swapInfo(swapingBook,swapclass);
-                finish();
+                if(swapclass.getTime() == null || swapclass.getDate() == null){
+                    Toast.makeText(ORequestedSwapActivity.this,"Please set time and date",Toast.LENGTH_SHORT).show();
+                }else{
+                    String stringcomment = comment.getText().toString();
+                    if(stringcomment == null){stringcomment = " ";}
+                    swapclass.setComment(stringcomment);
+                    DataBaseUtil u = new DataBaseUtil("Bowen");
+                    u.swapInfo(swapingBook,swapclass);
+                    finish();}
             }
         });
 

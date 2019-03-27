@@ -653,7 +653,7 @@ public class DataBaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Swap swap = new Swap();
                 swap.setComment(dataSnapshot.child("Comment").getValue(String.class));
-                swap.setDate(dataSnapshot.child("Comment").getValue(String.class));
+                swap.setDate(dataSnapshot.child("Date").getValue(String.class));
                 swap.setTime(dataSnapshot.child("Time").getValue(String.class));
                 callBack.getSwapInfo(swap);
             }
