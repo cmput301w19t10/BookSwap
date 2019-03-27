@@ -61,7 +61,7 @@ public class ORequestedActivity extends Activity {
         } else {
             DataBaseUtil u;
             u = new DataBaseUtil("Bowen");
-            u.getBorrowerBook("Available", new DataBaseUtil.getNewBook() {
+            u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
                  * get the requestedlist from database and then load it into the local listview
                  *

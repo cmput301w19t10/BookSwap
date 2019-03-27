@@ -46,14 +46,14 @@ public class BRequestedBooksActivity extends AppCompatActivity {
 
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.getBorrowerBook("Requested", new DataBaseUtil.getNewBook(){
+        u.getBorrowerBook(new DataBaseUtil.getNewBook(){
             @Override
             public void getNewBook(Book a){
-//                if(a.getStatus().equals("Requ")) {
-//
-//                }
-                req_book.add(a);
-                requestedbooks.setAdapter(adapter);
+                if(a.getStatus().equals("Requested")) {
+                    req_book.add(a);
+                    requestedbooks.setAdapter(adapter);
+                }
+
             }
         });
 //        Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");

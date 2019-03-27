@@ -81,6 +81,8 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
                 break;
             }case R.id.Borrower_borrowed_btn:{
                 //TODO
+                Intent intent = new Intent(getActivity(), BBorrowedActivity.class);
+                startActivity(intent);
                 break;
             }default: break;
         }
