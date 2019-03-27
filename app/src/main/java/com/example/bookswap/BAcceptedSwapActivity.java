@@ -3,21 +3,11 @@ package com.example.bookswap;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
-
-import java.util.Calendar;
 
 public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
@@ -43,7 +33,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_baccepted_swap);
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
-        comment = (TextView) findViewById(R.id.commont_text) ;
+        comment = (TextView) findViewById(R.id.commont_text_o) ;
         swap = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
 

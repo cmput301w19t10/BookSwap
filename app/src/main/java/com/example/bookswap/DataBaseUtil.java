@@ -644,7 +644,30 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
     }
 
+    interface getSwapInfo{
+        void getSwapInfo(Swap swap);
+    }
+
+    public void getSwap(Book book,final getSwapInfo callBack){
+        BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Swap swap = new Swap();
+                swap.setComment(dataSnapshot.child("Comment").getValue(String.class));
+                swap.setDate(dataSnapshot.child("Comment").getValue(String.class));
+                swap.setTime(dataSnapshot.child("Time").getValue(String.class));
+                callBack.getSwapInfo(swap);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
+    }
     //finish swap part
+
 
 
 

@@ -8,15 +8,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-import java.util.*;
+
 import java.util.Calendar;
 
 public class ORequestedSwapActivity extends AppCompatActivity {
@@ -42,7 +39,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Owner Confirm Borrow");
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
-        comment = (TextView) findViewById(R.id.commont_text) ;
+        comment = (TextView) findViewById(R.id.comment_text_o) ;
         swap = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
 
@@ -135,14 +132,14 @@ public class ORequestedSwapActivity extends AppCompatActivity {
             }
         };
 
-        String stringcomment = comment.getText().toString();
-        swapclass.setComment(stringcomment);
+
 
 
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swapclass.setBorrowerPermit(true);
+                String stringcomment = comment.getText().toString();
+                swapclass.setComment(stringcomment);
                 DataBaseUtil u = new DataBaseUtil("Bowen");
                 u.swapInfo(swapingBook,swapclass);
                 finish();
