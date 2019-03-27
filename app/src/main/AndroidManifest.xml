@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".BReturn"></activity>
+        <activity android:name=".OAcceptedActivity"></activity>
+        <activity android:name=".BReturn" />
         <activity android:name=".BBorrowedActivity" />
         <activity android:name=".BAvailableActivity" />
         <activity android:name=".BRequestedBooksActivity" />

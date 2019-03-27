@@ -57,6 +57,9 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
                 getContext().startActivity(returnBook);
             }
         });
+        if (element.getImage() != null) {
+            holder.bookcover.setImageBitmap(element.getImage());
+        }
 
         //holder.bookcover.setImageBitmap(element.getImage());
 //        LayoutInflater inflater = LayoutInflater.from(getContext());

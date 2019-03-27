@@ -49,7 +49,9 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
-
+        if (element.getImage() != null) {
+            holder.bookcover.setImageBitmap(element.getImage());
+        }
         //holder.bookcover.setImageBitmap(element.getImage());
 //        LayoutInflater inflater = LayoutInflater.from(getContext());
 //        View customView = inflater.inflate(R.layout.element_available2, parent, false);

@@ -535,4 +535,48 @@ public class DataBaseUtil {
 
     //chaoRan part finish
 
+    /**
+     * Swap part
+     * add location, date, comment
+     */
+
+
+    public void swapInfo(Book book, Swap swap){
+
+        addDate(book, swap);
+        addComment(book, swap);
+        addTime(book, swap);
+    }
+
+    /**
+     * add backgroud date to firebase
+     * @param book
+     * @param swap
+     */
+    private void addDate(Book book, Swap swap){
+        BookDatabase.child(book.getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
+    }
+
+    /**
+     * add backgroud comment to firebase
+     * @param book
+     * @param swap
+     */
+    private void addComment(Book book, Swap swap){
+        BookDatabase.child(book.getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
+    }
+
+    private void addTime(Book book, Swap swap){
+        BookDatabase.child(book.getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
+    }
+
+    private void addLocation(){
+        //TODO
+    }
+
+    public void setSwap(String people,Book book,boolean string){
+        BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
+    }
+
+    //finish swap part
 }
