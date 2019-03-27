@@ -10,13 +10,13 @@
         android:orderInCategory="1"
         app:showAsAction="always"
         />
-    <!--<item
+    <item
         android:enabled="true"
         android:title="search"
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="0"
         app:showAsAction="always"
-        /> -->
+        />
 
 </menu>

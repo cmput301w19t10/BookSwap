@@ -7,7 +7,9 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,14 +22,35 @@ public class OwnerSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // getSupportActionBar().show();
+        getSupportActionBar().show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_search);
         Intent intent = getIntent();
         adapter = new OSearchAdapter(this,0,availableList);
         myAvailableList = findViewById(R.id.search_bookList);
-    }
 
+        // On click listener to find if a list item is tapped
+        myAvailableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            /**
+             * On click of an item, starts up an activity with result and passing some information
+             * @param parent parent activity
+             * @param view current view provided from android
+             * @param position index of the item being clicked
+             * @param id id of the item being clicked
+             */
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Book book = availableList.get(position);
+                Intent intent = new Intent(OwnerSearchActivity.this, EditBookActivity.class);
+                System.out.println(position);
+                intent.putExtra("BookInformation", book);
+                intent.putExtra("Index", position);
+                //startActivityForResult(intent, EDIT_BOOK_REQUEST);
+
+            }
+        });
+    }
     /**
      * create the search menu Ui
      * @param menu the menu for search person

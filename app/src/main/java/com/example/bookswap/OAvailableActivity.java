@@ -38,7 +38,7 @@ public class OAvailableActivity extends AppCompatActivity {
     //ID of request codes to add/edit
     private static final int ADD_BOOK_REQUEST = 1;
     private static final int EDIT_BOOK_REQUEST = 2;
-    // private static final int SEARCH_BOOK_REQUEST = 3;
+    private static final int SEARCH_BOOK_REQUEST = 3;
 
     DataBaseUtil util = new DataBaseUtil("no one");
     private ArrayList<Book> availableList = new ArrayList<>();//copied into memory
@@ -119,6 +119,10 @@ public class OAvailableActivity extends AppCompatActivity {
             case R.id.action_create: //run NoteActivity in new note mode
                 startActivityForResult(new Intent(this, EditBookActivity.class), ADD_BOOK_REQUEST);
                 break;
+            case R.id.action_search:
+                startActivityForResult(new Intent(this,OwnerSearchActivity.class), SEARCH_BOOK_REQUEST);
+                break;
+
 
         }
         return super.onOptionsItemSelected(item);
@@ -178,17 +182,21 @@ public class OAvailableActivity extends AppCompatActivity {
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)
             if (resultCode == Activity.RESULT_OK) {
                 int index = data.getIntExtra("Index", 0);
-
                 //if user tapped delete
                 if (data.getBooleanExtra("delete", false)) {
                     availableList.remove(index);
                 } else{ // not delete case
                     Book book = data.getParcelableExtra("Book");
                     availableList.set(index, book);
+                    util.addNewBook(book);
                 }
             }
-        }
-
+        } // else if (requestCode == SEARCH_BOOK_REQUEST){
+            //if (resultCode == Activity.RESULT_OK){
+                // TODO
+                // Book book = data.getParcelableExtra("Book");
+            //}
+        //}
         // update adapter, save to file
         adapter.notifyDataSetChanged();
         saveInFile();
