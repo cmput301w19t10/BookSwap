@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="250dp"
+        android:layout_width="240dp"
         android:layout_height="30dp"
         android:layout_marginStart="34dp"
         android:layout_marginEnd="127dp"
@@ -48,7 +48,7 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="250dp"
+        android:layout_width="240dp"
         android:layout_height="30dp"
         android:layout_marginStart="34dp"
         android:layout_marginEnd="127dp"
@@ -60,7 +60,7 @@
 
     <RatingBar
         android:id="@+id/ratingBar"
-        android:layout_width="250dp"
+        android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_marginStart="34dp"
         android:layout_marginEnd="127dp"
@@ -71,10 +71,10 @@
 
     <TextView
         android:id="@+id/comment"
-        android:layout_width="250dp"
+        android:layout_width="240dp"
         android:layout_height="50dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="124dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="127dp"
         android:layout_marginBottom="68dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +19,15 @@ import static android.app.Activity.RESULT_OK;
 /**
  * profile interface in home
  */
-public class SelfProfileFragment extends Fragment implements View.OnClickListener{
+public class SelfProfileFragment extends Fragment{
 
-    private User user = new User("Bowen", "dsadsadsa", "bh1", "dsadsaa" ,"ewqewq");
+    //private User user = new User("Bowen", "dsadsadsa", "bh1", "dsadsaa" ,"ewqewq");
     ImageView image;
     TextView name;
     TextView email;
     TextView address;
     TextView phoneNumber;
-    DataBaseUtil u;
+    DataBaseUtil u = new DataBaseUtil("Bowen");
     Intent intent;
 
     /**
@@ -41,21 +40,59 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_selfprofile, container, false);
+        View view = inflater.inflate(R.layout.activity_self_profile, container, false);
         Button edit_button = view.findViewById(R.id.edit_profile);
-        edit_button.setOnClickListener(this);
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+                    @Override
+                    public void getNewUser(User user, List<Review> commentList) {
+
+                        intent = new Intent(getActivity(), EditProfileActivity.class);
+                        intent.putExtra("user", user);
+                        startActivityForResult(intent, 1);
+                    }
+                });
+            }
+        });
 
         Button review_self = view.findViewById(R.id.review_self);
-        review_self.setOnClickListener(this);
+        review_self.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+                    @Override
+                    public void getNewUser(User user, List<Review> commentList) {
+                        intent = new Intent(getActivity(), SelfRateActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
 
         TextView find_others = view.findViewById(R.id.find_others);
-        find_others.setOnClickListener(this);
-
+        find_others.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+                    @Override
+                    public void getNewUser(User user, List<Review> commentList) {
+                        intent = new Intent(getActivity(), ProfileSearchActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+        /*
         Review borrower_review = new Review("nice borrower", "5.0");
         Review owner_review = new Review("nice owner", "4.0");
         user.addBorrower_review(borrower_review);
         user.addOwner_review(owner_review);
         user.setImageId(R.drawable.user_image);
+        */
 
         View self_include = view.findViewById(R.id.self_include);
         image = self_include.findViewById(R.id.self_image);
@@ -63,7 +100,6 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
         email = self_include.findViewById(R.id.email);
         address = self_include.findViewById(R.id.address);
         phoneNumber = self_include.findViewById(R.id.phoneNumber);
-        u = new DataBaseUtil("Bowen");
 
         u.getOwnerUser(new DataBaseUtil.getUserInfo() {
             @Override
@@ -76,6 +112,8 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
             }
         });
 
+
+
         return view;
     }
 
@@ -83,6 +121,7 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
      * reactions to three buttons in this fragment
      * @param v the view of this corresponding button
      */
+    /*
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -104,7 +143,7 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
                 break;
         }
     }
-
+    */
     /**
      *get result of edited profile
      * @param requestCode a int of request in startActivityForResult

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OtherProfileActivity">
+    tools:context=".OtherProfileActivity"
+    android:background="@drawable/background">
 
     <include
         android:id="@+id/other_include"
