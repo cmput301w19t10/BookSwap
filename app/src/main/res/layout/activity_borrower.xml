@@ -54,4 +54,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Borrower_requested_btn" />
+
+    <TextView
+        android:id="@+id/reddot"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@drawable/rounded_textview"
+        android:elevation="100dp"
+        app:layout_constraintEnd_toEndOf="@+id/Borrower_requested_btn"
+        app:layout_constraintTop_toTopOf="@+id/Borrower_requested_btn" />
+
 </android.support.constraint.ConstraintLayout>

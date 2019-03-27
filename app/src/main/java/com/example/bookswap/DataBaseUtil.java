@@ -415,7 +415,7 @@ public class DataBaseUtil {
 
         BookDatabase.child(book.getUnikey()).child("Borrower").removeValue();
         BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).setValue(BorrowerName);
-
+        //BookDatabase.child(book.getUnikey()).child("Status").setValue("accepted");
     }
 
     public void declineUser(String BorrowerName,Book book){
@@ -600,7 +600,6 @@ public class DataBaseUtil {
 
     //chaoRan part finish
 
-
     /**
      * Swap part
      * add location, date, comment
@@ -667,9 +666,5 @@ public class DataBaseUtil {
         });
     }
     //finish swap part
-
-
-
-
 
 }
