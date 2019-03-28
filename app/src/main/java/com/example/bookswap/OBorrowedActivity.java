@@ -28,9 +28,10 @@ public class OBorrowedActivity extends AppCompatActivity {
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
-        u.testAllInfoBook__3(new DataBaseUtil.getNewBook() {
+        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
+                //need to change to owner's name not bowen
                 if (aBook.getStatus()!= null && aBook.getStatus().equals("Borrowed")){
                     bro_book.add(aBook);
                     borrowedBooks.setAdapter(adapter);

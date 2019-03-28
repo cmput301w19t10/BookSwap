@@ -38,7 +38,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
         else {
             holder = (OBorrowedAdapter.ViewHolder) convertView.getTag();
         }
-        Book element = bro_booklist.get(position);
+        final Book element = bro_booklist.get(position);
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
@@ -52,8 +52,8 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 Intent returnBook = new Intent(getContext(), BReturn.class);
-                Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
-                returnBook.putExtra("index", bro_booklist.get(position));
+                //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
+                returnBook.putExtra("book", element);
                 getContext().startActivity(returnBook);
             }
         });

@@ -23,7 +23,7 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
      * set the adapter to a list view
      */
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         BBorrowedAdapter.ViewHolder holder = null;
 
         if (convertView == null) {
@@ -38,7 +38,7 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
         else {
             holder = (BBorrowedAdapter.ViewHolder) convertView.getTag();
         }
-        Book element = bro_booklist.get(position);
+        final Book element = bro_booklist.get(position);
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
@@ -52,8 +52,8 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 Intent returnBook = new Intent(getContext(), BReturn.class);
-                Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
-                returnBook.putExtra("index", bro_booklist.get(position));
+                //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
+                returnBook.putExtra("book", element);
                 getContext().startActivity(returnBook);
             }
         });

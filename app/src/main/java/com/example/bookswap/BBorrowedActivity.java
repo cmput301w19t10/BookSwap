@@ -32,10 +32,13 @@ public class BBorrowedActivity extends AppCompatActivity {
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
-        u.testAllInfoBook__3(new DataBaseUtil.getNewBook() {
+        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
-                if (aBook.getStatus()!= null && aBook.getStatus().equals("Borrowed")){
+                if (aBook.getStatus() == null){
+                    Log.d("fragment","it's null");
+                }
+                if (aBook.getStatus()!= null && aBook.getStatus().equals("Borrowed") ){
                     bro_book.add(aBook);
                     borrowedBooks.setAdapter(adapter);
                     Log.d("fragment","loop");
