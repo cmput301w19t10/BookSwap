@@ -65,7 +65,7 @@
                 android:value=".OAvailableActivity" />
         </activity>
         <activity android:name=".ViewBookActivity" />
-        <activity android:name=".OwnerSearchActivity"></activity>
+        <activity android:name=".BSearchActivity"></activity>
     </application>
 
 </manifest>

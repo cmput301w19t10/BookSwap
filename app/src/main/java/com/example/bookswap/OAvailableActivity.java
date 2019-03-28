@@ -119,11 +119,6 @@ public class OAvailableActivity extends AppCompatActivity {
             case R.id.action_create: //run NoteActivity in new note mode
                 startActivityForResult(new Intent(this, EditBookActivity.class), ADD_BOOK_REQUEST);
                 break;
-            case R.id.action_search:
-                startActivityForResult(new Intent(this,OwnerSearchActivity.class), SEARCH_BOOK_REQUEST);
-                break;
-
-
         }
         return super.onOptionsItemSelected(item);
     }

@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class OwnerSearchActivity extends AppCompatActivity {
+public class BSearchActivity extends AppCompatActivity {
     private Book book;
     private OSearchAdapter adapter;
     private ArrayList<Book> availableList = new ArrayList<>();
@@ -42,7 +42,7 @@ public class OwnerSearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = availableList.get(position);
-                Intent intent = new Intent(OwnerSearchActivity.this, EditBookActivity.class);
+                Intent intent = new Intent(BSearchActivity.this, EditBookActivity.class);
                 System.out.println(position);
                 intent.putExtra("BookInformation", book);
                 intent.putExtra("Index", position);
