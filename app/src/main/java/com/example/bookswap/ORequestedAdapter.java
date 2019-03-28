@@ -74,6 +74,19 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
             holder = (ViewHolder)convertView.getTag();
         }
 
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Book book = requestedList.get(position);
+                Intent intent = new Intent(getContext(), ViewBookActivity.class);
+                System.out.println(position);
+                intent.putExtra("book", book);
+                intent.putExtra("Index", position);
+                getContext().startActivity(intent);
+            }
+        };
+        convertView.setOnClickListener(listener);
+
 
         Book element = requestedList.get(position);
 
