@@ -1,13 +1,18 @@
 package com.example.bookswap;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -39,7 +44,44 @@ public class BAvailableActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+        // Get the intent, verify the action and get the query
+
     }
+
+    /**
+     * create the search menu Ui
+     * @param menu the menu for search a book
+     * @return always true to enable creating menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bsearch, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.search_book);
+        SearchView searchView = (SearchView)searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
+    }
+
+
+
     protected void onStart() {
 
         super.onStart();

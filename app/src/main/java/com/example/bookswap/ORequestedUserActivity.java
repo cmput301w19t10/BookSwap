@@ -3,6 +3,7 @@ package com.example.bookswap;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
@@ -18,7 +19,7 @@ import static android.content.ContentValues.TAG;
  * For owner page , when owner click the viewrequest button
  * then the owner can view who want to borrow this book(it is a requested user list)
  */
-public class ORequestedUserActivity extends Activity {
+public class ORequestedUserActivity extends AppCompatActivity {
 
     private ListView display_listview;
     private TextView title;
@@ -40,14 +41,18 @@ public class ORequestedUserActivity extends Activity {
         setContentView(R.layout.activity_orequesteduser);
         display_listview = (ListView) findViewById(R.id.main_listview);
 
-
+        /**
+         * hwo to change actionbar title
+         * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
+         */
+        getSupportActionBar().setTitle("Owner Requested UserList");
 
         /**
          * how to get parcel for a book
          * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
          */
         Intent intent = getIntent();
-        Book book = intent.getParcelableExtra("index");
+        final Book book = intent.getParcelableExtra("index");
 
 
 
@@ -57,6 +62,7 @@ public class ORequestedUserActivity extends Activity {
         /**
          * link the database
          */
+
         DataBaseUtil u = new DataBaseUtil("Bowen");
         u.getBookBorrower(book,new DataBaseUtil.getBorrowerList(){
             /**
@@ -71,9 +77,10 @@ public class ORequestedUserActivity extends Activity {
         });
 
 
-
-
     }
+
+
+
 
 
 

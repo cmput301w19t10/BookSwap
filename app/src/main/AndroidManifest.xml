@@ -9,7 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".BAvailableActivity" />
+        <activity android:name=".BAvailableActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+
+
         <activity android:name=".BRequestedBooksActivity" />
         <activity android:name=".BorrowerActivity" />
         <activity android:name=".HomeActivity" />
@@ -65,7 +73,10 @@
                 android:value=".OAvailableActivity" />
         </activity>
         <activity android:name=".ViewBookActivity" />
-        <activity android:name=".BSearchActivity"></activity>
+
+        <activity android:name=".BAcceptedSwapActivity"></activity>
+        <activity android:name="ORequestedSwapActivity"></activity>
+
     </application>
 
 </manifest>
