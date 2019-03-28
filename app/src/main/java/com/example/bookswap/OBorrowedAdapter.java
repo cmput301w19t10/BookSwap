@@ -28,7 +28,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 
         if (convertView == null) {
             holder = new OBorrowedAdapter.ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_bborrowed, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_oborrowed, parent, false);
             holder.title = (TextView) convertView.findViewById(R.id.OBB_title_textview);
             holder.author = (TextView) convertView.findViewById(R.id.OBB_author_textview);
             holder.confirmBtn = (Button)convertView.findViewById(R.id.OBB_confirmBtn);
@@ -51,7 +51,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
              */
             @Override
             public void onClick(View v) {
-                Intent returnBook = new Intent(getContext(), BReturn.class);
+                Intent returnBook = new Intent(getContext(), OBorrowedSwapActivity.class);
                 //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
                 returnBook.putExtra("book", element);
                 getContext().startActivity(returnBook);
