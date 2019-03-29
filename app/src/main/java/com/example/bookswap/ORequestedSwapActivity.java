@@ -24,7 +24,6 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView comment;
     private Button swap;
-    private Button back;
     private Button locat;
     private Swap swapclass = new Swap();
     private Book swapingBook;
@@ -43,7 +42,6 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         date = (TextView) findViewById(R.id.date_text);
         comment = (TextView) findViewById(R.id.comment_text_o) ;
         swap = (Button) findViewById(R.id.confirm);
-        back = (Button) findViewById(R.id.back);
         locat = (Button) findViewById(R.id.locationButton);
 
         Intent intent = getIntent();
@@ -161,12 +159,5 @@ public class ORequestedSwapActivity extends AppCompatActivity {
             }
         });
 
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 }
