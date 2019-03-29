@@ -10,9 +10,12 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapSelectActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private LatLng point = new LatLng(53.5,-113.5);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +28,18 @@ public class MapSelectActivity extends FragmentActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap map){
-        LatLng edmontonTest = new LatLng(53.54, -113.49);
-        map.addMarker(new MarkerOptions()
-        .position(edmontonTest)
-        .title("Test Marker"));
+        final Marker meetup = map.addMarker(new MarkerOptions()
+        .position(point)
+        .title("Place Me at meetup point!")
+        .draggable(true));
         map.moveCamera(CameraUpdateFactory.zoomTo(15));
-        map.moveCamera(CameraUpdateFactory.newLatLng(edmontonTest));
+        map.moveCamera(CameraUpdateFactory.newLatLng(point));
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                meetup.setPosition(latLng);
+            }
+        });
     }
 }
