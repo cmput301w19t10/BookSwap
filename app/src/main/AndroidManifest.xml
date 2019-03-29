@@ -14,6 +14,7 @@
         <activity android:name=".OAcceptedActivity" />
         <activity android:name=".BReturn" />
         <activity android:name=".BBorrowedActivity" />
+        <activity android:name=".MapSelectActivity"></activity>
         <activity android:name=".BAvailableActivity" />
         <activity android:name=".BRequestedBooksActivity" />
         <activity android:name=".BorrowerActivity" />
@@ -72,6 +73,9 @@
         <activity android:name=".ViewBookActivity" />
         <activity android:name=".BAcceptedSwapActivity" />
         <activity android:name=".ORequestedSwapActivity" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDS-xMf2ijhGjyY_vCYmSEBlx6M3KV9tzs"/>
     </application>
 
 </manifest>

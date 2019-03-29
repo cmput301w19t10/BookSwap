@@ -26,6 +26,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private TextView comment;
     private Button swap;
     private Button back;
+    private Button locat;
     private Swap swapclass = new Swap();
     private Book swapingBook;
 
@@ -44,6 +45,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         comment = (TextView) findViewById(R.id.comment_text_o) ;
         swap = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
+        locat = (Button) findViewById(R.id.locationButton);
 
         Intent intent = getIntent();
         final Book swapingBook = intent.getParcelableExtra("book");
@@ -149,6 +151,14 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     DataBaseUtil u = new DataBaseUtil("Bowen");
                     u.swapInfo(swapingBook,swapclass);
                     finish();}
+            }
+        });
+
+        locat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ORequestedSwapActivity.this, MapSelectActivity.class);
+                startActivity(intent);
             }
         });
 
