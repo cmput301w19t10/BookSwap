@@ -60,7 +60,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         });
 
 
-
+        
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -71,9 +71,6 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
             case R.id.Borrower_requested_btn:{
                 Intent intent = new Intent(getActivity(), BRequestedBooksActivity.class);
                 startActivity(intent);
-                DataBaseUtil u;
-                u = new DataBaseUtil("Bowen");
-                u.changeNotificationStatus("Request","False");
                 break;
             }case R.id.Borrower_available_btn:{
                 Intent intent = new Intent(getActivity(), BAvailableActivity.class);
@@ -87,7 +84,6 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
                 //TODO
                 Intent intent = new Intent(getActivity(), BBorrowedActivity.class);
                 startActivity(intent);
-
                 break;
             }default: break;
         }

@@ -1,13 +1,16 @@
 package com.example.bookswap;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class ViewBookActivity extends AppCompatActivity {
 
@@ -24,7 +28,7 @@ public class ViewBookActivity extends AppCompatActivity {
     private TextView vAuthor;
     private TextView vDescription;
     private TextView vStatus;
-    private ImageView imageView;
+    private ImageButton imageButton;
     private static int BOOK_PHOTO_RESULT = 1;
 
     private Book book;
@@ -35,7 +39,7 @@ public class ViewBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_book);
-        ImageView photo = findViewById(R.id.bookCover);
+        ImageButton photo = findViewById(R.id.bookPhotoButton);
         // TODO: view image as larger size
         photo.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -46,8 +50,8 @@ public class ViewBookActivity extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
-        if (intent.getParcelableExtra("book") != null){
-            this.book = intent.getParcelableExtra("book");
+        if (intent.getParcelableExtra("BookInformation") != null){
+            this.book = intent.getParcelableExtra("BookInformation");
             fillText();
         }
     }
@@ -60,7 +64,7 @@ public class ViewBookActivity extends AppCompatActivity {
         vAuthor = ((TextView)findViewById(R.id.vAuthor));
         vStatus = ((TextView)findViewById(R.id.vStatus));
         vDescription = ((TextView)findViewById(R.id.vdescription));
-        imageView = ((ImageView)findViewById(R.id.bookCover));
+        imageButton = findViewById(R.id.bookPhotoButton);
     }
 
     /**
@@ -74,7 +78,7 @@ public class ViewBookActivity extends AppCompatActivity {
         vAuthor.setText(String.valueOf(book.getAuthor()));
         vDescription.setText(String.valueOf(book.getDescription()));
         vStatus.setText(String.valueOf(book.getStatus()));
-        imageView.setImageBitmap(book.getImage());
+        imageButton.setImageBitmap(book.getImage());
 
 
     }
