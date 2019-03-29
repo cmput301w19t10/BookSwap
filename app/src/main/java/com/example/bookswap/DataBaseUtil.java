@@ -409,19 +409,19 @@ public class DataBaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot bookKey: dataSnapshot.child("User").child(userName).child("Book").getChildren()){
                     String key = bookKey.getKey();
-                    if (dataSnapshot.child("Book").child(key).child("Status").getValue(String.class).equals(status) && dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
-                        //for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren())
+                     if (dataSnapshot.child("Book").child(key).child("Status").getValue(String.class).equals(status) && dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
+                    //for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren())
                         //if (userName.equals(bookborrower.getValue(String.class))) {
-                        //allBookkey.add(key);
-                        Book book = new Book();
-                        book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
-                        book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
-                        book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
-                        book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
-                        //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
-                        book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                        callBack.getNewBook(book);
-                    }
+                            //allBookkey.add(key);
+                            Book book = new Book();
+                            book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
+                            book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
+                            book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
+                            book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
+                            //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
+                            book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
+                            callBack.getNewBook(book);
+                        }
 
                 }
             }
