@@ -66,6 +66,7 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
                 swapclass.setBorrowerPermit(true);
                 DataBaseUtil u = new DataBaseUtil("Bowen");
                 u.swapInfo(swapingBook,swapclass);
+
                 finish();
             }
         });
