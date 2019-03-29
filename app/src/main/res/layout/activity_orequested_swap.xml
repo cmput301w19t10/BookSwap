@@ -94,7 +94,7 @@
                 android:id="@+id/comment_text_o"
                 android:layout_width="310dp"
                 android:layout_height="146dp"
-                android:background="@android:drawable/alert_light_frame"
+                android:textSize="20sp"
                 android:ems="10"
                 android:hint="up to 50 characters">
 

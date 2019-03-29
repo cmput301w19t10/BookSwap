@@ -22,6 +22,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
     private Context context;
     private Book book;
     private ArrayList<String> userList;
+    private String username;
 
     /**
      * constructor
@@ -79,6 +80,26 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 
         holder.Username.setText(userList.get(position));
         holder.Bookname.setText((String)book.getTitle());
+
+        /**
+         * click the adapter to enter the user profile
+         * TODO!!!!! change the user type (from string to User type)
+         *
+         */
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = userList.get(position);
+//                (String name, String phone_number, String email, String address, String password)
+//                TODO get user information in user class, and then push it in boge's class
+
+                Intent intent = new Intent(getContext(), ViewBookActivity.class);
+
+                intent.putExtra("book", book);
+                getContext().startActivity(intent);
+            }
+        };
+        convertView.setOnClickListener(listener);
 
 
         /**

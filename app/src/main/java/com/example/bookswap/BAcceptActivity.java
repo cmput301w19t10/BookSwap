@@ -27,7 +27,6 @@ public class BAcceptActivity extends AppCompatActivity {
     private ArrayList<Book> accept_list= new ArrayList<Book>();
     private static final int ADD_BOOK_REQUEST = 1;
     private static final int EDIT_BOOK_REQUEST = 2;
-    private Button dialog;
     private BAcceptedAdapter adapter;
 
 

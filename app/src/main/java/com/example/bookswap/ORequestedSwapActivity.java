@@ -27,6 +27,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private Button back;
     private Button locat;
     private Swap swapclass = new Swap();
+    private TextView bookinfo;
     private Book swapingBook;
 
 
@@ -45,10 +46,26 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         swap = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
         locat = (Button) findViewById(R.id.locationButton);
+        bookinfo = (TextView) findViewById(R.id.bookInfo);
 
         Intent intent = getIntent();
-        final Book swapingBook = intent.getParcelableExtra("book");
+        swapingBook = intent.getParcelableExtra("book");
         swapclass.setBook(swapingBook);
+
+        Intent intentbook = getIntent();
+        swapingBook = intent.getParcelableExtra("book");
+        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
+        infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
+        bookinfo.setText(infoDisplay);
+
+        bookinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(ORequestedSwapActivity.this,ViewBookActivity.class);
+                intent.putExtra("book", swapingBook);
+               startActivity(intent);
+            }
+        });
 
 
         /**
@@ -160,6 +177,8 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
         back.setOnClickListener(new View.OnClickListener() {

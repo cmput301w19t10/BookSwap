@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
@@ -21,6 +19,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private Button back;
     private Swap swapclass = new Swap();
     private Book swapingBook;
+    private TextView bookinfo;
     private TextView author;
     private TextView title;
 
@@ -37,8 +36,8 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_baccepted_swap);
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
-        TextView tvBookInfo = (TextView) findViewById(R.id.bookInfo);
-        comment = (TextView) findViewById(R.id.commont_text_o) ;
+        bookinfo = (TextView) findViewById(R.id.bookInfo);
+        comment = (TextView) findViewById(R.id.comment_text_b) ;
         swap = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
 
@@ -46,7 +45,16 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         swapingBook = intent.getParcelableExtra("book");
         String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
-        tvBookInfo.setText(infoDisplay);
+        bookinfo.setText(infoDisplay);
+
+        bookinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BAcceptedSwapActivity.this,ViewBookActivity.class);
+                intent.putExtra("book", swapingBook);
+                startActivity(intent);
+            }
+        });
 
 
         DataBaseUtil u = new DataBaseUtil("Bowen");

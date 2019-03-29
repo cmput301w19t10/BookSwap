@@ -156,7 +156,6 @@ public class ORequestedActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = requestedList.get(position);
                 Intent intent = new Intent(ORequestedActivity.this, ViewBookActivity.class);
-                System.out.println(position);
                 intent.putExtra("book", book);
                 intent.putExtra("Index", position);
                 startActivity(intent);
@@ -164,29 +163,6 @@ public class ORequestedActivity extends AppCompatActivity {
         });
 
 
-        /**
-         * about passing the percel item
-         * learn that from https://www.youtube.com/watch?v=WBbsvqSu0is
-         */
-        Log.d("nimama", "hellonima0");
-//        display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            /**
-//             * click
-//             * @param parent
-//             * @param view
-//             * @param position
-//             * @param id
-//             */
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.d("nimama","hellonima1");
-//                Book book = requestedList.get(position);
-//                Intent intent = new Intent(ORequestedActivity.this , ViewBookActivity.class);
-//                intent.putExtra("BookInformation", book);
-//                intent.putExtra("Index", position+"");
-//                startActivity(intent);
-//            }
-//        });
     }
 
 
