@@ -666,5 +666,41 @@ public class DataBaseUtil {
         });
     }
     //finish swap part
+    /**
+     * Cao, search part
+     *
+     */
 
+
+
+    /**
+     * use getNewBook interface
+     * pass the search string and return the related book
+     * @param searchString
+     * @param callBack
+     */
+    public void searchBook(final String searchString, final getNewBook callBack){
+        BookDatabase.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot bookKey: dataSnapshot.getChildren()){
+                    Book book = new Book();
+                    book.setDescription(dataSnapshot.child(bookKey.getKey()).child("Description").getValue(String.class));
+                    book.setStatus(dataSnapshot.child(bookKey.getKey()).child("Status").getValue(String.class));
+                    book.setTitle(dataSnapshot.child(bookKey.getKey()).child("Title").getValue(String.class));
+                    book.setAuthor(dataSnapshot.child(bookKey.getKey()).child("author").getValue(String.class));
+                    //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
+                    book.setUnikey(dataSnapshot.child(bookKey.getKey()).child("UniKey").getValue(String.class));
+                    if (dataSnapshot.child(bookKey.getKey()).child("Title").getValue(String.class).contains(searchString)){
+                        callBack.getNewBook(book);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
 }

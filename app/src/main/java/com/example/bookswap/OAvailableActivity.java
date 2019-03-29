@@ -38,7 +38,6 @@ public class OAvailableActivity extends AppCompatActivity {
     //ID of request codes to add/edit
     private static final int ADD_BOOK_REQUEST = 1;
     private static final int EDIT_BOOK_REQUEST = 2;
-    private static final int SEARCH_BOOK_REQUEST = 3;
 
     DataBaseUtil util = new DataBaseUtil("no one");
     private ArrayList<Book> availableList = new ArrayList<>();//copied into memory

@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 
@@ -27,6 +29,8 @@ public class BAvailableActivity extends AppCompatActivity {
     private ListView availableBooks;
     private ArrayList<Book> ava_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
+    // private BAvailableAdapter badapter;
+    DataBaseUtil u = new DataBaseUtil("Bowen");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +38,10 @@ public class BAvailableActivity extends AppCompatActivity {
         ava_book.clear();
         availableBooks = (ListView) findViewById(R.id.BAB_listview);
         Intent intent = getIntent();
-//        Button dummy_book = findViewById(R.id.BAB_dummy_btn);
-//        dummy_book.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
-//                Intent intent = new Intent(BAvailableActivity.this, BRequestedBooksActivity.class);
-//                intent.putExtra("abook",abook);
-//                startActivity(intent);
-//            }
-//        });
-        // Get the intent, verify the action and get the query
+
+
+
+
 
     }
 
@@ -73,7 +70,21 @@ public class BAvailableActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                // adapter.getFilter().filter(newText);
+                ava_book.clear();
+                // Log.i("HHHHH","HHHHH" + newText);
+                u.searchBook(newText ,new DataBaseUtil.getNewBook() {
+                    @Override
+                    public void getNewBook(Book aBook) {
+                        //ava_book.clear();
+                        if (aBook.getStatus()!= null && aBook.getStatus().equals("Available")){
+                            ava_book.add(aBook);
+                            availableBooks.setAdapter(adapter);
+                            Log.d("fragment","loop");
+                        }
+                    }
+                });
+
                 return false;
             }
         });
