@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * activity for user to register a new account with email and password
+ * activity for user to register backgroud new account with email and password
  */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 

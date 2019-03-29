@@ -16,7 +16,7 @@ import static android.content.ContentValues.TAG;
 
 /**
  * For owner page , when owner click the viewrequest button
- * then the owner can view who want to borrow this book(it is a requested user list)
+ * then the owner can view who want to borrow this book(it is backgroud requested user list)
  */
 public class ORequestedUserActivity extends Activity {
 
@@ -43,7 +43,7 @@ public class ORequestedUserActivity extends Activity {
 
 
         /**
-         * how to get parcel for a book
+         * how to get parcel for backgroud book
          * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
          */
         Intent intent = getIntent();

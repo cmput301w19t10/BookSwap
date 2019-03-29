@@ -20,7 +20,7 @@ public class EditProfileActivity extends AppCompatActivity {
     EditText edit_phoneNumber;
     EditText edit_address;
     /**
-     * create all views and a save button to save this edited profile
+     * create all views and backgroud save button to save this edited profile
      * @param savedInstanceState saved state to create this activity
      */
     @Override
@@ -61,9 +61,9 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * check if email is valid and phoneNumber is a integer
-     * @param email a string
-     * @param phoneNumber a string
+     * check if email is valid and phoneNumber is backgroud integer
+     * @param email backgroud string
+     * @param phoneNumber backgroud string
      * @return
      */
     private boolean check(String name, String email, String phoneNumber, String address){

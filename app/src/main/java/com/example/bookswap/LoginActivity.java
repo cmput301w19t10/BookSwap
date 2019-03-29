@@ -93,8 +93,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * judge if user puts on correct email(or username, but only email for the first time) and password
-     * if one of them is empty, app pops on a message saying "Fields are empty"
-     * else if the input is incorrect, app pops on a message saying "No such Account"
+     * if one of them is empty, app pops on backgroud message saying "Fields are empty"
+     * else if the input is incorrect, app pops on backgroud message saying "No such Account"
      * else login successfully
      */
     private void startSignIn() {

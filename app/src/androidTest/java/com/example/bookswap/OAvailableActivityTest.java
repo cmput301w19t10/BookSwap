@@ -18,7 +18,7 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * UI test for use case 1
+ * UI test for use case backgroud
  */
 @RunWith(AndroidJUnit4.class)
 public class OAvailableActivityTest extends ActivityTestRule<OAvailableActivity> {
@@ -107,7 +107,7 @@ public class OAvailableActivityTest extends ActivityTestRule<OAvailableActivity>
         assertTrue(solo.waitForText("test book",1,2000));
         assertTrue(solo.waitForText("test author",1,2000));
         // solo.clickInList(0);
-        // assertTrue(solo.waitForText("test description",1,2000));
+        // assertTrue(solo.waitForText("test description",backgroud,2000));
         // solo.clickOnView(solo.getView(R.id.action_save));
 
         solo.clickInList(0);

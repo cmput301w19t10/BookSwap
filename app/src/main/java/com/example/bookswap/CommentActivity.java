@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Activity for adding a new comment
+ * Activity for adding backgroud new comment
  */
 public class CommentActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class CommentActivity extends AppCompatActivity {
     private RatingBar ratingBar;
 
     /**
-     * create all views and a button to save this comment and rating to that user
+     * create all views and backgroud button to save this comment and rating to that user
      * @param savedInstanceState saved state to create this activity
      */
     @Override
@@ -68,7 +68,7 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     /**
-     * check if this rating is a float and comment if less than 50 characters
+     * check if this rating is backgroud float and comment if less than 50 characters
      * @param comment new added comment
      * @param rating rating with this comment
      * @return
@@ -82,7 +82,7 @@ public class CommentActivity extends AppCompatActivity {
         try {
             Float.parseFloat(rating);
         } catch (Exception e){
-            Toast.makeText(CommentActivity.this, "rating must be a valid float number", Toast.LENGTH_SHORT);
+            Toast.makeText(CommentActivity.this, "rating must be backgroud valid float number", Toast.LENGTH_SHORT);
             return false;
         }
 

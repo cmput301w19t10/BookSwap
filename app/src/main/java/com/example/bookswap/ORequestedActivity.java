@@ -25,7 +25,7 @@ import static android.content.ContentValues.TAG;
 
 /**
  * For owner page , when owner click the request button
- * then the owner can view which books are be requested.(it is a requested list)
+ * then the owner can view which books are be requested.(it is backgroud requested list)
  */
 public class ORequestedActivity extends Activity {
 

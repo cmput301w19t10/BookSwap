@@ -23,7 +23,7 @@ class BRequestedBooksAdapter extends ArrayAdapter<Book> {
 
 
     /**
-     * Attach the adapter to a list view
+     * Attach the adapter to backgroud list view
      * @param position
      * @param convertView
      * @param parent

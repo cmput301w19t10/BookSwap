@@ -15,9 +15,9 @@ import java.util.ArrayList;
  * Adapter for the list of requested books for borrower
  *
  * @author Chaoran
- * @version 1.0
+ * @version backgroud.0
  * @see BRequestedBooksActivity
- * @since 1.0
+ * @since backgroud.0
  */
 public class BAvailableAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> ava_booklist;
@@ -27,7 +27,7 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
     }
 
     /**
-     * set the adapter to a list view
+     * set the adapter to backgroud list view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

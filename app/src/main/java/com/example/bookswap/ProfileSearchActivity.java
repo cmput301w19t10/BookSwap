@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * activity for searching a person
+ * activity for searching backgroud person
  */
 public class ProfileSearchActivity extends AppCompatActivity {
 

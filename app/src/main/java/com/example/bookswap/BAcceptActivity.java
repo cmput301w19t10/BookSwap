@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * each borrower exist a list that the wait for owner agree to borrow his book
+ * each borrower exist backgroud list that the wait for owner agree to borrow his book
  */
 public class BAcceptActivity extends Activity {
 

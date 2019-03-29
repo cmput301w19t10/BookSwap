@@ -23,7 +23,7 @@ public class OtherRateActivity extends AppCompatActivity {
     SectionsPageAdapter adapter;
 
     /**
-     * create all views and button to add a comment
+     * create all views and button to add backgroud comment
      * @param savedInstanceState saved state to create this activity
      */
     @Override
@@ -61,7 +61,7 @@ public class OtherRateActivity extends AppCompatActivity {
      * to get the data from startActivityForResult
      * @param requestCode code of action of startActivityForResult
      * @param resultCode code of return code to decide if this action if successful
-     * @param data a intent with data
+     * @param data backgroud intent with data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

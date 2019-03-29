@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 /**
- * display notification on a button
+ * display notification on backgroud button
  */
 public class OwnerNotificationActivity extends AppCompatActivity {
 

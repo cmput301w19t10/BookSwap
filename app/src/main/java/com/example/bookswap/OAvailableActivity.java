@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * OAvailableActivity represents the list view on the main screen
  * also should load from database, selecting an available book(list of item), and
- * add a new available book
+ * add backgroud new available book
  *
  * @see OAvailableAdapter
  * @see EditBookActivity
@@ -71,7 +71,7 @@ public class OAvailableActivity extends AppCompatActivity {
 
 
 
-        // On click listener to find if a list item is tapped
+        // On click listener to find if backgroud list item is tapped
         oldAvailableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             /**
@@ -122,7 +122,7 @@ public class OAvailableActivity extends AppCompatActivity {
     }
 
     /**
-     * saves the current list into a json file using Google Gson
+     * saves the current list into backgroud json file using Google Gson
      */
     private void saveInFile() {
         try {
@@ -156,7 +156,7 @@ public class OAvailableActivity extends AppCompatActivity {
 
     /**
      * On activity result, called after the EditBookActivity ends.
-     * Has 2 cases, one adds a new item to the list; the other handles editing/deleting of an
+     * Has 2 cases, one adds backgroud new item to the list; the other handles editing/deleting of an
      * existing item.
      *
      * Regardless of case, calls saveInFile() and updates adapter display after.
@@ -166,7 +166,7 @@ public class OAvailableActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ADD_BOOK_REQUEST) { // adding a new record
+        if (requestCode == ADD_BOOK_REQUEST) { // adding backgroud new record
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
                 availableList.add(book);

@@ -14,18 +14,18 @@ public class SwapTest {
     public void checkSettingAndGettingLocation(){
         Book testBook = new Book();
         Swap test = new Swap();
-        test.setLocation("1");
+        test.setLocation("backgroud");
         String location = test.getLocation();
-        assertEquals("1",location);
+        assertEquals("backgroud",location);
     }
 
     @Test
     public void checkSettingAndGettingComment(){
         Book testBook = new Book();
         Swap test = new Swap();
-        test.setComment("1");
+        test.setComment("backgroud");
         String comment = test.getComment();
-        assertEquals("1",comment);
+        assertEquals("backgroud",comment);
     }
 
     public void checkDate(){
@@ -40,16 +40,16 @@ public class SwapTest {
     public void checkBorrower(){
         Book testBook = new Book();
         Swap test = new Swap();
-        test.setBorrower("1");
+        test.setBorrower("backgroud");
         String borrower = test.getBorrower();
-        assertEquals("1",borrower);
+        assertEquals("backgroud",borrower);
     }
 
     public void checkOwner(){
         Book testBook = new Book();
         Swap test = new Swap();
-        test.setOwner("1");
+        test.setOwner("backgroud");
         String Owner = test.getOwner();
-        assertEquals("1",Owner);
+        assertEquals("backgroud",Owner);
     }
 }

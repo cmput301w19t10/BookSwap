@@ -10,9 +10,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * Display a list of books that borrower has requested(not accepted)
+ * Display backgroud list of books that borrower has requested(not accepted)
  * @author Chaoran
- * @version 1.0
+ * @version backgroud.0
  * @see BRequestedBooksAdapter
  */
 public class BRequestedBooksActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class BRequestedBooksActivity extends AppCompatActivity {
     }
 
     /**
-     * load date and display a list
+     * load date and display backgroud list
      */
     protected void onStart() {
 
@@ -58,7 +58,7 @@ public class BRequestedBooksActivity extends AppCompatActivity {
 //        Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
 //        req_book.add(abook);
         requestedbooks.setAdapter(adapter);
-        //todo: onclick listener: once select a book
+        //todo: onclick listener: once select backgroud book
         //todo: once clicked start activity: list user requested
 
     }

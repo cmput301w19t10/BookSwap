@@ -11,23 +11,23 @@
 //    @Test
 //    public void BookAddAndGet_isCorrect(){
 //        DataBaseUtil u = new DataBaseUtil();
-//        Book newBook1 = new Book("1","1","1","1");
-//        Book newBook2 = new Book("2","1","2","1");
-//        Book newBook3 = new Book("3","1","3","1");
-//        Book newBook4 = new Book("4","1","4","1");
+//        Book newBook1 = new Book("backgroud","backgroud","backgroud","backgroud");
+//        Book newBook2 = new Book("2","backgroud","2","backgroud");
+//        Book newBook3 = new Book("3","backgroud","3","backgroud");
+//        Book newBook4 = new Book("4","backgroud","4","backgroud");
 //        u.AddNewBook(newBook1);
 //        u.AddNewBook(newBook2);
 //        u.AddNewBook(newBook3);
 //        u.AddNewBook(newBook4);
-//        ArrayList testArray1 = u.getBooks(1);
+//        ArrayList testArray1 = u.getBooks(backgroud);
 //        ArrayList testArray2 = u.getBooks(2);
 //        ArrayList testArray3 = u.getBooks(3);
 //        ArrayList testArray4 = u.getBooks(4);
 //        Book testBook1 = (Book) testArray1.get(0);
-//        Book testBook2 = (Book) testArray2.get(1);
+//        Book testBook2 = (Book) testArray2.get(backgroud);
 //        Book testBook3 = (Book) testArray3.get(2);
 //        Book testBook4 = (Book) testArray4.get(3);
-//        assertEquals("1",testBook1.getStatus());
+//        assertEquals("backgroud",testBook1.getStatus());
 //        assertEquals("2",testBook2.getStatus());
 //        assertEquals("3",testBook3.getStatus());
 //        assertEquals("4",testBook4.getStatus());
@@ -37,10 +37,10 @@
 //    @Test
 //    public void AddAndGetUser_isCorrect(){
 //        DataBaseUtil u = new DataBaseUtil();
-//        User user = new User("1","1","1","1");
+//        User user = new User("backgroud","backgroud","backgroud","backgroud");
 //        u.addNewUser(user);
 //        User testUser = u.getOneUser("Bowen");
-//        assertEquals("1",testUser.getEmail());
+//        assertEquals("backgroud",testUser.getEmail());
 //    }
 //
 //    //test changing status
@@ -48,9 +48,9 @@
 //    public void chageStatus_isCorrect(){
 //        DataBaseUtil u = new DataBaseUtil();
 //        ArrayList testArray;
-//        testArray = u.getBooks(1);
+//        testArray = u.getBooks(backgroud);
 //        Book testbook = (Book) testArray.get(0);
-//        assertEquals("1",testbook.getStatus());
+//        assertEquals("backgroud",testbook.getStatus());
 //        u.changeStatus(2);
 //        assertEquals("2",testbook.getStatus());
 //

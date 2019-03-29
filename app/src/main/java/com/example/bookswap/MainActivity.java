@@ -14,9 +14,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * create this activity
-     * create a button for going to login
-     * create a button for going to profile
-     * create a button for going to book
+     * create backgroud button for going to login
+     * create backgroud button for going to profile
+     * create backgroud button for going to book
      * @param savedInstanceState
      */
     @Override

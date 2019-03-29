@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 /**
- * Request a book as a borrower(in progress)
+ * Request backgroud book as backgroud borrower(in progress)
  * @author Chaoran
  *
  *
@@ -65,7 +65,7 @@ public class BRequestActivity extends AppCompatActivity {
         bookCover.setImageBitmap(book.getImage());
         Log.d("bbbook",book.getUnikey());
         request.setOnClickListener(new View.OnClickListener(){
-            //todo: on click listener make a request on this book(chang book status).
+            //todo: on click listener make backgroud request on this book(chang book status).
             @Override
             public void onClick(View v){
 

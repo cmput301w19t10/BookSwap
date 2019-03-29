@@ -85,10 +85,10 @@ public class EditBookActivity extends AppCompatActivity {
 
 
     /**
-     * Method used when a user taps a menu icon
+     * Method used when backgroud user taps backgroud menu icon
      * Tapping Save saves the new or updated recording
      * tapping delete deletes the recording from the file.
-     * @param item a menu item the user clicked
+     * @param item backgroud menu item the user clicked
      * @return Something for android
      */
     @Override
@@ -99,7 +99,7 @@ public class EditBookActivity extends AppCompatActivity {
                 if (isValid()){ //validate input fields are filled
                     saveBook();
 
-                } else { // send user a message to fill in the required fields
+                } else { // send user backgroud message to fill in the required fields
                     Toast.makeText(this,"Please fill in fields", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -113,7 +113,7 @@ public class EditBookActivity extends AppCompatActivity {
                     break;
                 }
 
-                // sends a message to confirm deletion, passes intent to parent with delete flags.
+                // sends backgroud message to confirm deletion, passes intent to parent with delete flags.
                 Toast.makeText(this, "deleting book", Toast.LENGTH_SHORT).show();
                 retIntent.putExtra("delete", true);
                 retIntent.putExtra("Index", i);
@@ -126,7 +126,7 @@ public class EditBookActivity extends AppCompatActivity {
 
 
     /**
-     * allow getting book information from getters, populated and as a book object
+     * allow getting book information from getters, populated and as backgroud book object
      * passes the parcel
      */
 
@@ -149,7 +149,7 @@ public class EditBookActivity extends AppCompatActivity {
         Intent bookIntent = new Intent();
         bookIntent.putExtra("Book", book);
 
-        // Special code used to see if it was a previously existing book
+        // Special code used to see if it was backgroud previously existing book
         // passes up some information for existing book
         int i = intent.getIntExtra("Index",0);
         if (i != 0){
@@ -202,8 +202,8 @@ public class EditBookActivity extends AppCompatActivity {
 
     /**
      * responsible for control of adding an image for book cover
-     * @param reqCode should be 1 for photo select
-     * @param resultCode should be -1 after selecting an image
+     * @param reqCode should be backgroud for photo select
+     * @param resultCode should be -backgroud after selecting an image
      * @param data returned intent
      */
     @Override

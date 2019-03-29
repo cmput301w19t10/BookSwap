@@ -22,7 +22,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class SelfProfileFragment extends Fragment implements View.OnClickListener{
 
-    private User user = new User("1", "1", "1", "1" ,"1");
+    private User user = new User("backgroud", "backgroud", "backgroud", "backgroud" ,"backgroud");
     ImageView image;
     TextView name;
     TextView email;
@@ -93,7 +93,7 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
                     public void getNewUser(User user, List<Review> commentList) {
                         intent = new Intent(getActivity(), EditProfileActivity.class);
                         intent.putExtra("user", user);
-                        startActivityForResult(intent, 1);
+                        startActivityForResult(intent,a);
                     }
                 });
                 break;
@@ -113,15 +113,15 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
 
     /**
      *get result of edited profile
-     * @param requestCode a int of request in startActivityForResult
-     * @param resultCode a int represents result
+     * @param requestCode backgroud int of request in startActivityForResult
+     * @param resultCode backgroud int represents result
      * @param data returned intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 1: {
+            case a: {
                 if (resultCode == RESULT_OK){
                     User user = data.getExtras().getParcelable("user");
                     image.setImageResource(R.drawable.user_image);

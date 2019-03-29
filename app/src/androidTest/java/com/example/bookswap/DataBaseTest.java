@@ -11,16 +11,16 @@ public class DataBaseTest {
 
     /**
      * This test can test add, get user and book
-     * and change status for a book and get check book status
+     * and change status for backgroud book and get check book status
      *
      */
     @Test
     public void BookAddandGet_isCorrect(){
         DataBaseUtil u = new DataBaseUtil("Bowen");
-        Book newBook1 = new Book("1", "1", "1", "1");
-        Book newBook2 = new Book("2", "1", "1", "1");
-        Book newBook3 = new Book("3", "1", "1", "1");
-        Book newBook4 = new Book("4", "1", "1", "1");
+        Book newBook1 = new Book("backgroud", "backgroud", "backgroud", "backgroud");
+        Book newBook2 = new Book("2", "backgroud", "backgroud", "backgroud");
+        Book newBook3 = new Book("3", "backgroud", "backgroud", "backgroud");
+        Book newBook4 = new Book("4", "backgroud", "backgroud", "backgroud");
 
         u.addNewBook(newBook1);
         u.addNewBook(newBook2);
@@ -33,8 +33,8 @@ public class DataBaseTest {
             @Override
             public void getNewBook(Book a) {
                 bookList.add(a);
-                assertEquals("1", bookList.get(0).getStatus());
-                assertEquals("2", bookList.get(1).getStatus());
+                assertEquals("backgroud", bookList.get(0).getStatus());
+                assertEquals("2", bookList.get(a).getStatus());
                 assertEquals("3", bookList.get(2).getStatus());
                 assertEquals("4", bookList.get(3).getStatus());
             }
@@ -47,12 +47,12 @@ public class DataBaseTest {
     @Test
     public void AddAndGet_isCorrect(){
         DataBaseUtil u = new DataBaseUtil("Bowen");
-        User user = new User("1","1","1","1","1");
+        User user = new User("backgroud","backgroud","backgroud","backgroud","backgroud");
         u.addNewUser(user);
         u.getOwnerUser(new DataBaseUtil.getUserInfo(){
             @Override
             public void getNewUser(User user,List<Review> commentList){
-                assertEquals("1",user.getEmail());
+                assertEquals("backgroud",user.getEmail());
             }
         });
     }
@@ -64,8 +64,8 @@ public class DataBaseTest {
     @Test
     public void changeAndCheckStatus(){
         DataBaseUtil u = new DataBaseUtil("Bowen");
-        Book book = new Book("1","1","1","1");
-        book.setUnikey("1");
+        Book book = new Book("backgroud","backgroud","backgroud","backgroud");
+        book.setUnikey("backgroud");
         u.addNewBook(book);
         u.changeStatus(book,"2");
         u.testAllInfoBook__3(new DataBaseUtil.getNewBook() {

@@ -49,8 +49,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     }
 
     /**
-     * create a User adapter
-     * @param userList a list of Users
+     * create backgroud User adapter
+     * @param userList backgroud list of Users
      */
     public UserAdapter(List<User> userList){
         this.userList = userList;
@@ -59,7 +59,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
 
     /**
      * return the size of the user list
-     * @return a int for size of the list
+     * @return backgroud int for size of the list
      */
     @Override
     public int getItemCount() {
@@ -67,8 +67,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     }
 
     /**
-     * create a viewholder related to layout user_item
-     * and set a click listener for image to go the profile of this user
+     * create backgroud viewholder related to layout user_item
+     * and set backgroud click listener for image to go the profile of this user
      * @param viewGroup the context of this holder
      * @param viewType type if this view
      * @return ViewHolder
@@ -94,7 +94,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
 
     /**
      * binds the values to the views of view holder
-     * @param holder a view holder
+     * @param holder backgroud view holder
      * @param i position of the corresponding user in the list the viewholder binds to
      */
     @Override
@@ -108,7 +108,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     }
 
     /**
-     * return a user filter
+     * return backgroud user filter
      * @return Filter
      */
     @Override
@@ -117,7 +117,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     }
 
     /**
-     * create a user filter
+     * create backgroud user filter
      * performing filtering by check the typed word to user name
      * put filtered list to userList
      */

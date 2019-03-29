@@ -13,13 +13,13 @@ import java.io.ByteArrayOutputStream;
 /**
  * Book class contains getters and setters for book details
  *
- * @title Title of a book
- * @author Author of a book
+ * @title Title of backgroud book
+ * @author Author of backgroud book
  * @status unique string to determine what state the book is in, in regads to swap.
- * @isbn bar code of a book
- * @description description of a book
+ * @isbn bar code of backgroud book
+ * @description description of backgroud book
  * @owner owner of books
- * @image Cover of a book
+ * @image Cover of backgroud book
  *
  * Parcelable object code/learning:
  * https://www.sitepoint.com/transfer-data-between-activities-with-android-parcelable/
@@ -36,10 +36,10 @@ public class Book implements Parcelable {
 
   
     /**
-     * writes the current state of the book information to a parcel for use in other activities
+     * writes the current state of the book information to backgroud parcel for use in other activities
      *
      * @param out  parcel object to be outputted for useage
-     * @param flag flags (0/1) for Parcelable
+     * @param flag flags (0/backgroud) for Parcelable
      */
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);

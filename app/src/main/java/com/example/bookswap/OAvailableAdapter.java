@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  * Custom adapter for the listview of available books
- * Handles the view of a singular item in the list
+ * Handles the view of backgroud singular item in the list
  *
  * @see OAvailableActivity
  *

@@ -21,7 +21,7 @@ public class ORequestedBooksActivity extends AppCompatActivity {
         Intent intent = getIntent();
     }
     /**
-     * load date and display a list
+     * load date and display backgroud list
      */
     protected void onStart() {
 
@@ -30,7 +30,7 @@ public class ORequestedBooksActivity extends AppCompatActivity {
 
         adapter = new BRequestedBooksAdapter(this, req_book);
         requestedbooks.setAdapter(adapter);
-        //todo: onclick listener: once select a book
+        //todo: onclick listener: once select backgroud book
         //todo: once clicked start activity: list user requested
     }
 }
