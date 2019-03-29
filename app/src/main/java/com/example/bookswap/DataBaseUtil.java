@@ -558,43 +558,57 @@ public class DataBaseUtil {
      *   and it can be filtered by the status
      * @param callBack
      */
-    public void getBorrowerBook1(final getNewBook callBack){
-        ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //ArrayList<String> allBookkey = new ArrayList<>();
-                ArrayList<Book> allBook = new ArrayList<>();
-                for (DataSnapshot bookKey: dataSnapshot.child("Book").getChildren()){
-                    String key = bookKey.getKey();
-                    for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren()) {
-                        if (userName.equals(bookborrower.getValue(String.class))) {
-                            //allBookkey.add(key);
-                            Book book = new Book();
-                            book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
-                            book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
-                            book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
-                            book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
-                            //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
-                            book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                            callBack.getNewBook(book);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "onCancelled", databaseError.toException());
-            }
-        });
-
-    }
+//    public void getBorrowerBook1(final getNewBook callBack){
+//        ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                //ArrayList<String> allBookkey = new ArrayList<>();
+//                ArrayList<Book> allBook = new ArrayList<>();
+//                for (DataSnapshot bookKey: dataSnapshot.child("Book").getChildren()){
+//                    String key = bookKey.getKey();
+//                    for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren()) {
+//                        if (userName.equals(bookborrower.getValue(String.class))) {
+//                            //allBookkey.add(key);
+//                            Book book = new Book();
+//                            book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
+//                            book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
+//                            book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
+//                            book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
+//                            //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
+//                            book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
+//                            callBack.getNewBook(book);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w(TAG, "onCancelled", databaseError.toException());
+//            }
+//        });
+//
+//    }
 
     public void getBorrowerBook(final getNewBook callBack){
         BookDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                
+                for (DataSnapshot books: dataSnapshot.getChildren()){
+                    if(books.child("Borrower").hasChild(userName)){
+                        Book book = new Book();
+                        book.setDescription(dataSnapshot.child("Description").getValue(String.class));
+                        book.setStatus(dataSnapshot.child("Status").getValue(String.class));
+                        book.setTitle(dataSnapshot.child("Title").getValue(String.class));
+                        book.setAuthor(dataSnapshot.child("author").getValue(String.class));
+                        //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
+                        book.setUnikey(dataSnapshot.child("UniKey").getValue(String.class));
+                        if (dataSnapshot.child("image").hasChildren()){
+                            book.setImage(dataSnapshot.child("image").getValue(Bitmap.class));
+                        }
+                        callBack.getNewBook(book);
+                    }
+                }
             }
 
             @Override
