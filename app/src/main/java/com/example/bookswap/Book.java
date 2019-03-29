@@ -33,6 +33,7 @@ public class Book implements Parcelable {
     private String owner;
     private String image;
     private String uniKey;
+    private String borrower;
 
   
     /**
@@ -50,6 +51,7 @@ public class Book implements Parcelable {
         out.writeString(owner);
         out.writeString(image);
         out.writeString(uniKey);
+        out.writeString(borrower);
     }
 
 
@@ -85,6 +87,7 @@ public class Book implements Parcelable {
         owner = parcel.readString();
         image = parcel.readString();
         uniKey = parcel.readString();
+        borrower = parcel.readString();
     }
 
     public Book(){}
@@ -266,6 +269,7 @@ public class Book implements Parcelable {
     public String getUnikey(){
         return uniKey;
     }
+
 
 
     /**

@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,21 +16,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-
 import java.util.Calendar;
 
-public class ORequestedSwapActivity extends AppCompatActivity {
+public class BReturn extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
     private TextView date;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView comment;
     private Button swap;
-<<<<<<< HEAD
-    private Button locat;
-=======
     private Button back;
->>>>>>> 71e9ef1d065bd4499d0268b13dd59e5986b10c1f
     private Swap swapclass = new Swap();
     private Book swapingBook;
 
@@ -37,21 +33,17 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_orequested_swap);
+        setContentView(R.layout.activity_breturn);
         /**
          * hwo to change actionbar title
          * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
          */
-        getSupportActionBar().setTitle("Owner Confirm Borrow");
+        getSupportActionBar().setTitle("Borrower Confirm Return");
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
-        comment = (TextView) findViewById(R.id.comment_text_o) ;
-        swap = (Button) findViewById(R.id.confirm);
-<<<<<<< HEAD
-        locat = (Button) findViewById(R.id.locationButton);
-=======
+        comment = (TextView) findViewById(R.id.commont_text) ;
+        swap = (Button) findViewById(R.id.swap);
         back = (Button) findViewById(R.id.back);
->>>>>>> 71e9ef1d065bd4499d0268b13dd59e5986b10c1f
 
         Intent intent = getIntent();
         final Book swapingBook = intent.getParcelableExtra("book");
@@ -70,9 +62,9 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                 int minute = timecal.get(Calendar.MINUTE);
 
                 TimePickerDialog timeDialog = new TimePickerDialog(
-                        ORequestedSwapActivity.this,timeSetListener,
+                        BReturn.this,timeSetListener,
                         hour,minute,
-                        DateFormat.is24HourFormat(ORequestedSwapActivity.this)
+                        DateFormat.is24HourFormat(BReturn.this)
                 );
 
                 timeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -121,7 +113,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                 int day = datecal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        ORequestedSwapActivity.this,
+                        BReturn.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListener,
                         year,month,day);
@@ -142,14 +134,16 @@ public class ORequestedSwapActivity extends AppCompatActivity {
             }
         };
 
-
-
+        String stringcomment = comment.getText().toString();
+        swapclass.setComment(stringcomment);
+        Log.d("229","sdf"+swapingBook.getTitle());
 
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("229","sdf"+swapingBook.getTitle());
                 if(swapclass.getTime() == null || swapclass.getDate() == null){
-                    Toast.makeText(ORequestedSwapActivity.this,"Please set time and date",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BReturn.this,"Please set time and date",Toast.LENGTH_SHORT).show();
                 }else{
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}
@@ -160,16 +154,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
-        locat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ORequestedSwapActivity.this, MapSelectActivity.class);
-                startActivity(intent);
-            }
-        });
 
-=======
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +162,5 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                 finish();
             }
         });
->>>>>>> 71e9ef1d065bd4499d0268b13dd59e5986b10c1f
     }
 }

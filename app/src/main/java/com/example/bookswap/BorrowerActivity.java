@@ -23,10 +23,21 @@ public class BorrowerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Button requested = (Button) findViewById(R.id.Borrower_requested_btn);
         Button available = (Button) findViewById(R.id.Borrower_available_btn);
-        TextView reddot = (TextView) findViewById(R.id.reddot);
-        if(false){
-            reddot.setVisibility(View.INVISIBLE);
-        }
+        final TextView reddot = (TextView) findViewById(R.id.reddot);
+        DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.checkRequestNotification(new DataBaseUtil.getStatus(){
+            @Override
+            public void getStatus(String value){
+                if(value.equals("True")){
+                    reddot.setVisibility(View.INVISIBLE);
+                }
+            }
+
+        });
+//        if(checkRequestNotification){
+//            reddot.setVisibility(View.INVISIBLE);
+//        }
         requested.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

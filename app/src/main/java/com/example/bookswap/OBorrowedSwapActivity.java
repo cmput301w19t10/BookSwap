@@ -9,9 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+public class OBorrowedSwapActivity extends AppCompatActivity {
 
-public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
     private TextView date;
@@ -32,13 +31,13 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
          * hwo to change actionbar title
          * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
          */
-        getSupportActionBar().setTitle("Borrower Confirm borrow");
+        getSupportActionBar().setTitle("Owner Confirm Return");
 
-        setContentView(R.layout.activity_baccepted_swap);
+        setContentView(R.layout.activity_oborrowed_swap);
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
         TextView tvBookInfo = (TextView) findViewById(R.id.bookInfo);
-        comment = (TextView) findViewById(R.id.commont_text_o) ;
+        comment = (TextView) findViewById(R.id.comment_text_o) ;
         swap = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
 
@@ -60,13 +59,14 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         });
 
 
-        
+
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 swapclass.setBorrowerPermit(true);
                 DataBaseUtil u = new DataBaseUtil("Bowen");
                 u.swapInfo(swapingBook,swapclass);
+
                 finish();
             }
         });

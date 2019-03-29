@@ -52,7 +52,7 @@ public class OwnerFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.accept:{
-                Intent intent = new Intent(getActivity(), BAcceptActivity.class);
+                Intent intent = new Intent(getActivity(), OAcceptedActivity.class);
                 startActivity(intent);
                 break;
             }case R.id.request:{
@@ -64,7 +64,8 @@ public class OwnerFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             }case R.id.borrow:{
-
+                Intent intent = new Intent(getActivity(), OBorrowedActivity.class);
+                startActivity(intent);
                 break;
             }
             default: break;

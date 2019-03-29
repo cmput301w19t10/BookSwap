@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * borrower interface in home
@@ -20,6 +21,7 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
     private Button button_available;
     private Button button_accept;
     private Button button_borrow;
+    private TextView reddot;
     /**
      *  create all views including two buttons
      * @param inflater inflater to inflate views to this fragment
@@ -42,6 +44,19 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
         button_borrow = view.findViewById(R.id.Borrower_borrowed_btn);
         button_borrow.setOnClickListener(this);
 
+        reddot =  view.findViewById(R.id.reddot);
+        DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.checkRequestNotification(new DataBaseUtil.getStatus(){
+            @Override
+            public void getStatus(String value){
+                if(value != null && value.equals("True")){
+                    reddot.setVisibility(View.INVISIBLE);
+                    //notificationcall();
+                }
+            }
+
+        });
 
         return view;
     }
@@ -67,6 +82,8 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
                 break;
             }case R.id.Borrower_borrowed_btn:{
                 //TODO
+                Intent intent = new Intent(getActivity(), BBorrowedActivity.class);
+                startActivity(intent);
                 break;
             }default: break;
         }

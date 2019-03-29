@@ -6,21 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:stretchColumns="1">
-    <TableRow
-        android:id="@+id/tableRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/bookInfo"
-            android:layout_span="2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="23sp"
-             />
-            <requestFocus />
-    </TableRow>
-
+    　
 
     <TableRow
         android:id="@+id/tableRow1"
@@ -72,28 +58,6 @@
 
 
 
-    <!--<TableRow-->
-        <!--android:id="@+id/tableRow5"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" >-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/location"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Location" />-->
-
-        <!--<EditText-->
-            <!--android:id="@+id/heart_text"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="155dp"-->
-            <!--android:background="@android:drawable/alert_light_frame"-->
-            <!--android:ems="10">-->
-
-            <!--<requestFocus />-->
-        <!--</EditText>-->
-    <!--</TableRow>-->
-
     <TableRow
         android:id="@+id/tableRow6"
         android:layout_width="wrap_content"
@@ -107,7 +71,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/commont_text_o"
+            android:id="@+id/commont_text"
             android:layout_width="310dp"
             android:layout_height="146dp"
             android:background="@android:drawable/alert_light_frame"
@@ -133,8 +97,8 @@
             android:text="back" />
 
         <Button
-            android:id="@+id/confirm"
-            android:text="confirm" />
+            android:id="@+id/swap"
+            android:text="swap" />
     </TableRow>
 
 
