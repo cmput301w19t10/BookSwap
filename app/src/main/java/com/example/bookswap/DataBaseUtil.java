@@ -620,6 +620,39 @@ public class DataBaseUtil {
         });
     }
 
+    /**
+     * get owner Book
+     * it can be filtered by the status
+     * @param callBack
+     */
+    public void getOwnerBook(final getNewBook callBack){
+        ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot bookKeys: dataSnapshot.child("User").child(userName).child("Book").getChildren()){
+                    String key = bookKeys.getKey();
+                    Book book = new Book();
+                    book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
+                    book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
+                    book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
+                    book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
+                    book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                    book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
+                    if (dataSnapshot.child("Book").child(key).child("image").hasChildren()) {
+                        book.setImage(dataSnapshot.child("image").getValue(Bitmap.class));
+                    }
+                    callBack.getNewBook(book);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+
+    }
+
 
 
     //chaoRan part finish
