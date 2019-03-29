@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -153,7 +154,7 @@ public class DataBaseUtil {
                             book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
                             book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                             book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
-                            book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
+                            book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
                             //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
                             book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
                             callBack.getNewBook(book);
@@ -607,7 +608,7 @@ public class DataBaseUtil {
 
 
     public void swapInfo(Book book, Swap swap){
-
+        addLocation(book,swap);
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
@@ -635,8 +636,9 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
     }
 
-    private void addLocation(){
+    private void addLocation(Book book,Swap swap){
         //TODO
+        BookDatabase.child(book.getUnikey()).child("Swap").child("Location").setValue(swap.getLocation());
     }
 
     public void setSwap(String people,Book book,boolean string){

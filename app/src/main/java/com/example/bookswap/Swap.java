@@ -1,9 +1,11 @@
 package com.example.bookswap;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Date;
 //Unimplemented class
 public class Swap {
-    private String location;
+    private LatLng location;
     private String comment;
     private String borrowname;
     private String ownername;
@@ -23,7 +25,7 @@ public class Swap {
     }
 
     //TODO find how google maps stores GPS location
-    public void setLocation(String Location){
+    public void setLocation(LatLng Location){
         this.location = Location;
     }
 
@@ -57,7 +59,7 @@ public class Swap {
         this.ownerPermit = ownerPermit;
     }
 
-    public String getLocation(){
+    public LatLng getLocation(){
         return location;
         }
 

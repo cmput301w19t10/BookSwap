@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -14,6 +15,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Calendar;
 
@@ -28,6 +31,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private Swap swapclass = new Swap();
     private TextView bookinfo;
     private Book swapingBook;
+    private static final int SET_MAP = 1;
 
 
     @Override
@@ -172,10 +176,22 @@ public class ORequestedSwapActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ORequestedSwapActivity.this, MapSelectActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, SET_MAP);
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SET_MAP) {
+            if (resultCode == RESULT_OK){
+                if (data != null) {
+                    LatLng point = data.getParcelableExtra("location");
+                    swapclass.setLocation(point);
+                }
+            }
+        }
     }
 }
