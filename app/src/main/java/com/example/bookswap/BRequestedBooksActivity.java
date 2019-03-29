@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -49,7 +50,9 @@ public class BRequestedBooksActivity extends AppCompatActivity {
         u.getBorrowerBook(new DataBaseUtil.getNewBook(){
             @Override
             public void getNewBook(Book a){
-                if(a.getStatus().equals("Requested")) {
+
+                if(a.getStatus()!=null && a.getStatus().equals("Requested")) {
+                    Log.d("inif",a.getTitle());
                     req_book.add(a);
                     requestedbooks.setAdapter(adapter);
                 }
