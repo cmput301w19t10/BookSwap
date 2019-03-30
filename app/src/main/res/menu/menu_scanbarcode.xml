@@ -9,13 +9,7 @@
         android:icon="@drawable/ic_scanbarcode"
         android:title="scanBarCode"
         app:showAsAction="ifRoom" >
-        <menu>
 
-            <item
-                android:id="@+id/item_scan"
-                android:title="scan"
-                app:showAsAction="never" />
-        </menu>
 
     </item>
 

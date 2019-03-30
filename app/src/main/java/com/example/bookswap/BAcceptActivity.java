@@ -105,7 +105,7 @@ public class BAcceptActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.item_scan:
+            case R.id.scan_meun:
                 //TODO link the scan methor
                 Toast.makeText(this,"scan!!!",Toast.LENGTH_SHORT).show();
                 return true;

@@ -105,10 +105,10 @@ public class ORequestedUserActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.item_scan:
+            case R.id.scan_meun:
                 //TODO seen do not need scan here
                 Toast.makeText(this,"scan!!!",Toast.LENGTH_SHORT).show();
-                Log.d("TAGGY", userList.get(0));
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
