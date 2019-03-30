@@ -282,7 +282,7 @@ public class DataBaseUtil {
      * get the User and their commentList
      * @param callBack
      */
-    public void getOwnerUser(final getUserInfo callBack){
+    public void getOwnerUser(final String part,final getUserInfo callBack){
 
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -294,9 +294,9 @@ public class DataBaseUtil {
                 getPhone = (String) dataSnapshot.child("Phone").getValue(String.class);
                 User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
 
-                for (DataSnapshot review: dataSnapshot.child("Review").getChildren()){
+                for (DataSnapshot review: dataSnapshot.child("Review").child(part).getChildren()){
                     String comment = review.child("Comment").getValue(String.class);
-                    String rating =  review.child("Rating").getValue(String.class);
+                    String rating =  review.child("Rating").getKey();
                     Review oneReview = new Review(comment,rating);
                     commentList.add(oneReview);
                 }
@@ -536,7 +536,7 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String status;
-                status = dataSnapshot.child("User").child(userName).child("Request").getValue(String.class);
+                status = dataSnapshot.child("Request").getValue(String.class);
                 callBack.getStatus(status);
             }
 
@@ -644,7 +644,7 @@ public class DataBaseUtil {
     }
 
     /**
-     * add backgroud date to firebase
+     * add book swap date to firebase
      * @param book
      * @param swap
      */
@@ -653,7 +653,7 @@ public class DataBaseUtil {
     }
 
     /**
-     * add backgroud comment to firebase
+     * add book swap comment to firebase
      * @param book
      * @param swap
      */
@@ -670,9 +670,10 @@ public class DataBaseUtil {
         //TODO
     }
 
-    public void setSwap(String people,Book book,boolean string){
-        BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
-    }
+
+    /**
+     * get bookSwap info
+     */
 
     interface getSwapInfo{
         void getSwapInfo(Swap swap);
@@ -699,11 +700,12 @@ public class DataBaseUtil {
 
     /**
      * change swap status after the user clicking "Swap" button
+     * person can be : Owner, Borrower, Return
      * @param book
      * @param person
      * @param status
      */
-    public void changeSwapStatus(Book book,String person, boolean status) {
+    public void changeSwapStatus(Book book,String person, String status) {
         BookDatabase.child(book.getUnikey()).child("Swap").child(person).setValue(status);
     }
 
@@ -728,10 +730,30 @@ public class DataBaseUtil {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
     }
+
+    public interface returnStatus{
+        void getReturnStatus(String value);
+    }
+
+    public void getReturnstatus(final Book book, final returnStatus callBack){
+        BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String returnStatus = dataSnapshot.child("Return").getValue(String.class);
+                callBack.getReturnStatus(returnStatus);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
     //finish swap part
 
 
@@ -742,13 +764,13 @@ public class DataBaseUtil {
      *
      */
 
-    public void addBorrowerReview(User user){
-        UserDatabase.child(user.getName()).child("Comment").child("Borrower").setValue(user.getBorrowerReviews());
-    }
-
-    public void addOwnerReview(User user){
-        UserDatabase.child(user.getName()).child("Comment").child("Owner").setValue(user.getOwnerReviews());
-    }
+//    public void addBorrowerReview(User user){
+//        UserDatabase.child(user.getName()).child("Comment").child("Borrower").setValue(user.getBorrowerReviews());
+//    }
+//
+//    public void addOwnerReview(User user){
+//        UserDatabase.child(user.getName()).child("Comment").child("Owner").setValue(user.getOwnerReviews());
+//    }
 
     // user part finished
 
@@ -799,15 +821,15 @@ public class DataBaseUtil {
 
 
 
-    public void connectUserAndEmail(User user){
-        ALlData.child("UserEmail").child(user.getEmail()).setValue(user.getName());
+    public void connectUserAndEmail(String email,String name){
+        ALlData.child("UserEmail").child(email).setValue(name);
     }
 
     public interface getName{
         void getName(String value);
     }
 
-    public void getEmail(final String email,final getName callBack){
+    public void getNameByEmail(final String email,final getName callBack){
         ALlData.child("UserEmail").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -822,10 +844,17 @@ public class DataBaseUtil {
             }
         });
     }
+    // Login finished
 
 
+    // user Comment
+    public void addOwnerReview(User user, Review review){
+        UserDatabase.child(user.getName()).child("Review").child("Owner").child(review.getRating()).setValue(review.getComment());
+    }
 
-    //Login finished
+    public void addBorrowerReview(User user, Review review){
+        UserDatabase.child(user.getName()).child("Review").child("Borrower").child(review.getRating()).setValue(review.getComment());
+    }
 
 
 
