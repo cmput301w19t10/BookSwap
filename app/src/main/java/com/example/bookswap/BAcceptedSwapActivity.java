@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
@@ -24,6 +27,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView bookinfo;
     private TextView author;
     private TextView title;
+    private Button locationBut;
 
 
     @Override
@@ -42,6 +46,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         comment = (TextView) findViewById(R.id.comment_text_b) ;
         confirm = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
+        locationBut = (Button) findViewById(R.id.locationButton);
 
         Intent intent = getIntent();
         swapingBook = intent.getParcelableExtra("book");
@@ -87,6 +92,22 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        locationBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BAcceptedSwapActivity.this, MapViewActivity.class);
+                LatLng point = swapclass.getLocation();
+                if (point == null){
+                    Toast.makeText(getApplicationContext(), "Fatal error, improper location", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent.putExtra("point", point);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
     }
 
 

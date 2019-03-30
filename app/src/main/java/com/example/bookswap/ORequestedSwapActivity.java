@@ -160,8 +160,10 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(swapclass.getTime() == null || swapclass.getDate() == null){
-                    Toast.makeText(ORequestedSwapActivity.this,"Please set time and date",Toast.LENGTH_SHORT).show();
+                if(swapclass.getTime() == null || swapclass.getDate() == null) {
+                    Toast.makeText(ORequestedSwapActivity.this, "Please set time and date", Toast.LENGTH_SHORT).show();
+                }else if(swapclass.getLocation() == null){
+                    Toast.makeText(getApplicationContext(), "Please set up a meetup location", Toast.LENGTH_SHORT).show();
                 }else{
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}

@@ -25,8 +25,8 @@ public class Swap {
     }
 
     //TODO find how google maps stores GPS location
-    public void setLocation(LatLng Location){
-        this.location = Location;
+    public void setLocation(LatLng location){
+        this.location = location;
     }
 
 

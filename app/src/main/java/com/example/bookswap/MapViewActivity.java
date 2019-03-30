@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapViewActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private LatLng point = getIntent().getParcelableExtra("point");
+    private LatLng point;
     private Button setLocation;
 
     @Override
@@ -28,8 +28,10 @@ public class MapViewActivity extends FragmentActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_select);
 
-        setLocation.findViewById(R.id.setMeeting);
+        point = getIntent().getParcelableExtra("point");
+        setLocation = findViewById(R.id.setMeeting);
         setLocation.setEnabled(false);
+        setLocation.setVisibility(View.GONE);
 
         SupportMapFragment myMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.selectMap);
         myMapFragment.getMapAsync(this);
