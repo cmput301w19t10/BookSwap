@@ -745,14 +745,14 @@ public class DataBaseUtil {
     }
 
     public interface returnStatus{
-        void getReturnStatus(String value);
+        void getReturnStatus(Boolean value);
     }
 
     public void getReturnstatus(final Book book, final returnStatus callBack){
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String returnStatus = dataSnapshot.child("Return").getValue(String.class);
+                Boolean returnStatus = dataSnapshot.child("Return").getValue(Boolean.class);
                 callBack.getReturnStatus(returnStatus);
             }
 
@@ -766,6 +766,7 @@ public class DataBaseUtil {
     public void deleteSwap(Book book){
         BookDatabase.child(book.getUnikey()).child("Swap").removeValue();
     }
+
 
     //finish swap part
 
