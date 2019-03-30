@@ -1,7 +1,9 @@
 package com.example.bookswap;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +17,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView date;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView comment;
-    private Button swap;
+    private Button confirm;
     private Button back;
     private Swap swapclass = new Swap();
     private Book swapingBook;
@@ -38,7 +40,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         date = (TextView) findViewById(R.id.date_text);
         bookinfo = (TextView) findViewById(R.id.bookInfo);
         comment = (TextView) findViewById(R.id.comment_text_b) ;
-        swap = (Button) findViewById(R.id.confirm);
+        confirm = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
 
         Intent intent = getIntent();
@@ -69,12 +71,11 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
 
 
-        swap.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swapclass.setBorrowerPermit(true);
-                DataBaseUtil u = new DataBaseUtil("Bowen");
-                u.swapInfo(swapingBook,swapclass);
+
+
                 finish();
             }
         });
@@ -86,5 +87,26 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+
+    /**
+     * make a dialog
+     * resourse:https://www.cnblogs.com/gzdaijie/p/5222191.html
+     */
+    private void showNormalDialog(){
+
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(BAcceptedSwapActivity.this);
+        normalDialog.setTitle("Wait for Owner confiem");
+        normalDialog.setMessage("Waiting....?");
+        normalDialog.setPositiveButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        normalDialog.show();
     }
 }

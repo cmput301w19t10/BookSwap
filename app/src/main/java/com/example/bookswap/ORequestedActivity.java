@@ -157,7 +157,6 @@ public class ORequestedActivity extends AppCompatActivity {
                 Book book = requestedList.get(position);
                 Intent intent = new Intent(ORequestedActivity.this, ViewBookActivity.class);
                 intent.putExtra("book", book);
-                intent.putExtra("Index", position);
                 startActivity(intent);
             }
         });
