@@ -64,7 +64,7 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent(getActivity(), BRequestedBooksActivity.class);
                 final DataBaseUtil u;
                 u = new DataBaseUtil("Bowen");
-                u.checkRequestNotification(new DataBaseUtil.getStatus(){
+                u.checkRequestNotification("Borrower",new DataBaseUtil.getStatus(){
                     @Override
                     public void getStatus(String value){
                         if(value.equals("False")){

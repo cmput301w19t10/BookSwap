@@ -100,7 +100,7 @@ public class HomeActivity extends AppCompatActivity {
     public void checkNotification(){
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.checkRequestNotification(new DataBaseUtil.getStatus() {
+        u.checkRequestNotification("Borrower",new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
                 if (value.equals("False")) {

@@ -10,8 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".MapViewActivity"></activity>
-        <activity android:name=".MapSelectActivity" />
         <activity android:name=".OBorrowedSwapActivity" />
         <activity android:name=".OBorrowedActivity" />
         <activity android:name=".OAcceptedActivity" />
