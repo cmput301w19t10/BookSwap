@@ -56,7 +56,7 @@ public class User implements Parcelable {
 
     /**
      * get image if in xml file
-     * @return backgroud int of this id
+     * @return a int of this id
      */
     public int getImageId(){
         return this.imageId;
@@ -64,7 +64,7 @@ public class User implements Parcelable {
 
     /**
      * get phone number
-     * @return backgroud String of phone number
+     * @return a String of phone number
      */
     public String getPhone_number(){
         return this.phone_number;
@@ -72,7 +72,7 @@ public class User implements Parcelable {
 
     /**
      * get address
-     * @return backgroud String of address
+     * @return a String of address
      */
     public String getAddress(){
         return this.address;
@@ -80,7 +80,7 @@ public class User implements Parcelable {
 
     /**
      * get email
-     * @return backgroud String of email
+     * @return a String of email
      */
     public String getEmail(){
         return this.email;
@@ -88,7 +88,7 @@ public class User implements Parcelable {
 
     /**
      * get password
-     * @return backgroud String of password
+     * @return a String of password
      */
     public String getPassword() {
         return this.password;
@@ -112,7 +112,7 @@ public class User implements Parcelable {
 
     /**
      * get image
-     * @return backgroud Bitmap of image
+     * @return a Bitmap of image
      */
     public Bitmap getImage() {
         if (image != null) {
@@ -139,7 +139,7 @@ public class User implements Parcelable {
 
     /**
      * set imageId in xml file
-     * @param imageId backgroud id in xml file
+     * @param imageId a id in xml file
      */
     public void setImageId(int imageId){
         this.imageId = imageId;
@@ -147,7 +147,7 @@ public class User implements Parcelable {
 
     /**
      * set phone number
-     * @param number backgroud string of phone number
+     * @param number a string of phone number
      */
     public void setPhone_number(String number){
         this.phone_number = number;
@@ -155,7 +155,7 @@ public class User implements Parcelable {
 
     /**
      * set address
-     * @param address backgroud string of address
+     * @param address a string of address
      */
     public void setAddress(String address){
         this.address = address;
@@ -163,7 +163,7 @@ public class User implements Parcelable {
 
     /**
      * set email
-     * @param email backgroud string of email
+     * @param email a string of email
      */
     public void setEmail(String email){
         this.email = email;
@@ -171,15 +171,15 @@ public class User implements Parcelable {
 
     /**
      * set password
-     * @param password backgroud string of password
+     * @param password a string of password
      */
     public void setPassword(String password){
         this.password = password;
     }
 
     /**
-     * add backgroud review in borrower reviews
-     * @param review backgroud Review
+     * add a review in borrower reviews
+     * @param review a Review
      */
 
     public void addBorrower_review(Review review) {
@@ -187,8 +187,8 @@ public class User implements Parcelable {
     }
 
     /**
-     * add backgroud review in owner reviews
-     * @param review backgroud Review
+     * add a review in owner reviews
+     * @param review a Review
      */
     public void addOwner_review(Review review) {
         this.owner_reviews.add(review);
@@ -196,7 +196,7 @@ public class User implements Parcelable {
 
     /**
      * set image
-     * @param bmp backgroud Bitmap of image
+     * @param bmp a Bitmap of image
      */
     public void setImage(Bitmap bmp){
         if (bmp != null) {
