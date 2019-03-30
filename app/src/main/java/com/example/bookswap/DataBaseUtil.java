@@ -641,10 +641,13 @@ public class DataBaseUtil {
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
+        changeSwapStatus(book,"Borrower","False");
+        changeSwapStatus(book,"Owner","False");
+        changeSwapStatus(book,"Return","False");
     }
 
     /**
-     * add backgroud date to firebase
+     * add book swap date to firebase
      * @param book
      * @param swap
      */
@@ -653,7 +656,7 @@ public class DataBaseUtil {
     }
 
     /**
-     * add backgroud comment to firebase
+     * add book swap comment to firebase
      * @param book
      * @param swap
      */
@@ -670,9 +673,10 @@ public class DataBaseUtil {
         //TODO
     }
 
-    public void setSwap(String people,Book book,boolean string){
-        BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
-    }
+
+    /**
+     * get bookSwap info
+     */
 
     interface getSwapInfo{
         void getSwapInfo(Swap swap);
@@ -699,11 +703,12 @@ public class DataBaseUtil {
 
     /**
      * change swap status after the user clicking "Swap" button
+     * person can be : Owner, Borrower, Return
      * @param book
      * @param person
      * @param status
      */
-    public void changeSwapStatus(Book book,String person, boolean status) {
+    public void changeSwapStatus(Book book,String person, String status) {
         BookDatabase.child(book.getUnikey()).child("Swap").child(person).setValue(status);
     }
 
@@ -728,10 +733,30 @@ public class DataBaseUtil {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
     }
+
+    public interface returnStatus{
+        void getReturnStatus(String value);
+    }
+
+    public void getReturnstatus(final Book book, final returnStatus callBack){
+        BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String returnStatus = dataSnapshot.child("Return").getValue(String.class);
+                callBack.getReturnStatus(returnStatus);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
     //finish swap part
 
 
@@ -754,7 +779,7 @@ public class DataBaseUtil {
 
 
     /**
-     * Cao, search part
+     * Cao, search Book part
      *
      */
 
@@ -790,6 +815,40 @@ public class DataBaseUtil {
     }
 
     //Cao, finish
+
+    /**
+     * Bo, user search
+     */
+    interface getMatchedUser{
+        void getMatchedUser(User user);
+    }
+
+    public void searchUser(final String searchString, final getMatchedUser callBack){
+        UserDatabase.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot user: dataSnapshot.getChildren()){
+                    User matchedUser = new User();
+                    matchedUser.setAddress(user.child("Address").getValue(String.class));
+                    matchedUser.setEmail(user.child("Email").getValue(String.class));
+                    matchedUser.setName(user.getKey());
+                    matchedUser.setPhone_number(user.child("Phone").getValue(String.class));
+                    if (matchedUser.getImage()!=null){
+                        matchedUser.setImage(user.child("Photo").getValue(Bitmap.class));
+                    };
+                    if (matchedUser.getName().contains(searchString)){
+                        callBack.getMatchedUser(matchedUser);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
 
 
     /**
