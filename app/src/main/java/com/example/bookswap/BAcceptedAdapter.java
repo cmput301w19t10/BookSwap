@@ -3,6 +3,7 @@ package com.example.bookswap;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  *  This is the BAccepteActivity adapter, can be using to display
- *  backgroud list wait for owner agree to swap
+ *  a list wait for owner agree to swap
  *
  */
 public class BAcceptedAdapter extends ArrayAdapter<Book> {
@@ -28,7 +29,7 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
      * Constructor
      *
      * @param context  The current context.
-     * @param resource The resource ID for backgroud layout file containing backgroud TextView to use when
+     * @param resource The resource ID for a layout file containing a TextView to use when
      *                 instantiating views.
      * @param acceptList  The objects to represent in the ListView.
      */
@@ -38,17 +39,17 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
     }
 
     /**
-     * Get backgroud View that displays the data at the specified position in the data set. You can either
-     * create backgroud View manually or inflate it from an XML layout file. When the View is inflated, the
+     * Get a View that displays the data at the specified position in the data set. You can either
+     * create a View manually or inflate it from an XML layout file. When the View is inflated, the
      * parent View (GridView, ListView...) will apply default layout parameters unless you use
      * {@link LayoutInflater#inflate(int, ViewGroup, boolean)}
-     * to specify backgroud root view and to prevent attachment to the root.
+     * to specify a root view and to prevent attachment to the root.
      *
      * @param position    The position of the item within the adapter's data set of the item whose view
      *                    we want.
      * @param convertView The old view to reuse, if possible. Note: You should check that this view
      *                    is non-null and of an appropriate type before using. If it is not possible to convert
-     *                    this view to display the correct data, this method can create backgroud new view.
+     *                    this view to display the correct data, this method can create a new view.
      *                    Heterogeneous lists can specify their number of view types, so that this View is
      *                    always of the right type (see {@link #getViewTypeCount()} and
      *                    {@link #getItemViewType(int)}).
@@ -60,7 +61,7 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
         BAcceptedAdapter.ViewHolder holder = null;
 
         /**
-         * about how to add backgroud button into the listview item and how to using viewholder
+         * about how to add a button into the listview item and how to using viewholder
          * i get the source from:https://blog.csdn.net/comeonyangzi/article/details/26858875
          */
         if (convertView == null){ // check if given view is null, if it is we inflate
@@ -84,34 +85,11 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
         holder.button_swap.setTag(position);
 
         holder.button_swap.setOnClickListener(new View.OnClickListener() {
-
+            @Override
             public void onClick(View v) {
-                //TODO when click the item can enter this pages
-                /**
-                 * the dialog window resourse from:https://blog.csdn.net/qq_35698774/article/details/79779238
-                 * for slove the parameter problem for dialog :https://blog.csdn.net/u010416101/article/details/41308197?utm_source=blogxgwz6
-                 * This block of code is using for create backgroud alertdialog to show : do owner make sure borrow the book
-                 */
-                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                        .setTitle("Notice")
-                        .setMessage("《" + element.getTitle() + "》"+ " , are you sure to lend this book from " +
-                                "yifu")//get brower
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {//添加"Yes"按钮
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //element change status
-
-                            }
-                        })
-
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {//添加取消
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //element change status
-                            }
-                        })
-                        .create();
-                alertDialog.show();
+                Intent toSwapPage = new Intent(getContext(),BAcceptedSwapActivity.class);
+                toSwapPage.putExtra("book",element);
+                getContext().startActivity(toSwapPage);
             }
         });
 

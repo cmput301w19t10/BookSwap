@@ -1,6 +1,8 @@
 package com.example.bookswap;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
     private Context context;
     private Book book;
     private ArrayList<String> userList;
+    private String username;
 
     /**
      * constructor
@@ -78,6 +81,26 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         holder.Username.setText(userList.get(position));
         holder.Bookname.setText((String)book.getTitle());
 
+        /**
+         * click the adapter to enter the user profile
+         * TODO!!!!! change the user type (from string to User type)
+         *
+         */
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = userList.get(position);
+//                (String name, String phone_number, String email, String address, String password)
+//                TODO get user information in user class, and then push it in boge's class
+
+                Intent intent = new Intent(getContext(), ViewBookActivity.class);
+
+                intent.putExtra("book", book);
+                getContext().startActivity(intent);
+            }
+        };
+        convertView.setOnClickListener(listener);
+
 
         /**
          * get the userlist who want to borrow this book
@@ -87,17 +110,25 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 
             @Override
             public void onClick(View v) {
-                DataBaseUtil u = new DataBaseUtil("Bowen");
-                u.acceptAndDeleteOther(userList.get(position), book);
+//                TODO consider put them in other position
+//                DataBaseUtil u = new DataBaseUtil("Bowen");
+//                u.acceptAndDeleteOther(userList.get(position), book);
+//                userList.clear();
+//                notifyDataSetChanged();
+                Intent goSwap = new Intent(getContext(),ORequestedSwapActivity.class);
+                goSwap.putExtra("book",book);
+                getContext().startActivity(goSwap);
             }
         });
 
         holder.button_decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataBaseUtil u = new DataBaseUtil("Bowen");
+                u.declineUser(userList.get(position), book);
+                userList.remove(position);
+                notifyDataSetChanged();
 
-                // delete this user
-                // TODO
             }
         });
 
