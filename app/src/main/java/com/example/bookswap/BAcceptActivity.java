@@ -144,8 +144,26 @@ public class BAcceptActivity extends AppCompatActivity {
     @Override
     protected void onRestart(){
         super.onRestart();
+        accept_list.clear();
+        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
+            /**
+             * get the requestedlist from database and then load it into the local listview
+             *
+             * @param a
+             */
+            @Override
+            public void getNewBook(Book a) {
 
+                if (a.getStatus().equals("Requested")) {
+                    accept_list.add(a);
+                }
+                display_listview.setAdapter(adapter);
+            }
+        });
     }
+
+
+
 
 
 
