@@ -32,11 +32,11 @@ public class OBorrowedActivity extends AppCompatActivity {
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
-        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
+        u.getOwnerBook(new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
                 //need to change to owner's name not bowen
-                if (aBook.getStatus()!= null && aBook.getStatus().equals("Borrowed")){
+                if (aBook.getStatus().equals("Borrowed")){
                     bro_book.add(aBook);
                     borrowedBooks.setAdapter(adapter);
                     Log.d("fragment","loop");
@@ -45,6 +45,7 @@ public class OBorrowedActivity extends AppCompatActivity {
         });
         borrowedBooks.setAdapter(adapter);
     }
+
     /**
      * Initialize the contents of the Activity's standard options menu.  You
      *

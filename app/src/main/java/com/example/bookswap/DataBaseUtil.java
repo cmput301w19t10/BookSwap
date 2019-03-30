@@ -531,7 +531,7 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String status;
-                status = dataSnapshot.child("User").child(userName).child("Request").getValue(String.class);
+                status = dataSnapshot.child("Request").getValue(String.class);
                 callBack.getStatus(status);
             }
 

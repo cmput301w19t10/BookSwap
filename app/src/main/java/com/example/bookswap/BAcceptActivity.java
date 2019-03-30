@@ -65,7 +65,7 @@ public class BAcceptActivity extends AppCompatActivity {
                 @Override
                 public void getNewBook(Book a) {
 
-                    if (a.getStatus().equals("Requested")) {
+                    if (a.getStatus().equals("Accepted")) {
                         accept_list.add(a);
                     }
                     display_listview.setAdapter(adapter);

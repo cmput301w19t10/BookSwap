@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,24 +45,13 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
         button_accept.setOnClickListener(this);
         button_borrow = view.findViewById(R.id.Borrower_borrowed_btn);
         button_borrow.setOnClickListener(this);
-
+        //notificationManager = NotificationManagerCompat.from(this);
         reddot =  view.findViewById(R.id.reddot);
-        final DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
-        u.checkRequestNotification(new DataBaseUtil.getStatus(){
-            @Override
-            public void getStatus(String value){
-                if(value != null && value.equals("True")){
-                    reddot.setVisibility(View.INVISIBLE);
-                    //notificationcall();
-                    u.changeNotificationStatus("Borrower","False");
-                }
-            }
 
-        });
 
         return view;
     }
+
 
     /**
      * actions for four buttons
@@ -71,6 +62,20 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
         switch(v.getId()){
             case R.id.Borrower_requested_btn:{
                 Intent intent = new Intent(getActivity(), BRequestedBooksActivity.class);
+                final DataBaseUtil u;
+                u = new DataBaseUtil("Bowen");
+                u.checkRequestNotification(new DataBaseUtil.getStatus(){
+                    @Override
+                    public void getStatus(String value){
+                        if(value.equals("False")){
+                            reddot.setVisibility(View.INVISIBLE);
+                            //notificationcall();
+                            u.changeNotificationStatus("Borrower","True");
+
+                        }
+                    }
+
+                });
                 startActivity(intent);
                 break;
             }case R.id.Borrower_available_btn:{
