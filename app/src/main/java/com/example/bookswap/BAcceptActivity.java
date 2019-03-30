@@ -29,6 +29,7 @@ public class BAcceptActivity extends AppCompatActivity {
     private ArrayList<Book> accept_list= new ArrayList<Book>();
     private BAcceptedAdapter adapter;
     private static final int SCAN = 1;
+    private DataBaseUtil u;
 
 
     /**
@@ -54,7 +55,6 @@ public class BAcceptActivity extends AppCompatActivity {
             Book book = getIntent().getParcelableExtra("Book");
             accept_list.add(book);
         } else{
-            DataBaseUtil u;
             u = new DataBaseUtil("Bowen");
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
@@ -141,6 +141,11 @@ public class BAcceptActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+
+    }
 
 
 
