@@ -552,7 +552,6 @@ public class DataBaseUtil {
     }
 
     /**
-     *  the name should be getOwnerBook
      *   this function is for Borrower
      *   it will get all Borrower book
      *   and it can be filtered by the status
@@ -633,7 +632,7 @@ public class DataBaseUtil {
 
 
     public void swapInfo(Book book, Swap swap){
-
+        addLocation(swap);
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
@@ -645,7 +644,7 @@ public class DataBaseUtil {
      * @param swap
      */
     private void addDate(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
     }
 
     /**
@@ -654,15 +653,15 @@ public class DataBaseUtil {
      * @param swap
      */
     private void addComment(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
     }
 
     private void addTime(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
     }
 
-    private void addLocation(){
-
+    private void addLocation(Swap swap){
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Location").setValue(swap.getLocation());
         //TODO
     }
 
