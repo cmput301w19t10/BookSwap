@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Calendar;
 
@@ -25,9 +27,11 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView comment;
     private Button swap;
-    private Button back;
+    private Button locat;
     private Swap swapclass = new Swap();
+    private TextView bookinfo;
     private Book swapingBook;
+    private static final int SET_MAP = 1;
 
 
     @Override
@@ -43,11 +47,27 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         date = (TextView) findViewById(R.id.date_text);
         comment = (TextView) findViewById(R.id.comment_text_o) ;
         swap = (Button) findViewById(R.id.confirm);
-        back = (Button) findViewById(R.id.back);
+        locat = (Button) findViewById(R.id.locationButton);
+        bookinfo = (TextView) findViewById(R.id.bookInfo);
 
         Intent intent = getIntent();
-        final Book swapingBook = intent.getParcelableExtra("book");
+        swapingBook = intent.getParcelableExtra("book");
         swapclass.setBook(swapingBook);
+
+        Intent intentbook = getIntent();
+        swapingBook = intent.getParcelableExtra("book");
+        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
+        infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
+        bookinfo.setText(infoDisplay);
+
+        bookinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ORequestedSwapActivity.this,ViewBookActivity.class);
+                intent.putExtra("book", swapingBook);
+                startActivity(intent);
+            }
+        });
 
 
         /**
@@ -140,8 +160,10 @@ public class ORequestedSwapActivity extends AppCompatActivity {
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(swapclass.getTime() == null || swapclass.getDate() == null){
-                    Toast.makeText(ORequestedSwapActivity.this,"Please set time and date",Toast.LENGTH_SHORT).show();
+                if(swapclass.getTime() == null || swapclass.getDate() == null) {
+                    Toast.makeText(ORequestedSwapActivity.this, "Please set time and date", Toast.LENGTH_SHORT).show();
+                }else if(swapclass.getLocation() == null){
+                    Toast.makeText(getApplicationContext(), "Please set up a meetup location", Toast.LENGTH_SHORT).show();
                 }else{
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}
@@ -152,12 +174,26 @@ public class ORequestedSwapActivity extends AppCompatActivity {
             }
         });
 
-
-        back.setOnClickListener(new View.OnClickListener() {
+        locat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(ORequestedSwapActivity.this, MapSelectActivity.class);
+                startActivityForResult(intent, SET_MAP);
             }
         });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SET_MAP) {
+            if (resultCode == RESULT_OK){
+                if (data != null) {
+                    LatLng point = data.getParcelableExtra("location");
+                    swapclass.setLocation(point);
+                }
+            }
+        }
     }
 }
