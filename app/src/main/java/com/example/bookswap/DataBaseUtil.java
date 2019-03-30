@@ -671,7 +671,6 @@ public class DataBaseUtil {
 
     private void addLocation(Swap swap){
         BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Location").setValue(swap.getLocation());
-        //TODO
     }
 
 
@@ -720,7 +719,7 @@ public class DataBaseUtil {
     }
 
     public interface bool{
-        void getBool(boolean value);
+        void getBool(String value);
     }
 
 
@@ -728,13 +727,13 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean Borrow = dataSnapshot.child("Borrow").getValue(boolean.class);
-                boolean Owner = dataSnapshot.child("Owner").getValue(boolean.class);
-                if(Borrow && Owner){
-                    callBack.getBool(true);
+                String Borrow = dataSnapshot.child("Borrow").getValue(String.class);
+                String Owner = dataSnapshot.child("Owner").getValue(String.class);
+                if(Borrow.equals(Owner) && Borrow.equals("True")){
+                    callBack.getBool("True");
                 }
                 else{
-                    callBack.getBool(false);
+                    callBack.getBool("False");
                 }
             }
 
@@ -762,6 +761,10 @@ public class DataBaseUtil {
                 Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
+    }
+
+    public void deleteSwap(Book book){
+        BookDatabase.child(book.getUnikey()).child("Swap").removeValue();
     }
 
     //finish swap part
