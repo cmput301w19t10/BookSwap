@@ -530,7 +530,7 @@ public class DataBaseUtil {
      * if it is true, user can be notified
      * @param callBack
      */
-    public void checkRequestNotification(final getStatus callBack){
+    public void checkRequestNotification(String part,final getStatus callBack){
 //        TODO implement stub
 //        return true;
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -642,9 +642,9 @@ public class DataBaseUtil {
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
-        changeSwapStatus(book,"Borrower","False");
-        changeSwapStatus(book,"Owner","False");
-        changeSwapStatus(book,"Return","False");
+        changeSwapStatus(book,"Borrower",false);
+        changeSwapStatus(book,"Owner",false);
+        changeSwapStatus(book,"Return",false);
     }
 
     /**
@@ -714,26 +714,26 @@ public class DataBaseUtil {
      * @param person
      * @param status
      */
-    public void changeSwapStatus(Book book,String person, String status) {
+    public void changeSwapStatus(Book book,String person, boolean status) {
         BookDatabase.child(book.getUnikey()).child("Swap").child(person).setValue(status);
     }
 
-    public interface bool{
-        void getBool(String value);
+    public interface swapStatus{
+        void getStatus(boolean value);
     }
 
 
-    public void checkSwapStatus(final Book book, final bool callBack){
+    public void checkSwapStatus(final Book book, final swapStatus callBack){
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Borrow = dataSnapshot.child("Borrow").getValue(String.class);
-                String Owner = dataSnapshot.child("Owner").getValue(String.class);
-                if(Borrow.equals(Owner) && Borrow.equals("True")){
-                    callBack.getBool("True");
+                boolean Borrow = dataSnapshot.child("Borrower").getValue(boolean.class);
+                boolean Owner = dataSnapshot.child("Owner").getValue(boolean.class);
+                if(Borrow && Owner){
+                    callBack.getStatus(true);
                 }
                 else{
-                    callBack.getBool("False");
+                    callBack.getStatus(false);
                 }
             }
 

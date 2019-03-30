@@ -31,6 +31,7 @@ public class BAcceptActivity extends AppCompatActivity {
     private ArrayList<Book> accept_list= new ArrayList<Book>();
     private BAcceptedAdapter adapter;
     private static final int SCAN = 1;
+    private DataBaseUtil u;
 
 
     /**
@@ -56,7 +57,6 @@ public class BAcceptActivity extends AppCompatActivity {
             Book book = getIntent().getParcelableExtra("Book");
             accept_list.add(book);
         } else{
-            DataBaseUtil u;
             u = new DataBaseUtil("Bowen");
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
@@ -142,6 +142,29 @@ public class BAcceptActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        accept_list.clear();
+        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
+            /**
+             * get the requestedlist from database and then load it into the local listview
+             *
+             * @param a
+             */
+            @Override
+            public void getNewBook(Book a) {
+
+                if (a.getStatus().equals("Requested")) {
+                    accept_list.add(a);
+                }
+                display_listview.setAdapter(adapter);
+            }
+        });
+    }
+
+
 
 
 

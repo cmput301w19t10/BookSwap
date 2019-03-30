@@ -2,9 +2,12 @@ package com.example.bookswap;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
@@ -25,11 +30,9 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private Swap swapclass = new Swap();
     private Book swapingBook;
     private TextView bookinfo;
-    private TextView author;
-    private TextView title;
     private Button locationBut;
-    private boolean result;
     private DataBaseUtil u;
+    private Handler handler;
 
 
     @Override
@@ -45,7 +48,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
         bookinfo = (TextView) findViewById(R.id.bookInfo);
-        comment = (TextView) findViewById(R.id.comment_text_b) ;
+        comment = (TextView) findViewById(R.id.comment_text_b);
         confirm = (Button) findViewById(R.id.confirm);
         back = (Button) findViewById(R.id.back);
         locationBut = (Button) findViewById(R.id.locationButton);
@@ -59,7 +62,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         bookinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BAcceptedSwapActivity.this,ViewBookActivity.class);
+                Intent intent = new Intent(BAcceptedSwapActivity.this, ViewBookActivity.class);
                 intent.putExtra("book", swapingBook);
                 startActivity(intent);
             }
@@ -67,7 +70,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
 
         u = new DataBaseUtil("Bowen");
-        u.getSwap(swapingBook,new DataBaseUtil.getSwapInfo(){
+        u.getSwap(swapingBook, new DataBaseUtil.getSwapInfo() {
             @Override
             public void getSwapInfo(Swap swap) {
                 swapclass = swap;
@@ -78,33 +81,17 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         });
 
 
-
         confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u.changeSwapStatus(swapingBook,"Borrower","True");
-                result = false;
-                while(!result) {
-                    try {
-                        Thread.sleep (500);
+               @Override
+               public void onClick(View v) {
+                    u.changeSwapStatus(swapingBook,"Borrower",true);
+                    showNormalDialog();
+                    timer();
 
-                        u.checkSwapStatus(swapingBook,new DataBaseUtil.bool() {
-                            @Override
-                            public void getBool(String checkswap){
-                                if (checkswap.equals("True")) {
-                                    result = true;
-                                }
-                            }
-                        });
+               }
+           });
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                finish();
-            }
-        });
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +107,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
                 Intent intent = new Intent(BAcceptedSwapActivity.this, MapViewActivity.class);
                 LatLng point = swapclass.getLocation();
                 if (point == null){
-                    Toast.makeText(getApplicationContext(), "Fatal error, improper location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Fatal error, improper location", LENGTH_SHORT).show();
                 } else {
                     intent.putExtra("point", point);
                     startActivity(intent);
@@ -128,6 +115,32 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    public void timer(){
+
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                u.checkSwapStatus(swapingBook, new DataBaseUtil.swapStatus() {
+                    @Override
+                    public void getStatus(boolean value) {
+                        if(value){
+                            u.changeStatus(swapingBook,"Borrowed");
+                            u.deleteSwap(swapingBook);
+                            u.changeSwapStatus(swapingBook,"Return",false);
+                            handler.removeCallbacksAndMessages(null);
+                            finish();
+                        }
+                    }
+                });
+
+
+                handler.postDelayed(this,1000);}
+        }, 1000);  //the time is in miliseconds
 
     }
 
@@ -141,12 +154,13 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(BAcceptedSwapActivity.this);
         normalDialog.setTitle("Wait for Owner confiem");
-        normalDialog.setMessage("Waiting....?");
+        normalDialog.setMessage("Waiting..");
         normalDialog.setPositiveButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        u.changeSwapStatus(swapingBook,"Borrower",false);
+                        handler.removeCallbacksAndMessages(null);
                     }
                 });
 
