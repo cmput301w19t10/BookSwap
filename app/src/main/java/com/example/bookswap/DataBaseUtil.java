@@ -530,7 +530,7 @@ public class DataBaseUtil {
      * if it is true, user can be notified
      * @param callBack
      */
-    public void checkRequestNotification(final getStatus callBack){
+    public void checkRequestNotification(String part,final getStatus callBack){
 //        TODO implement stub
 //        return true;
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
