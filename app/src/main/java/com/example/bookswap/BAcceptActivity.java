@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookswap.barcode.BarcodeScannerActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -106,8 +108,8 @@ public class BAcceptActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_scan:
-                //TODO link the scan methor
-                Toast.makeText(this,"scan!!!",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+                startActivityForResult(intent, SCAN);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
