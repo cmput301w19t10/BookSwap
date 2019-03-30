@@ -376,7 +376,7 @@ public class DataBaseUtil {
     /**
      * Yifu part
      * backgroud. get borrower list
-     * 2. accept or decline backgroud user
+     * 2. accept_icon or decline backgroud user
      */
 
     public interface getBorrowerList{
@@ -532,7 +532,7 @@ public class DataBaseUtil {
     }
 
     /**
-     * check the user borrow status
+     * check the user Accept status
      * if it is true, user can be notified
      * @param callBack
      */
@@ -553,8 +553,8 @@ public class DataBaseUtil {
     }
 
     /**
-     * set user borrow to true
-     * add backgroud new borrow notification
+     * set user Accept to true
+     * add backgroud new Accept notification
      * @param user
      */
     public void newBorrowNotification(User user){

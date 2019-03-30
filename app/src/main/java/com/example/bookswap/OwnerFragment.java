@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * owner interface of home
@@ -16,10 +17,10 @@ import android.widget.Button;
 
 public class OwnerFragment extends Fragment implements View.OnClickListener{
 
-    private Button button_accept;
-    private Button button_request;
-    private Button button_available;
-    private Button button_borrow;
+    private ImageButton button_accept;
+    private ImageButton button_request;
+    private ImageButton button_available;
+    private ImageButton button_borrow;
 
     /**
      * create all views

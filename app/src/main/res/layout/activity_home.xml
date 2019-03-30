@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"

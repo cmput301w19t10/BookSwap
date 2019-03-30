@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelfProfileActivity">
+    tools:context=".SelfProfileActivity"
+    android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over">
 
-    <ImageView
+
+<ImageView
         android:id="@+id/self_image"
-        android:layout_width="200dp"
-        android:layout_height="260dp"
+        android:layout_width="152dp"
+        android:layout_height="186dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="28dp"
@@ -18,7 +22,8 @@
         app:layout_constraintEnd_toStartOf="@+id/name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_image" />
+        app:layout_constraintVertical_bias="0.597"
+        app:srcCompat="@drawable/profile" />
 
     <TextView
         android:id="@+id/name"

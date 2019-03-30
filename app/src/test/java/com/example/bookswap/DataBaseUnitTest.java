@@ -68,7 +68,7 @@
 //
 //    }
 //
-//    //test borrow adding
+//    //test Accept adding
 //    @Test
 //    public void Borrow_isCorrect(){
 //        DataBaseUtil u = new DataBaseUtil();

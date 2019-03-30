@@ -17,7 +17,7 @@ import static android.content.ContentValues.TAG;
 
 /**
  * For owner page , when owner click the viewrequest button
- * then the owner can view who want to borrow this book(it is a requested user list)
+ * then the owner can view who want to Accept this book(it is a requested user list)
  */
 public class ORequestedUserActivity extends AppCompatActivity {
 

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
     android:stretchColumns="1">
     <TableRow
         android:id="@+id/tableRow"
@@ -31,8 +33,10 @@
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="date"
+            android:textAlignment="textEnd"
             android:textSize="23sp"
-            android:text="date" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/date_text"
@@ -54,9 +58,11 @@
         <TextView
             android:id="@+id/time"
             android:layout_width="match_parent"
-            android:textSize="23sp"
             android:layout_height="match_parent"
-            android:text="time" />
+            android:text="time"
+            android:textAlignment="viewEnd"
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/time_text"
@@ -82,7 +88,9 @@
             android:layout_width="88dp"
             android:layout_height="wrap_content"
             android:text="comment"
-            android:textSize="20sp" />
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/commont_text_o"
@@ -109,7 +117,8 @@
 
         <Button
             android:id="@+id/back"
-            android:text="back" />
+            android:text="back"
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/confirm"

@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BRequestedBooksActivity">
+    tools:context=".BRequestedBooksActivity"
+    android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over">
+    >
 
     <ListView
         android:id="@+id/BRB_listview"
