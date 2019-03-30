@@ -2,11 +2,13 @@ package com.example.bookswap;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +62,7 @@ public class DataBaseUtil {
     public DataBaseUtil(){
         UserDatabase = FirebaseDatabase.getInstance().getReference("User");
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
+        ALlData = FirebaseDatabase.getInstance().getReference();
     }
 
     /**
@@ -280,7 +283,7 @@ public class DataBaseUtil {
      * get the User and their commentList
      * @param callBack
      */
-    public void getOwnerUser(final getUserInfo callBack){
+    public void getOwnerUser(final String part,final getUserInfo callBack){
 
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -292,9 +295,9 @@ public class DataBaseUtil {
                 getPhone = (String) dataSnapshot.child("Phone").getValue(String.class);
                 User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
 
-                for (DataSnapshot review: dataSnapshot.child("Review").getChildren()){
+                for (DataSnapshot review: dataSnapshot.child("Review").child(part).getChildren()){
                     String comment = review.child("Comment").getValue(String.class);
-                    String rating =  review.child("Rating").getValue(String.class);
+                    String rating =  review.child("Rating").getKey();
                     Review oneReview = new Review(comment,rating);
                     commentList.add(oneReview);
                 }
@@ -337,6 +340,9 @@ public class DataBaseUtil {
     public void changeStatus(String key, String status){
         BookDatabase.child(key).child("Status").setValue(status);
     }
+
+
+
 
     /**
      * Yifu part
@@ -409,19 +415,19 @@ public class DataBaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot bookKey: dataSnapshot.child("User").child(userName).child("Book").getChildren()){
                     String key = bookKey.getKey();
-                    if (dataSnapshot.child("Book").child(key).child("Status").getValue(String.class).equals(status) && dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
-                        //for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren())
+                     if (dataSnapshot.child("Book").child(key).child("Status").getValue(String.class).equals(status) && dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
+                    //for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren())
                         //if (userName.equals(bookborrower.getValue(String.class))) {
-                        //allBookkey.add(key);
-                        Book book = new Book();
-                        book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
-                        book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
-                        book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
-                        book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
-                        //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
-                        book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                        callBack.getNewBook(book);
-                    }
+                            //allBookkey.add(key);
+                            Book book = new Book();
+                            book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
+                            book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
+                            book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
+                            book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
+                            //book.setImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                            book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
+                            callBack.getNewBook(book);
+                        }
 
                 }
             }
@@ -524,7 +530,7 @@ public class DataBaseUtil {
      * if it is true, user can be notified
      * @param callBack
      */
-    public void checkRequestNotification(final getStatus callBack){
+    public void checkRequestNotification(String part,final getStatus callBack){
 //        TODO implement stub
 //        return true;
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -552,44 +558,11 @@ public class DataBaseUtil {
     }
 
     /**
-     *  the name should be getOwnerBook
      *   this function is for Borrower
      *   it will get all Borrower book
      *   and it can be filtered by the status
      * @param callBack
      */
-//    public void getBorrowerBook1(final getNewBook callBack){
-//        ALlData.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                //ArrayList<String> allBookkey = new ArrayList<>();
-//                ArrayList<Book> allBook = new ArrayList<>();
-//                for (DataSnapshot bookKey: dataSnapshot.child("Book").getChildren()){
-//                    String key = bookKey.getKey();
-//                    for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren()) {
-//                        if (userName.equals(bookborrower.getValue(String.class))) {
-//                            //allBookkey.add(key);
-//                            Book book = new Book();
-//                            book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
-//                            book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
-//                            book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
-//                            book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
-//                            //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
-//                            book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-//                            callBack.getNewBook(book);
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w(TAG, "onCancelled", databaseError.toException());
-//            }
-//        });
-//
-//    }
-
     public void getBorrowerBook(final getNewBook callBack){
         BookDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -601,11 +574,11 @@ public class DataBaseUtil {
                             book.setDescription(books.child("Description").getValue(String.class));
                             book.setStatus(books.child("Status").getValue(String.class));
                             book.setTitle(books.child("Title").getValue(String.class));
-                            book.setAuthor(books.child("author").getValue(String.class));
+                            book.setAuthor(books.child("Author").getValue(String.class));
                             //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
                             book.setUnikey(books.child("UniKey").getValue(String.class));
-                            if (books.child("image").hasChildren()) {
-                                book.setImage(books.child("image").getValue(Bitmap.class));
+                            if (books.child("Photo").hasChildren()) {
+                                book.setImage(books.child("Photo").getValue(Bitmap.class));
                             }
                             callBack.getNewBook(book);
                         }
@@ -638,8 +611,8 @@ public class DataBaseUtil {
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
                     book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                    if (dataSnapshot.child("Book").child(key).child("image").hasChildren()) {
-                        book.setImage(dataSnapshot.child("image").getValue(Bitmap.class));
+                    if (dataSnapshot.child("Book").child(key).child("Photo").hasChildren()) {
+                        book.setImage(dataSnapshot.child("Photo").getValue(Bitmap.class));
                     }
                     callBack.getNewBook(book);
                 }
@@ -665,41 +638,45 @@ public class DataBaseUtil {
 
 
     public void swapInfo(Book book, Swap swap){
-
+        addLocation(swap);
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
+        changeSwapStatus(book,"Borrower","False");
+        changeSwapStatus(book,"Owner","False");
+        changeSwapStatus(book,"Return","False");
     }
 
     /**
-     * add backgroud date to firebase
+     * add book swap date to firebase
      * @param book
      * @param swap
      */
     private void addDate(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
     }
 
     /**
-     * add backgroud comment to firebase
+     * add book swap comment to firebase
      * @param book
      * @param swap
      */
     private void addComment(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
     }
 
     private void addTime(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
     }
 
-    private void addLocation(){
-        //TODO
+    private void addLocation(Swap swap){
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Location").setValue(swap.getLocation());
     }
 
-    public void setSwap(String people,Book book,boolean string){
-        BookDatabase.child(book.getUnikey()).child("Swap").child(people).setValue(string);
-    }
+
+    /**
+     * get bookSwap info
+     */
 
     interface getSwapInfo{
         void getSwapInfo(Swap swap);
@@ -713,6 +690,12 @@ public class DataBaseUtil {
                 swap.setComment(dataSnapshot.child("Comment").getValue(String.class));
                 swap.setDate(dataSnapshot.child("Date").getValue(String.class));
                 swap.setTime(dataSnapshot.child("Time").getValue(String.class));
+                if (dataSnapshot.hasChild("Location")) {
+                    double latitude = dataSnapshot.child(("Location")).child("latitude").getValue(double.class);
+                    double longitude = dataSnapshot.child(("Location")).child("longitude").getValue(double.class);
+                    LatLng point = new LatLng(latitude,longitude);
+                    swap.setLocation(point);
+                }
                 callBack.getSwapInfo(swap);
             }
 
@@ -726,16 +709,17 @@ public class DataBaseUtil {
 
     /**
      * change swap status after the user clicking "Swap" button
+     * person can be : Owner, Borrower, Return
      * @param book
      * @param person
      * @param status
      */
-    public void changeSwapStatus(Book book,String person, boolean status) {
+    public void changeSwapStatus(Book book,String person, String status) {
         BookDatabase.child(book.getUnikey()).child("Swap").child(person).setValue(status);
     }
 
     public interface bool{
-        void getBool(boolean value);
+        void getBool(String value);
     }
 
 
@@ -743,22 +727,46 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean Borrow = dataSnapshot.child("Borrow").getValue(boolean.class);
-                boolean Owner = dataSnapshot.child("Owner").getValue(boolean.class);
-                if(Borrow && Owner){
-                    callBack.getBool(true);
+                String Borrow = dataSnapshot.child("Borrow").getValue(String.class);
+                String Owner = dataSnapshot.child("Owner").getValue(String.class);
+                if(Borrow.equals(Owner) && Borrow.equals("True")){
+                    callBack.getBool("True");
                 }
                 else{
-                    callBack.getBool(false);
+                    callBack.getBool("False");
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
     }
+
+    public interface returnStatus{
+        void getReturnStatus(String value);
+    }
+
+    public void getReturnstatus(final Book book, final returnStatus callBack){
+        BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String returnStatus = dataSnapshot.child("Return").getValue(String.class);
+                callBack.getReturnStatus(returnStatus);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    public void deleteSwap(Book book){
+        BookDatabase.child(book.getUnikey()).child("Swap").removeValue();
+    }
+
     //finish swap part
 
 
@@ -769,23 +777,21 @@ public class DataBaseUtil {
      *
      */
 
-    public void addBorrowerReview(User user){
-        UserDatabase.child(user.getName()).child("Comment").child("Borrower").setValue(user.getBorrowerReviews());
-    }
-
-    public void addOwnerReview(User user){
-        UserDatabase.child(user.getName()).child("Comment").child("Owner").setValue(user.getOwnerReviews());
-    }
+//    public void addBorrowerReview(User user){
+//        UserDatabase.child(user.getName()).child("Comment").child("Borrower").setValue(user.getBorrowerReviews());
+//    }
+//
+//    public void addOwnerReview(User user){
+//        UserDatabase.child(user.getName()).child("Comment").child("Owner").setValue(user.getOwnerReviews());
+//    }
 
     // user part finished
 
 
     /**
-     * Cao, search part
+     * Cao, search Book part
      *
      */
-
-
 
     /**
      * use getNewBook interface
@@ -819,6 +825,84 @@ public class DataBaseUtil {
     }
 
     //Cao, finish
+
+    /**
+     * Bo, user search
+     */
+    interface getMatchedUser{
+        void getMatchedUser(User user);
+    }
+
+    public void searchUser(final String searchString, final getMatchedUser callBack){
+        UserDatabase.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot user: dataSnapshot.getChildren()){
+                    User matchedUser = new User();
+                    matchedUser.setAddress(user.child("Address").getValue(String.class));
+                    matchedUser.setEmail(user.child("Email").getValue(String.class));
+                    matchedUser.setName(user.getKey());
+                    matchedUser.setPhone_number(user.child("Phone").getValue(String.class));
+                    if (matchedUser.getImage()!=null){
+                        matchedUser.setImage(user.child("Photo").getValue(Bitmap.class));
+                    };
+                    if (matchedUser.getName().contains(searchString)){
+                        callBack.getMatchedUser(matchedUser);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+
+
+    /**
+     * Login part
+     * connect email and user name
+     */
+
+
+
+    public void connectUserAndEmail(String email,String name){
+        ALlData.child("UserEmail").child(email).setValue(name);
+    }
+
+    public interface getName{
+        void getName(String value);
+    }
+
+    public void getNameByEmail(final String email,final getName callBack){
+        ALlData.child("UserEmail").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    String name;
+                    name = dataSnapshot.child(email).getValue(String.class);
+                    callBack.getName(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+    // Login finished
+
+
+    // user Comment
+    public void addOwnerReview(User user, Review review){
+        UserDatabase.child(user.getName()).child("Review").child("Owner").child(review.getRating()).setValue(review.getComment());
+    }
+
+    public void addBorrowerReview(User user, Review review){
+        UserDatabase.child(user.getName()).child("Review").child("Borrower").child(review.getRating()).setValue(review.getComment());
+    }
+
 
 
 }

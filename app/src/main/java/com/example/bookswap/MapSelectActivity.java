@@ -44,9 +44,9 @@ public class MapSelectActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap map){
         final Marker meetup = map.addMarker(new MarkerOptions()
-                .position(point)
-                .title("Place Me at meetup point!")
-                .draggable(true));
+        .position(point)
+        .title("Place Me at meetup point!")
+        .draggable(true));
         map.moveCamera(CameraUpdateFactory.zoomTo(15));
         map.moveCamera(CameraUpdateFactory.newLatLng(point));
 

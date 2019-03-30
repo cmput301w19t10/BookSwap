@@ -65,16 +65,18 @@ public class SelfProfileFragment extends Fragment implements View.OnClickListene
         phoneNumber = self_include.findViewById(R.id.phoneNumber);
         u = new DataBaseUtil("Bowen");
 
-        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
-            @Override
-            public void getNewUser(User user, List<Review> commentList) {
-                image.setImageResource(R.drawable.user_image);
-                name.setText(user.getName());
-                email.setText(user.getEmail());
-                address.setText(user.getAddress());
-                phoneNumber.setText(user.getPhone_number());
-            }
-        });
+
+        //TODO put it back
+//        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+//            @Override
+//            public void getNewUser(User user, List<Review> commentList) {
+//                image.setImageResource(R.drawable.user_image);
+//                name.setText(user.getName());
+//                email.setText(user.getEmail());
+//                address.setText(user.getAddress());
+//                phoneNumber.setText(user.getPhone_number());
+//            }
+//        });
 
         return view;
     }

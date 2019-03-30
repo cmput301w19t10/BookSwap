@@ -47,7 +47,7 @@ public class ORequestedActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orequested);
@@ -63,7 +63,7 @@ public class ORequestedActivity extends AppCompatActivity {
         display_listview = (ListView) findViewById(R.id.main_listview);
 
         //For offline UI test
-        if (getIntent().getBooleanExtra("TEST", false)){
+        if (getIntent().getBooleanExtra("TEST", false)) {
             Book book = getIntent().getParcelableExtra("Book");
             requestedList.add(book);
             display_listview.setAdapter(adapter);
@@ -91,7 +91,7 @@ public class ORequestedActivity extends AppCompatActivity {
         /**
          * how to set swipe refresh layout
          * resourse:https://www.youtube.com/watch?v=KLrq8nQeIn8
-//         */
+         //         */
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.Swipe);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -112,6 +112,25 @@ public class ORequestedActivity extends AppCompatActivity {
                             requestedList.add(a);
                         }
                         display_listview.setAdapter(adapter);
+                        display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            /**
+                             * click
+                             * @param parent
+                             * @param view
+                             * @param position
+                             * @param id
+                             */
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Log.d("nimama", "hellonima1");
+                                Book book = requestedList.get(position);
+                                Intent intent = new Intent(ORequestedActivity.this, ViewBookActivity.class);
+                                intent.putExtra("book", book);
+                                intent.putExtra("Index", position + "");
+                                startActivity(intent);
+                            }
+                        });
+
                     }
                 });
 
@@ -120,36 +139,25 @@ public class ORequestedActivity extends AppCompatActivity {
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                },1000);
+                }, 1000);
             }
         });
 
-
-
-
-
-
-
-        /**
-         * about passing the percel item
-         * learn that from https://www.youtube.com/watch?v=WBbsvqSu0is
-         */
-        Log.d("nimama","hellonima0");
         display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             /**
-             * click
-             * @param parent
-             * @param view
-             * @param position
-             * @param id
+             * On click of an item, starts up an activity with result and passing some information
+             *
+             * @param parent   parent activity
+             * @param view     current view provided from android
+             * @param position index of the item being clicked
+             * @param id       id of the item being clicked
              */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Book book = requestedList.get(position);
-                Intent intent = new Intent(ORequestedActivity.this , EditBookActivity.class);
-                intent.putExtra("BookInformation", book);
-                intent.putExtra("Index", position+"");
-                startActivityForResult(intent, EDIT_BOOK_REQUEST);
+                Intent intent = new Intent(ORequestedActivity.this, ViewBookActivity.class);
+                intent.putExtra("book", book);
+                startActivity(intent);
             }
         });
 
