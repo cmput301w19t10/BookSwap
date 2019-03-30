@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     android:stretchColumns="1"
 >>>>>>> 63a6ba9ced5b380e686f2394b362693df9b53306
+=======
+>>>>>>> 916978fe30753f4e2606fa5b8b55255443b57bce
     android:paddingTop="1dp"
     android:paddingBottom="1dp">
 
@@ -16,12 +19,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:layout_margin="10dp"
         app:cardBackgroundColor="#99FFFFFF"
 =======
         android:layout_margin="5dp"
         app:cardBackgroundColor="#99ffffff"
 >>>>>>> 63a6ba9ced5b380e686f2394b362693df9b53306
+=======
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="#99FFFFFF"
+>>>>>>> 916978fe30753f4e2606fa5b8b55255443b57bce
         app:cardCornerRadius="0dp">
 
         <RelativeLayout
