@@ -642,9 +642,9 @@ public class DataBaseUtil {
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
-        changeSwapStatus(book,"Borrower","False");
-        changeSwapStatus(book,"Owner","False");
-        changeSwapStatus(book,"Return","False");
+        changeSwapStatus(book,"Borrower",false);
+        changeSwapStatus(book,"Owner",false);
+        changeSwapStatus(book,"Return",false);
     }
 
     /**
@@ -714,7 +714,7 @@ public class DataBaseUtil {
      * @param person
      * @param status
      */
-    public void changeSwapStatus(Book book,String person, String status) {
+    public void changeSwapStatus(Book book,String person, boolean status) {
         BookDatabase.child(book.getUnikey()).child("Swap").child(person).setValue(status);
     }
 
@@ -727,9 +727,9 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Borrow = dataSnapshot.child("Borrow").getValue(String.class);
-                String Owner = dataSnapshot.child("Owner").getValue(String.class);
-                if(Borrow.equals(Owner) && Borrow.equals("True")){
+                boolean Borrow = dataSnapshot.child("Borrow").getValue(boolean.class);
+                boolean Owner = dataSnapshot.child("Owner").getValue(boolean.class);
+                if(Borrow && Owner){
                     callBack.getStatus(true);
                 }
                 else{
