@@ -2,6 +2,7 @@ package com.example.bookswap;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +61,7 @@ public class DataBaseUtil {
     public DataBaseUtil(){
         UserDatabase = FirebaseDatabase.getInstance().getReference("User");
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
+        ALlData = FirebaseDatabase.getInstance().getReference();
     }
 
     /**
@@ -338,6 +340,9 @@ public class DataBaseUtil {
         BookDatabase.child(key).child("Status").setValue(status);
     }
 
+
+
+
     /**
      * Yifu part
      * backgroud. get borrower list
@@ -552,7 +557,6 @@ public class DataBaseUtil {
     }
 
     /**
-     *  the name should be getOwnerBook
      *   this function is for Borrower
      *   it will get all Borrower book
      *   and it can be filtered by the status
@@ -633,7 +637,7 @@ public class DataBaseUtil {
 
 
     public void swapInfo(Book book, Swap swap){
-
+        addLocation(swap);
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
@@ -645,7 +649,7 @@ public class DataBaseUtil {
      * @param swap
      */
     private void addDate(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Date").setValue(swap.getDate());
     }
 
     /**
@@ -654,15 +658,15 @@ public class DataBaseUtil {
      * @param swap
      */
     private void addComment(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
     }
 
     private void addTime(Book book, Swap swap){
-        BookDatabase.child(book.getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
     }
 
-    private void addLocation(){
-
+    private void addLocation(Swap swap){
+        BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Location").setValue(swap.getLocation());
         //TODO
     }
 
@@ -786,6 +790,43 @@ public class DataBaseUtil {
     }
 
     //Cao, finish
+
+
+    /**
+     * Login part
+     * connect email and user name
+     */
+
+
+
+    public void connectUserAndEmail(User user){
+        ALlData.child("UserEmail").child(user.getEmail()).setValue(user.getName());
+    }
+
+    public interface getName{
+        void getName(String value);
+    }
+
+    public void getEmail(final String email,final getName callBack){
+        ALlData.child("UserEmail").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    String name;
+                    name = dataSnapshot.child(email).getValue(String.class);
+                    callBack.getName(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+
+
+    //Login finished
+
 
 
 }
