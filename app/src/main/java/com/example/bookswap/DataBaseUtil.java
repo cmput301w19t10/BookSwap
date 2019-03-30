@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -690,6 +691,12 @@ public class DataBaseUtil {
                 swap.setComment(dataSnapshot.child("Comment").getValue(String.class));
                 swap.setDate(dataSnapshot.child("Date").getValue(String.class));
                 swap.setTime(dataSnapshot.child("Time").getValue(String.class));
+                if (dataSnapshot.hasChild("Location")) {
+                    double latitude = dataSnapshot.child(("Location")).child("latitude").getValue(double.class);
+                    double longitude = dataSnapshot.child(("Location")).child("longitude").getValue(double.class);
+                    LatLng point = new LatLng(latitude,longitude);
+                    swap.setLocation(point);
+                }
                 callBack.getSwapInfo(swap);
             }
 
