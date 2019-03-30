@@ -38,30 +38,31 @@ public class OtherProfileActivity extends AppCompatActivity {
         u = new DataBaseUtil(intent.getStringExtra("userName"));
         image.setImageResource(R.drawable.user_image);
 
-        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
-            @Override
-            public void getNewUser(User user, List<Review> commentList) {
-                name.setText(user.getName());
-                email.setText(user.getEmail());
-                address.setText(user.getAddress());
-                phoneNumber.setText(user.getPhone_number());
-            }
-        });
+//TODO put it back
+//        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+//            @Override
+//            public void getNewUser(User user, List<Review> commentList) {
+//                name.setText(user.getName());
+//                email.setText(user.getEmail());
+//                address.setText(user.getAddress());
+//                phoneNumber.setText(user.getPhone_number());
+//            }
+//        });
 
-
-        Button other_review = findViewById(R.id.other_review);
-        other_review.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
-                    @Override
-                    public void getNewUser(User user, List<Review> commentList) {
-                        Intent intent = new Intent(OtherProfileActivity.this, OtherRateActivity.class);
-                        intent.putExtra("user", user);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
-    }
-}
+//TODO put it back
+//        Button other_review = findViewById(R.id.other_review);
+//        other_review.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+//                    @Override
+//                    public void getNewUser(User user, List<Review> commentList) {
+//                        Intent intent = new Intent(OtherProfileActivity.this, OtherRateActivity.class);
+//                        intent.putExtra("user", user);
+//                        startActivity(intent);
+//                    }
+//                });
+//            }
+//        });
+    }}
+//}

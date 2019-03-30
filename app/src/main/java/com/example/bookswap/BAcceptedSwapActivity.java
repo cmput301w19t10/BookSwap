@@ -28,6 +28,8 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView author;
     private TextView title;
     private Button locationBut;
+    private boolean result;
+    private DataBaseUtil u;
 
 
     @Override
@@ -64,10 +66,11 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         });
 
 
-        DataBaseUtil u = new DataBaseUtil("Bowen");
+        u = new DataBaseUtil("Bowen");
         u.getSwap(swapingBook,new DataBaseUtil.getSwapInfo(){
             @Override
             public void getSwapInfo(Swap swap) {
+                swapclass = swap;
                 date.setText(swap.getDate());
                 time.setText(swap.getTime());
                 comment.setText(swap.getComment());
@@ -79,7 +82,25 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                u.changeSwapStatus(swapingBook,"Borrower","True");
+                result = false;
+                while(!result) {
+                    try {
+                        Thread.sleep (500);
 
+                        u.checkSwapStatus(swapingBook,new DataBaseUtil.bool() {
+                            @Override
+                            public void getBool(String checkswap){
+                                if (checkswap.equals("True")) {
+                                    result = true;
+                                }
+                            }
+                        });
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 finish();
             }
@@ -125,6 +146,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                     }
                 });
 
