@@ -25,7 +25,7 @@ public class ORequestedUserActivity extends AppCompatActivity {
     private ListView display_listview;
     private ArrayList<String> userList = new ArrayList<>();
     private ORequestedUsersAdapter adapter;
-    private static final int SCAN = 1;
+
 
 
     /**
@@ -54,10 +54,6 @@ public class ORequestedUserActivity extends AppCompatActivity {
 
 
         adapter = new ORequestedUsersAdapter(this, book, userList);
-
-        /**
-         * link the database
-         */
 
         DataBaseUtil u = new DataBaseUtil("Bowen");
         u.getBookBorrower(book, new DataBaseUtil.getBorrowerList() {

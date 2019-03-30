@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bookswap">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -72,10 +74,16 @@
         <activity android:name=".ViewBookActivity" />
         <activity android:name=".BAcceptedSwapActivity" />
         <activity android:name=".ORequestedSwapActivity" />
+        <activity android:name=".barcode.BarcodeScannerActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDS-xMf2ijhGjyY_vCYmSEBlx6M3KV9tzs" />
+
+        <meta-data
+            android:name="come.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="barcode"/>
+
     </application>
 
 </manifest>

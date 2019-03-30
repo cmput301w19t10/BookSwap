@@ -9,8 +9,6 @@
         android:icon="@drawable/ic_scanbarcode"
         android:title="scanBarCode"
         app:showAsAction="ifRoom" >
-
-
     </item>
 
 

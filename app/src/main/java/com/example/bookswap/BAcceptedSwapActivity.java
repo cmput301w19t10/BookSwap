@@ -118,9 +118,11 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * build timer to make handler can auto
+     * check do swapingbook is swap or not
+     */
     public void timer(){
-
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

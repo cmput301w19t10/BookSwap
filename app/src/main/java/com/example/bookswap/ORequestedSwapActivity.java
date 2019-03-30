@@ -33,7 +33,10 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private Book swapingBook;
     private static final int SET_MAP = 1;
 
-
+    /**
+     * create the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
