@@ -3,7 +3,9 @@ package com.example.bookswap;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,9 +27,8 @@ public class BAcceptActivity extends AppCompatActivity {
     private TextView title;
     //accept_list will be connect with the database in the cloud
     private ArrayList<Book> accept_list= new ArrayList<Book>();
-    private static final int ADD_BOOK_REQUEST = 1;
-    private static final int EDIT_BOOK_REQUEST = 2;
     private BAcceptedAdapter adapter;
+    private static final int SCAN = 1;
 
 
     /**
@@ -105,11 +106,43 @@ public class BAcceptActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_scan:
+                //TODO link the scan methor
                 Toast.makeText(this,"scan!!!",Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
+
+    /**
+     * thought scan book barcode and then go to this book's viewbook activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SCAN ) {
+            if (resultCode == RESULT_OK){
+                if (data != null) {
+                    String barcode = data.getParcelableExtra("barcode");
+                    for (int i = 0 ; i < accept_list.size(); i++){
+                        if(accept_list.get(i).getISBN().equals(barcode)){
+                            Intent intent = new Intent(BAcceptActivity.this, ViewBookActivity.class);
+                            intent.putExtra("book", accept_list.get(i));
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(this,"No this book in Borrower list",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
 }

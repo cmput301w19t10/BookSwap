@@ -93,9 +93,8 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 //                (String name, String phone_number, String email, String address, String password)
 //                TODO get user information in user class, and then push it in boge's class
 
-                Intent intent = new Intent(getContext(), ViewBookActivity.class);
-
-                intent.putExtra("book", book);
+                Intent intent = new Intent(getContext(), OtherProfileActivity.class);
+                intent.putExtra("userName", userList.get(position));
                 getContext().startActivity(intent);
             }
         };
@@ -114,9 +113,9 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 //                DataBaseUtil u = new DataBaseUtil("Bowen");
 //                u.acceptAndDeleteOther(userList.get(position), book);
 //                userList.clear();
-//                notifyDataSetChanged();
                 Intent goSwap = new Intent(getContext(),ORequestedSwapActivity.class);
                 goSwap.putExtra("book",book);
+                notifyDataSetChanged();
                 getContext().startActivity(goSwap);
             }
         });
