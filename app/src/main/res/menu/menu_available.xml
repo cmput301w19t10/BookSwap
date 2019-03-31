@@ -4,11 +4,21 @@
     <!-- Menu button for owner to add an available book -->
     <item
         android:enabled="true"
+        android:title="scan_add_book"
+        android:id="@+id/scan_add"
+        android:icon="@drawable/ic_scanbarcode"
+        android:orderInCategory="0"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:enabled="true"
         android:title="create"
         android:id="@+id/action_create"
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="0"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         />
+
+
 
 </menu>

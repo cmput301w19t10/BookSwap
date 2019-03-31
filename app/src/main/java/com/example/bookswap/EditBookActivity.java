@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -31,7 +32,7 @@ public class EditBookActivity extends AppCompatActivity {
     private EditText etTitle;
     private EditText etAuthor;
     private EditText etDescription;
-    private EditText etStatus;
+    private TextView etStatus;
     private ImageButton imageButton;
     private static int BOOK_PHOTO_RESULT = 1;
     private Intent intent;
@@ -51,7 +52,7 @@ public class EditBookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_available);
+        setContentView(R.layout.activity_add_book);
         ImageButton photo = findViewById(R.id.bookPhotoButton);
         photo.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -65,6 +66,14 @@ public class EditBookActivity extends AppCompatActivity {
         if (intent.getParcelableExtra("BookInformation") != null){
             this.book = intent.getParcelableExtra("BookInformation");
             fillText();
+        }
+
+        if (intent.getStringExtra("title") != null){
+            updateEditText();
+            etTitle.setText(intent.getStringExtra("title"));
+            etAuthor.setText(intent.getStringExtra("author"));
+            etDescription.setText(intent.getStringExtra("description"));
+            etStatus.setText("Available");
         }
 
 
@@ -166,7 +175,7 @@ public class EditBookActivity extends AppCompatActivity {
     private void updateEditText(){
         etTitle = ((EditText)findViewById(R.id.etTitle));
         etAuthor = ((EditText)findViewById(R.id.etAuthor));
-        etStatus = ((EditText)findViewById(R.id.etStatus));
+        etStatus = ((TextView)findViewById(R.id.etStatus));
         etDescription = ((EditText)findViewById(R.id.etDescription));
         imageButton = findViewById(R.id.bookPhotoButton);
     }
