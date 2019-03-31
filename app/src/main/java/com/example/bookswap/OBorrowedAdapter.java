@@ -55,7 +55,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
         u.getSwap(element,new DataBaseUtil.getSwapInfo(){
             @Override
             public void getSwapInfo(Swap swap) {
-                swapclass =swap;
+                swapclass = swap;
 
             }
         });

@@ -56,9 +56,6 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
 
 
 
-
-
-
         if (position < swapList.size()){
             if (swapList.get(position)) {
                 holder.setBtn.setVisibility(View.GONE);

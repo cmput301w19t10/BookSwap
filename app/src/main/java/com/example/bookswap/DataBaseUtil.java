@@ -164,7 +164,7 @@ public class DataBaseUtil {
         //BookOwner(book.getOwner());(TODO)
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
-        BookPhoto(book.getUnencodedImage());
+//        BookPhoto(book);
         BookStatus();
         OwnerBook(userName,book.getTitle());
         BookUniKey();
@@ -226,11 +226,15 @@ public class DataBaseUtil {
 
     /**
      * set backgroud image to the user
-     * @param image the image they want to pass
+     * @param book
      */
-    private void BookPhoto(String image){
-        BookDatabase.child(BookKey).child("Photo").setValue(image);
-    }
+//    private void BookPhoto(Book book){
+//
+//        //TODO
+//        FireStore fStore = new FireStore();
+//        fStore.addImageUri(book, );
+//        //BookDatabase.child(BookKey).child("Photo").setValue(image);
+//    }
 
     /**
      * set backgroud book unikey to backgroud book
@@ -296,12 +300,13 @@ public class DataBaseUtil {
                 User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
 
                 for (DataSnapshot review: dataSnapshot.child("Review").child(part).getChildren()){
-                    String comment = review.child("Comment").getValue(String.class);
-                    String rating =  review.child("Rating").getKey();
+                    String rating = review.getValue(String.class);
+                    String comment =  review.getKey();
                     Review oneReview = new Review(comment,rating);
                     commentList.add(oneReview);
+                    callBack.getNewUser(user, commentList);
                 }
-                callBack.getNewUser(user, commentList);
+                //callBack.getNewUser(user, commentList);
                 //callBack.getNewUser(user);
             }
 
@@ -321,6 +326,7 @@ public class DataBaseUtil {
      */
     public void deleteBook(Book book){
         BookDatabase.child(book.getUnikey()).removeValue();
+        UserDatabase.child(userName).child("Book").child(book.getUnikey()).removeValue();
     }
 
 
@@ -530,14 +536,14 @@ public class DataBaseUtil {
      * if it is true, user can be notified
      * @param callBack
      */
-    public void checkRequestNotification(String part,final getStatus callBack){
+    public void checkNotification(final String part,final getStatus callBack){
 //        TODO implement stub
 //        return true;
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String status;
-                status = dataSnapshot.child("Request").getValue(String.class);
+                status = dataSnapshot.child("Notification").child(part).getValue(String.class);
                 callBack.getStatus(status);
             }
 
@@ -554,7 +560,7 @@ public class DataBaseUtil {
      * @param status
      */
     public void changeNotificationStatus(String part, String status){
-        UserDatabase.child(userName).child(part).setValue(status);
+        UserDatabase.child(userName).child("Notification").child(part).setValue(status);
     }
 
     /**
@@ -896,12 +902,12 @@ public class DataBaseUtil {
 
 
     // user Comment
-    public void addOwnerReview(User user, Review review){
-        UserDatabase.child(user.getName()).child("Review").child("Owner").child(review.getRating()).setValue(review.getComment());
+    public void addOwnerReview(String name, Review review){
+        UserDatabase.child(name).child("Review").child("Owner").child(review.getComment()).setValue(review.getRating());
     }
 
-    public void addBorrowerReview(User user, Review review){
-        UserDatabase.child(user.getName()).child("Review").child("Borrower").child(review.getRating()).setValue(review.getComment());
+    public void addBorrowerReview(String name, Review review){
+        UserDatabase.child(name).child("Review").child("Borrower").child(review.getComment()).setValue(review.getRating());
     }
 
 

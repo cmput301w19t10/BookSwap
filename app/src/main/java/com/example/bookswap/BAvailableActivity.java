@@ -56,12 +56,13 @@ public class BAvailableActivity extends AppCompatActivity {
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
-        u.testAllInfoBook__3(new DataBaseUtil.getNewBook() {
+        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
-                if (aBook.getStatus().equals("Available")){
+                if (aBook.getStatus().equals("Available")||aBook.getStatus().equals("Requested")){
                     ava_book.add(aBook);
                     availableBooks.setAdapter(adapter);
+
                     Log.d("fragment","loop");
                 }
             }
