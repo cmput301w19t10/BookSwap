@@ -147,11 +147,13 @@ public class EditBookActivity extends AppCompatActivity {
         book.setAuthor(author);
         book.setStatus(status);
         book.setDescription(description);
-        book.setUnikey(UUID.randomUUID().toString());
+        if (book.getUnikey() == null) {
+            book.setUnikey(UUID.randomUUID().toString());
+        }
         if (imageUri != null) {
             fStorage.addImageUri(book, imageUri);
         }
-        DataBaseUtil u = new DataBaseUtil("Bowen");
+        DataBaseUtil u = new DataBaseUtil("no one");
         u.addNewBook(book);
 
 
@@ -196,7 +198,6 @@ public class EditBookActivity extends AppCompatActivity {
         etDescription.setText(String.valueOf(book.getDescription()));
         etStatus.setText("Available");
         //imageView.setImageBitmap(book.getImage());
-        Log.i("HHHHHHHH",book.getImageUrl());
         Picasso.get()
                 .load(book.getImageUrl())
                 .into(imageButton);

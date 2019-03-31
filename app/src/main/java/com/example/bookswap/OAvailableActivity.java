@@ -171,13 +171,14 @@ public class OAvailableActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 Book book = data.getParcelableExtra("Book");
                 availableList.add(book);
-                util.addNewBook(book);
+                // util.addNewBook(book);
             }
         } else if (requestCode == EDIT_BOOK_REQUEST) { // editing (and possible deletion)
             if (resultCode == Activity.RESULT_OK) {
                 int index = data.getIntExtra("Index", 0);
                 //if user tapped delete
                 if (data.getBooleanExtra("delete", false)) {
+                    util.deleteBook(availableList.get(index));
                     availableList.remove(index);
                 } else{ // not delete case
                     Book book = data.getParcelableExtra("Book");

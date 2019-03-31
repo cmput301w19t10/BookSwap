@@ -353,6 +353,7 @@ public class DataBaseUtil {
      */
     public void deleteBook(Book book){
         BookDatabase.child(book.getUnikey()).removeValue();
+        UserDatabase.child(userName).child("Book").child(book.getUnikey()).removeValue();
     }
 
 
