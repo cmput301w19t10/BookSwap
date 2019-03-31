@@ -173,6 +173,8 @@ public class BReturnSet extends AppCompatActivity {
                     Log.d("swappy",swapingBook.getTitle() + " ");
                     DataBaseUtil u = new DataBaseUtil("Bowen");
                     u.swapInfo(swapingBook,swapclass);
+                    u.changeSwapStatus(swapingBook,"Return",true);
+
                     finish();}
             }
         });

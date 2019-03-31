@@ -42,24 +42,19 @@ public class OBorrowedActivity extends AppCompatActivity {
             @Override
             public void getNewBook(final Book aBook) {
                 //need to change to owner's name not bowen
-                if (aBook.getStatus().equals("Borrowed")){
+                if (aBook.getStatus() != null && aBook.getStatus().equals("Borrowed")){
                     bro_book.add(aBook);
+                    u.getReturnstatus(aBook, new DataBaseUtil.returnStatus() {
+                    @Override
+                    public void getReturnStatus(Boolean value) {
+                        if (value!=null&&value){
+                            swapList.add(true);
+                            Log.d("godplz","At swapinfo != null, and swapList.size = "+swapList.size()); }
+                        if(value!=null&&!value){
+                            swapList.add(false);
+                            Log.d("godplz","At return == null, and swapList.size = "+swapList.size());
 
-
-
-//                    for(int i = 0; i < bro_book.size();i++){
-//                        Book element = aBook;
-                    u.getSwap(aBook,new DataBaseUtil.getSwapInfo() {
-                        @Override
-                        public void getSwapInfo(Swap swap) {
-                            if (swap != null){
-                                swapList.add(true);
-                                Log.d("godplz","title: "+aBook.getTitle()+"At swapinfo != null, and swapList.size = "+swapList.size());
-                            }
-                            if (swap == null){
-                                swapList.add(true);
-                                Log.d("godplz","title: "+aBook.getTitle()+"At swapinfo == null, and swapList.size = "+swapList.size());
-                            }
+                        }
                             //swapList.add(false);
                             borrowedBooks.setAdapter(adapter);
                         }
@@ -105,7 +100,7 @@ public class OBorrowedActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.item_scan:
+            case R.id.scan_meun:
                 Toast.makeText(this,"scan!!!",Toast.LENGTH_SHORT).show();
                 return true;
             default:

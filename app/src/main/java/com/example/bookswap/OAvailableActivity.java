@@ -39,7 +39,7 @@ public class OAvailableActivity extends AppCompatActivity {
     private static final int ADD_BOOK_REQUEST = 1;
     private static final int EDIT_BOOK_REQUEST = 2;
 
-    DataBaseUtil util = new DataBaseUtil("no one");
+    DataBaseUtil util = new DataBaseUtil("Bowen");
     private ArrayList<Book> availableList = new ArrayList<>();//copied into memory
     private OAvailableAdapter adapter; // initialize adapter.
     private ListView oldAvailableList;
@@ -59,7 +59,7 @@ public class OAvailableActivity extends AppCompatActivity {
         //loadFromFile();
         adapter = new OAvailableAdapter(this, 0, availableList);
         oldAvailableList = findViewById(R.id.mainAvailableList);
-        util.testAllInfoBook__3(new DataBaseUtil.getNewBook() {
+        util.getOwnerBook(new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
                 if (aBook.getStatus().equals("Available")){

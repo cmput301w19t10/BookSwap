@@ -33,7 +33,10 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private Book swapingBook;
     private static final int SET_MAP = 1;
 
-
+    /**
+     * create the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,9 @@ public class ORequestedSwapActivity extends AppCompatActivity {
 
         Intent intentbook = getIntent();
         swapingBook = intent.getParcelableExtra("book");
-        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
+//        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
+//        TODO remember to put it back
+        String infoDisplay = "testingforinfoDisplay";
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
         bookinfo.setText(infoDisplay);
 

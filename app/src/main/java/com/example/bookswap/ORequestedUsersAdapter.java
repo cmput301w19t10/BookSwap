@@ -84,16 +84,11 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 
         /**
          * click the adapter to enter the user profile
-         * TODO!!!!! change the user type (from string to User type)
-         *
          */
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = userList.get(position);
-//                (String name, String phone_number, String email, String address, String password)
-//                TODO get user information in user class, and then push it in boge's class
-
                 Intent intent = new Intent(getContext(), OtherProfileActivity.class);
                 intent.putExtra("userName", userList.get(position));
                 getContext().startActivity(intent);
@@ -110,10 +105,9 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 
             @Override
             public void onClick(View v) {
-//                TODO consider put them in other position
-//                DataBaseUtil u = new DataBaseUtil("Bowen");
-//                u.acceptAndDeleteOther(userList.get(position), book);
-//                userList.clear();
+                DataBaseUtil u = new DataBaseUtil("Bowen");
+                u.acceptAndDeleteOther(userList.get(position), book);
+                userList.clear();
                 Intent goSwap = new Intent(getContext(),ORequestedSwapActivity.class);
                 goSwap.putExtra("book",book);
                 notifyDataSetChanged();

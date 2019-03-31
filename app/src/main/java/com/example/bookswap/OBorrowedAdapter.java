@@ -65,7 +65,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
             if (swapList.get(position)) {
                 holder.confirmBtn.setBackgroundColor(green);
             }
-            if (!swapList.get(position)) {
+            else if (!swapList.get(position)) {
                 holder.confirmBtn.setBackgroundColor(red);
             }
         }

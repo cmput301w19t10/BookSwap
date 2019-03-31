@@ -38,7 +38,7 @@ public class OAcceptedActivity extends AppCompatActivity {
         u.getOwnerBook(new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
-                if (aBook.getStatus().equals("Accepted")) {
+                if (aBook.getStatus()!=null&&aBook.getStatus().equals("Accepted")) {
                     acp_book.add(aBook);
                     acceptedBooks.setAdapter(adapter);
                     Log.d("fragment", "loop");

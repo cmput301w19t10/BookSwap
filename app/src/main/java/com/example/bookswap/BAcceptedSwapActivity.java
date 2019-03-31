@@ -82,14 +82,18 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
 
         confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u.changeSwapStatus(swapingBook,"Borrower",true);
-                showNormalDialog();
-                timer();
 
-            }
-        });
+               @Override
+               public void onClick(View v) {
+                    u.changeSwapStatus(swapingBook,"Borrower",true);
+                    showNormalDialog();
+                    timer();
+
+               }
+           });
+
+
+
 
 
 
@@ -118,9 +122,11 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * build timer to make handler can auto
+     * check do swapingbook is swap or not
+     */
     public void timer(){
-
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -143,6 +149,8 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         }, 1000);  //the time is in miliseconds
 
     }
+
+
 
 
     /**

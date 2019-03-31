@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 
 
 import com.google.android.gms.maps.model.LatLng;
@@ -15,13 +14,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 import static android.content.ContentValues.TAG;
 
@@ -121,7 +117,7 @@ public class DataBaseUtil {
                     book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                     book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
-                    book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                    //book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
 //                    if (dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
 //                        book.setBorrower(dataSnapshot.child("Book").child(key).child("Borrower").getValue(String.class));
@@ -163,8 +159,8 @@ public class DataBaseUtil {
         BookName(book.getTitle());
         //BookOwner(book.getOwner());(TODO)
         BookDescription(book.getDescription());
-        BookISBN(book.getISBN());
-//        BookPhoto(book);
+        //BookISBN(book.getISBN());
+        BookPhoto(book);
         BookStatus();
         OwnerBook(userName,book.getTitle());
         BookUniKey();
@@ -228,13 +224,13 @@ public class DataBaseUtil {
      * set backgroud image to the user
      * @param book
      */
-//    private void BookPhoto(Book book){
-//
-//        //TODO
-//        FireStore fStore = new FireStore();
-//        fStore.addImageUri(book, );
-//        //BookDatabase.child(BookKey).child("Photo").setValue(image);
-//    }
+    private void BookPhoto(Book book){
+
+        //TODO
+//        FireStorage fStore = new FireStorage();
+        //fStore.addImageUri(book, );
+        //BookDatabase.child(BookKey).child("Photo").setValue(image);
+    }
 
     /**
      * set backgroud book unikey to backgroud book
@@ -391,7 +387,7 @@ public class DataBaseUtil {
     public void acceptAndDeleteOther(String BorrowerName,Book book){
 
         BookDatabase.child(book.getUnikey()).child("Borrower").removeValue();
-        BookDatabase.child(book.getUnikey()).child("Borrower").setValue(BorrowerName);
+        BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).setValue(BorrowerName);
         BookDatabase.child(book.getUnikey()).child("Status").setValue("Accepted");
 
     }
@@ -615,7 +611,7 @@ public class DataBaseUtil {
                     book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                     book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
-                    book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                    //book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
                     if (dataSnapshot.child("Book").child(key).child("Photo").hasChildren()) {
                         book.setImage(dataSnapshot.child("Photo").getValue(Bitmap.class));
@@ -909,7 +905,4 @@ public class DataBaseUtil {
     public void addBorrowerReview(String name, Review review){
         UserDatabase.child(name).child("Review").child("Borrower").child(review.getComment()).setValue(review.getRating());
     }
-
-
-
 }

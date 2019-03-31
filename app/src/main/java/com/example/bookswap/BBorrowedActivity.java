@@ -51,7 +51,7 @@ public class BBorrowedActivity extends AppCompatActivity {
                                 swapList.add(true);
                                 Log.d("godplz","At swapinfo != null, and swapList.size = "+swapList.size());
                             }
-                            if(!value){
+                           else{
                                 swapList.add(false);
                                 Log.d("godplz","At return == null, and swapList.size = "+swapList.size());
 
@@ -97,7 +97,7 @@ public class BBorrowedActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.item_scan:
+            case R.id.scan_meun:
                 Toast.makeText(this,"scan!!!",Toast.LENGTH_SHORT).show();
                 return true;
             default:
