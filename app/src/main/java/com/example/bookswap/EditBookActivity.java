@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +17,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.UUID;
 
 /**
  * Activity that allows the editing and creation UI of new available book information
@@ -38,6 +42,8 @@ public class EditBookActivity extends AppCompatActivity {
     //private int index;
 
     private Book book;
+    private Uri imageUri;
+    private FireStorage fStorage = new FireStorage();
 
     /**
      * On create of the activity override
@@ -136,11 +142,18 @@ public class EditBookActivity extends AppCompatActivity {
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
         ImageButton bView = findViewById(R.id.bookPhotoButton);
-        Bitmap image = null;
-        if((BitmapDrawable) bView.getDrawable() != null) {
-            image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
-        }
         Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setStatus(status);
+        book.setDescription(description);
+        book.setUnikey(UUID.randomUUID().toString());
+        if (imageUri != null) {
+            fStorage.addImageUri(book, imageUri);
+        }
+        DataBaseUtil u = new DataBaseUtil("Bowen");
+        u.addNewBook(book);
+
 
         Toast.makeText(this,"Book is saved!",Toast.LENGTH_SHORT).show();
 
@@ -182,7 +195,11 @@ public class EditBookActivity extends AppCompatActivity {
         etAuthor.setText(String.valueOf(book.getAuthor()));
         etDescription.setText(String.valueOf(book.getDescription()));
         etStatus.setText("Available");
-        imageButton.setImageBitmap(book.getImage());
+        //imageView.setImageBitmap(book.getImage());
+        Log.i("HHHHHHHH",book.getImageUrl());
+        Picasso.get()
+                .load(book.getImageUrl())
+                .into(imageButton);
 
 
     }
@@ -213,7 +230,7 @@ public class EditBookActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK) {
             try {
-                final Uri imageUri = data.getData();
+                imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 ImageButton photo = findViewById(R.id.bookPhotoButton);

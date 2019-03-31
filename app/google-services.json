@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "517223519497-bo7cf5aes4juls3e0d0uocd5hggakmb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookswap",
+            "certificate_hash": "38f34f1deba48a69c146ce9085726e80c5d916ad"
+          }
+        },
+        {
+          "client_id": "517223519497-h3hgqtp61kql8bui4jip4e1oc894fnl7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookswap",
+            "certificate_hash": "641ff422c0e496beac6df13f8f4f43bf45681341"
+          }
+        },
+        {
           "client_id": "517223519497-f3p0f12210bbma8q291nadfd057ghcan.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517223519497-f3p0f12210bbma8q291nadfd057ghcan.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

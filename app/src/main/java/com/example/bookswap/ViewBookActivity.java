@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -74,7 +76,11 @@ public class ViewBookActivity extends AppCompatActivity {
         vAuthor.setText(String.valueOf(book.getAuthor()));
         vDescription.setText(String.valueOf(book.getDescription()));
         vStatus.setText(String.valueOf(book.getStatus()));
-        imageView.setImageBitmap(book.getImage());
+        //imageView.setImageBitmap(book.getImage());
+
+        Picasso.get()
+                .load(book.getImageUrl())
+                .into(imageView);
 
 
     }

@@ -65,7 +65,7 @@ public class OAvailableAdapter extends ArrayAdapter<Book> {
             bookcover.setImageBitmap(element.getImage());
         }
     */
-       
+
         Picasso.get()
                 .load(element.getImageUrl())
                 .into(bookcover);

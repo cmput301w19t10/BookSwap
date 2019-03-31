@@ -163,7 +163,7 @@ public class Book implements Parcelable {
      * https://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
      *
      */
-    /*public Bitmap getImage() {
+    public Bitmap getImage() {
         if (image != null) {
             try {
                 byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
@@ -176,24 +176,23 @@ public class Book implements Parcelable {
             }
         }
         return null;
-    }*/
+    }
     /**
      * getter for book cover used for database
      * @return status of owner
      */
 
-    //public String getUnencodedImage(){
-        //return image;
-    //}
+    public String getUnencodedImage(){
+        return image;
+    }
     /**
      * setter of image for database
      * @return status of owner
      */
-    /*
     public void setUnencodedImage(String image){
         this.image = image;
     }
-*/
+
     /**
      * setter for image
      * @param bmp book cover owner saved
