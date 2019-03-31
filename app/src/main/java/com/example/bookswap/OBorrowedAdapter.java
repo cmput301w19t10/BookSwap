@@ -72,9 +72,10 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 //        });
         if (position < swapList.size()) {
             if (swapList.get(position)) {
-                holder.confirmBtn.setBackgroundColor(red);
-            } else {
                 holder.confirmBtn.setBackgroundColor(green);
+            }
+            if (!swapList.get(position)) {
+                holder.confirmBtn.setBackgroundColor(red);
             }
         }
 //        if(swapclass != null){
@@ -96,9 +97,10 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
              */
             @Override
             public void onClick(View v) {
-                if(swapclass == null){
-                    Toast.makeText(getContext(),"Not premition to swap",Toast.LENGTH_SHORT).show();
-                }else{
+                if(!swapList.get(position)){
+                    Toast.makeText(getContext(),"Waiting for Borrower to setup",Toast.LENGTH_SHORT).show();
+                }
+                if(swapList.get(position)){
                     Intent returnBook = new Intent(getContext(), OBorrowedSwapActivity.class);
                     returnBook.putExtra("book", element);
                     getContext().startActivity(returnBook);

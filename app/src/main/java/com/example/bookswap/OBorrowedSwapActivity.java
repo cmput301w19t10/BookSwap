@@ -66,7 +66,8 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
                 swapclass.setBorrowerPermit(true);
                 DataBaseUtil u = new DataBaseUtil("Bowen");
                 u.swapInfo(swapingBook,swapclass);
-
+                u.changeStatus(swapingBook,"Available");
+                //todo: start review activity, attention!! the book is now available, u prob cant find a borrower now
                 finish();
             }
         });
