@@ -70,11 +70,12 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 //
 //            }
 //        });
-        if (swapList.get(position)) {
-            holder.confirmBtn.setBackgroundColor(red);
-        }
-        else{
-            holder.confirmBtn.setBackgroundColor(green);
+        if (position < swapList.size()) {
+            if (swapList.get(position)) {
+                holder.confirmBtn.setBackgroundColor(red);
+            } else {
+                holder.confirmBtn.setBackgroundColor(green);
+            }
         }
 //        if(swapclass != null){
 //            holder.confirmBtn.setBackgroundColor(green);

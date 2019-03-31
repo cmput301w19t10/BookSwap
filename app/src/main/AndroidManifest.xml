@@ -14,7 +14,7 @@
         <activity android:name=".OBorrowedSwapActivity" />
         <activity android:name=".OBorrowedActivity" />
         <activity android:name=".OAcceptedActivity" />
-        <activity android:name=".BReturn" />
+        <activity android:name=".BReturnView" />
         <activity android:name=".BBorrowedActivity" />
         <activity
             android:name=".MapViewActivity"

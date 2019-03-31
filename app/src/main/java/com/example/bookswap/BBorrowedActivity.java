@@ -17,6 +17,8 @@ public class BBorrowedActivity extends AppCompatActivity {
     private ListView borrowedBooks;
     private ArrayList<Book> bro_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
+    private ArrayList<Boolean> swapList = new ArrayList<>();
+
 
 
     @Override
@@ -32,21 +34,36 @@ public class BBorrowedActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         bro_book.clear();
-        adapter = new BBorrowedAdapter(this, bro_book);
-        DataBaseUtil u;
+        swapList.clear();
+        adapter = new BBorrowedAdapter(this, bro_book, swapList);
+        final DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
         u.getBorrowerBook(new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
-                if (aBook.getStatus() == null){
-                    Log.d("fragment","it's null");
-                }
-                if (aBook.getStatus().equals("Borrowed") ){
-                    bro_book.add(aBook);
-                    borrowedBooks.setAdapter(adapter);
+            if (aBook.getStatus().equals("Borrowed") ){
+                bro_book.add(aBook);
+                u.getReturnstatus(aBook, new DataBaseUtil.returnStatus() {
+                        @Override
+                        public void getReturnStatus(Boolean value) {
+                            if (value){
+                                swapList.add(true);
+                                Log.d("godplz","At swapinfo != null, and swapList.size = "+swapList.size());
+                            }
+                            if(!value){
+                                swapList.add(false);
+                                Log.d("godplz","At return == null, and swapList.size = "+swapList.size());
+
+                            }
+                            //swapList.add(false);
+
+                            borrowedBooks.setAdapter(adapter);
+                        }
+                });
                     Log.d("fragment","loop"+ bro_book.size());
                 }
+
             }
         });
         borrowedBooks.setAdapter(adapter);

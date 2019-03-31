@@ -18,6 +18,7 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
     private Boolean setBtnValue;
     private Boolean viewBtnVlaue;
     private BBorrowedAdapter.ViewHolder holder = null;
+    private ArrayList<Boolean> swapList;
 
 
 
@@ -25,9 +26,10 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
 
 //    private Button setBtn;
 
-    public BBorrowedAdapter(Context context, ArrayList<Book> bro_books) {
+    public BBorrowedAdapter(Context context, ArrayList<Book> bro_books, ArrayList<Boolean> swapList) {
         super(context,R.layout.element_bborrowed , bro_books);
         this.bro_booklist = bro_books;
+        this.swapList = swapList;
     }
     /**
      * set the adapter to a list view
@@ -51,23 +53,23 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             holder = (BBorrowedAdapter.ViewHolder) convertView.getTag();
         }
         final Book element = bro_booklist.get(position);
-        final DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
-        u.getReturnstatus(element, new DataBaseUtil.returnStatus() {
-            @Override
-            public void getReturnStatus(Boolean value) {
-                setBtnValue = value;
-                if (setBtnValue){
-                    holder.setBtn.setVisibility(View.GONE);
-                }
-                else{
-                    holder.viewBtn.setVisibility(View.GONE);
-
-                }
-
-
-            }
-        });
+//        final DataBaseUtil u;
+//        u = new DataBaseUtil("Bowen");
+//        u.getReturnstatus(element, new DataBaseUtil.returnStatus() {
+//            @Override
+//            public void getReturnStatus(Boolean value) {
+//                setBtnValue = value;
+//                if (setBtnValue){
+//                    holder.setBtn.setVisibility(View.GONE);
+//                }
+//                else{
+//                    holder.viewBtn.setVisibility(View.GONE);
+//
+//                }
+//
+//
+//            }
+//        });
 //        if (setBtnValue!=null&&setBtnValue){
 //            holder.setBtn.setVisibility(holder.setBtn.GONE);
 //        }
@@ -76,7 +78,14 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
 //
 //        }
 
-
+        if (position < swapList.size()){
+            if (swapList.get(position)) {
+                holder.setBtn.setVisibility(View.GONE);
+            }
+            else{
+                holder.viewBtn.setVisibility(View.GONE);
+            }
+        }
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
         holder.setBtn.setOnClickListener(new View.OnClickListener() {
