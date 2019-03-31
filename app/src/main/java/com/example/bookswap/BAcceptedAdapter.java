@@ -94,7 +94,6 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
         });
 
 
-
         if (element.getImage() != null) {
             holder.bookcover.setImageBitmap(element.getImage());
         }

@@ -34,9 +34,6 @@ public class ORequestedActivity extends AppCompatActivity {
 
     private ListView display_listview;
     private TextView title;
-    private static final int ADD_BOOK_REQUEST = 1;
-    private static final int EDIT_BOOK_REQUEST = 2;
-    //The book of request list will be connect with the database in the cloud
     private ArrayList<Book> requestedList = new ArrayList<>();
     private ORequestedAdapter adapter;
     private Button dialog;
@@ -44,6 +41,7 @@ public class ORequestedActivity extends AppCompatActivity {
 
 
     /**
+     * oncreate activity
      * @param savedInstanceState
      */
     @Override
@@ -70,7 +68,6 @@ public class ORequestedActivity extends AppCompatActivity {
 
         } else {
             DataBaseUtil u;
-
             u = new DataBaseUtil("Bowen");
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
@@ -122,7 +119,6 @@ public class ORequestedActivity extends AppCompatActivity {
                              */
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Log.d("nimama", "hellonima1");
                                 Book book = requestedList.get(position);
                                 Intent intent = new Intent(ORequestedActivity.this, ViewBookActivity.class);
                                 intent.putExtra("book", book);

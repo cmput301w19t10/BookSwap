@@ -1,17 +1,13 @@
 package com.example.bookswap;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +23,6 @@ public class BAcceptActivity extends AppCompatActivity {
 
     private ListView display_listview;
     private TextView title;
-    //accept_list will be connect with the database in the cloud
     private ArrayList<Book> accept_list= new ArrayList<Book>();
     private BAcceptedAdapter adapter;
     private static final int SCAN = 1;
@@ -40,7 +35,6 @@ public class BAcceptActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baccept);
         display_listview = (ListView) findViewById(R.id.main_listview);
@@ -80,10 +74,8 @@ public class BAcceptActivity extends AppCompatActivity {
 
     /**
      * Initialize the contents of the Activity's standard options menu.  You
-     *
-     * about how to produce a menu
+     * about how to make a menu
      * resourse:https://www.youtube.com/watch?v=oh4YOj9VkVE
-     *
      *
      * @param menu The options menu in which you place your items.
      * @return You must return true for the menu to be displayed;
@@ -107,7 +99,8 @@ public class BAcceptActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.item_scan:
+
+            case R.id.scan_meun:
                 Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
                 startActivityForResult(intent, SCAN);
                 return true;
@@ -117,7 +110,7 @@ public class BAcceptActivity extends AppCompatActivity {
     }
 
     /**
-     * thought scan book barcode and then go to this book's viewbook activity
+     * after scan book barcode and then go to this book's viewbook activity
      * @param requestCode
      * @param resultCode
      * @param data
@@ -127,22 +120,29 @@ public class BAcceptActivity extends AppCompatActivity {
         if (requestCode == SCAN ) {
             if (resultCode == RESULT_OK){
                 if (data != null) {
-                    String barcode = data.getParcelableExtra("barcode");
-                    for (int i = 0 ; i < accept_list.size(); i++){
-                        if(accept_list.get(i).getISBN().equals(barcode)){
+                    String barcode = data.getStringExtra("ISBN");
+                    boolean flag = false;
+                    for (int i = 0 ; i < accept_list.size(); i++) {
+                        if (accept_list.get(i).getISBN().equals(barcode)) {
                             Intent intent = new Intent(BAcceptActivity.this, ViewBookActivity.class);
                             intent.putExtra("book", accept_list.get(i));
+                            flag = true;
                             startActivity(intent);
-                        }else {
-                            Toast.makeText(this,"No this book in Borrower list",Toast.LENGTH_SHORT).show();
                         }
+                    }
 
+                    if (!flag){
+                        Toast.makeText(BAcceptActivity.this,"No this book in Borrower list",Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         }
     }
 
+    /**
+     * when back to BAcceptActivity
+     * refresh the accept_list and display it
+     */
     @Override
     protected void onRestart(){
         super.onRestart();
