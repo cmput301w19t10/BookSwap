@@ -264,7 +264,7 @@ public class DataBaseUtil {
      *  addPassword TODO
      */
     public void addNewUser (User user){
-        //UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
+        UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
         UserDatabase.child(user.getName()).child("address").setValue(user.getAddress());
         UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
         UserDatabase.child(user.getName()).child("phone").setValue(user.getPhone_number());
