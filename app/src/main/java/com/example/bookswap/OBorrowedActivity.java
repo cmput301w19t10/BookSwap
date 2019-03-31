@@ -55,8 +55,8 @@ public class OBorrowedActivity extends AppCompatActivity {
                             Log.d("godplz","At return == null, and swapList.size = "+swapList.size());
 
                         }
-                            //swapList.add(false);
-                            borrowedBooks.setAdapter(adapter);
+                        //swapList.add(false);
+                        borrowedBooks.setAdapter(adapter);
                         }
                     });
 //                    }

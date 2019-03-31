@@ -38,6 +38,7 @@ public class ORequestedActivity extends AppCompatActivity {
     private ORequestedAdapter adapter;
     private Button dialog;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private DataBaseUtil u;
 
 
     /**
@@ -95,7 +96,6 @@ public class ORequestedActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 requestedList.clear();
-                DataBaseUtil u;
                 u = new DataBaseUtil("Bowen");
                 u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                     /**
@@ -160,6 +160,47 @@ public class ORequestedActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * when back to BAcceptActivity
+     * refresh the accept_list and display it
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        requestedList.clear();
+        u = new DataBaseUtil("Bowen");
+        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
+            /**
+             * get the requestedlist from database and then load it into the local listview
+             *
+             * @param a
+             */
+            @Override
+            public void getNewBook(Book a) {
+                if (a.getStatus().equals("Requested")) {
+                    requestedList.add(a);
+                }
+                display_listview.setAdapter(adapter);
+                display_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    /**
+                     * click
+                     * @param parent
+                     * @param view
+                     * @param position
+                     * @param id
+                     */
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Book book = requestedList.get(position);
+                        Intent intent = new Intent(ORequestedActivity.this, ViewBookActivity.class);
+                        intent.putExtra("book", book);
+                        intent.putExtra("Index", position + "");
+                        startActivity(intent);
+                    }
+                });
 
+            }
+        });
+    }
 
 }
