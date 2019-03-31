@@ -296,12 +296,13 @@ public class DataBaseUtil {
                 User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
 
                 for (DataSnapshot review: dataSnapshot.child("Review").child(part).getChildren()){
-                    String comment = review.child("Comment").getValue(String.class);
-                    String rating =  review.child("Rating").getKey();
+                    String rating = review.getValue(String.class);
+                    String comment =  review.getKey();
                     Review oneReview = new Review(comment,rating);
                     commentList.add(oneReview);
+                    callBack.getNewUser(user, commentList);
                 }
-                callBack.getNewUser(user, commentList);
+                //callBack.getNewUser(user, commentList);
                 //callBack.getNewUser(user);
             }
 
@@ -895,13 +896,13 @@ public class DataBaseUtil {
     // Login finished
 
 
-    // user Comment
+    // user Commentreview.getComment()
     public void addOwnerReview(User user, Review review){
-        UserDatabase.child(user.getName()).child("Review").child("Owner").child(review.getRating()).setValue(review.getComment());
+        UserDatabase.child(user.getName()).child("Review").child("Owner").child(review.getComment()).setValue(review.getRating());
     }
 
     public void addBorrowerReview(User user, Review review){
-        UserDatabase.child(user.getName()).child("Review").child("Borrower").child(review.getRating()).setValue(review.getComment());
+        UserDatabase.child(user.getName()).child("Review").child("Borrower").child(review.getComment()).setValue(review.getRating());
     }
 
 
