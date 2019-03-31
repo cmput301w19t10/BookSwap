@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -60,6 +61,7 @@ public class ViewBookActivity extends AppCompatActivity {
         vAuthor = ((TextView)findViewById(R.id.vAuthor));
         vStatus = ((TextView)findViewById(R.id.vStatus));
         vDescription = ((TextView)findViewById(R.id.vdescription));
+        vDescription.setMovementMethod(new ScrollingMovementMethod());
         imageView = ((ImageView)findViewById(R.id.bookCover));
     }
 

@@ -17,6 +17,10 @@ import com.example.bookswap.barcode.BarcodeScannerActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -212,6 +216,7 @@ public class OAvailableActivity extends AppCompatActivity {
         }
     }
 
+    //https://stackoverflow.com/questions/33229869/get-json-data-from-url-using-android
     private class JsonTask extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
@@ -276,7 +281,25 @@ public class OAvailableActivity extends AppCompatActivity {
             if (pd.isShowing()){
                 pd.dismiss();
             }
-            Log.d("ERICHI", result);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray items = jsonObject.getJSONArray("items");
+                JSONObject singleBook = items.getJSONObject(0);
+                String title = singleBook.getJSONObject("volumeInfo").getString("title");
+                String author = singleBook.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+                String description = singleBook.getJSONObject("volumeInfo").getString("description");
+
+                Intent intent = new Intent(OAvailableActivity.this, EditBookActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("author", author);
+                intent.putExtra("description", description);
+                startActivityForResult(intent, ADD_BOOK_REQUEST);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
         }
     }
 }

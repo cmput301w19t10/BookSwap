@@ -7,47 +7,53 @@
     tools:context=".EditBookActivity">
 
 
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:hint="Title:"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bookPhotoButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:hint="Author:"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bookPhotoButton"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <EditText
         android:id="@+id/etTitle"
-        android:layout_width="wrap_content"
+        android:maxLines="1"
+        android:inputType="text"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="132dp"
+        android:layout_marginEnd="8dp"
         android:hint="book title"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/author"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etAuthor"
-        android:layout_width="163dp"
+        android:layout_width="0dp"
         android:layout_height="41dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="author name"
+        android:textSize="18sp"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/author"
         app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
     <TextView
@@ -64,33 +70,45 @@
         android:id="@+id/lStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:hint="Status:"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/bookPhotoButton"
         app:layout_constraintTop_toBottomOf="@+id/author" />
 
-    <EditText
+    <TextView
         android:id="@+id/etStatus"
-        android:layout_width="163dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Available"
+        android:gravity="start|center_vertical"
+        android:text="Filler"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lStatus"
         app:layout_constraintTop_toBottomOf="@+id/etAuthor" />
 
     <EditText
         android:id="@+id/etDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="195dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
+        android:gravity="top"
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/bookPhotoButton"
