@@ -45,9 +45,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 String address = edit_address.getText().toString().trim();
                 if (check(phoneNumber, address)){
                     User user = new User(name, phoneNumber, "", address, null);
-                    Intent intent = new Intent(EditProfileActivity.this, SelfProfileActivity.class);
-                    intent.putExtra("user", user);
-                    setResult(RESULT_OK, intent);
+                    DataBaseUtil u = new DataBaseUtil();
+                    u.addNewUser(user);
                     finish();
                 }
             }
@@ -81,7 +80,5 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setResult(RESULT_CANCELED);
-        finish();
     }
 }

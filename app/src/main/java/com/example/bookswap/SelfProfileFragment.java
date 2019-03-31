@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -29,6 +34,7 @@ public class SelfProfileFragment extends Fragment{
     TextView phoneNumber;
     DataBaseUtil u;
     Intent intent;
+    private String util_name;
 
     /**
      *
@@ -41,63 +47,13 @@ public class SelfProfileFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_self_profile, container, false);
-        Button edit_button = view.findViewById(R.id.edit_profile);
         Intent passed_intent = getActivity().getIntent();
-        String util_name = passed_intent.getStringExtra("name");
-        if (util_name == null){
-            u = new DataBaseUtil("Bowen");
-        } else {
-            u = new DataBaseUtil(util_name);
+        util_name = passed_intent.getStringExtra("name");
+        if (util_name == null) {
+            util_name = "Bowen";
         }
-        edit_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
-                    @Override
-                    public void getNewUser(User user, List<Review> commentList) {
-                        intent = new Intent(getActivity(), EditProfileActivity.class);
-                        intent.putExtra("user", user);
-                        startActivityForResult(intent, 1);
-                    }
-                });
-            }
-        });
+        u = new DataBaseUtil(util_name);
 
-        Button review_self = view.findViewById(R.id.review_self);
-        review_self.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
-                    @Override
-                    public void getNewUser(User user, List<Review> commentList) {
-                        intent = new Intent(getActivity(), SelfRateActivity.class);
-                        intent.putExtra("userName", user.getName());
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
-
-        Button find_others = view.findViewById(R.id.find_others);
-        find_others.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
-                    @Override
-                    public void getNewUser(User user, List<Review> commentList) {
-                        intent = new Intent(getActivity(), ProfileSearchActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
-        /*
-        Review borrower_review = new Review("nice borrower", "5.0");
-        Review owner_review = new Review("nice owner", "4.0");
-        user.addBorrower_review(borrower_review);
-        user.addOwner_review(owner_review);
-        user.setImageId(R.drawable.user_image);
-        */
 
         View self_include = view.findViewById(R.id.self_include);
         image = self_include.findViewById(R.id.self_image);
@@ -117,60 +73,37 @@ public class SelfProfileFragment extends Fragment{
             }
         });
 
-
-
         return view;
     }
-
-    /**
-     * reactions to three buttons in this fragment
-     * @param v the view of this corresponding button
-     */
     /*
     @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.edit_profile:
-                intent = new Intent(getActivity(), EditProfileActivity.class);
-                intent.putExtra("user", user);
-                startActivityForResult(intent, 1);
-                break;
-            case R.id.review_self:
-                intent = new Intent(getActivity(), SelfRateActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
-                break;
-            case R.id.find_others:
-                intent = new Intent(getActivity(), ProfileSearchActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
-            default:
-                break;
-        }
-    }
-    */
-    /**
-     *get result of edited profile
-     * @param requestCode a int of request in startActivityForResult
-     * @param resultCode a int represents result
-     * @param data returned intent
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 1: {
-                if (resultCode == RESULT_OK){
-                    DataBaseUtil u = new DataBaseUtil();
-                    User user = data.getExtras().getParcelable("user");
-                    u.addNewUser(user);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            u = new DataBaseUtil(util_name);
+            u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
+                @Override
+                public void getNewUser(User user, List<Review> commentList) {
                     image.setImageResource(R.drawable.user_image);
                     address.setText(user.getAddress());
                     phoneNumber.setText(user.getPhone_number());
-                    break;
                 }
-            } default: break;
+            });
         }
     }
+    */
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        u = new DataBaseUtil(util_name);
+        u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
+            @Override
+            public void getNewUser(User user, List<Review> commentList) {
+                image.setImageResource(R.drawable.user_image);
+                address.setText(user.getAddress());
+                phoneNumber.setText(user.getPhone_number());
+            }
+        });
+    }
 }

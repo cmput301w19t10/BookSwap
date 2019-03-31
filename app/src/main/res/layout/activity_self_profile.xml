@@ -10,49 +10,11 @@
         layout="@layout/activity_profile"
         android:layout_width="0dp"
         android:layout_height="535dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile" />
-
-    <Button
-        android:id="@+id/edit_profile"
-        android:layout_width="69dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="35dp"
-        android:text="edit"
-        android:textSize="10dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/review_self"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginBottom="79dp"
-        android:text="review"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="136dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/self_include" />
-
-    <Button
-        android:id="@+id/find_others"
-        android:layout_width="69dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="219dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="12dp"
-        android:gravity="center"
-        android:text="@android:string/search_go"
-        android:textSize="10dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/self_include"
-        app:layout_constraintEnd_toStartOf="@+id/edit_profile"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
