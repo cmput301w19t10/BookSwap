@@ -96,8 +96,7 @@ public class Book implements Parcelable {
     /**
      * return newly populated book object
      */
-    public static final Parcelable.Creator<Book> CREATOR
-            = new Parcelable.Creator<Book>() {
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
         @Override
         public Book createFromParcel(Parcel parcel) {
             return new Book(parcel);

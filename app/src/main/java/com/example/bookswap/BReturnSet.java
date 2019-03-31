@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -54,11 +55,12 @@ public class BReturnSet extends AppCompatActivity {
         swapingBook = intent.getParcelableExtra("book");
         swapclass.setBook(swapingBook);
 
-        Intent intentbook = getIntent();
-        swapingBook = intent.getParcelableExtra("book");
+//        Intent intentbook = getIntent();
+//        swapingBook = intent.getParcelableExtra("book");
         String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
         bookinfo.setText(infoDisplay);
+
 
         bookinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +170,7 @@ public class BReturnSet extends AppCompatActivity {
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}
                     swapclass.setComment(stringcomment);
+                    Log.d("swappy",swapingBook.getTitle() + " ");
                     DataBaseUtil u = new DataBaseUtil("Bowen");
                     u.swapInfo(swapingBook,swapclass);
                     finish();}

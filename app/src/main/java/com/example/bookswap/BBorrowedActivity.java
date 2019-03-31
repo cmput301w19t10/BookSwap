@@ -18,6 +18,7 @@ public class BBorrowedActivity extends AppCompatActivity {
     private ArrayList<Book> bro_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
     private ArrayList<Boolean> swapList = new ArrayList<>();
+    private DataBaseUtil u;
 
 
 
@@ -36,7 +37,6 @@ public class BBorrowedActivity extends AppCompatActivity {
         bro_book.clear();
         swapList.clear();
         adapter = new BBorrowedAdapter(this, bro_book, swapList);
-        final DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
         u.getBorrowerBook(new DataBaseUtil.getNewBook() {
@@ -105,4 +105,7 @@ public class BBorrowedActivity extends AppCompatActivity {
         }
 
     }
-}
+
+
+
+    }

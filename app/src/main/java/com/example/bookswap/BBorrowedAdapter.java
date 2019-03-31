@@ -53,30 +53,11 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             holder = (BBorrowedAdapter.ViewHolder) convertView.getTag();
         }
         final Book element = bro_booklist.get(position);
-//        final DataBaseUtil u;
-//        u = new DataBaseUtil("Bowen");
-//        u.getReturnstatus(element, new DataBaseUtil.returnStatus() {
-//            @Override
-//            public void getReturnStatus(Boolean value) {
-//                setBtnValue = value;
-//                if (setBtnValue){
-//                    holder.setBtn.setVisibility(View.GONE);
-//                }
-//                else{
-//                    holder.viewBtn.setVisibility(View.GONE);
-//
-//                }
-//
-//
-//            }
-//        });
-//        if (setBtnValue!=null&&setBtnValue){
-//            holder.setBtn.setVisibility(holder.setBtn.GONE);
-//        }
-//        else{
-//            holder.viewBtn.setVisibility(holder.viewBtn.GONE);
-//
-//        }
+
+
+
+
+
 
         if (position < swapList.size()){
             if (swapList.get(position)) {
@@ -98,7 +79,6 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 Intent returnBook = new Intent(getContext(), BReturnSet.class);
-                //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
                 returnBook.putExtra("book", element);
                 getContext().startActivity(returnBook);
             }
@@ -113,7 +93,6 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 Intent returnBook = new Intent(getContext(), BReturnView.class);
-                //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
                 returnBook.putExtra("book", element);
                 getContext().startActivity(returnBook);
             }
@@ -122,10 +101,7 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             holder.bookcover.setImageBitmap(element.getImage());
         }
 
-        //holder.bookcover.setImageBitmap(element.getImage());
-//        LayoutInflater inflater = LayoutInflater.from(getContext());
-//        View customView = inflater.inflate(R.layout.element_available2, parent, false);
-//
+
         return convertView;
     }
 
