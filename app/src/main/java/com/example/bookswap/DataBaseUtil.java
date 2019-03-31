@@ -896,13 +896,13 @@ public class DataBaseUtil {
     // Login finished
 
 
-    // user Commentreview.getComment()
-    public void addOwnerReview(User user, Review review){
-        UserDatabase.child(user.getName()).child("Review").child("Owner").child(review.getComment()).setValue(review.getRating());
+    // user Comment
+    public void addOwnerReview(String name, Review review){
+        UserDatabase.child(name).child("Review").child("Owner").child(review.getComment()).setValue(review.getRating());
     }
 
-    public void addBorrowerReview(User user, Review review){
-        UserDatabase.child(user.getName()).child("Review").child("Borrower").child(review.getComment()).setValue(review.getRating());
+    public void addBorrowerReview(String name, Review review){
+        UserDatabase.child(name).child("Review").child("Borrower").child(review.getComment()).setValue(review.getRating());
     }
 
 
