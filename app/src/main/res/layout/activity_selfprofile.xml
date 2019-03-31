@@ -8,24 +8,24 @@
     <include
         android:id="@+id/self_include"
         layout="@layout/activity_profile"
-        android:layout_width="0dp"
+        android:layout_width="384dp"
         android:layout_height="497dp"
-        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="88dp" />
 
     <Button
         android:id="@+id/edit_profile"
         android:layout_width="69dp"
         android:layout_height="48dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="44dp"
         android:text="edit"
         app:layout_constraintBottom_toTopOf="@+id/self_include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/review_self"
@@ -38,9 +38,9 @@
         android:text="review"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/self_include" />
+        app:layout_constraintTop_toBottomOf="@+id/self_include"
+        app:layout_constraintVertical_bias="0.587" />
 
     <TextView
         android:id="@+id/find_others"
@@ -50,13 +50,15 @@
         android:layout_marginTop="37dp"
         android:layout_marginEnd="56dp"
         android:layout_marginBottom="7dp"
-        android:text="Find others"
-        android:gravity="center"
-        android:textSize="25sp"
         android:fontFamily="@font/dancing_script"
+        android:gravity="center"
+        android:text="Find others"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/self_include"
         app:layout_constraintEnd_toStartOf="@+id/edit_profile"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

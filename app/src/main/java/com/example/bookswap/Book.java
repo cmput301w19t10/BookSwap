@@ -33,8 +33,7 @@ public class Book implements Parcelable {
     private String owner;
     private String image;
     private String uniKey;
-    private String borrower;
-
+    private String mImageUrl;
   
     /**
      * writes the current state of the book information to a parcel for use in other activities
@@ -51,18 +50,19 @@ public class Book implements Parcelable {
         out.writeString(owner);
         out.writeString(image);
         out.writeString(uniKey);
-        out.writeString(borrower);
+        out.writeString(mImageUrl);
     }
 
 
-    public Book(String title, String author, String status, String description, Bitmap bmp){
+    public Book(String title, String author, String status, String description, Bitmap bmp,String owner){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
+        this.owner =owner;
         setImage(bmp);
     }
-
+/*
     public Book(String title, String author, String status, String description){
         this.title = title;
         this.author = author;
@@ -76,7 +76,7 @@ public class Book implements Parcelable {
         this.description = description;
         this.owner = owner;
     }
-
+*/
 
     public Book(Parcel parcel){
         title = parcel.readString();
@@ -87,7 +87,7 @@ public class Book implements Parcelable {
         owner = parcel.readString();
         image = parcel.readString();
         uniKey = parcel.readString();
-        borrower = parcel.readString();
+        mImageUrl = parcel.readString();
     }
 
     public Book(){}
@@ -187,7 +187,6 @@ public class Book implements Parcelable {
      * setter of image for database
      * @return status of owner
      */
-
     public void setUnencodedImage(String image){
         this.image = image;
     }
@@ -269,7 +268,13 @@ public class Book implements Parcelable {
         return uniKey;
     }
 
+    public String getImageUrl() {
+        return mImageUrl;
+    }
 
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+    }
 
     /**
      * required for parcelable

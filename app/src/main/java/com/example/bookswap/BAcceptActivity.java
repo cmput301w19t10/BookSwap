@@ -17,7 +17,7 @@ import com.example.bookswap.barcode.BarcodeScannerActivity;
 import java.util.ArrayList;
 
 /**
- * each borrower exist a list that the wait for owner agree to borrow his book
+ * each borrower exist a list that the wait for owner agree to Accept his book
  */
 public class BAcceptActivity extends AppCompatActivity {
 
