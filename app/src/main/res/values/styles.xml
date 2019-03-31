@@ -17,5 +17,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/my_ratingbar</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
+
 
 </resources>

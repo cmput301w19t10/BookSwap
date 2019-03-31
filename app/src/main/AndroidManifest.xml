@@ -12,12 +12,20 @@
         <activity android:name=".BAvailableActivity"></activity>
         <activity android:name=".BRequestedBooksActivity" />
         <activity android:name=".BorrowerActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity"
+            android:theme="@style/noActionBar"
+            android:launchMode="singleTop"/>
         <activity android:name=".CommentActivity" />
-        <activity android:name=".OtherRateActivity" />
-        <activity android:name=".OtherProfileActivity" />
-        <activity android:name=".SelfRateActivity" />
-        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".OtherRateActivity"
+            android:theme="@style/noActionBar"
+            android:launchMode="singleTop"/>
+        <activity android:name=".OtherProfileActivity"
+            android:theme="@style/noActionBar"/>
+        <activity android:name=".SelfRateActivity"
+            android:theme="@style/noActionBar"
+            android:launchMode="singleTop"/>
+        <activity android:name=".EditProfileActivity"
+            android:theme="@style/noActionBar"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,13 +39,15 @@
         <activity
             android:name=".ProfileSearchActivity"
             android:label="Search person"
-            android:theme="@style/SearchTheme" />
+            android:theme="@style/SearchTheme"
+            android:launchMode="singleTask"/>
 
         <activity android:name=".DummyActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity android:name=".BRequestActivity" />
         <activity android:name=".OwnerNotificationActivity" />
         <activity android:name=".ORequestedBooksActivity" />

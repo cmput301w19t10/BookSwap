@@ -5,18 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/background"
+    android:background="@drawable/login_register"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/text_name"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="155dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="155dp"
         android:gravity="center"
         android:text="User Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,17 +38,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_name"
         android:background="#CCFFFFFF"
-        android:fontFamily="@font/dancing_script"/>
+        android:textStyle="italic"/>
 
     <TextView
         android:id="@+id/text_password"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="155dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="155dp"
         android:gravity="center"
         android:text="PassWord"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_password"
         android:background="#CCFFFFFF"
-        android:fontFamily="@font/dancing_script"/>
+        android:textStyle="italic"/>
 
     <Button
         android:id="@+id/button_register"

@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/background"
+    android:background="@drawable/login_register"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/text_name"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="155dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
         android:gravity="center"
         android:text="User Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,59 +25,54 @@
         android:id="@+id/user_name"
         android:layout_width="220dp"
         android:layout_height="45dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="15dp"
+        android:background="#CCFFFFFF"
         android:ems="10"
         android:hint="Your User Name"
         android:inputType="textPersonName"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_name"
-        android:background="#CCFFFFFF"
-        android:fontFamily="@font/dancing_script"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
     <TextView
         android:id="@+id/text_password"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="155dp"
-        android:text="PassWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:gravity="center"
+        android:text="PassWord"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+        app:layout_constraintTop_toBottomOf="@+id/user_email" />
 
     <EditText
         android:id="@+id/user_password"
         android:layout_width="220dp"
         android:layout_height="45dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="16dp"
+        android:background="#CCFFFFFF"
         android:ems="10"
         android:hint="Your Password"
         android:inputType="textWebEditText|textPersonName"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_password"
-        android:background="#CCFFFFFF"
-        android:fontFamily="@font/dancing_script"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_password" />
 
     <Button
         android:id="@+id/button_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="64dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -86,11 +81,12 @@
         android:layout_height="33dp"
         android:layout_marginStart="285dp"
         android:layout_marginEnd="56dp"
-        android:layout_marginBottom="82dp"
+        android:layout_marginBottom="28dp"
         android:text="Login"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
@@ -98,12 +94,8 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="183dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginTop="22dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/button_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_confirmpassword"
@@ -111,13 +103,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="140dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="155dp"
-        android:text="ConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
         android:gravity="center"
+        android:text="ConfirmPassword"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_password" />
@@ -126,17 +118,42 @@
         android:id="@+id/user_confirmpassword"
         android:layout_width="220dp"
         android:layout_height="45dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="20dp"
+        android:background="#CCFFFFFF"
         android:ems="10"
         android:hint="Confirm your password"
         android:inputType="textPassword"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textview10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Email"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="18dp"
         android:background="#CCFFFFFF"
-        android:fontFamily="@font/dancing_script"/>
+        android:ems="10"
+        android:hint="Your Email"
+        android:inputType="textEmailAddress"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview10" />
 
 </android.support.constraint.ConstraintLayout>

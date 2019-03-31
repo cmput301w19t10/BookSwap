@@ -9,25 +9,24 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
-        android:layout_width="379dp"
-        android:layout_height="523dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="11dp"
-        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/tabs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
-        android:layout_width="390dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="53dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -35,18 +34,16 @@
 
     </android.support.design.widget.TabLayout>
 
-    <TextView
+    <Button
         android:id="@+id/comment"
-        android:layout_width="244dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="100dp"
-        android:gravity="center"
-        android:text="Leave a comment"
-        android:textSize="25sp"
-        android:fontFamily="@font/dancing_script"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="305dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="11dp"
+        android:text="Comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -23,6 +23,8 @@ public class OtherProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView phoneNumber;
     private TextView address;
+    private String userName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +37,11 @@ public class OtherProfileActivity extends AppCompatActivity {
         address = other_include.findViewById(R.id.address);
 
         Intent intent = getIntent();
-        u = new DataBaseUtil(intent.getStringExtra("userName"));
+        userName = intent.getStringExtra("userName");
+        u = new DataBaseUtil(userName);
         image.setImageResource(R.drawable.user_image);
 
-        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+        u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
             @Override
             public void getNewUser(User user, List<Review> commentList) {
                 name.setText(user.getName());
@@ -53,14 +56,9 @@ public class OtherProfileActivity extends AppCompatActivity {
         other_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
-                    @Override
-                    public void getNewUser(User user, List<Review> commentList) {
-                        Intent intent = new Intent(OtherProfileActivity.this, OtherRateActivity.class);
-                        intent.putExtra("user", user);
-                        startActivity(intent);
-                    }
-                });
+                Intent intent = new Intent(OtherProfileActivity.this, OtherRateActivity.class);
+                intent.putExtra("userName", userName);
+                startActivity(intent);
             }
         });
     }

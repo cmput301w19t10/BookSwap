@@ -82,7 +82,7 @@ public class CommentActivity extends AppCompatActivity {
         try {
             Float.parseFloat(rating);
         } catch (Exception e){
-            Toast.makeText(CommentActivity.this, "rating must be a valid float number", Toast.LENGTH_SHORT);
+            Toast.makeText(CommentActivity.this, "rating must be a valid decimal number", Toast.LENGTH_SHORT);
             return false;
         }
 

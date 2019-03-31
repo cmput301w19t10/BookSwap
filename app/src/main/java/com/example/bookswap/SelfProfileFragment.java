@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +22,12 @@ import static android.app.Activity.RESULT_OK;
  */
 public class SelfProfileFragment extends Fragment{
 
-    //private User user = new User("Bowen", "dsadsadsa", "bh1", "dsadsaa" ,"ewqewq");
     ImageView image;
     TextView name;
     TextView email;
     TextView address;
     TextView phoneNumber;
-    DataBaseUtil u = new DataBaseUtil("Bowen");
+    DataBaseUtil u;
     Intent intent;
 
     /**
@@ -42,13 +42,19 @@ public class SelfProfileFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_self_profile, container, false);
         Button edit_button = view.findViewById(R.id.edit_profile);
+        Intent passed_intent = getActivity().getIntent();
+        String util_name = passed_intent.getStringExtra("name");
+        if (util_name == null){
+            u = new DataBaseUtil("Bowen");
+        } else {
+            u = new DataBaseUtil(util_name);
+        }
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
                     @Override
                     public void getNewUser(User user, List<Review> commentList) {
-
                         intent = new Intent(getActivity(), EditProfileActivity.class);
                         intent.putExtra("user", user);
                         startActivityForResult(intent, 1);
@@ -61,26 +67,25 @@ public class SelfProfileFragment extends Fragment{
         review_self.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
                     @Override
                     public void getNewUser(User user, List<Review> commentList) {
                         intent = new Intent(getActivity(), SelfRateActivity.class);
-                        intent.putExtra("user", user);
+                        intent.putExtra("userName", user.getName());
                         startActivity(intent);
                     }
                 });
             }
         });
 
-        TextView find_others = view.findViewById(R.id.find_others);
+        Button find_others = view.findViewById(R.id.find_others);
         find_others.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
                     @Override
                     public void getNewUser(User user, List<Review> commentList) {
                         intent = new Intent(getActivity(), ProfileSearchActivity.class);
-                        intent.putExtra("user", user);
                         startActivity(intent);
                     }
                 });
@@ -101,7 +106,7 @@ public class SelfProfileFragment extends Fragment{
         address = self_include.findViewById(R.id.address);
         phoneNumber = self_include.findViewById(R.id.phoneNumber);
 
-        u.getOwnerUser(new DataBaseUtil.getUserInfo() {
+        u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
             @Override
             public void getNewUser(User user, List<Review> commentList) {
                 image.setImageResource(R.drawable.user_image);
@@ -156,10 +161,10 @@ public class SelfProfileFragment extends Fragment{
         switch (requestCode) {
             case 1: {
                 if (resultCode == RESULT_OK){
+                    DataBaseUtil u = new DataBaseUtil();
                     User user = data.getExtras().getParcelable("user");
+                    u.addNewUser(user);
                     image.setImageResource(R.drawable.user_image);
-                    name.setText(user.getName());
-                    email.setText(user.getEmail());
                     address.setText(user.getAddress());
                     phoneNumber.setText(user.getPhone_number());
                     break;
