@@ -53,30 +53,7 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             holder = (BBorrowedAdapter.ViewHolder) convertView.getTag();
         }
         final Book element = bro_booklist.get(position);
-//        final DataBaseUtil u;
-//        u = new DataBaseUtil("Bowen");
-//        u.getReturnstatus(element, new DataBaseUtil.returnStatus() {
-//            @Override
-//            public void getReturnStatus(Boolean value) {
-//                setBtnValue = value;
-//                if (setBtnValue){
-//                    holder.setBtn.setVisibility(View.GONE);
-//                }
-//                else{
-//                    holder.viewBtn.setVisibility(View.GONE);
-//
-//                }
-//
-//
-//            }
-//        });
-//        if (setBtnValue!=null&&setBtnValue){
-//            holder.setBtn.setVisibility(holder.setBtn.GONE);
-//        }
-//        else{
-//            holder.viewBtn.setVisibility(holder.viewBtn.GONE);
-//
-//        }
+
 
         if (position < swapList.size()){
             if (swapList.get(position)) {

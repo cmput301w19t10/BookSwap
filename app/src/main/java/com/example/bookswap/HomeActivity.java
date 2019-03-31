@@ -25,7 +25,7 @@ import static com.example.bookswap.Notifications.CHANNEL_1_ID;
  */
 public class HomeActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
-
+    private boolean newNotification;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 //Do something after 10 seconds
                 checkNotification();
+                checkNotification2();
                 handler.postDelayed(this,10000);}
                 }, 10000);  //the time is in miliseconds
 
@@ -98,13 +99,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification(){
-        DataBaseUtil u;
+        final DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.checkRequestNotification("Borrower",new DataBaseUtil.getStatus() {
+        u.checkNotification("Request",new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
-                if (value.equals("False")) {
+                if (value.equals("True")) {
+                    //newNotification = true;
                     sendOnChannel1();
+                    u.changeNotificationStatus("Request","False");
 //                    reddot.setVisibility(View.INVISIBLE);
 //                    //notificationcall();
 //                    u.changeNotificationStatus("Borrower","False");
@@ -112,6 +115,20 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void checkNotification2(){
+        final DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.checkNotification("Borrow",new DataBaseUtil.getStatus(){
+            @Override
+            public void getStatus(String value){
+                if (value.equals("True")){
+                    sendOnChannel2();
+                    u.changeNotificationStatus("Borrow","False");
+                }
+            }
+        });
+
     }
     public void sendOnChannel1(){
 //        NotificationManagerCompat notificationManager;

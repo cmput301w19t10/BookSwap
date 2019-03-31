@@ -26,7 +26,7 @@ public class BorrowerActivity extends AppCompatActivity {
         final TextView reddot = (TextView) findViewById(R.id.reddot);
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        u.checkRequestNotification("Borrower",new DataBaseUtil.getStatus(){
+        u.checkNotification("Request",new DataBaseUtil.getStatus(){
             @Override
             public void getStatus(String value){
                 if(value.equals("True")){

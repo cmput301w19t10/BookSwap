@@ -46,8 +46,20 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
         button_borrow = view.findViewById(R.id.Borrower_borrowed_btn);
         button_borrow.setOnClickListener(this);
         //notificationManager = NotificationManagerCompat.from(this);
-        reddot =  view.findViewById(R.id.reddot);
 
+        reddot =  view.findViewById(R.id.reddot);
+        reddot.setVisibility(View.INVISIBLE);
+        final DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.checkNotification("Borrow",new DataBaseUtil.getStatus(){
+            @Override
+            public void getStatus(String value){
+                if(value.equals("True")){
+                    reddot.setVisibility(View.VISIBLE);
+                }
+            }
+
+        });
 
         return view;
     }
@@ -64,13 +76,13 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent(getActivity(), BRequestedBooksActivity.class);
                 final DataBaseUtil u;
                 u = new DataBaseUtil("Bowen");
-                u.checkRequestNotification("Borrower",new DataBaseUtil.getStatus(){
+                u.checkNotification("Borrow",new DataBaseUtil.getStatus(){
                     @Override
                     public void getStatus(String value){
                         if(value.equals("False")){
                             reddot.setVisibility(View.INVISIBLE);
                             //notificationcall();
-                            u.changeNotificationStatus("Borrower","True");
+                            u.changeNotificationStatus("Request","False");
 
                         }
                     }

@@ -70,14 +70,16 @@ public class BRequestActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 //todo: start make request function
-                DataBaseUtil u;
+                final DataBaseUtil u;
                 u = new DataBaseUtil("Bowen");
 
                 u.addNewBorrow(book, new DataBaseUtil.addBorrowerSucceed() {
                     @Override
                     public void addNewBorrower(boolean value) {
                         if (value) {
-                            Toast.makeText(BRequestActivity.this, "Request Successful(not really)", Toast.LENGTH_LONG).show();
+                            Toast.makeText(BRequestActivity.this, "Request Successful", Toast.LENGTH_LONG).show();
+                            u.changeNotificationStatus("Request","True");
+                            u.changeStatus(book,"Requested");
                             onBackPressed();
                         } else {
                             Toast.makeText(BRequestActivity.this, "Request Failed", Toast.LENGTH_LONG).show();

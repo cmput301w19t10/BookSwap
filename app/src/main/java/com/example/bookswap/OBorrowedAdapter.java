@@ -25,7 +25,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 
 
     public OBorrowedAdapter(Context context, ArrayList<Book> bro_books, ArrayList<Boolean> swapList) {
-        super(context,R.layout.element_oborrowed , bro_books);
+        super(context,R.layout.element_oborrowed, bro_books);
         this.bro_booklist = bro_books;
         this.swapList = swapList;
     }

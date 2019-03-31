@@ -170,6 +170,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     swapclass.setComment(stringcomment);
                     DataBaseUtil u = new DataBaseUtil("Bowen");
                     u.swapInfo(swapingBook,swapclass);
+                    u.changeNotificationStatus("Borrow","True");
                     finish();}
             }
         });
