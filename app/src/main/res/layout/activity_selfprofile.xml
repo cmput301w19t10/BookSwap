@@ -10,11 +10,10 @@
         layout="@layout/activity_profile"
         android:layout_width="384dp"
         android:layout_height="497dp"
-        android:layout_marginTop="88dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="88dp" />
 
     <Button
         android:id="@+id/edit_profile"

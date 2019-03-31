@@ -140,7 +140,7 @@ public class EditBookActivity extends AppCompatActivity {
         if((BitmapDrawable) bView.getDrawable() != null) {
             image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
         }
-        Book book = new Book(title, author, status, description, image);
+        Book book = new Book();
 
         Toast.makeText(this,"Book is saved!",Toast.LENGTH_SHORT).show();
 

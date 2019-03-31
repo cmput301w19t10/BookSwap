@@ -185,12 +185,7 @@ public class OAvailableActivity extends AppCompatActivity {
                     util.addNewBook(book);
                 }
             }
-        } // else if (requestCode == SEARCH_BOOK_REQUEST){
-            //if (resultCode == Activity.RESULT_OK){
-                // TODO
-                // Book book = data.getParcelableExtra("Book");
-            //}
-        //}
+        }
         // update adapter, save to file
         adapter.notifyDataSetChanged();
         saveInFile();

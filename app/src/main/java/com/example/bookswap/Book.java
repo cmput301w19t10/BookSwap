@@ -33,6 +33,7 @@ public class Book implements Parcelable {
     private String owner;
     private String image;
     private String uniKey;
+    private String mImageUrl;
 
   
     /**
@@ -50,17 +51,19 @@ public class Book implements Parcelable {
         out.writeString(owner);
         out.writeString(image);
         out.writeString(uniKey);
+        out.writeString(mImageUrl);
     }
 
 
-    public Book(String title, String author, String status, String description, Bitmap bmp){
+    public Book(String title, String author, String status, String description, Bitmap bmp,String owner){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
+        this.owner =owner;
         setImage(bmp);
     }
-
+/*
     public Book(String title, String author, String status, String description){
         this.title = title;
         this.author = author;
@@ -74,7 +77,7 @@ public class Book implements Parcelable {
         this.description = description;
         this.owner = owner;
     }
-
+*/
 
     public Book(Parcel parcel){
         title = parcel.readString();
@@ -85,6 +88,7 @@ public class Book implements Parcelable {
         owner = parcel.readString();
         image = parcel.readString();
         uniKey = parcel.readString();
+        mImageUrl = parcel.readString();
     }
 
     public Book(){}
@@ -159,7 +163,7 @@ public class Book implements Parcelable {
      * https://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
      *
      */
-    public Bitmap getImage() {
+    /*public Bitmap getImage() {
         if (image != null) {
             try {
                 byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
@@ -172,24 +176,24 @@ public class Book implements Parcelable {
             }
         }
         return null;
-    }
+    }*/
     /**
      * getter for book cover used for database
      * @return status of owner
      */
 
-    public String getUnencodedImage(){
-        return image;
-    }
+    //public String getUnencodedImage(){
+        //return image;
+    //}
     /**
      * setter of image for database
      * @return status of owner
      */
-
+    /*
     public void setUnencodedImage(String image){
         this.image = image;
     }
-
+*/
     /**
      * setter for image
      * @param bmp book cover owner saved
@@ -267,7 +271,13 @@ public class Book implements Parcelable {
         return uniKey;
     }
 
+    public String getImageUrl() {
+        return mImageUrl;
+    }
 
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+    }
     /**
      * required for parcelable
      * @return hashcode of object book
