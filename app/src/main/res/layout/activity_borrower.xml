@@ -10,49 +10,57 @@
         android:id="@+id/Borrower_available_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="178dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="85dp"
         android:layout_marginBottom="8dp"
         android:text="Available"
         app:layout_constraintBottom_toTopOf="@+id/Borrower_requested_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/Borrower_accept_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="177dp"
-        android:layout_marginEnd="89dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="85dp"
         android:layout_marginBottom="8dp"
         android:text="Accepted"
         app:layout_constraintBottom_toTopOf="@+id/Borrower_borrowed_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/Borrower_available_btn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/Borrower_requested_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginBottom="369dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="140dp"
         android:text="Requested"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Borrower_available_btn" />
 
     <Button
         android:id="@+id/Borrower_borrowed_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginBottom="369dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="140dp"
         android:text="Borrowed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Borrower_requested_btn" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Borrower_requested_btn"
+        app:layout_constraintTop_toBottomOf="@+id/Borrower_accept_btn" />
 
     <TextView
         android:id="@+id/reddot"

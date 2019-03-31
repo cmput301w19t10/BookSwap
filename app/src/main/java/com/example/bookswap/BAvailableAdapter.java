@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,11 +21,16 @@ import java.util.ArrayList;
  * @see BRequestedBooksActivity
  * @since 1.0
  */
-public class BAvailableAdapter extends ArrayAdapter<Book> {
+public class BAvailableAdapter extends ArrayAdapter<Book> implements Filterable {
     private ArrayList<Book> ava_booklist;
+
+    //private ArrayList<Book> avaListFull;
+
+
     public BAvailableAdapter(Context context, ArrayList<Book> ava_books) {
         super(context,R.layout.element_available , ava_books);
         this.ava_booklist = ava_books;
+
     }
 
     /**
@@ -69,5 +76,41 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
 
         public ImageView bookcover;
     }
+
+//    @Override
+//    public Filter getFilter() {
+//        return BookFilter;
+//    }
+//
+//    private Filter BookFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//            ArrayList<Book> filterdList = new ArrayList<>();
+//            if(constraint == null|| constraint.length() == 0) {
+//                // No filter implemented we return all the list
+//                filterdList.addAll();
+//            } else {
+//                // We perform filtering operation
+//                String filterPattern = constraint.toString().toLowerCase().trim();
+//                for (Book book: ){
+//                    if(book.getTitle().toLowerCase().contains(filterPattern)){
+//                        filterdList.add(book);
+//
+//                    }
+//                }
+//            }
+//            FilterResults results = new FilterResults();
+//            results.values = filterdList;
+//            return results;
+//        }
+//
+//        @SuppressWarnings("unchecked")
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            ava_booklist.clear();
+//            ArrayList<Book> myArr = (ArrayList<Book>)results.values;
+//            ava_booklist.addAll(myArr);
+//        }
+//    };
 }
 

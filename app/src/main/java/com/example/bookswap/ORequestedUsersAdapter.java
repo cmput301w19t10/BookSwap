@@ -98,7 +98,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
 
 
         /**
-         * get the userlist who want to borrow this book
+         * get the userlist who want to Accept this book
          * from database
          */
         holder.button_accept.setOnClickListener(new View.OnClickListener() {

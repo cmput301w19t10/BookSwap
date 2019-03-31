@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "517223519497-h3hgqtp61kql8bui4jip4e1oc894fnl7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookswap",
+            "certificate_hash": "641ff422c0e496beac6df13f8f4f43bf45681341"
+          }
+        },
+        {
           "client_id": "517223519497-f3p0f12210bbma8q291nadfd057ghcan.apps.googleusercontent.com",
           "client_type": 3
         }
