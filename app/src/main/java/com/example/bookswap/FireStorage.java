@@ -1,21 +1,21 @@
 
 package com.example.bookswap;
 
-        import android.content.ContentResolver;
-        import android.content.Context;
-        import android.net.Uri;
-        import android.support.annotation.NonNull;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 
-        import com.google.android.gms.auth.api.signin.internal.Storage;
-        import com.google.android.gms.tasks.OnCanceledListener;
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.OnSuccessListener;
-        import com.google.android.gms.tasks.Task;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
-        import com.google.firebase.storage.FirebaseStorage;
-        import com.google.firebase.storage.StorageReference;
-        import com.google.firebase.storage.UploadTask;
+import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class FireStorage {
 
@@ -48,5 +48,4 @@ public class FireStorage {
             }
         });
     }
-
 }
