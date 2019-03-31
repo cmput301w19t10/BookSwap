@@ -294,13 +294,14 @@ public class DataBaseUtil {
                 getAddress = (String) dataSnapshot.child("Address").getValue(String.class);
                 getPhone = (String) dataSnapshot.child("Phone").getValue(String.class);
                 User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
-
-                for (DataSnapshot review: dataSnapshot.child("Review").child(part).getChildren()){
-                    String rating = review.getValue(String.class);
-                    String comment =  review.getKey();
-                    Review oneReview = new Review(comment,rating);
-                    commentList.add(oneReview);
-                    callBack.getNewUser(user, commentList);
+                if (dataSnapshot.hasChild("ReView")) {
+                    for (DataSnapshot review : dataSnapshot.child("Review").child(part).getChildren()) {
+                        String rating = review.getValue(String.class);
+                        String comment = review.getKey();
+                        Review oneReview = new Review(comment, rating);
+                        commentList.add(oneReview);
+                        callBack.getNewUser(user, commentList);
+                    }
                 }
                 //callBack.getNewUser(user, commentList);
                 //callBack.getNewUser(user);
