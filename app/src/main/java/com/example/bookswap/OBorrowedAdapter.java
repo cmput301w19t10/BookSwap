@@ -2,6 +2,7 @@ package com.example.bookswap;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +11,30 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class OBorrowedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> bro_booklist;
-    public OBorrowedAdapter(Context context, ArrayList<Book> bro_books) {
+    private ArrayList<Boolean> swapList;
+    private int red = Color.RED;
+    private int green = Color.GREEN;
+    private Swap swapclass;
+    private OBorrowedAdapter.ViewHolder holder = null;
+
+
+    public OBorrowedAdapter(Context context, ArrayList<Book> bro_books, ArrayList<Boolean> swapList) {
         super(context,R.layout.element_oborrowed , bro_books);
         this.bro_booklist = bro_books;
+        this.swapList = swapList;
     }
     /**
      * set the adapter to a list view
      */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        OBorrowedAdapter.ViewHolder holder = null;
+        //OBorrowedAdapter.ViewHolder holder = null;
 
         if (convertView == null) {
             holder = new OBorrowedAdapter.ViewHolder();
@@ -39,6 +49,40 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
             holder = (OBorrowedAdapter.ViewHolder) convertView.getTag();
         }
         final Book element = bro_booklist.get(position);
+//        DataBaseUtil u;
+//        u = new DataBaseUtil("Bowen");
+//        u.getSwap(element,new DataBaseUtil.getSwapInfo(){
+//            @Override
+//            public void getSwapInfo(Swap swap) {
+//                swapclass =swap;
+//                if (swap != null){
+//                    swapclass = swap;
+//                }
+//                else{
+//                    swapclass = null;
+//                }
+//                if(swapclass != null){
+//                    holder.confirmBtn.setBackgroundColor(green);
+//                }
+//                if(swapclass==null){
+//                    holder.confirmBtn.setBackgroundColor(red);
+//                }
+//
+//            }
+//        });
+        if (swapList.get(position)) {
+            holder.confirmBtn.setBackgroundColor(red);
+        }
+        else{
+            holder.confirmBtn.setBackgroundColor(green);
+        }
+//        if(swapclass != null){
+//            holder.confirmBtn.setBackgroundColor(green);
+//        }else{
+//            holder.confirmBtn.setBackgroundColor(red);
+//        }
+
+
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
@@ -51,10 +95,13 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
              */
             @Override
             public void onClick(View v) {
-                Intent returnBook = new Intent(getContext(), OBorrowedSwapActivity.class);
-                //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
-                returnBook.putExtra("book", element);
-                getContext().startActivity(returnBook);
+                if(swapclass == null){
+                    Toast.makeText(getContext(),"Not premition to swap",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent returnBook = new Intent(getContext(), OBorrowedSwapActivity.class);
+                    returnBook.putExtra("book", element);
+                    getContext().startActivity(returnBook);
+                }
             }
         });
         if (element.getImage() != null) {

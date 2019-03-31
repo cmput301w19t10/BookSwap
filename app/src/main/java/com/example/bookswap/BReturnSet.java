@@ -5,10 +5,10 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,38 +16,58 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Calendar;
 
-public class BReturn extends AppCompatActivity {
+public class BReturnSet extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
     private TextView date;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView comment;
     private Button swap;
-    private Button back;
+    private Button locat;
     private Swap swapclass = new Swap();
+    private TextView bookinfo;
     private Book swapingBook;
+    private static final int SET_MAP = 1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_breturn);
+        setContentView(R.layout.activity_breturn_set);
         /**
          * hwo to change actionbar title
          * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
          */
-        getSupportActionBar().setTitle("Borrower Confirm Return");
+        getSupportActionBar().setTitle("Borrower Return Setup");
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
-        comment = (TextView) findViewById(R.id.commont_text) ;
-        swap = (Button) findViewById(R.id.swap);
-        back = (Button) findViewById(R.id.back);
+        comment = (TextView) findViewById(R.id.comment_text_o) ;
+        swap = (Button) findViewById(R.id.confirm);
+        locat = (Button) findViewById(R.id.locationButton);
+        bookinfo = (TextView) findViewById(R.id.bookInfo);
 
         Intent intent = getIntent();
-        final Book swapingBook = intent.getParcelableExtra("book");
+        swapingBook = intent.getParcelableExtra("book");
         swapclass.setBook(swapingBook);
+
+        Intent intentbook = getIntent();
+        swapingBook = intent.getParcelableExtra("book");
+        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
+        infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
+        bookinfo.setText(infoDisplay);
+
+        bookinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BReturnSet.this,ViewBookActivity.class);
+                intent.putExtra("book", swapingBook);
+                startActivity(intent);
+            }
+        });
 
 
         /**
@@ -62,9 +82,9 @@ public class BReturn extends AppCompatActivity {
                 int minute = timecal.get(Calendar.MINUTE);
 
                 TimePickerDialog timeDialog = new TimePickerDialog(
-                        BReturn.this,timeSetListener,
+                        BReturnSet.this,timeSetListener,
                         hour,minute,
-                        DateFormat.is24HourFormat(BReturn.this)
+                        DateFormat.is24HourFormat(BReturnSet.this)
                 );
 
                 timeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -113,7 +133,7 @@ public class BReturn extends AppCompatActivity {
                 int day = datecal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        BReturn.this,
+                        BReturnSet.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListener,
                         year,month,day);
@@ -134,16 +154,16 @@ public class BReturn extends AppCompatActivity {
             }
         };
 
-        String stringcomment = comment.getText().toString();
-        swapclass.setComment(stringcomment);
-        Log.d("229","sdf"+swapingBook.getTitle());
+
+
 
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("229","sdf"+swapingBook.getTitle());
-                if(swapclass.getTime() == null || swapclass.getDate() == null){
-                    Toast.makeText(BReturn.this,"Please set time and date",Toast.LENGTH_SHORT).show();
+                if(swapclass.getTime() == null || swapclass.getDate() == null) {
+                    Toast.makeText(BReturnSet.this, "Please set time and date", Toast.LENGTH_SHORT).show();
+                }else if(swapclass.getLocation() == null){
+                    Toast.makeText(getApplicationContext(), "Please set up a meetup location", Toast.LENGTH_SHORT).show();
                 }else{
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}
@@ -154,13 +174,26 @@ public class BReturn extends AppCompatActivity {
             }
         });
 
-
-
-        back.setOnClickListener(new View.OnClickListener() {
+        locat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(BReturnSet.this, MapSelectActivity.class);
+                startActivityForResult(intent, SET_MAP);
             }
         });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SET_MAP) {
+            if (resultCode == RESULT_OK){
+                if (data != null) {
+                    LatLng point = data.getParcelableExtra("location");
+                    swapclass.setLocation(point);
+                }
+            }
+        }
     }
 }

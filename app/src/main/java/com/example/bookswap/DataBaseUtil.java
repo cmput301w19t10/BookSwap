@@ -415,19 +415,19 @@ public class DataBaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot bookKey: dataSnapshot.child("User").child(userName).child("Book").getChildren()){
                     String key = bookKey.getKey();
-                     if (dataSnapshot.child("Book").child(key).child("Status").getValue(String.class).equals(status) && dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
-                    //for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren())
+                    if (dataSnapshot.child("Book").child(key).child("Status").getValue(String.class).equals(status) && dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
+                        //for(DataSnapshot bookborrower: dataSnapshot.child("Book").child(key).child("Borrower").getChildren())
                         //if (userName.equals(bookborrower.getValue(String.class))) {
-                            //allBookkey.add(key);
-                            Book book = new Book();
-                            book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
-                            book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
-                            book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
-                            book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
-                            //book.setImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
-                            book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                            callBack.getNewBook(book);
-                        }
+                        //allBookkey.add(key);
+                        Book book = new Book();
+                        book.setDescription(dataSnapshot.child("Book").child(key).child("Description").getValue(String.class));
+                        book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
+                        book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
+                        book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
+                        //book.setImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                        book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
+                        callBack.getNewBook(book);
+                    }
 
                 }
             }
@@ -642,9 +642,9 @@ public class DataBaseUtil {
         addDate(book, swap);
         addComment(book, swap);
         addTime(book, swap);
-        changeSwapStatus(book,"Borrower","False");
-        changeSwapStatus(book,"Owner","False");
-        changeSwapStatus(book,"Return","False");
+        changeSwapStatus(book,"Borrower",false);
+        changeSwapStatus(book,"Owner",false);
+        changeSwapStatus(book,"Return",false);
     }
 
     /**
@@ -714,26 +714,26 @@ public class DataBaseUtil {
      * @param person
      * @param status
      */
-    public void changeSwapStatus(Book book,String person, String status) {
+    public void changeSwapStatus(Book book,String person, boolean status) {
         BookDatabase.child(book.getUnikey()).child("Swap").child(person).setValue(status);
     }
 
-    public interface bool{
-        void getBool(String value);
+    public interface swapStatus{
+        void getStatus(boolean value);
     }
 
 
-    public void checkSwapStatus(final Book book, final bool callBack){
+    public void checkSwapStatus(final Book book, final swapStatus callBack){
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String Borrow = dataSnapshot.child("Borrow").getValue(String.class);
-                String Owner = dataSnapshot.child("Owner").getValue(String.class);
-                if(Borrow.equals(Owner) && Borrow.equals("True")){
-                    callBack.getBool("True");
+                boolean Borrow = dataSnapshot.child("Borrow").getValue(boolean.class);
+                boolean Owner = dataSnapshot.child("Owner").getValue(boolean.class);
+                if(Borrow && Owner){
+                    callBack.getStatus(true);
                 }
                 else{
-                    callBack.getBool("False");
+                    callBack.getStatus(false);
                 }
             }
 
@@ -745,14 +745,14 @@ public class DataBaseUtil {
     }
 
     public interface returnStatus{
-        void getReturnStatus(String value);
+        void getReturnStatus(Boolean value);
     }
 
     public void getReturnstatus(final Book book, final returnStatus callBack){
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String returnStatus = dataSnapshot.child("Return").getValue(String.class);
+                Boolean returnStatus = dataSnapshot.child("Return").getValue(Boolean.class);
                 callBack.getReturnStatus(returnStatus);
             }
 
@@ -766,6 +766,7 @@ public class DataBaseUtil {
     public void deleteSwap(Book book){
         BookDatabase.child(book.getUnikey()).child("Swap").removeValue();
     }
+
 
     //finish swap part
 
@@ -880,9 +881,9 @@ public class DataBaseUtil {
         ALlData.child("UserEmail").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name;
-                    name = dataSnapshot.child(email).getValue(String.class);
-                    callBack.getName(name);
+                String name;
+                name = dataSnapshot.child(email).getValue(String.class);
+                callBack.getName(name);
             }
 
             @Override

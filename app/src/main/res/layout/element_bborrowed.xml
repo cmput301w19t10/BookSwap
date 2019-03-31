@@ -43,14 +43,23 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
-                android:id="@+id/BBB_returnBtn"
+                android:id="@+id/BBB_setBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="43dp"
                 android:layout_marginEnd="28dp"
-                android:text="Return" />
+                android:text="Set" />
+            <Button
+                android:id="@+id/BBB_viewBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="43dp"
+                android:text="View" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

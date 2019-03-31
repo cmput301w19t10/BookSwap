@@ -15,6 +15,16 @@ import java.util.ArrayList;
 
 public class BBorrowedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> bro_booklist;
+    private Boolean setBtnValue;
+    private Boolean viewBtnVlaue;
+    private BBorrowedAdapter.ViewHolder holder = null;
+
+
+
+
+
+//    private Button setBtn;
+
     public BBorrowedAdapter(Context context, ArrayList<Book> bro_books) {
         super(context,R.layout.element_bborrowed , bro_books);
         this.bro_booklist = bro_books;
@@ -24,14 +34,16 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BBorrowedAdapter.ViewHolder holder = null;
+
 
         if (convertView == null) {
             holder = new BBorrowedAdapter.ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_bborrowed, parent, false);
             holder.title = (TextView) convertView.findViewById(R.id.BBB_title_textview);
             holder.author = (TextView) convertView.findViewById(R.id.BBB_author_textview);
-            holder.returnBtn = (Button)convertView.findViewById(R.id.BBB_returnBtn);
+
+            holder.setBtn = (Button)convertView.findViewById(R.id.BBB_setBtn);
+            holder.viewBtn = (Button)convertView.findViewById(R.id.BBB_viewBtn);
             holder.bookcover = (ImageView) convertView.findViewById(R.id.BBB_bookCover_imageview);
             convertView.setTag(holder);
         }
@@ -39,10 +51,35 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
             holder = (BBorrowedAdapter.ViewHolder) convertView.getTag();
         }
         final Book element = bro_booklist.get(position);
+        final DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.getReturnstatus(element, new DataBaseUtil.returnStatus() {
+            @Override
+            public void getReturnStatus(Boolean value) {
+                setBtnValue = value;
+                if (setBtnValue){
+                    holder.setBtn.setVisibility(View.GONE);
+                }
+                else{
+                    holder.viewBtn.setVisibility(View.GONE);
+
+                }
+
+
+            }
+        });
+//        if (setBtnValue!=null&&setBtnValue){
+//            holder.setBtn.setVisibility(holder.setBtn.GONE);
+//        }
+//        else{
+//            holder.viewBtn.setVisibility(holder.viewBtn.GONE);
+//
+//        }
+
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
-        holder.returnBtn.setOnClickListener(new View.OnClickListener() {
+        holder.setBtn.setOnClickListener(new View.OnClickListener() {
             //when click the button will jump to the new activity that show all the user request for this book
             /**
              * how to get parcel for a book
@@ -51,7 +88,22 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
              */
             @Override
             public void onClick(View v) {
-                Intent returnBook = new Intent(getContext(), BReturn.class);
+                Intent returnBook = new Intent(getContext(), BReturnSet.class);
+                //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
+                returnBook.putExtra("book", element);
+                getContext().startActivity(returnBook);
+            }
+        });
+        holder.viewBtn.setOnClickListener(new View.OnClickListener() {
+            //when click the button will jump to the new activity that show all the user request for this book
+            /**
+             * how to get parcel for a book
+             * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                Intent returnBook = new Intent(getContext(), BReturnView.class);
                 //Log.i("Bowen Test", " AAAAAA " + bro_booklist.get(position).getUnikey());
                 returnBook.putExtra("book", element);
                 getContext().startActivity(returnBook);
@@ -75,7 +127,14 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
     public static class ViewHolder {
         public TextView title;
         public TextView author;
-        public Button returnBtn;
+        public Button setBtn;
+        public Button viewBtn;
         public ImageView bookcover;
     }
 }
+
+
+
+
+
+

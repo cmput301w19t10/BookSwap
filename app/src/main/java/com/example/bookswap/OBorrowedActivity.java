@@ -10,13 +10,14 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class OBorrowedActivity extends AppCompatActivity {
     private ListView borrowedBooks;
     private ArrayList<Book> bro_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
+    private ArrayList<Boolean> swapList = new ArrayList<>();
+    private Swap swapclass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,21 +29,59 @@ public class OBorrowedActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         bro_book.clear();
-        adapter = new OBorrowedAdapter(this, bro_book);
-        DataBaseUtil u;
+
+        adapter = new OBorrowedAdapter(this, bro_book, swapList);
+        final DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
         Log.d("fragment","noone");
         u.getOwnerBook(new DataBaseUtil.getNewBook() {
             @Override
-            public void getNewBook(Book aBook) {
+            public void getNewBook(final Book aBook) {
                 //need to change to owner's name not bowen
                 if (aBook.getStatus().equals("Borrowed")){
                     bro_book.add(aBook);
-                    borrowedBooks.setAdapter(adapter);
-                    Log.d("fragment","loop");
+//                    for(int i = 0; i < bro_book.size();i++){
+//                        Book element = aBook;
+                        u.getSwap(aBook,new DataBaseUtil.getSwapInfo() {
+                            @Override
+                            public void getSwapInfo(Swap swap) {
+                                if (swap != null){
+                                    swapList.add(true);
+                                    Log.d("godplz","title: "+aBook.getTitle()+"At swapinfo != null, and swapList.size = "+swapList.size());
+                                }
+                                if (swap == null){
+                                    swapList.add(true);
+                                    Log.d("godplz","title: "+aBook.getTitle()+"At swapinfo == null, and swapList.size = "+swapList.size());
+                                }
+                                //swapList.add(false);
+                                borrowedBooks.setAdapter(adapter);
+
+                            }
+                        });
+//                    }
+//                    borrowedBooks.setAdapter(adapter);
+                    //Log.d("fragment", aBook.getAuthor());
+                    Log.d("fragment","loop"+ bro_book.size());
                 }
+                //borrowedBooks.setAdapter(adapter);
             }
         });
+//        for(int i = 0; i < bro_book.size();i++){
+//            Book element = bro_book.get(i);
+//            u.getSwap(element,new DataBaseUtil.getSwapInfo() {
+//                    @Override
+//                    public void getSwapInfo(Swap swap) {
+//                        if (swap != null){
+//                            swapList.add(true);
+//                        }
+//                        if (swap == null){
+//                            swapList.add(false);
+//                        }
+//                        borrowedBooks.setAdapter(adapter);
+//
+//                    }
+//            });
+//        }
         borrowedBooks.setAdapter(adapter);
     }
 

@@ -42,10 +42,10 @@ public class BBorrowedActivity extends AppCompatActivity {
                 if (aBook.getStatus() == null){
                     Log.d("fragment","it's null");
                 }
-                if (aBook.getStatus()!= null && aBook.getStatus().equals("Borrowed") ){
+                if (aBook.getStatus().equals("Borrowed") ){
                     bro_book.add(aBook);
                     borrowedBooks.setAdapter(adapter);
-                    Log.d("fragment","loop");
+                    Log.d("fragment","loop"+ bro_book.size());
                 }
             }
         });

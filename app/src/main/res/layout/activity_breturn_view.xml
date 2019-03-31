@@ -6,7 +6,21 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:stretchColumns="1">
-    　
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/bookInfo"
+            android:layout_span="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="23sp"
+            />
+        <requestFocus />
+    </TableRow>
+
 
     <TableRow
         android:id="@+id/tableRow1"
@@ -57,7 +71,6 @@
     </TableRow>
 
 
-
     <TableRow
         android:id="@+id/tableRow6"
         android:layout_width="wrap_content"
@@ -70,8 +83,8 @@
             android:text="comment"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/commont_text"
+        <TextView
+            android:id="@+id/comment_text_o"
             android:layout_width="310dp"
             android:layout_height="146dp"
             android:background="@android:drawable/alert_light_frame"
@@ -79,7 +92,7 @@
             android:hint="up to 50 characters">
 
             <requestFocus />
-        </EditText>
+        </TextView>
     </TableRow>
 
 
@@ -97,8 +110,8 @@
             android:text="back" />
 
         <Button
-            android:id="@+id/swap"
-            android:text="swap" />
+            android:id="@+id/confirm"
+            android:text="confirm" />
     </TableRow>
 
 
