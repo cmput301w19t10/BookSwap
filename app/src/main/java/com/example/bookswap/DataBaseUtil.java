@@ -755,13 +755,16 @@ public class DataBaseUtil {
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean Borrow = dataSnapshot.child("Borrower").getValue(boolean.class);
-                boolean Owner = dataSnapshot.child("Owner").getValue(boolean.class);
-                if(Borrow && Owner){
+                if (dataSnapshot.hasChild("Borrower")) {
+                    boolean Borrow = dataSnapshot.child("Borrower").getValue(boolean.class);
+                    boolean Owner = dataSnapshot.child("Owner").getValue(boolean.class);
+                    if (Borrow && Owner) {
+                        callBack.getStatus(true);
+                    } else {
+                        callBack.getStatus(false);
+                    }
+                } else{
                     callBack.getStatus(true);
-                }
-                else{
-                    callBack.getStatus(false);
                 }
             }
 

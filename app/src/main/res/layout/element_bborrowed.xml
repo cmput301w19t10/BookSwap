@@ -38,8 +38,8 @@
 
             <ImageView
                 android:id="@+id/BBB_bookCover_imageview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="83dp"
+                android:layout_height="102dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
