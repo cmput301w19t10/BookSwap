@@ -129,13 +129,13 @@ public class HomeActivity extends AppCompatActivity {
     public void checkNotification() {
         if (MyUser.getInstance().getName() != null) {
             u = new DataBaseUtil(MyUser.getInstance().getName());
-            u.checkNotification("Request", new DataBaseUtil.getStatus() {
+            u.checkNotification("Borrow", new DataBaseUtil.getStatus() {
                 @Override
                 public void getStatus(String value) {
                     if (value.equals("True")) {
                         //newNotification = true;
                         sendOnChannel1();
-                        u.changeNotificationStatus("Request", "False");
+                        u.changeNotificationStatus("Borrow", "False");
 //                    reddot.setVisibility(View.INVISIBLE);
 //                    //notificationcall();
 //                    u.changeNotificationStatus("Borrower","False");
@@ -148,12 +148,12 @@ public class HomeActivity extends AppCompatActivity {
 
     public void checkNotification2() {
         u = new DataBaseUtil(MyUser.getInstance().getName());
-        u.checkNotification("Borrow", new DataBaseUtil.getStatus() {
+        u.checkNotification("Request", new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
                 if (value.equals("True")) {
                     sendOnChannel2();
-                    u.changeNotificationStatus("Borrow", "False");
+                    u.changeNotificationStatus("Request", "False");
                 }
             }
         });
