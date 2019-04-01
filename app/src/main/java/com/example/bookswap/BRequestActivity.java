@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Objects;
 
 /**
@@ -63,7 +65,12 @@ public class BRequestActivity extends AppCompatActivity {
         description.setText("Description: "+String.valueOf(book.getDescription()));
         owner.setText("Owner: "+String.valueOf(book.getOwner()));
         status.setText("Status: "+String.valueOf(book.getStatus()));
-        bookCover.setImageBitmap(book.getImage());
+        if (book.getImageUrl()!= null){
+            Picasso.get()
+                    .load(book.getImageUrl())
+                    .into(bookCover);
+        }
+
         Log.d("bbbook",book.getUnikey());
         request.setOnClickListener(new View.OnClickListener(){
             //todo: on click listener make a request on this book(chang book status).
