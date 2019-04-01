@@ -203,7 +203,7 @@ public class OAvailableActivity extends AppCompatActivity {
                 } else{ // not delete case
                     Book book = data.getParcelableExtra("Book");
                     availableList.set(index, book);
-                    util.addNewBook(book);
+                    //util.addNewBook(book);
                 }
             }
         }

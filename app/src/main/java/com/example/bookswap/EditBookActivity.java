@@ -166,12 +166,12 @@ public class EditBookActivity extends AppCompatActivity {
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
         ImageButton bView = findViewById(R.id.bookPhotoButton);
-        Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setStatus(status);
         book.setDescription(description);
         book.setISBN(etISBN.getText().toString());
+
         if (book.getUnikey() == null) {
             book.setUnikey(UUID.randomUUID().toString());
         }
@@ -209,6 +209,7 @@ public class EditBookActivity extends AppCompatActivity {
         etStatus = ((TextView)findViewById(R.id.etStatus));
         etDescription = ((EditText)findViewById(R.id.etDescription));
         imageButton = findViewById(R.id.bookPhotoButton);
+        etISBN = findViewById(R.id.etISBN);
     }
 
     /**
@@ -222,6 +223,7 @@ public class EditBookActivity extends AppCompatActivity {
         etAuthor.setText(String.valueOf(book.getAuthor()));
         etDescription.setText(String.valueOf(book.getDescription()));
         etStatus.setText("Available");
+        etISBN.setText(book.getISBN());
         //imageView.setImageBitmap(book.getImage());
         Picasso.get()
                 .load(book.getImageUrl())
@@ -235,7 +237,9 @@ public class EditBookActivity extends AppCompatActivity {
      * @return result of the check
      */
     private boolean isValid(){
-        if (TextUtils.isEmpty(etISBN.getText().toString()) || validISBN13()){
+        if (!TextUtils.isEmpty(etISBN.getText().toString()) || validISBN13()){
+
+            Toast.makeText(this,"Invalid ISBN", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (TextUtils.isEmpty(etTitle.getText().toString())){

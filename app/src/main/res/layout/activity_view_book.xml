@@ -26,7 +26,7 @@
         app:layout_constraintStart_toEndOf="@+id/bookCover"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/bookCover"
         android:layout_width="94dp"
         android:layout_height="102dp"
