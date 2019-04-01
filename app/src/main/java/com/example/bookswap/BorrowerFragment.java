@@ -73,20 +73,6 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
         switch(v.getId()){
             case R.id.request:{
                 Intent intent = new Intent(getActivity(), BRequestedBooksActivity.class);
-                /*final DataBaseUtil u;
-                u = new DataBaseUtil("Bowen");
-                u.checkNotification("Borrow",new DataBaseUtil.getStatus(){
-                    @Override
-                    public void getStatus(String value){
-                        if(value.equals("False")){
-                            reddot.setVisibility(View.INVISIBLE);
-                            //notificationcall();
-                            u.changeNotificationStatus("Request","False");
-
-                        }
-                    }
-
-                });*/
                 startActivity(intent);
                 break;
             }case R.id.available:{

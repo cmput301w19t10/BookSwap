@@ -13,6 +13,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * the adapter of Borrower borrowed books
+ * use the arrays from BBorrowedActivity
+ * @see BBorrowedActivity
+ *
+ */
 public class BBorrowedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> bro_booklist;
     private Boolean setBtnValue;
@@ -66,6 +72,9 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
         }
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
+        /*
+        the listener for the button to set up te meet up location
+         */
         holder.setBtn.setOnClickListener(new View.OnClickListener() {
             //when click the button will jump to the new activity that show all the user request for this book
             /**
@@ -80,6 +89,9 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
                 getContext().startActivity(returnBook);
             }
         });
+        /*
+        the listener for the button the view the meet up location and confirm swap
+         */
         holder.viewBtn.setOnClickListener(new View.OnClickListener() {
             //when click the button will jump to the new activity that show all the user request for this book
             /**

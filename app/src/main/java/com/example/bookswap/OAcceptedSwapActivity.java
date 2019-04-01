@@ -18,6 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+/**
+ * the activity for owner to confirm swap with the borrower
+ */
 public class OAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;

@@ -13,6 +13,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Borrower borrowed books activity
+ * Display the list of books that borrower had borrowed(not returned yet
+ */
+
 public class BBorrowedActivity extends AppCompatActivity {
     private ListView borrowedBooks;
     private ArrayList<Book> bro_book = new ArrayList<Book>();
@@ -20,6 +25,10 @@ public class BBorrowedActivity extends AppCompatActivity {
     private ArrayList<Boolean> swapList = new ArrayList<>();
     private DataBaseUtil u;
 
+    /**
+     * set up the layout
+     * @param savedInstanceState
+     */
 
 
     @Override
@@ -27,10 +36,15 @@ public class BBorrowedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bborrowed);
         borrowedBooks = (ListView)findViewById(R.id.BBB_listview);
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
 
     }
 
+    /**
+     * When the activities starts
+     * setup the arraylist of borrower's borrowed books to the adapter
+     * setup the swap return boolean array to the adapter
+     */
     @Override
     protected void onStart() {
         super.onStart();
