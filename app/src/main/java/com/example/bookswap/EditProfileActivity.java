@@ -47,7 +47,9 @@ public class EditProfileActivity extends AppCompatActivity {
                     User user = new User(name, phoneNumber, "", address, null);
                     DataBaseUtil u = new DataBaseUtil();
                     u.addNewUser(user);
-                    finish();
+                    Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
         });

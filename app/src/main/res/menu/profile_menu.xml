@@ -19,9 +19,6 @@
                 android:title="Edit"/>
             <item android:id = "@+id/review"
                 android:title="Review"/>
-            <item android:id = "@+id/search"
-                android:title="Search" />
-
 
         </menu>
     </item>
