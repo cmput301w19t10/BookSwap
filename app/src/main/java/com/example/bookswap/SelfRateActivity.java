@@ -30,8 +30,7 @@ public class SelfRateActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupViewPager(viewPager);
 
-        Intent intent = getIntent();
-        userName = intent.getStringExtra("userName");
+        userName = MyUser.getInstance().getName();
         Bundle bundle = new Bundle();
         bundle.putString("userName", userName);
         fragments.get(0).setArguments(bundle);
