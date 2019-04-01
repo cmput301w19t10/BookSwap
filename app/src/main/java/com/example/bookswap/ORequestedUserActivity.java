@@ -117,6 +117,7 @@ public class ORequestedUserActivity extends AppCompatActivity {
     protected void onRestart(){
         super.onRestart();
         userList.clear();
+        adapter.notifyDataSetChanged();
         u = new DataBaseUtil("Bowen");
         u.getBookBorrower(book, new DataBaseUtil.getBorrowerList() {
             /**
@@ -127,11 +128,14 @@ public class ORequestedUserActivity extends AppCompatActivity {
             @Override
             public void getBorrower(String value) {
                 userList.add(value);
+                Log.d("Orequestuser",userList.size()+"");
+                display_listview.setAdapter(adapter);
             }
+
         });
-        adapter = new ORequestedUsersAdapter(ORequestedUserActivity.this, book, userList);
-        display_listview.setAdapter(adapter);
+
 
     }
+
 
 }

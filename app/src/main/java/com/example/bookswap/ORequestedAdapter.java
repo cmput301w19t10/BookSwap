@@ -103,8 +103,10 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
-                toORequestedUser.putExtra("index", requestedList.get(position));
-                getContext().startActivity(toORequestedUser);
+                if (position < requestedList.size()) {
+                    toORequestedUser.putExtra("index", requestedList.get(position));
+                    getContext().startActivity(toORequestedUser);
+                }
             }
         });
 

@@ -34,6 +34,13 @@ public class CommentOwnerFragment extends Fragment {
     private View include;
     private Float average_rating;
 
+    /**
+     *  create all views including two buttons
+     * @param inflater inflater to inflate views to this fragment
+     * @param container the view contains this fragment
+     * @param savedInstanceState instance saved to start this fragment
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +59,9 @@ public class CommentOwnerFragment extends Fragment {
         return view;
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
