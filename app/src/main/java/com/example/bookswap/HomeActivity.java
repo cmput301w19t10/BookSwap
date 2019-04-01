@@ -224,11 +224,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            case R.id.search: {
-                Intent intent = new Intent(HomeActivity.this, ProfileSearchActivity.class);
-                startActivity(intent);
-                return true;
-            }
             default:
                 return super.onOptionsItemSelected(item);
         }
