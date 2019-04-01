@@ -65,13 +65,13 @@ public class OtherRateActivity extends AppCompatActivity {
                     if (reviewType == 1) {
                         startActivityForResult(intent, 1);
                     } else {
-                        Toast.makeText(OtherRateActivity.this, "cannot review as owner", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OtherRateActivity.this, "cannot be reviewed as borrower", Toast.LENGTH_SHORT).show();
                     }
                 } else{
                     if (reviewType == 2) {
                         startActivityForResult(intent, 2);
                     } else {
-                        Toast.makeText(OtherRateActivity.this, "cannot review as borrower", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OtherRateActivity.this, "cannot be reviewed as owner", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
