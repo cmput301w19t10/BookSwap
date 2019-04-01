@@ -34,6 +34,7 @@ public class SelfProfileFragment extends Fragment{
     TextView phoneNumber;
     DataBaseUtil u;
     Intent intent;
+    String userName;
 
     /**
      *
@@ -46,7 +47,8 @@ public class SelfProfileFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_self_profile, container, false);
-        u = new DataBaseUtil(MyUser.getInstance().getName());
+        userName = MyUser.getInstance().getName();
+        Log.d("profile", MyUser.getInstance().getName());
 
 
         View self_include = view.findViewById(R.id.self_include);
@@ -56,10 +58,11 @@ public class SelfProfileFragment extends Fragment{
         address = self_include.findViewById(R.id.address);
         phoneNumber = self_include.findViewById(R.id.phoneNumber);
 
+        u = new DataBaseUtil(userName);
         u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
             @Override
             public void getNewUser(User user, List<Review> commentList) {
-                image.setImageResource(R.drawable.user_image);
+                image.setImageResource(R.drawable.profile);
                 name.setText(user.getName());
                 email.setText(user.getEmail());
                 address.setText(user.getAddress());
@@ -93,11 +96,11 @@ public class SelfProfileFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        u = new DataBaseUtil(MyUser.getInstance().getName());
+        u = new DataBaseUtil(userName);
         u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
             @Override
             public void getNewUser(User user, List<Review> commentList) {
-                image.setImageResource(R.drawable.user_image);
+                image.setImageResource(R.drawable.profile);
                 address.setText(user.getAddress());
                 phoneNumber.setText(user.getPhone_number());
             }

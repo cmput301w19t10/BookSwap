@@ -70,7 +70,7 @@ public class ORequestedActivity extends AppCompatActivity {
         } else {
             User myUser = MyUser.getInstance();
             u = new DataBaseUtil(myUser.getName());
-            u.getBorrowerBook(new DataBaseUtil.getNewBook() {
+            u.getOwnerBook(new DataBaseUtil.getNewBook() {
                 /**
                  * get the requestedlist from database and then load it into the local listview
                  *

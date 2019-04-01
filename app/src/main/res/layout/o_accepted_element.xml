@@ -24,8 +24,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="137dp"
-                android:layout_marginTop="3dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="99dp"
+                android:layout_marginTop="10dp"
                 android:text="Title"
                 android:textSize="18sp" />
 
@@ -35,14 +36,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="137dp"
-                android:layout_marginTop="87dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="76dp"
                 android:text="Author" />
 
             <ImageView
                 android:id="@+id/OAB_bookCover_imageview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="83dp"
+                android:layout_height="102dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
@@ -52,9 +53,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="269dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="266dp"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="21dp"
                 android:text="Swap" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

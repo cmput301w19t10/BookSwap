@@ -29,6 +29,8 @@ public class BAvailableActivity extends AppCompatActivity {
     private ListView availableBooks;
     private ArrayList<Book> ava_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
+    private String status;
+    private String name;
     // private BAvailableAdapter badapter;
     DataBaseUtil u;
     @Override
@@ -38,6 +40,8 @@ public class BAvailableActivity extends AppCompatActivity {
         ava_book.clear();
         availableBooks = (ListView) findViewById(R.id.BAB_listview);
         Intent intent = getIntent();
+        name = MyUser.getInstance().getName();
+        Log.d("name",","+name);
 
 
 
@@ -74,12 +78,14 @@ public class BAvailableActivity extends AppCompatActivity {
                 ava_book.clear();
                 // Log.i("HHHHH","HHHHH" + newText);
                 User myUser = MyUser.getInstance();
+
                 u = new DataBaseUtil(myUser.getName());
                 u.searchBook(newText ,new DataBaseUtil.getNewBook() {
                     @Override
                     public void getNewBook(Book aBook) {
                         //ava_book.clear();
-                        if (aBook.getStatus()!= null && aBook.getStatus().equals("Available")){
+                        status = aBook.getStatus();
+                        if ((status.equals("Available") || status.equals("Requested")) && !aBook.getOwner().equals(name)){
                             ava_book.add(aBook);
                             availableBooks.setAdapter(adapter);
                             Log.d("fragment","loop");
@@ -112,13 +118,16 @@ public class BAvailableActivity extends AppCompatActivity {
 
         User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
-        //Log.d("fragment","noone");
+        Log.d("fragment",","+name);
         u.searchBook("" ,new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
                 //ava_book.clear();
                 //todo change owner to yourself need to check owner
-                if (aBook.getStatus()!= null && aBook.getStatus().equals("Available")){
+                status = aBook.getStatus();
+
+
+                if ((status.equals("Available") || status.equals("Requested")) && !aBook.getOwner().equals(name)){
                     ava_book.add(aBook);
                     availableBooks.setAdapter(adapter);
                     Log.d("fragment","loop");
