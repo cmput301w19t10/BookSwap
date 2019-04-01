@@ -9,15 +9,22 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bookswap.barcode.BarcodeScannerActivity;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.UUID;
 
 /**
  * Activity that allows the editing and creation UI of new available book information
@@ -31,13 +38,18 @@ public class EditBookActivity extends AppCompatActivity {
     private EditText etTitle;
     private EditText etAuthor;
     private EditText etDescription;
-    private EditText etStatus;
+    private TextView etStatus;
     private ImageButton imageButton;
+    private EditText etISBN;
+    private Button scanButton;
     private static int BOOK_PHOTO_RESULT = 1;
+    private static int SCAN_ISBN = 2;
     private Intent intent;
     //private int index;
 
     private Book book;
+    private Uri imageUri;
+    private FireStorage fStorage = new FireStorage();
 
     /**
      * On create of the activity override
@@ -51,7 +63,7 @@ public class EditBookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_available);
+        setContentView(R.layout.activity_add_book);
         ImageButton photo = findViewById(R.id.bookPhotoButton);
         photo.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -66,6 +78,24 @@ public class EditBookActivity extends AppCompatActivity {
             this.book = intent.getParcelableExtra("BookInformation");
             fillText();
         }
+
+        if (intent.getStringExtra("title") != null){
+            updateEditText();
+            etTitle.setText(intent.getStringExtra("title"));
+            etAuthor.setText(intent.getStringExtra("author"));
+            etDescription.setText(intent.getStringExtra("description"));
+            etISBN.setText(intent.getStringExtra("ISBN"));
+            etStatus.setText("Available");
+        }
+
+        scanButton = findViewById(R.id.scanButton);
+        scanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditBookActivity.this, BarcodeScannerActivity.class);
+                startActivityForResult(intent, SCAN_ISBN);
+            }
+        });
 
 
     }
@@ -136,11 +166,24 @@ public class EditBookActivity extends AppCompatActivity {
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
         ImageButton bView = findViewById(R.id.bookPhotoButton);
-        Bitmap image = null;
-        if((BitmapDrawable) bView.getDrawable() != null) {
-            image = ((BitmapDrawable) bView.getDrawable()).getBitmap();
+        if (book == null){
+            book = new Book();
         }
-        Book book = new Book(title, author, status, description, image);
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setStatus(status);
+        book.setDescription(description);
+        book.setISBN(etISBN.getText().toString());
+
+        if (book.getUnikey() == null) {
+            book.setUnikey(UUID.randomUUID().toString());
+        }
+        if (imageUri != null) {
+            fStorage.addImageUri(book, imageUri);
+        }
+        DataBaseUtil u = new DataBaseUtil(MyUser.getInstance().getName());
+        u.addNewBook(book);
+
 
         Toast.makeText(this,"Book is saved!",Toast.LENGTH_SHORT).show();
 
@@ -166,9 +209,10 @@ public class EditBookActivity extends AppCompatActivity {
     private void updateEditText(){
         etTitle = ((EditText)findViewById(R.id.etTitle));
         etAuthor = ((EditText)findViewById(R.id.etAuthor));
-        etStatus = ((EditText)findViewById(R.id.etStatus));
+        etStatus = ((TextView)findViewById(R.id.etStatus));
         etDescription = ((EditText)findViewById(R.id.etDescription));
         imageButton = findViewById(R.id.bookPhotoButton);
+        etISBN = findViewById(R.id.etISBN);
     }
 
     /**
@@ -182,7 +226,11 @@ public class EditBookActivity extends AppCompatActivity {
         etAuthor.setText(String.valueOf(book.getAuthor()));
         etDescription.setText(String.valueOf(book.getDescription()));
         etStatus.setText("Available");
-        imageButton.setImageBitmap(book.getImage());
+        etISBN.setText(book.getISBN());
+        //imageView.setImageBitmap(book.getImage());
+        Picasso.get()
+                .load(book.getImageUrl())
+                .into(imageButton);
 
 
     }
@@ -192,6 +240,11 @@ public class EditBookActivity extends AppCompatActivity {
      * @return result of the check
      */
     private boolean isValid(){
+        if (!(TextUtils.isEmpty(etISBN.getText().toString()) || validISBN13())){
+
+            Toast.makeText(this,"Invalid ISBN", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (TextUtils.isEmpty(etTitle.getText().toString())){
             return false;
         } else if (TextUtils.isEmpty(etAuthor.getText().toString())){
@@ -209,25 +262,39 @@ public class EditBookActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
+        if (reqCode == BOOK_PHOTO_RESULT) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    ImageButton photo = findViewById(R.id.bookPhotoButton);
+                    //placeholder, change in future
+                    selectedImage = Bitmap.createScaledBitmap(selectedImage, 300, 500, false);
+                    photo.setImageBitmap(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(EditBookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
 
-
-        if (resultCode == RESULT_OK) {
-            try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                ImageButton photo = findViewById(R.id.bookPhotoButton);
-                //placeholder, change in future
-                selectedImage = Bitmap.createScaledBitmap(selectedImage, 300,500,false);
-                photo.setImageBitmap(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(EditBookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(EditBookActivity.this, "You haven't picked Image", Toast.LENGTH_LONG).show();
             }
-
-        }else {
-            Toast.makeText(EditBookActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+        } else if (reqCode == SCAN_ISBN) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    etISBN.setText(data.getStringExtra("ISBN"));
+                } catch (Exception e) {
+                    Toast.makeText(EditBookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
         }
+    }
+
+    // https://www.moreofless.co.uk/validate-isbn-13-java/
+    private boolean validISBN13() {
+        //removed bad checksum
+        return true;
     }
 
 

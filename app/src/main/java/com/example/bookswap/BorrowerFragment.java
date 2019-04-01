@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * borrower interface in home
@@ -16,10 +18,11 @@ import android.widget.Button;
 
 public class BorrowerFragment extends Fragment implements View.OnClickListener{
 
-    private Button button_request;
-    private Button button_available;
-    private Button button_accept;
-    private Button button_borrow;
+    private ImageButton button_request;
+    private ImageButton button_available;
+    private ImageButton button_accept;
+    private ImageButton button_borrow;
+    private TextView reddot;
     /**
      *  create all views including two buttons
      * @param inflater inflater to inflate views to this fragment
@@ -30,21 +33,36 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_borrower, container, false);
+        View view = inflater.inflate(R.layout.activity_book_main, container, false);
         Intent intent = getActivity().getIntent();
 
-        button_request = view.findViewById(R.id.Borrower_requested_btn);
+        button_request = view.findViewById(R.id.request);
         button_request.setOnClickListener(this);
-        button_available = view.findViewById(R.id.Borrower_available_btn);
+        button_available = view.findViewById(R.id.available);
         button_available.setOnClickListener(this);
-        button_accept = view.findViewById(R.id.Borrower_accept_btn);
+        button_accept = view.findViewById(R.id.accept);
         button_accept.setOnClickListener(this);
-        button_borrow = view.findViewById(R.id.Borrower_borrowed_btn);
+        button_borrow = view.findViewById(R.id.borrow);
         button_borrow.setOnClickListener(this);
+        //notificationManager = NotificationManagerCompat.from(this);
 
+        /*reddot =  view.findViewById(R.id.reddot);
+        reddot.setVisibility(View.INVISIBLE);
+        final DataBaseUtil u;
+        u = new DataBaseUtil("Bowen");
+        u.checkNotification("Borrow",new DataBaseUtil.getStatus(){
+            @Override
+            public void getStatus(String value){
+                if(value.equals("True")){
+                    reddot.setVisibility(View.VISIBLE);
+                }
+            }
+
+        });*/
 
         return view;
     }
+
 
     /**
      * actions for four buttons
@@ -53,22 +71,25 @@ public class BorrowerFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.Borrower_requested_btn:{
+            case R.id.request:{
                 Intent intent = new Intent(getActivity(), BRequestedBooksActivity.class);
                 startActivity(intent);
                 break;
-            }case R.id.Borrower_available_btn:{
+            }case R.id.available:{
                 Intent intent = new Intent(getActivity(), BAvailableActivity.class);
                 startActivity(intent);
                 break;
-            }case R.id.Borrower_accept_btn:{
+            }case R.id.accept:{
                 Intent intent = new Intent(getActivity(), BAcceptActivity.class);
                 startActivity(intent);
                 break;
-            }case R.id.Borrower_borrowed_btn:{
+            }case R.id.borrow:{
                 //TODO
+                Intent intent = new Intent(getActivity(), BBorrowedActivity.class);
+                startActivity(intent);
                 break;
             }default: break;
         }
     }
+
 }

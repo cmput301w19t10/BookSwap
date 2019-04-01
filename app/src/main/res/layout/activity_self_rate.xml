@@ -4,32 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelfRateActivity">
+    tools:context=".SelfRateActivity"
+    android:background="@drawable/background">
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
-        android:layout_width="386dp"
-        android:layout_height="624dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/tabs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
-        android:layout_width="390dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabIndicatorColor="@color/colorPrimaryDark">
 
     </android.support.design.widget.TabLayout>
 

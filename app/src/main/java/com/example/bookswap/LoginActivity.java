@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 /**
  * activity for enabling user to login by correct password and email
  */
@@ -27,8 +30,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private ProgressBar progress_bar;
-    private String email;
+    private String name_or_email;
     private String password;
+    private StringBuilder sb_email;
+    private Button login_button;
+    DataBaseUtil u;
 
     /**
      * create all views and set buttons for login and register
@@ -42,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         user_name = findViewById(R.id.user_name);
         user_password = findViewById(R.id.user_password);
-        Button login_button = findViewById(R.id.button_register);
+        login_button = findViewById(R.id.button_register);
         login_button.setOnClickListener(this);
         Button toRegister_button = findViewById(R.id.button_toRegister);
         toRegister_button.setOnClickListener(this);
@@ -52,12 +58,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
                 if (firebaseAuth.getCurrentUser() != null){
-                    //startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+                    MyUser.destroy();
+                    MyUser.getInstance().setName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
                 }
             }
         };
+
+
     }
 
     /**
@@ -80,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view){
         switch (view.getId()){
             case R.id.button_register:
-                Log.d("wtf", "000");
+                login_button.setVisibility(View.GONE);
                 startSignIn();
                 break;
             case R.id.button_toRegister:
@@ -91,48 +101,81 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+
     /**
-     * judge if user puts on correct email(or username, but only email for the first time) and password
+     * after judging if input are valid
      * if one of them is empty, app pops on a message saying "Fields are empty"
      * else if the input is incorrect, app pops on a message saying "No such Account"
      * else login successfully
      */
-    private void startSignIn() {
-        email = user_name.getText().toString();
+    private void startSignIn(){
+        name_or_email = user_name.getText().toString();
         password = user_password.getText().toString();
 
-        progress_bar.setVisibility(View.VISIBLE);
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            Toast.makeText(LoginActivity.this, "Fields are empty", Toast.LENGTH_LONG).show();
+        sb_email = new StringBuilder();
+        for (int i = 0; i < name_or_email.length(); i++) {
+            char ch = name_or_email.charAt(i);
+            if (ch != '@' && ch != '.') {
+                sb_email.append(ch);
+            }
+        }
 
-        }else{
-            //TODO
-            // User user;
-            // check if the username(variable email here but actually represents username) and password exists in database
-            // if yes: user = getUser() (get this user);
-            //         email = User.getEmail();
-            Log.d("wtf", "1111");
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        u = new DataBaseUtil();
+        progress_bar.setVisibility(View.VISIBLE);
+        if (TextUtils.isEmpty(name_or_email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(LoginActivity.this, "Fields are empty", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
+
+        mAuth.signInWithEmailAndPassword(name_or_email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    u.getNameByEmail(sb_email.toString(), new DataBaseUtil.getName() {
+                        @Override
+                        public void getName(String name) {
+                            MyUser.getInstance().setName(name);
+                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        }
+                    });
+                } else {
+                    Toast.makeText(LoginActivity.this, "No such Account", Toast.LENGTH_LONG).show();
+                }
+                progress_bar.setVisibility(View.GONE);
+                login_button.setVisibility(View.VISIBLE);
+            }
+        });
+        /*
+        if (name_or_email.equals(sb_email.toString())) {
+            Log.d("login", "getin");
+            Log.d("login",name_or_email);
+            DataBaseUtil u = new DataBaseUtil(name_or_email);
+            u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    Log.d("wtf", "123");
-                    if (!task.isSuccessful()) {
-                        Log.d("wtf", "000");
-                        Toast.makeText(LoginActivity.this, "No such Account", Toast.LENGTH_LONG).show();
-                    }else{
-                        Log.d("wtf", "999");
-                        Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(LoginActivity.this, SelfProfileActivity.class);
-                        //TODO
-                        // if (User == null){
-                        //     User user = getUser() (get this user by email and password); }
-                        // intent. putExtra("user", user);
+                public void getNewUser(User user, List<Review> commentList) {
+                    Log.d("login", user.getPassword() + "  " + password);
+
+                    if (user.getPassword().equals(password)){
+                        Log.d("login", "nameSuccess");
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("userName", name_or_email);
                         startActivity(intent);
+                    } else {
+                        Log.d("login", "name");
+                        Toast.makeText(LoginActivity.this, "No such Account", Toast.LENGTH_LONG).show();
+                        return;
                     }
                 }
             });
         }
-        progress_bar.setVisibility(View.GONE);
+        */
+
+
+
+
     }
 
 }

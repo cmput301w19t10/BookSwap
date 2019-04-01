@@ -8,51 +8,66 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/listUsername"
+    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="137dp"
-        android:layout_marginTop="3dp"
-        android:text="Username"
-        android:textSize="18sp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="#99ffffff"
+        app:cardCornerRadius="0dp">
 
-    <TextView
-        android:id="@+id/listBookname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/listUsername"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="87dp"
-        android:text="Bookname" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/listUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="137dp"
+                android:layout_marginTop="3dp"
+                android:text="Username"
+                android:textSize="18sp" />
 
-    <ImageView
-        android:id="@+id/bookCover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/listBookname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/listUsername"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="87dp"
+                android:text="Bookname" />
 
-    <Button
-        android:id="@+id/oru_accept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="25dp"
-        android:text="Accept" />
+            <ImageView
+                android:id="@+id/bookCover"
+                android:layout_width="83dp"
+                android:layout_height="102dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/oru_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="25dp"
+                android:text="Accept" />
 
 
-    <Button
-        android:id="@+id/oru_decline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/oru_accept"
-        android:layout_marginTop="54dp"
-        android:layout_marginRight="-89dp"
-        android:layout_toLeftOf="@id/oru_accept"
-        android:text="Decline" />
+            <Button
+                android:id="@+id/oru_decline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/oru_accept"
+                android:layout_marginTop="54dp"
+                android:layout_marginRight="-89dp"
+                android:layout_toLeftOf="@id/oru_accept"
+                android:text="Decline" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

@@ -11,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -22,6 +25,8 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
     private Context context;
     private Book book;
     private ArrayList<String> userList;
+    private String username;
+    private DataBaseUtil u;
 
     /**
      * constructor
@@ -77,31 +82,50 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
             holder = (ORequestedUsersAdapter.ViewHolder)convertView.getTag();
         }
 
+
         holder.Username.setText(userList.get(position));
         holder.Bookname.setText((String)book.getTitle());
 
+        /**
+         * click the adapter to enter the user profile
+         */
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = userList.get(position);
+                Intent intent = new Intent(getContext(), OtherProfileActivity.class);
+                intent.putExtra("userName", userList.get(position));
+                intent.putExtra("review_type",0);
+                getContext().startActivity(intent);
+            }
+        };
+        convertView.setOnClickListener(listener);
+
 
         /**
-         * get the userlist who want to borrow this book
+         * get the userlist who want to Accept this book
          * from database
          */
         holder.button_accept.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                DataBaseUtil u = new DataBaseUtil("Bowen");
-                u.acceptAndDeleteOther(userList.get(position), book);
-                userList.clear();
+//                DataBaseUtil u = new DataBaseUtil("Bowen");
+//                u.acceptAndDeleteOther(userList.get(position), book);
+//                userList.clear();
+                Intent goSwap = new Intent(getContext(),ORequestedSwapActivity.class);
+                goSwap.putExtra("book",book);
+                goSwap.putExtra("user", userList.get(position));
                 notifyDataSetChanged();
-                Intent back = new Intent(getContext(),ORequestedActivity.class);
-                getContext().startActivity(back);
+                getContext().startActivity(goSwap);
             }
         });
 
         holder.button_decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBaseUtil u = new DataBaseUtil("Bowen");
+                User myUser = MyUser.getInstance();
+                u = new DataBaseUtil(myUser.getName());
                 u.declineUser(userList.get(position), book);
                 userList.remove(position);
                 notifyDataSetChanged();
@@ -110,8 +134,10 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         });
 
 
-        if (book.getImage() != null) {
-            holder.bookcover.setImageBitmap(book.getImage());
+        if (book.getImageUrl()!= null){
+            Picasso.get()
+                    .load(book.getImageUrl())
+                    .into(holder.bookcover);
         }
 
         return convertView;

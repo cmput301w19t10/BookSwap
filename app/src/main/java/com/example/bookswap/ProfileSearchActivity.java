@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,9 +21,9 @@ import java.util.List;
  */
 public class ProfileSearchActivity extends AppCompatActivity {
 
-    private User user;
     private List<User> userList;
     private UserAdapter adapter;
+    private DataBaseUtil u = new DataBaseUtil();
     RecyclerView recyclerView;
 
     /**
@@ -34,22 +35,9 @@ public class ProfileSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_search);
 
-        Intent intent = getIntent();
-        user = intent.getExtras().getParcelable("user");
-        initUsers();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.user_search);
         recyclerView.setLayoutManager(manager);
-        adapter = new UserAdapter(userList);
-        recyclerView.setAdapter(adapter);
-    }
-
-    /**
-     * initialize users for testing
-     */
-    private void initUsers(){
-        userList = new ArrayList<>();
-        userList.add(user);
     }
 
     /**
@@ -65,6 +53,7 @@ public class ProfileSearchActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.search_person);
         SearchView searchView = (SearchView)searchItem.getActionView();
 
+        //adapter = new UserAdapter(userList);
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -74,16 +63,32 @@ public class ProfileSearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                userList = new ArrayList<>();
+                Log.d("wtf", newText);
+                u.searchUser(newText, new DataBaseUtil.getMatchedUser() {
+                    @Override
+                    public void getMatchedUser(User user) {
+                        userList.add(user);
+                        adapter = new UserAdapter(userList);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
                 return false;
             }
         });
         return true;
     }
 
+    /**
+     * for refresh
+     */
     @Override
     protected void onStart() {
         super.onStart();
-        initUsers();
+        if (userList != null) {
+            adapter = new UserAdapter(userList);
+            recyclerView.setAdapter(adapter);
+        }
     }
+
 }

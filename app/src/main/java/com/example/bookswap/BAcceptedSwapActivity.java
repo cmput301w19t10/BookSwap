@@ -1,136 +1,174 @@
 package com.example.bookswap;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
-import java.util.Calendar;
+import com.google.android.gms.maps.model.LatLng;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class BAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
     private TextView date;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-
     private TextView comment;
-    private Button swap;
-    private Button back;
+    private Button confirm;
     private Swap swapclass = new Swap();
+    private Book swapingBook;
+    private TextView bookinfo;
+    private Button locationBut;
+    private DataBaseUtil u;
+    private Handler handler;
 
 
+    /**
+     * on create meathod
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * how to change actionbar title
+         * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
+         */
+        getSupportActionBar().setTitle("Borrower Accept Swap");
+
         setContentView(R.layout.activity_baccepted_swap);
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
-        comment = (TextView) findViewById(R.id.commont_text) ;
-        swap = (Button) findViewById(R.id.swap);
-        back = (Button) findViewById(R.id.back);
+        bookinfo = (TextView) findViewById(R.id.bookInfo);
+        comment = (TextView) findViewById(R.id.comment_text_b);
+        confirm = (Button) findViewById(R.id.confirm);
+        locationBut = (Button) findViewById(R.id.locationButton);
 
+        Intent intent = getIntent();
+        swapingBook = intent.getParcelableExtra("book");
+        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
+        infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
+        bookinfo.setText(infoDisplay);
 
-
-        /**
-         * https://www.cnblogs.com/huanyou/p/5087044.html
-         * create the time select dialog
-         */
-        time.setOnClickListener(new View.OnClickListener() {
+        bookinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar timecal = Calendar.getInstance();
-                int hour = timecal.get(Calendar.HOUR);
-                int minute = timecal.get(Calendar.MINUTE);
-
-                TimePickerDialog timeDialog = new TimePickerDialog(
-                        BAcceptedSwapActivity.this,timeSetListener,
-                        hour,minute,
-                        DateFormat.is24HourFormat(BAcceptedSwapActivity.this)
-                       );
-
-                timeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                timeDialog.show();
-
-            }
-        });
-
-        timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                hourOfDay = hourOfDay;
-
-                String stringtime = hourOfDay + ":" + minute;
-                time.setText(stringtime);
-                swapclass.setTime(stringtime);
-            }
-        };
-
-
-        /**
-         * https://www.youtube.com/watch?v=hwe1abDO2Ag
-         * create the date select dialog
-         */
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar datecal = Calendar.getInstance();
-                int year = datecal.get(Calendar.YEAR);
-                int month = datecal.get(Calendar.MONTH);
-                int day = datecal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        BAcceptedSwapActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-
-            }
-        });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month+1;
-
-                String stringdate = year + "-" + month +  "-" + dayOfMonth;
-                date.setText(stringdate);
-                swapclass.setDate(stringdate);
-            }
-        };
-
-        String stringcomment = comment.getText().toString();
-        swapclass.setComment(stringcomment);
-
-
-        swap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swapclass.setBorrowerPermit(true);
-//                TODO map activity
-//                Intent intentmap = new Intent();
-//                startActivity(intentmap);
+                Intent intent = new Intent(BAcceptedSwapActivity.this, ViewBookActivity.class);
+                intent.putExtra("book", swapingBook);
+                startActivity(intent);
             }
         });
 
 
-        back.setOnClickListener(new View.OnClickListener() {
+        User myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
+        u.getSwap(swapingBook, new DataBaseUtil.getSwapInfo() {
             @Override
-            public void onClick(View v) {
-                Intent intentback = new Intent(BAcceptedSwapActivity.this,BAcceptActivity.class);
-                startActivity(intentback);
+            public void getSwapInfo(Swap swap) {
+                swapclass = swap;
+                date.setText(swapclass.getDate());
+                time.setText(swapclass.getTime());
+                Log.d("swapclass-1","hello");
+                Log.d("swapclass0",swapclass.getTime());
+                if (swapclass.getComment() != null) {
+                    comment.setText(swapclass.getComment());
+                }
             }
         });
+
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View v) {
+                    Log.d("swappingbook",swapingBook.getTitle()+" ");
+                    u.changeSwapStatus(swapingBook,"Borrower",true);
+                    showNormalDialog();
+                    timer();
+
+               }
+           });
+
+
+
+        locationBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BAcceptedSwapActivity.this, MapViewActivity.class);
+                LatLng point = swapclass.getLocation();
+                if (point == null){
+                    Toast.makeText(getApplicationContext(), "Fatal error, improper location", LENGTH_SHORT).show();
+                } else {
+                    intent.putExtra("point", point);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+    }
+
+    /**
+     * Use a timer to handle the automated notifications
+     */
+    public void timer(){
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                u.checkSwapStatus(swapingBook, new DataBaseUtil.swapStatus() {
+                    @Override
+                    public void getStatus(boolean value) {
+                        if(value){
+                            u.changeStatus(swapingBook,"Borrowed");
+//                            u.deleteSwap(swapingBook);
+//                            u.changeSwapStatus(swapingBook,"Return",false);
+                            handler.removeCallbacksAndMessages(null);
+                            finish();
+                        }
+                    }
+                });
+
+
+                handler.postDelayed(this,1000);}
+        }, 1000);  //the time is in miliseconds
+
+    }
+
+
+
+
+    /**
+     * make a dialog
+     * resourse:https://www.cnblogs.com/gzdaijie/p/5222191.html
+     */
+    private void showNormalDialog(){
+
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(BAcceptedSwapActivity.this);
+        normalDialog.setTitle("Wait for Borrower confiem");
+        normalDialog.setMessage("Waiting..");
+        normalDialog.setPositiveButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        u.changeSwapStatus(swapingBook,"Owner",false);
+                        handler.removeCallbacksAndMessages(null);
+                    }
+                });
+
+        normalDialog.show();
     }
 }

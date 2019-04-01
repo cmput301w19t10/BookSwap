@@ -5,8 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,11 +23,16 @@ import java.util.ArrayList;
  * @see BRequestedBooksActivity
  * @since 1.0
  */
-public class BAvailableAdapter extends ArrayAdapter<Book> {
+public class BAvailableAdapter extends ArrayAdapter<Book> implements Filterable {
     private ArrayList<Book> ava_booklist;
+
+    //private ArrayList<Book> avaListFull;
+
+
     public BAvailableAdapter(Context context, ArrayList<Book> ava_books) {
         super(context,R.layout.element_available , ava_books);
         this.ava_booklist = ava_books;
+
     }
 
     /**
@@ -35,11 +44,11 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
 
         if (convertView == null) {
             holder = new BAvailableAdapter.ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available2, parent, false);
-            holder.title = (TextView) convertView.findViewById(R.id.BAB_title_textview);
-            holder.author = (TextView) convertView.findViewById(R.id.BAB_author_textview);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available, parent, false);
+            holder.title = (TextView) convertView.findViewById(R.id.listTitle);
+            holder.author = (TextView) convertView.findViewById(R.id.listAuthor);
 
-            holder.bookcover = (ImageView) convertView.findViewById(R.id.BAB_bookCover_imageview);
+            holder.bookcover = (ImageView) convertView.findViewById(R.id.bookCover);
             convertView.setTag(holder);
         }
         else {
@@ -50,10 +59,12 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
 
-        //holder.bookcover.setImageBitmap(element.getImage());
-//        LayoutInflater inflater = LayoutInflater.from(getContext());
-//        View customView = inflater.inflate(R.layout.element_available2, parent, false);
-//
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(holder.bookcover);
+        }
+
         return convertView;
     }
 
@@ -67,5 +78,7 @@ public class BAvailableAdapter extends ArrayAdapter<Book> {
 
         public ImageView bookcover;
     }
+
+
 }
 

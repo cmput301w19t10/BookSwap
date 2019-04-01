@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * owner interface of home
@@ -16,10 +19,10 @@ import android.widget.Button;
 
 public class OwnerFragment extends Fragment implements View.OnClickListener{
 
-    private Button button_accept;
-    private Button button_request;
-    private Button button_available;
-    private Button button_borrow;
+    private ImageButton button_accept;
+    private ImageButton button_request;
+    private ImageButton button_available;
+    private ImageButton button_borrow;
 
     /**
      * create all views
@@ -41,7 +44,9 @@ public class OwnerFragment extends Fragment implements View.OnClickListener{
         button_available.setOnClickListener(this);
         button_borrow = view.findViewById(R.id.borrow);
         button_borrow.setOnClickListener(this);
+
         return view;
+
     }
 
     /**
@@ -52,7 +57,7 @@ public class OwnerFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.accept:{
-                Intent intent = new Intent(getActivity(), BAcceptActivity.class);
+                Intent intent = new Intent(getActivity(), OAcceptedActivity.class);
                 startActivity(intent);
                 break;
             }case R.id.request:{
@@ -64,10 +69,12 @@ public class OwnerFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             }case R.id.borrow:{
-
+                Intent intent = new Intent(getActivity(), OBorrowedActivity.class);
+                startActivity(intent);
                 break;
             }
             default: break;
         }
     }
+
 }

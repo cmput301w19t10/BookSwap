@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import static android.content.Intent.getIntent;
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -74,6 +77,19 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
             holder = (ViewHolder)convertView.getTag();
         }
 
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Book book = requestedList.get(position);
+                Intent intent = new Intent(getContext(), ViewBookActivity.class);
+                System.out.println(position);
+                intent.putExtra("book", book);
+                intent.putExtra("Index", position);
+                getContext().startActivity(intent);
+            }
+        };
+        convertView.setOnClickListener(listener);
+
 
         Book element = requestedList.get(position);
 
@@ -90,16 +106,22 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
             @Override
             public void onClick(View v) {
                 Intent toORequestedUser = new Intent(getContext(), ORequestedUserActivity.class);
-                toORequestedUser.putExtra("index", requestedList.get(position));
-                getContext().startActivity(toORequestedUser);
+                if (position < requestedList.size()) {
+                    toORequestedUser.putExtra("index", requestedList.get(position));
+                    getContext().startActivity(toORequestedUser);
+                }
             }
         });
 
 
-        if (element.getImage() != null) {
-            holder.bookcover.setImageBitmap(element.getImage());
+//        if (element.getImage() != null) {
+//            holder.bookcover.setImageBitmap(element.getImage());
+//        }
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(holder.bookcover);
         }
-
         return convertView;
     }
 

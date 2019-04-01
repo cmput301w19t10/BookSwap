@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class ViewBookAdapter extends ArrayAdapter<Book> {
@@ -51,8 +53,10 @@ public class ViewBookAdapter extends ArrayAdapter<Book> {
         ImageView bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
         title.setText(element.getTitle());
         author.setText(element.getAuthor());
-        if (element.getImage() != null) {
-            bookcover.setImageBitmap(element.getImage());
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(bookcover);
         }
 
         return convertView;

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -19,6 +20,7 @@ public class BRequestedBooksActivity extends AppCompatActivity {
     private ListView requestedbooks;
     private ArrayList<Book> req_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
+    private DataBaseUtil u;
     /**
      *
      * @param savedInstanceState
@@ -44,15 +46,18 @@ public class BRequestedBooksActivity extends AppCompatActivity {
 
         adapter = new BRequestedBooksAdapter(this, req_book);
 
-        DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        User myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.getBorrowerBook(new DataBaseUtil.getNewBook(){
             @Override
             public void getNewBook(Book a){
-                if(a.getStatus().equals("Available")) {
+
+                if(a.getStatus()!=null && a.getStatus().equals("Requested")) {
+                    Log.d("inif",a.getTitle());
                     req_book.add(a);
+                    requestedbooks.setAdapter(adapter);
                 }
-                requestedbooks.setAdapter(adapter);
+
             }
         });
 //        Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");

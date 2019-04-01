@@ -33,7 +33,7 @@ public class Book implements Parcelable {
     private String owner;
     private String image;
     private String uniKey;
-
+    private String mImageUrl;
   
     /**
      * writes the current state of the book information to a parcel for use in other activities
@@ -50,17 +50,28 @@ public class Book implements Parcelable {
         out.writeString(owner);
         out.writeString(image);
         out.writeString(uniKey);
+        out.writeString(mImageUrl);
     }
 
 
-    public Book(String title, String author, String status, String description, Bitmap bmp){
+    /**
+     * contructor for book
+     * @param title book title
+     * @param author book author
+     * @param status status a book can be in, for the purpose of the app
+     * @param description description of the book, or its contents
+     * @param bmp depreciated, bitmap image of book
+     * @param owner name of the owner of the book
+     */
+    public Book(String title, String author, String status, String description, Bitmap bmp,String owner){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
+        this.owner =owner;
         setImage(bmp);
     }
-
+/*
     public Book(String title, String author, String status, String description){
         this.title = title;
         this.author = author;
@@ -74,8 +85,12 @@ public class Book implements Parcelable {
         this.description = description;
         this.owner = owner;
     }
+*/
 
-
+    /**
+     * building from parcel for parcelable implementation
+     * @param parcel
+     */
     public Book(Parcel parcel){
         title = parcel.readString();
         author = parcel.readString();
@@ -85,6 +100,7 @@ public class Book implements Parcelable {
         owner = parcel.readString();
         image = parcel.readString();
         uniKey = parcel.readString();
+        mImageUrl = parcel.readString();
     }
 
     public Book(){}
@@ -93,8 +109,7 @@ public class Book implements Parcelable {
     /**
      * return newly populated book object
      */
-    public static final Parcelable.Creator<Book> CREATOR
-            = new Parcelable.Creator<Book>() {
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
         @Override
         public Book createFromParcel(Parcel parcel) {
             return new Book(parcel);
@@ -185,7 +200,6 @@ public class Book implements Parcelable {
      * setter of image for database
      * @return status of owner
      */
-
     public void setUnencodedImage(String image){
         this.image = image;
     }
@@ -267,6 +281,13 @@ public class Book implements Parcelable {
         return uniKey;
     }
 
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+    }
 
     /**
      * required for parcelable

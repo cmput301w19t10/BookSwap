@@ -3,6 +3,7 @@ package com.example.bookswap;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class SelfRateActivity extends AppCompatActivity {
 
-    private User user;
+    private String userName;
     private List<Fragment> fragments = new ArrayList<>();
     SectionsPageAdapter adapter;
 
@@ -29,10 +30,9 @@ public class SelfRateActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupViewPager(viewPager);
 
-        Intent intent = getIntent();
-        user = intent.getExtras().getParcelable("user");
+        userName = MyUser.getInstance().getName();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("user", user);
+        bundle.putString("userName", userName);
         fragments.get(0).setArguments(bundle);
         fragments.get(1).setArguments(bundle);
 
@@ -50,4 +50,17 @@ public class SelfRateActivity extends AppCompatActivity {
         adapter.addFragment(fragments.get(1), "Borrower");
         viewPager.setAdapter(adapter);
     }
+    /*
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        for (int i=0; i<fragments.size(); i++){
+            Fragment fg = fragments.get(i);
+            ft.detach(fg);
+            ft.attach(fg);
+        }
+        ft.commit();
+    }
+    */
 }
