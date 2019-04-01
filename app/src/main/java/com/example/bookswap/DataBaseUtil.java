@@ -117,12 +117,8 @@ public class DataBaseUtil {
                     book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                     book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
-                    //book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-//                    if (dataSnapshot.child("Book").child(key).child("Borrower").hasChildren()){
-//                        book.setBorrower(dataSnapshot.child("Book").child(key).child("Borrower").getValue(String.class));
-//                    }
                     callBack.getNewBook(book);
                 }
             }
@@ -158,7 +154,7 @@ public class DataBaseUtil {
             this.BookKey = book.getUnikey();
         }
         BookName(book.getTitle());
-        //BookOwner(book.getOwner());(TODO)
+        bookOwner();
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
         //BookPhoto(book.getUnencodedImage());
@@ -170,6 +166,11 @@ public class DataBaseUtil {
         BookDescription(book.getDescription());
     }
 
+
+    private void bookOwner(){
+        BookDatabase.child(BookKey).child("Owner").setValue(userName);
+    }
+
     /**
      * save all book information to Firebase
      * save the bookname
@@ -178,6 +179,8 @@ public class DataBaseUtil {
     private void BookName(String BookName) {
         BookDatabase.child(BookKey).child("Title").setValue(BookName);
     }
+
+
 
 
     /**
@@ -285,7 +288,6 @@ public class DataBaseUtil {
      * @param callBack
      */
     public void getOwnerUser(final String part,final getUserInfo callBack){
-
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -390,6 +392,7 @@ public class DataBaseUtil {
 
         BookDatabase.child(book.getUnikey()).child("Borrower").removeValue();
         BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).setValue(BorrowerName);
+        BookDatabase.child(book.getUnikey()).child("FinalBorrower").setValue(BorrowerName);
         BookDatabase.child(book.getUnikey()).child("Status").setValue("Accepted");
 
     }
@@ -425,7 +428,8 @@ public class DataBaseUtil {
                         book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                         book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                         book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
-                        //book.setImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                        book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
+                        book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                         book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
                         callBack.getNewBook(book);
                     }
@@ -578,11 +582,8 @@ public class DataBaseUtil {
                             book.setStatus(books.child("Status").getValue(String.class));
                             book.setTitle(books.child("Title").getValue(String.class));
                             book.setAuthor(books.child("Author").getValue(String.class));
-                            //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
+                            book.setImageUrl(dataSnapshot.child("Photo").getValue(String.class));
                             book.setUnikey(books.child("UniKey").getValue(String.class));
-                            if (books.child("Photo").hasChildren()) {
-                                book.setImage(books.child("Photo").getValue(Bitmap.class));
-                            }
                             callBack.getNewBook(book);
                         }
                     }
@@ -613,8 +614,7 @@ public class DataBaseUtil {
                     book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
                     book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class))  ;
-
-                    //book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                    book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
                     if (dataSnapshot.child("Book").child(key).child("Photo").hasChildren()) {
                         book.setImage(dataSnapshot.child("Photo").getValue(Bitmap.class));
@@ -688,13 +688,15 @@ public class DataBaseUtil {
     }
 
     public void getSwap(Book book,final getSwapInfo callBack){
-        BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener(){
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Swap swap = new Swap();
-                swap.setComment(dataSnapshot.child("Comment").getValue(String.class));
-                swap.setDate(dataSnapshot.child("Date").getValue(String.class));
-                swap.setTime(dataSnapshot.child("Time").getValue(String.class));
+                swap.setComment(dataSnapshot.child("Swap").child("Comment").getValue(String.class));
+                swap.setDate(dataSnapshot.child("Swap").child("Date").getValue(String.class));
+                swap.setTime(dataSnapshot.child("Swap").child("Time").getValue(String.class));
+                swap.setBorrower(dataSnapshot.child("FinalBorrower").getValue(String.class));
+                swap.setOwner(dataSnapshot.child("Owner").getValue(String.class));
                 if (dataSnapshot.hasChild("Location")) {
                     double latitude = dataSnapshot.child(("Location")).child("latitude").getValue(double.class);
                     double longitude = dataSnapshot.child(("Location")).child("longitude").getValue(double.class);
@@ -795,8 +797,9 @@ public class DataBaseUtil {
                     book.setDescription(dataSnapshot.child(bookKey.getKey()).child("Description").getValue(String.class));
                     book.setStatus(dataSnapshot.child(bookKey.getKey()).child("Status").getValue(String.class));
                     book.setTitle(dataSnapshot.child(bookKey.getKey()).child("Title").getValue(String.class));
-                    book.setAuthor(dataSnapshot.child(bookKey.getKey()).child("author").getValue(String.class));
-                    //book.setImage(dataSnapshot.child("Book").child(key).child("image").getValue(String.class));
+                    book.setAuthor(dataSnapshot.child(bookKey.getKey()).child("Author").getValue(String.class));
+                    book.setISBN(dataSnapshot.child(bookKey.getKey()).child("ISBN").getValue(String.class));
+                    book.setImageUrl(dataSnapshot.child(bookKey.getKey()).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child(bookKey.getKey()).child("UniKey").getValue(String.class));
                     if (dataSnapshot.child(bookKey.getKey()).child("Title").getValue(String.class).contains(searchString)){
                         callBack.getNewBook(book);

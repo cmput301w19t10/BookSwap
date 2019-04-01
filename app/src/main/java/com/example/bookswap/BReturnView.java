@@ -25,6 +25,10 @@ import java.util.Calendar;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+/**
+ * the activity for borrower to view a meet up location and time and confirm the
+ * swap of the book
+ */
 public class BReturnView extends AppCompatActivity {
 
     private TextView time;
@@ -39,7 +43,10 @@ public class BReturnView extends AppCompatActivity {
     private Handler handler;
     private Button locationBut;
 
-
+    /**
+     * set up the layout
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,11 +128,16 @@ public class BReturnView extends AppCompatActivity {
                     @Override
                     public void getStatus(boolean value) {
                         if(value){
-                            u.changeStatus(swapingBook,"Borrowed");
+                            u.changeStatus(swapingBook,"Available");
                             u.deleteSwap(swapingBook);
                             u.changeSwapStatus(swapingBook,"Return",false);
                             handler.removeCallbacksAndMessages(null);
-                            finish();
+                            Intent intent = new Intent(BReturnView.this,OtherProfileActivity.class);
+                            intent.putExtra("userName", swapclass.getOwner());
+                            //allow to comment on the owner
+                            intent.putExtra("review_type",1);
+                            startActivity(intent);
+//                            TODO get borrower and do finish
                         }
                     }
                 });

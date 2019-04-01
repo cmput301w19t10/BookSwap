@@ -122,7 +122,12 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
                             u.deleteSwap(swapingBook);
                             u.changeSwapStatus(swapingBook,"Return",false);
                             handler.removeCallbacksAndMessages(null);
-                            finish();
+                            Intent intent = new Intent(OBorrowedSwapActivity.this,OtherProfileActivity.class);
+                            //allow to comment on the borrower
+                            intent.putExtra("review_type",2);
+                            intent.putExtra("userName", swapclass.getBorrower());
+                            startActivity(intent);
+//                            finish();
                         }
                     }
                 });

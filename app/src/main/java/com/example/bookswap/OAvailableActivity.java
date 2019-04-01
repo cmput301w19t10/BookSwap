@@ -58,6 +58,7 @@ public class OAvailableActivity extends AppCompatActivity {
     private OAvailableAdapter adapter; // initialize adapter.
     private ListView oldAvailableList;
     private ProgressDialog pd;
+    private String isbn_global;
     /**
      * On create of the activity override
      * loads the file, sets up the adapter, loads file into array list, sets on click listener for
@@ -212,6 +213,7 @@ public class OAvailableActivity extends AppCompatActivity {
         if (requestCode == SCAN_BOOK_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 String isbn = data.getStringExtra("ISBN");
+                isbn_global = isbn;
                 new JsonTask().execute("https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn);
 
             }
@@ -295,6 +297,7 @@ public class OAvailableActivity extends AppCompatActivity {
                 intent.putExtra("title", title);
                 intent.putExtra("author", author);
                 intent.putExtra("description", description);
+                intent.putExtra("ISBN", isbn_global);
                 startActivityForResult(intent, ADD_BOOK_REQUEST);
             } catch (JSONException e) {
                 e.printStackTrace();

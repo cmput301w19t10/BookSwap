@@ -21,6 +21,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Calendar;
 
+/**
+ * the activity for borrower to set up a meet up location and time
+ * to return the book to the owner of the book
+ */
 public class BReturnSet extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
@@ -34,7 +38,9 @@ public class BReturnSet extends AppCompatActivity {
     private Book swapingBook;
     private static final int SET_MAP = 1;
 
-
+/*
+set up the layout when created
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
