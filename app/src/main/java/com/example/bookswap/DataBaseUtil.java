@@ -158,7 +158,7 @@ public class DataBaseUtil {
             this.BookKey = book.getUnikey();
         }
         BookName(book.getTitle());
-        //BookOwner(book.getOwner());(TODO)
+        bookOwner();
         BookDescription(book.getDescription());
         BookISBN(book.getISBN());
         //BookPhoto(book.getUnencodedImage());
@@ -170,6 +170,11 @@ public class DataBaseUtil {
         BookDescription(book.getDescription());
     }
 
+
+    private void bookOwner(){
+        BookDatabase.child(BookKey).child("Owner").setValue(userName);
+    }
+
     /**
      * save all book information to Firebase
      * save the bookname
@@ -178,6 +183,8 @@ public class DataBaseUtil {
     private void BookName(String BookName) {
         BookDatabase.child(BookKey).child("Title").setValue(BookName);
     }
+
+
 
 
     /**
@@ -285,7 +292,6 @@ public class DataBaseUtil {
      * @param callBack
      */
     public void getOwnerUser(final String part,final getUserInfo callBack){
-
         UserDatabase.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -390,6 +396,7 @@ public class DataBaseUtil {
 
         BookDatabase.child(book.getUnikey()).child("Borrower").removeValue();
         BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).setValue(BorrowerName);
+        BookDatabase.child(book.getUnikey()).child("FinalBorrower").setValue(BorrowerName);
         BookDatabase.child(book.getUnikey()).child("Status").setValue("Accepted");
 
     }
@@ -688,13 +695,15 @@ public class DataBaseUtil {
     }
 
     public void getSwap(Book book,final getSwapInfo callBack){
-        BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener(){
+        BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Swap swap = new Swap();
-                swap.setComment(dataSnapshot.child("Comment").getValue(String.class));
-                swap.setDate(dataSnapshot.child("Date").getValue(String.class));
-                swap.setTime(dataSnapshot.child("Time").getValue(String.class));
+                swap.setComment(dataSnapshot.child("Swap").child("Comment").getValue(String.class));
+                swap.setDate(dataSnapshot.child("Swap").child("Date").getValue(String.class));
+                swap.setTime(dataSnapshot.child("Swap").child("Time").getValue(String.class));
+                swap.setBorrower(dataSnapshot.child("FinalBorrower").getValue(String.class));
+                swap.setOwner(dataSnapshot.child("Owner").getValue(String.class));
                 if (dataSnapshot.hasChild("Location")) {
                     double latitude = dataSnapshot.child(("Location")).child("latitude").getValue(double.class);
                     double longitude = dataSnapshot.child(("Location")).child("longitude").getValue(double.class);

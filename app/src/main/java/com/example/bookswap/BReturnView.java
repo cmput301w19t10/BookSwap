@@ -121,11 +121,14 @@ public class BReturnView extends AppCompatActivity {
                     @Override
                     public void getStatus(boolean value) {
                         if(value){
-                            u.changeStatus(swapingBook,"Borrowed");
+                            u.changeStatus(swapingBook,"Available");
                             u.deleteSwap(swapingBook);
                             u.changeSwapStatus(swapingBook,"Return",false);
                             handler.removeCallbacksAndMessages(null);
-                            finish();
+                            Intent intent = new Intent(BReturnView.this,OtherProfileActivity.class);
+                            intent.putExtra("userName", swapclass.getOwner());
+                            startActivity(intent);
+//                            TODO get borrower and do finish
                         }
                     }
                 });
