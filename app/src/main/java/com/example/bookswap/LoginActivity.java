@@ -58,10 +58,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null){
-                    //FirebaseAuth.getInstance().signOut();
-                }
             }
+
+
+
         };
 
 
@@ -106,6 +106,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * else login successfully
      */
     private void startSignIn(){
+        if (mAuth.getCurrentUser() != null){
+            mAuth.getInstance().signOut();
+        }
         name_or_email = user_name.getText().toString();
         password = user_password.getText().toString();
 

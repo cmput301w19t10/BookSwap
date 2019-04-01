@@ -268,9 +268,9 @@ public class DataBaseUtil {
      *  addPassword TODO
      */
     public void addNewUser (User user){
-        UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
-        UserDatabase.child(user.getName()).child("address").setValue(user.getAddress());
-        UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
+        UserDatabase.child(user.getName()).child("Password").setValue(user.getPassword());
+        UserDatabase.child(user.getName()).child("Address").setValue(user.getAddress());
+        UserDatabase.child(user.getName()).child("Email").setValue(user.getEmail());
         UserDatabase.child(user.getName()).child("Phone").setValue(user.getPhone_number());
         changeNotificationStatus("Borrow","False");
         changeNotificationStatus("Request","False");
@@ -307,6 +307,8 @@ public class DataBaseUtil {
                         commentList.add(oneReview);
                         callBack.getNewUser(user, commentList);
                     }
+                } else{
+                    callBack.getNewUser(user, commentList);
                 }
                 //callBack.getNewUser(user, commentList);
                 //callBack.getNewUser(user);
@@ -862,7 +864,7 @@ public class DataBaseUtil {
                     matchedUser.setPhone_number(user.child("Phone").getValue(String.class));
                     if (matchedUser.getImage()!=null){
                         matchedUser.setImage(user.child("Photo").getValue(Bitmap.class));
-                    };
+                    }
                     if (matchedUser.getName().contains(searchString)){
                         callBack.getMatchedUser(matchedUser);
                     }
