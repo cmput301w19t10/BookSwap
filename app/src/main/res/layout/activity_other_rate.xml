@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="772dp"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="11dp"
         app:layout_constraintBottom_toTopOf="@+id/tabs"
         app:layout_constraintEnd_toEndOf="parent"

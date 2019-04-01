@@ -30,6 +30,10 @@ import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOption
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Activity for the scanning of barcodes.
+ * returns a string of the isbn upon recognition of a barcode
+ */
 public class BarcodeScannerActivity extends AppCompatActivity {
 
     private static int REQUEST_CAMERA = 9001;
@@ -43,6 +47,10 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     private CameraSource myCameraSource = null;
 
 
+    /**
+     * on create, instantiates some needed variables and classes
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +74,9 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * creation of a camera source for the barcode scanner
+     */
     private void createCameraSource() {
 
         Log.d(TAG, "Camera source created");
@@ -91,6 +102,9 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         startCameraSource();
     }
 
+    /**
+     * start running the camera source for use
+     */
     private void startCameraSource(){
         int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
 
@@ -115,19 +129,29 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * asking for permission
+     * @param requestCode request code for camera permission
+     * @param permissions permissions granted via android
+     * @param grantResults results granted via android
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         camSourcePreview.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    // start camera
+    /**
+     * start camera
+     */
     @Override
     protected void onResume() {
         super.onResume();
         startCameraSource();
     }
 
-    // stop camera
+    /**
+     * stop camera
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -136,7 +160,9 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         }
     }
 
-    // release camera at end of activity
+    /**
+     * release camera so other activities can use.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -145,15 +171,11 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("HandlerLeak")
-    private final Handler myHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg){
-            if (camSourcePreview != null) createCameraSource();
-        }
-    };
 
-
+    /**
+     * listener for barcode result. Finishes activity and passes intent with ISBN back
+     * @return
+     */
     public BarcodeScanningProcessor.BarcodeResultListener getBarcodeResultListener(){
         return new BarcodeScanningProcessor.BarcodeResultListener() {
             @Override

@@ -34,7 +34,6 @@ public class SelfProfileFragment extends Fragment{
     TextView phoneNumber;
     DataBaseUtil u;
     Intent intent;
-    private String util_name;
 
     /**
      *
@@ -47,12 +46,7 @@ public class SelfProfileFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_self_profile, container, false);
-        Intent passed_intent = getActivity().getIntent();
-        util_name = passed_intent.getStringExtra("name");
-        if (util_name == null) {
-            util_name = "Bowen";
-        }
-        u = new DataBaseUtil(util_name);
+        u = new DataBaseUtil(MyUser.getInstance().getName());
 
 
         View self_include = view.findViewById(R.id.self_include);
@@ -99,7 +93,7 @@ public class SelfProfileFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        u = new DataBaseUtil(util_name);
+        u = new DataBaseUtil(MyUser.getInstance().getName());
         u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
             @Override
             public void getNewUser(User user, List<Review> commentList) {

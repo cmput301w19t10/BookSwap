@@ -48,13 +48,6 @@
         <activity android:name=".EditProfileActivity"
             android:launchMode="singleTask"
             android:theme="@style/noActionBar"/>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".BAcceptActivity" />
         <activity android:name=".ORequestedActivity" />
         <activity android:name=".ORequestedUserActivity" />
@@ -68,7 +61,13 @@
             android:launchMode="singleTask"/>
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".BRequestActivity" />
         <activity android:name=".OwnerNotificationActivity" />
         <activity android:name=".ORequestedBooksActivity" />

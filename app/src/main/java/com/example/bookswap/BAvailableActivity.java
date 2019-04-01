@@ -73,7 +73,7 @@ public class BAvailableActivity extends AppCompatActivity {
                 // adapter.getFilter().filter(newText);
                 ava_book.clear();
                 // Log.i("HHHHH","HHHHH" + newText);
-                MyUser myUser = MyUser.getInstance();
+                User myUser = MyUser.getInstance();
                 u = new DataBaseUtil(myUser.getName());
                 u.searchBook(newText ,new DataBaseUtil.getNewBook() {
                     @Override
@@ -110,7 +110,7 @@ public class BAvailableActivity extends AppCompatActivity {
 
         adapter = new BAvailableAdapter(this, ava_book);
 
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         //Log.d("fragment","noone");
         u.searchBook("" ,new DataBaseUtil.getNewBook() {

@@ -9,6 +9,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * activity that shows accepted books by the owner
+ * will link to view swap classes and eventually confirmation of a swap
+ */
 public class OAcceptedActivity extends AppCompatActivity {
     private ListView acceptedBooks;
     private ArrayList<Book> acp_book = new ArrayList<Book>();
@@ -31,7 +35,7 @@ public class OAcceptedActivity extends AppCompatActivity {
 
 
         adapter = new OAcceptedAdapter(this, acp_book);
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         DataBaseUtil u;
         u = new DataBaseUtil(myUser.getName());
         Log.d("fragment", "noone");

@@ -57,7 +57,7 @@ public class ORequestedUserActivity extends AppCompatActivity {
 
         adapter = new ORequestedUsersAdapter(this, book, userList);
 
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         u.getBookBorrower(book, new DataBaseUtil.getBorrowerList() {
             /**
@@ -119,7 +119,7 @@ public class ORequestedUserActivity extends AppCompatActivity {
         super.onRestart();
         userList.clear();
         adapter.notifyDataSetChanged();
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         u.getBookBorrower(book, new DataBaseUtil.getBorrowerList() {
             /**

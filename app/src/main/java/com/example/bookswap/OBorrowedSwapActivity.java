@@ -18,6 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import static android.icu.text.DisplayContext.LENGTH_SHORT;
 
+/**
+ * Activity to view a swap for the return of a book.
+ */
 public class OBorrowedSwapActivity extends AppCompatActivity {
 
     private TextView time;
@@ -61,7 +64,7 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
         tvBookInfo.setText(infoDisplay);
 
 
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
 //        Log.d("swappy",sw);
         u.getSwap(swapingBook,new DataBaseUtil.getSwapInfo(){

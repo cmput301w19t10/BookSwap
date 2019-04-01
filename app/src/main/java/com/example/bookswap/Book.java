@@ -54,6 +54,15 @@ public class Book implements Parcelable {
     }
 
 
+    /**
+     * contructor for book
+     * @param title book title
+     * @param author book author
+     * @param status status a book can be in, for the purpose of the app
+     * @param description description of the book, or its contents
+     * @param bmp depreciated, bitmap image of book
+     * @param owner name of the owner of the book
+     */
     public Book(String title, String author, String status, String description, Bitmap bmp,String owner){
         this.title = title;
         this.author = author;
@@ -78,6 +87,10 @@ public class Book implements Parcelable {
     }
 */
 
+    /**
+     * building from parcel for parcelable implementation
+     * @param parcel
+     */
     public Book(Parcel parcel){
         title = parcel.readString();
         author = parcel.readString();

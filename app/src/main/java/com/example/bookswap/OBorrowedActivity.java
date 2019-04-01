@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- *
+ * Activity to view books that are currently borrowed out by the owner
  */
 public class OBorrowedActivity extends AppCompatActivity {
     private ListView borrowedBooks;
@@ -31,6 +31,10 @@ public class OBorrowedActivity extends AppCompatActivity {
         borrowedBooks = (ListView)findViewById(R.id.OBB_listview);
         Intent intent = getIntent();
     }
+
+    /**
+     * refreshing view
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -39,7 +43,7 @@ public class OBorrowedActivity extends AppCompatActivity {
 
         adapter = new OBorrowedAdapter(this, bro_book, swapList);
 
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         Log.d("fragment","noone");
         u.getOwnerBook(new DataBaseUtil.getNewBook() {

@@ -52,13 +52,8 @@ public class HomeActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        MyUser myUser = MyUser.getInstance();
-        //TODO for test
-        if (myUser.getName() == null) {
-            myUser.setName("Bowen");
-        }
 
-        userName = myUser.getName();
+        userName = MyUser.getInstance().getName();
         u = new DataBaseUtil(userName);
 
 //        Notifications notifications = new Notifications();
@@ -132,8 +127,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification() {
-        MyUser myUser = MyUser.getInstance();
-        u = new DataBaseUtil(myUser.getName());
+
+        u = new DataBaseUtil(MyUser.getInstance().getName());
         u.checkNotification("Request", new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
@@ -151,8 +146,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification2() {
-        MyUser myUser = MyUser.getInstance();
-        u = new DataBaseUtil(myUser.getName());
+        u = new DataBaseUtil(MyUser.getInstance().getName());
         u.checkNotification("Borrow", new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
@@ -162,7 +156,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void sendOnChannel1() {
@@ -223,6 +216,8 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.logout: {
                 FirebaseAuth.getInstance().signOut();
+                Log.d("USERTAG", MyUser.getInstance().getName());
+                MyUser.destroy();
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 return true;
             }
@@ -230,7 +225,16 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.edit: {
-                startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
+                u = new DataBaseUtil(MyUser.getInstance().getName());
+                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
+                    @Override
+                    public void getNewUser(User user, List<Review> commentList) {
+                        Intent intent = new Intent(HomeActivity.this, EditProfileActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+                });
+
                 return true;
             }
             case R.id.review: {

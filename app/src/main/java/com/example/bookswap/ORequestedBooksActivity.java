@@ -8,6 +8,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * activity for the display of requested books from the owner
+ */
 public class ORequestedBooksActivity extends AppCompatActivity {
     private ListView requestedbooks;
     private ArrayList<Book> req_book = new ArrayList<Book>();

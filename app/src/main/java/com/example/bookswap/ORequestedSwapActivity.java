@@ -174,7 +174,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}
                     swapclass.setComment(stringcomment);
-                    MyUser myUser = MyUser.getInstance();
+                    User myUser = MyUser.getInstance();
                     u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
                     u.changeNotificationStatus("Borrow","True");

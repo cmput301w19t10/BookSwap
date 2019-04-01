@@ -16,6 +16,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * Activity that does the meetup location setting based on google maps api
+ * extended api is not used (searchbar) as it now requires billing information
+ */
 public class MapSelectActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private LatLng point = new LatLng(53.5,-113.5);
@@ -41,6 +45,10 @@ public class MapSelectActivity extends FragmentActivity implements OnMapReadyCal
         });
     }
 
+    /**
+     * on map ready, we can actually start using it
+     * @param map Googlemaps object for callback
+     */
     @Override
     public void onMapReady(GoogleMap map){
         final Marker meetup = map.addMarker(new MarkerOptions()

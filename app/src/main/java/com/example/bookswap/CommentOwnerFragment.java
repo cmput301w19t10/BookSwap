@@ -31,7 +31,6 @@ public class CommentOwnerFragment extends Fragment {
     private RecyclerView recyclerView;
     private ReviewAdapter adapter;
     private DataBaseUtil u;
-    private View include;
     private Float average_rating;
 
     /**
@@ -47,7 +46,7 @@ public class CommentOwnerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_owner_comment, container, false);
 
         userName = getArguments().getString("userName");
-        include = view.findViewById(R.id.review);
+        View include = view.findViewById(R.id.review);
         name = include.findViewById(R.id.name);
         rating = include.findViewById(R.id.ratingBar);
         image = include.findViewById(R.id.image);

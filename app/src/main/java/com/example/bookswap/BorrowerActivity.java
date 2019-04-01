@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 
 /**
- * the main interface for borrower
+ * unused activity, staged for removal
  */
 public class BorrowerActivity extends AppCompatActivity {
 //    private Button accepted;
@@ -24,7 +24,7 @@ public class BorrowerActivity extends AppCompatActivity {
         Button requested = (Button) findViewById(R.id.Borrower_requested_btn);
         Button available = (Button) findViewById(R.id.Borrower_available_btn);
         final TextView reddot = (TextView) findViewById(R.id.reddot);
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         DataBaseUtil u;
         u = new DataBaseUtil(myUser.getName());
         u.checkNotification("Request",new DataBaseUtil.getStatus(){

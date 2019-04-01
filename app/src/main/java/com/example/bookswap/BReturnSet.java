@@ -38,7 +38,7 @@ public class BReturnSet extends AppCompatActivity {
     private Book swapingBook;
     private static final int SET_MAP = 1;
     private DataBaseUtil u;
-/*
+/**
 set up the layout when created
  */
     @Override
@@ -177,7 +177,7 @@ set up the layout when created
                     if(stringcomment == null){stringcomment = " ";}
                     swapclass.setComment(stringcomment);
                     Log.d("swappy",swapingBook.getTitle() + " ");
-                    MyUser myUser = MyUser.getInstance();
+                    User myUser = MyUser.getInstance();
                     u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
                     u.changeSwapStatus(swapingBook,"Return",true);

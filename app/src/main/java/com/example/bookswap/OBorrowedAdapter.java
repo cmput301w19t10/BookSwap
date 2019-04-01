@@ -56,7 +56,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
         }
         final Book element = bro_booklist.get(position);
 
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         u.getSwap(element,new DataBaseUtil.getSwapInfo(){
             @Override

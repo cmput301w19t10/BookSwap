@@ -75,7 +75,7 @@ public class OAvailableActivity extends AppCompatActivity {
         //loadFromFile();
         adapter = new OAvailableAdapter(this, 0, availableList);
         oldAvailableList = findViewById(R.id.mainAvailableList);
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         util = new DataBaseUtil(myUser.getName());
         // adding book to database
         util.getOwnerBook(new DataBaseUtil.getNewBook() {

@@ -51,7 +51,7 @@ public class BAcceptActivity extends AppCompatActivity {
 //            Book book = getIntent().getParcelableExtra("Book");
 //            accept_list.add(book);
 //        } else{
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**

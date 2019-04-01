@@ -68,7 +68,7 @@ public class ORequestedActivity extends AppCompatActivity {
             display_listview.setAdapter(adapter);
 
         } else {
-            MyUser myUser = MyUser.getInstance();
+            User myUser = MyUser.getInstance();
             u = new DataBaseUtil(myUser.getName());
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
@@ -96,7 +96,7 @@ public class ORequestedActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 requestedList.clear();
-                MyUser myUser = MyUser.getInstance();
+                User myUser = MyUser.getInstance();
                 u = new DataBaseUtil(myUser.getName());
                 u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                     /**
@@ -169,7 +169,7 @@ public class ORequestedActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         requestedList.clear();
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         u.getBorrowerBook(new DataBaseUtil.getNewBook() {
             /**

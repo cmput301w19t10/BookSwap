@@ -58,8 +58,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
                 if (firebaseAuth.getCurrentUser() != null){
+                    MyUser.destroy();
+                    MyUser.getInstance().setName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
@@ -110,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void startSignIn(){
         name_or_email = user_name.getText().toString();
         password = user_password.getText().toString();
+
         sb_email = new StringBuilder();
         for (int i = 0; i < name_or_email.length(); i++) {
             char ch = name_or_email.charAt(i);
@@ -117,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 sb_email.append(ch);
             }
         }
-        Log.d("login", sb_email.toString());
+
 
         u = new DataBaseUtil();
         progress_bar.setVisibility(View.VISIBLE);
@@ -126,7 +128,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        Log.d("login", name_or_email + "   " + sb_email.toString());
 
 
         mAuth.signInWithEmailAndPassword(name_or_email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -136,13 +137,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     u.getNameByEmail(sb_email.toString(), new DataBaseUtil.getName() {
                         @Override
                         public void getName(String name) {
-                            MyUser myUser = MyUser.getInstance();
-                            myUser.setName(name);
+                            MyUser.getInstance().setName(name);
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         }
                     });
                 } else {
-                    Log.d("login", "email");
                     Toast.makeText(LoginActivity.this, "No such Account", Toast.LENGTH_LONG).show();
                 }
                 progress_bar.setVisibility(View.GONE);

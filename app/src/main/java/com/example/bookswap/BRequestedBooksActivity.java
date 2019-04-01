@@ -46,7 +46,7 @@ public class BRequestedBooksActivity extends AppCompatActivity {
 
         adapter = new BRequestedBooksAdapter(this, req_book);
 
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         u.getBorrowerBook(new DataBaseUtil.getNewBook(){
             @Override

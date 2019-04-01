@@ -72,7 +72,7 @@ public class OAcceptedSwapActivity extends AppCompatActivity {
         });
 
 
-        MyUser myUser = MyUser.getInstance();
+        User myUser = MyUser.getInstance();
         u = new DataBaseUtil(myUser.getName());
         u.getSwap(swapingBook, new DataBaseUtil.getSwapInfo() {
             @Override
