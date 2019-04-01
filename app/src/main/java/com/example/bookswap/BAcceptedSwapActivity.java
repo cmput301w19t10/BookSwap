@@ -72,7 +72,8 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         });
 
 
-        u = new DataBaseUtil("Bowen");
+        MyUser myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.getSwap(swapingBook, new DataBaseUtil.getSwapInfo() {
             @Override
             public void getSwapInfo(Swap swap) {

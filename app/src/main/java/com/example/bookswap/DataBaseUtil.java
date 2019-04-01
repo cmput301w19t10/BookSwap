@@ -709,9 +709,9 @@ public class DataBaseUtil {
                 swap.setTime(dataSnapshot.child("Swap").child("Time").getValue(String.class));
                 swap.setBorrower(dataSnapshot.child("FinalBorrower").getValue(String.class));
                 swap.setOwner(dataSnapshot.child("Owner").getValue(String.class));
-                if (dataSnapshot.hasChild("Location")) {
-                    double latitude = dataSnapshot.child(("Location")).child("latitude").getValue(double.class);
-                    double longitude = dataSnapshot.child(("Location")).child("longitude").getValue(double.class);
+                if (dataSnapshot.child("Swap").hasChild("Location")) {
+                    double latitude = dataSnapshot.child("Swap").child(("Location")).child("latitude").getValue(double.class);
+                    double longitude = dataSnapshot.child("Swap").child(("Location")).child("longitude").getValue(double.class);
                     LatLng point = new LatLng(latitude,longitude);
                     swap.setLocation(point);
                 }

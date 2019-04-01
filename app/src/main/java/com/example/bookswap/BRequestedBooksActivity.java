@@ -20,6 +20,7 @@ public class BRequestedBooksActivity extends AppCompatActivity {
     private ListView requestedbooks;
     private ArrayList<Book> req_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
+    private DataBaseUtil u;
     /**
      *
      * @param savedInstanceState
@@ -45,8 +46,8 @@ public class BRequestedBooksActivity extends AppCompatActivity {
 
         adapter = new BRequestedBooksAdapter(this, req_book);
 
-        DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        MyUser myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.getBorrowerBook(new DataBaseUtil.getNewBook(){
             @Override
             public void getNewBook(Book a){

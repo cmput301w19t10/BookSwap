@@ -33,6 +33,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private Book swapingBook;
     private static final int SET_MAP = 1;
     private String borrower;
+    private DataBaseUtil u;
 
     /**
      * create the activity
@@ -61,9 +62,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
 
         Intent intentbook = getIntent();
         swapingBook = intent.getParcelableExtra("book");
-//        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
-//        TODO remember to put it back
-        String infoDisplay = "testingforinfoDisplay";
+        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
         bookinfo.setText(infoDisplay);
 
@@ -175,7 +174,8 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}
                     swapclass.setComment(stringcomment);
-                    DataBaseUtil u = new DataBaseUtil("Bowen");
+                    MyUser myUser = MyUser.getInstance();
+                    u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
                     u.changeNotificationStatus("Borrow","True");
                     u.acceptAndDeleteOther(borrower, swapingBook);

@@ -37,7 +37,7 @@ public class BReturnSet extends AppCompatActivity {
     private TextView bookinfo;
     private Book swapingBook;
     private static final int SET_MAP = 1;
-
+    private DataBaseUtil u;
 /**
 set up the layout when created
  */
@@ -177,7 +177,8 @@ set up the layout when created
                     if(stringcomment == null){stringcomment = " ";}
                     swapclass.setComment(stringcomment);
                     Log.d("swappy",swapingBook.getTitle() + " ");
-                    DataBaseUtil u = new DataBaseUtil("Bowen");
+                    MyUser myUser = MyUser.getInstance();
+                    u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
                     u.changeSwapStatus(swapingBook,"Return",true);
 
