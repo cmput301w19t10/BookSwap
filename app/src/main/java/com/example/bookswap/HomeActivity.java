@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+
         userName = MyUser.getInstance().getName();
         u = new DataBaseUtil(userName);
 
@@ -126,8 +127,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification() {
-        final DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+
+        u = new DataBaseUtil(MyUser.getInstance().getName());
         u.checkNotification("Request", new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
@@ -145,8 +146,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification2() {
-        final DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        u = new DataBaseUtil(MyUser.getInstance().getName());
         u.checkNotification("Borrow", new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
@@ -156,7 +156,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void sendOnChannel1() {

@@ -30,7 +30,7 @@ public class BAvailableActivity extends AppCompatActivity {
     private ArrayList<Book> ava_book = new ArrayList<Book>();
     private ArrayAdapter<Book> adapter;
     // private BAvailableAdapter badapter;
-    DataBaseUtil u = new DataBaseUtil("Bowen");
+    DataBaseUtil u;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +73,8 @@ public class BAvailableActivity extends AppCompatActivity {
                 // adapter.getFilter().filter(newText);
                 ava_book.clear();
                 // Log.i("HHHHH","HHHHH" + newText);
+                User myUser = MyUser.getInstance();
+                u = new DataBaseUtil(myUser.getName());
                 u.searchBook(newText ,new DataBaseUtil.getNewBook() {
                     @Override
                     public void getNewBook(Book aBook) {
@@ -108,8 +110,8 @@ public class BAvailableActivity extends AppCompatActivity {
 
         adapter = new BAvailableAdapter(this, ava_book);
 
-        DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        User myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         //Log.d("fragment","noone");
         u.searchBook("" ,new DataBaseUtil.getNewBook() {
             @Override

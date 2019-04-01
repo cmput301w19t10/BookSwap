@@ -61,7 +61,8 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
         tvBookInfo.setText(infoDisplay);
 
 
-        u = new DataBaseUtil("Bowen");
+        User myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
 //        Log.d("swappy",sw);
         u.getSwap(swapingBook,new DataBaseUtil.getSwapInfo(){
             @Override
@@ -93,9 +94,12 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(OBorrowedSwapActivity.this, MapViewActivity.class);
             LatLng point = swapclass.getLocation();
+
             if (point == null){
+                Log.d("map111"," 000"+ swapclass.getLocation());
 //                Toast.makeText(getApplicationContext(), "Fatal error, improper location", LENGTH_SHORT).show();
             } else {
+                Log.d("map111"," "+ swapclass.getLocation());
                 intent.putExtra("point", point);
                 startActivity(intent);
             }

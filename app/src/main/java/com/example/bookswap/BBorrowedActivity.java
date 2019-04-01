@@ -51,7 +51,8 @@ public class BBorrowedActivity extends AppCompatActivity {
         bro_book.clear();
         swapList.clear();
         adapter = new BBorrowedAdapter(this, bro_book, swapList);
-        u = new DataBaseUtil("Bowen");
+        User myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         Log.d("fragment","noone");
         u.getBorrowerBook(new DataBaseUtil.getNewBook() {
             @Override

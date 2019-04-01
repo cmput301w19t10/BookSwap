@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import static android.content.Intent.getIntent;
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -111,10 +114,14 @@ public class ORequestedAdapter extends ArrayAdapter<Book> {
         });
 
 
-        if (element.getImage() != null) {
-            holder.bookcover.setImageBitmap(element.getImage());
+//        if (element.getImage() != null) {
+//            holder.bookcover.setImageBitmap(element.getImage());
+//        }
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(holder.bookcover);
         }
-
         return convertView;
     }
 

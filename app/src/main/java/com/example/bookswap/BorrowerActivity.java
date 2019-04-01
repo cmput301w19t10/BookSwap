@@ -24,8 +24,9 @@ public class BorrowerActivity extends AppCompatActivity {
         Button requested = (Button) findViewById(R.id.Borrower_requested_btn);
         Button available = (Button) findViewById(R.id.Borrower_available_btn);
         final TextView reddot = (TextView) findViewById(R.id.reddot);
+        User myUser = MyUser.getInstance();
         DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        u = new DataBaseUtil(myUser.getName());
         u.checkNotification("Request",new DataBaseUtil.getStatus(){
             @Override
             public void getStatus(String value){

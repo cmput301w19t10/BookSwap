@@ -166,19 +166,22 @@ public class EditBookActivity extends AppCompatActivity {
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
         ImageButton bView = findViewById(R.id.bookPhotoButton);
-        Book book = new Book();
+        if (book == null){
+            book = new Book();
+        }
         book.setTitle(title);
         book.setAuthor(author);
         book.setStatus(status);
         book.setDescription(description);
         book.setISBN(etISBN.getText().toString());
+
         if (book.getUnikey() == null) {
             book.setUnikey(UUID.randomUUID().toString());
         }
         if (imageUri != null) {
             fStorage.addImageUri(book, imageUri);
         }
-        DataBaseUtil u = new DataBaseUtil("no one");
+        DataBaseUtil u = new DataBaseUtil(MyUser.getInstance().getName());
         u.addNewBook(book);
 
 
@@ -209,6 +212,7 @@ public class EditBookActivity extends AppCompatActivity {
         etStatus = ((TextView)findViewById(R.id.etStatus));
         etDescription = ((EditText)findViewById(R.id.etDescription));
         imageButton = findViewById(R.id.bookPhotoButton);
+        etISBN = findViewById(R.id.etISBN);
     }
 
     /**
@@ -222,6 +226,7 @@ public class EditBookActivity extends AppCompatActivity {
         etAuthor.setText(String.valueOf(book.getAuthor()));
         etDescription.setText(String.valueOf(book.getDescription()));
         etStatus.setText("Available");
+        etISBN.setText(book.getISBN());
         //imageView.setImageBitmap(book.getImage());
         Picasso.get()
                 .load(book.getImageUrl())
@@ -235,7 +240,9 @@ public class EditBookActivity extends AppCompatActivity {
      * @return result of the check
      */
     private boolean isValid(){
-        if (TextUtils.isEmpty(etISBN.getText().toString()) || validISBN13()){
+        if (!(TextUtils.isEmpty(etISBN.getText().toString()) || validISBN13())){
+
+            Toast.makeText(this,"Invalid ISBN", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (TextUtils.isEmpty(etTitle.getText().toString())){
@@ -285,40 +292,9 @@ public class EditBookActivity extends AppCompatActivity {
     }
 
     // https://www.moreofless.co.uk/validate-isbn-13-java/
-    private boolean validISBN13(){
-        String isbn = etISBN.getText().toString();
-        if ( isbn == null ) {
-            return false;
-        }
-
-        //remove any hyphens
-        isbn = isbn.replaceAll( "-", "" );
-
-        //must be a 13 digit ISBN
-        if ( isbn.length() != 13 ) {
-            return false;
-        }
-
-        try
-        {
-            int tot = 0;
-            for ( int i = 0; i < 12; i++ ) {
-                int digit = Integer.parseInt( isbn.substring( i, i + 1 ) );
-                tot += (i % 2 == 0) ? digit * 1 : digit * 3;
-            }
-
-            //checksum must be 0-9. If calculated as 10 then = 0
-            int checksum = 10 - (tot % 10);
-            if ( checksum == 10 ) {
-                checksum = 0;
-            }
-
-            return checksum == Integer.parseInt( isbn.substring( 12 ) );
-        }
-        catch ( NumberFormatException nfe ) {
-            //to catch invalid ISBNs that have non-numeric characters in them
-            return false;
-        }
+    private boolean validISBN13() {
+        //removed bad checksum
+        return true;
     }
 
 

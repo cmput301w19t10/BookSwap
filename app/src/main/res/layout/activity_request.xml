@@ -78,10 +78,12 @@
 
     <TextView
         android:id="@+id/BR_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="281dp"
+        android:layout_height="20dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:gravity="left"
         android:text="Description:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BR_owner" />

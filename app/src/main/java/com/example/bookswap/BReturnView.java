@@ -71,7 +71,8 @@ public class BReturnView extends AppCompatActivity {
         tvBookInfo.setText(infoDisplay);
 
 
-        u = new DataBaseUtil("Bowen");
+        User myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.getSwap(swapingBook,new DataBaseUtil.getSwapInfo(){
             @Override
             public void getSwapInfo(Swap swap) {

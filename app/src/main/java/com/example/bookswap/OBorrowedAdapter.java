@@ -3,6 +3,8 @@ package com.example.bookswap;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +15,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+
 
 public class OBorrowedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> bro_booklist;
     private ArrayList<Boolean> swapList;
-    private int red = Color.RED;
-    private int green = Color.GREEN;
+    private int red = Color.GRAY;
+    private int green = Color.WHITE;
     private Swap swapclass;
     private OBorrowedAdapter.ViewHolder holder = null;
     private DataBaseUtil u;
@@ -51,7 +56,8 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
         }
         final Book element = bro_booklist.get(position);
 
-        u = new DataBaseUtil("Bowen");
+        User myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.getSwap(element,new DataBaseUtil.getSwapInfo(){
             @Override
             public void getSwapInfo(Swap swap) {
@@ -63,10 +69,11 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 
         if (position < swapList.size()) {
             if (swapList.get(position)) {
-                holder.confirmBtn.setBackgroundColor(green);
+                //holder.confirmBtn.setBackgroundColor(green);
             }
             else if (!swapList.get(position)) {
-                holder.confirmBtn.setBackgroundColor(red);
+                //holder.confirmBtn.sethe;
+                holder.confirmBtn.getBackground().setColorFilter(red, PorterDuff.Mode.MULTIPLY);
             }
         }
 //        if(swapclass != null){
@@ -98,14 +105,14 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
                 }
             }
         });
-        if (element.getImage() != null) {
-            holder.bookcover.setImageBitmap(element.getImage());
+        //if (element.getImage() != null) {
+            //holder.bookcover.setImageBitmap(element.getImage());
+        //}
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                .load(element.getImageUrl())
+                .into(holder.bookcover);
         }
-
-        //holder.bookcover.setImageBitmap(element.getImage());
-//        LayoutInflater inflater = LayoutInflater.from(getContext());
-//        View customView = inflater.inflate(R.layout.element_available2, parent, false);
-//
         return convertView;
     }
 

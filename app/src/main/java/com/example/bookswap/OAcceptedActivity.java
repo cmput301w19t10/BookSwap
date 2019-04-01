@@ -31,9 +31,9 @@ public class OAcceptedActivity extends AppCompatActivity {
 
 
         adapter = new OAcceptedAdapter(this, acp_book);
-
+        User myUser = MyUser.getInstance();
         DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        u = new DataBaseUtil(myUser.getName());
         Log.d("fragment", "noone");
         u.getOwnerBook(new DataBaseUtil.getNewBook() {
             @Override

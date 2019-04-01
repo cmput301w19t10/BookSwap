@@ -23,7 +23,11 @@ public class MyUser{
      */
     public static User getInstance() {
         if (instance == null){
-            instance = new User();
+            synchronized (MyUser.class){
+                if (instance == null) {
+                    instance = new User();
+                }
+            }
         }
         return instance;
     }

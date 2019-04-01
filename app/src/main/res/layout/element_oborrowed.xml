@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="1dp"
-    android:paddingBottom="1dp">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#99ffffff"
@@ -25,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="137dp"
+                android:layout_marginStart="102dp"
                 android:layout_marginTop="3dp"
                 android:text="Title"
                 android:textSize="18sp" />
@@ -37,13 +39,13 @@
                 android:layout_alignStart="@+id/OBB_title_textview"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="87dp"
+                android:layout_marginTop="64dp"
                 android:text="Author" />
 
             <ImageView
                 android:id="@+id/OBB_bookCover_imageview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="83dp"
+                android:layout_height="102dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="0dp"
@@ -52,12 +54,13 @@
 
             <Button
                 android:id="@+id/OBB_confirmBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="43dp"
-                android:layout_marginEnd="28dp"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="14dp"
+                android:gravity="center"
                 android:text="Swap" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

@@ -272,6 +272,8 @@ public class DataBaseUtil {
         UserDatabase.child(user.getName()).child("address").setValue(user.getAddress());
         UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
         UserDatabase.child(user.getName()).child("Phone").setValue(user.getPhone_number());
+        changeNotificationStatus("Borrow","False");
+        changeNotificationStatus("Request","False");
     }
 
 
@@ -582,7 +584,7 @@ public class DataBaseUtil {
                             book.setStatus(books.child("Status").getValue(String.class));
                             book.setTitle(books.child("Title").getValue(String.class));
                             book.setAuthor(books.child("Author").getValue(String.class));
-                            book.setImageUrl(dataSnapshot.child("Photo").getValue(String.class));
+                            book.setImageUrl(books.child("Photo").getValue(String.class));
                             book.setUnikey(books.child("UniKey").getValue(String.class));
                             callBack.getNewBook(book);
                         }
@@ -616,9 +618,7 @@ public class DataBaseUtil {
                     book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class))  ;
                     book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                    if (dataSnapshot.child("Book").child(key).child("Photo").hasChildren()) {
-                        book.setImage(dataSnapshot.child("Photo").getValue(Bitmap.class));
-                    }
+
                     callBack.getNewBook(book);
                 }
             }
@@ -697,9 +697,9 @@ public class DataBaseUtil {
                 swap.setTime(dataSnapshot.child("Swap").child("Time").getValue(String.class));
                 swap.setBorrower(dataSnapshot.child("FinalBorrower").getValue(String.class));
                 swap.setOwner(dataSnapshot.child("Owner").getValue(String.class));
-                if (dataSnapshot.hasChild("Location")) {
-                    double latitude = dataSnapshot.child(("Location")).child("latitude").getValue(double.class);
-                    double longitude = dataSnapshot.child(("Location")).child("longitude").getValue(double.class);
+                if (dataSnapshot.child("Swap").hasChild("Location")) {
+                    double latitude = dataSnapshot.child("Swap").child(("Location")).child("latitude").getValue(double.class);
+                    double longitude = dataSnapshot.child("Swap").child(("Location")).child("longitude").getValue(double.class);
                     LatLng point = new LatLng(latitude,longitude);
                     swap.setLocation(point);
                 }

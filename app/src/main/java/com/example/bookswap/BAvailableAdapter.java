@@ -10,6 +10,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -42,11 +44,11 @@ public class BAvailableAdapter extends ArrayAdapter<Book> implements Filterable 
 
         if (convertView == null) {
             holder = new BAvailableAdapter.ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available2, parent, false);
-            holder.title = (TextView) convertView.findViewById(R.id.BAB_title_textview);
-            holder.author = (TextView) convertView.findViewById(R.id.BAB_author_textview);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_available, parent, false);
+            holder.title = (TextView) convertView.findViewById(R.id.listTitle);
+            holder.author = (TextView) convertView.findViewById(R.id.listAuthor);
 
-            holder.bookcover = (ImageView) convertView.findViewById(R.id.BAB_bookCover_imageview);
+            holder.bookcover = (ImageView) convertView.findViewById(R.id.bookCover);
             convertView.setTag(holder);
         }
         else {
@@ -56,13 +58,13 @@ public class BAvailableAdapter extends ArrayAdapter<Book> implements Filterable 
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
-        if (element.getImage() != null) {
-            holder.bookcover.setImageBitmap(element.getImage());
+
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(holder.bookcover);
         }
-        //holder.bookcover.setImageBitmap(element.getImage());
-//        LayoutInflater inflater = LayoutInflater.from(getContext());
-//        View customView = inflater.inflate(R.layout.element_available2, parent, false);
-//
+
         return convertView;
     }
 
@@ -77,40 +79,6 @@ public class BAvailableAdapter extends ArrayAdapter<Book> implements Filterable 
         public ImageView bookcover;
     }
 
-//    @Override
-//    public Filter getFilter() {
-//        return BookFilter;
-//    }
-//
-//    private Filter BookFilter = new Filter() {
-//        @Override
-//        protected FilterResults performFiltering(CharSequence constraint) {
-//            ArrayList<Book> filterdList = new ArrayList<>();
-//            if(constraint == null|| constraint.length() == 0) {
-//                // No filter implemented we return all the list
-//                filterdList.addAll();
-//            } else {
-//                // We perform filtering operation
-//                String filterPattern = constraint.toString().toLowerCase().trim();
-//                for (Book book: ){
-//                    if(book.getTitle().toLowerCase().contains(filterPattern)){
-//                        filterdList.add(book);
-//
-//                    }
-//                }
-//            }
-//            FilterResults results = new FilterResults();
-//            results.values = filterdList;
-//            return results;
-//        }
-//
-//        @SuppressWarnings("unchecked")
-//        @Override
-//        protected void publishResults(CharSequence constraint, FilterResults results) {
-//            ava_booklist.clear();
-//            ArrayList<Book> myArr = (ArrayList<Book>)results.values;
-//            ava_booklist.addAll(myArr);
-//        }
-//    };
+
 }
 
