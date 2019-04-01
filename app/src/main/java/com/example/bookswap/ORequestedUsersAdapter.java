@@ -11,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -129,8 +132,10 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         });
 
 
-        if (book.getImage() != null) {
-            holder.bookcover.setImageBitmap(book.getImage());
+        if (book.getImageUrl()!= null){
+            Picasso.get()
+                    .load(book.getImageUrl())
+                    .into(holder.bookcover);
         }
 
         return convertView;

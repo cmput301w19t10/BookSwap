@@ -49,8 +49,11 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         Intent intent = getIntent();
         String utilName = intent.getStringExtra("name");
+        //TODO for test
         if (utilName == null) {
             userName = "Bowen";
+            MyUser myUser = MyUser.getInstance();
+            myUser.setName("Bowen");
         } else {
             userName = utilName;
         }

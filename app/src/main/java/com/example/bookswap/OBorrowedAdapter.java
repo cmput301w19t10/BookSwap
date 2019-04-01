@@ -13,13 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+
 
 public class OBorrowedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> bro_booklist;
     private ArrayList<Boolean> swapList;
-    private int red = Color.RED;
-    private int green = Color.GREEN;
+    private int red = Color.GRAY;
+//    private int green = Color.GREEN;
     private Swap swapclass;
     private OBorrowedAdapter.ViewHolder holder = null;
     private DataBaseUtil u;
@@ -63,7 +66,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 
         if (position < swapList.size()) {
             if (swapList.get(position)) {
-                holder.confirmBtn.setBackgroundColor(green);
+//                holder.confirmBtn.setBackgroundColor(green);
             }
             else if (!swapList.get(position)) {
                 holder.confirmBtn.setBackgroundColor(red);
@@ -98,14 +101,14 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
                 }
             }
         });
-        if (element.getImage() != null) {
-            holder.bookcover.setImageBitmap(element.getImage());
+        //if (element.getImage() != null) {
+            //holder.bookcover.setImageBitmap(element.getImage());
+        //}
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                .load(element.getImageUrl())
+                .into(holder.bookcover);
         }
-
-        //holder.bookcover.setImageBitmap(element.getImage());
-//        LayoutInflater inflater = LayoutInflater.from(getContext());
-//        View customView = inflater.inflate(R.layout.element_available2, parent, false);
-//
         return convertView;
     }
 
