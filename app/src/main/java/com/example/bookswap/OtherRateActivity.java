@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class OtherRateActivity extends AppCompatActivity {
     DataBaseUtil u = new DataBaseUtil();
     Review review;
     ViewPager viewPager;
+    private int reviewType;
 
     /**
      * create all views and button to add a comment
@@ -46,7 +48,7 @@ public class OtherRateActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         userName = intent.getStringExtra("userName");
-        int reviewType = intent.getIntExtra("review_type", 0);
+        reviewType = intent.getIntExtra("review_type", 0);
 
 
         Bundle bundle = new Bundle();
@@ -60,9 +62,17 @@ public class OtherRateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(OtherRateActivity.this, CommentActivity.class);
                 if (fragments.get(0) == adapter.getCurrentFragment() ){
-                    startActivityForResult(intent, 1);
+                    if (reviewType == 1) {
+                        startActivityForResult(intent, 1);
+                    } else {
+                        Toast.makeText(OtherRateActivity.this, "cannot review as onwer", Toast.LENGTH_SHORT).show();
+                    }
                 } else{
-                    startActivityForResult(intent, 2);
+                    if (reviewType == 2) {
+                        startActivityForResult(intent, 2);
+                    } else {
+                        Toast.makeText(OtherRateActivity.this, "cannot review as borrower", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
