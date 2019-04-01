@@ -93,6 +93,9 @@ public class SelfProfileFragment extends Fragment{
     }
     */
 
+    /**
+     * refresh fragment
+     */
     @Override
     public void onStart() {
         super.onStart();

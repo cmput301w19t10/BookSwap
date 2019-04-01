@@ -13,11 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookswap.barcode.BarcodeScannerActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
@@ -38,7 +40,10 @@ public class EditBookActivity extends AppCompatActivity {
     private EditText etDescription;
     private TextView etStatus;
     private ImageButton imageButton;
+    private EditText etISBN;
+    private Button scanButton;
     private static int BOOK_PHOTO_RESULT = 1;
+    private static int SCAN_ISBN = 2;
     private Intent intent;
     //private int index;
 
@@ -79,8 +84,18 @@ public class EditBookActivity extends AppCompatActivity {
             etTitle.setText(intent.getStringExtra("title"));
             etAuthor.setText(intent.getStringExtra("author"));
             etDescription.setText(intent.getStringExtra("description"));
+            etISBN.setText(intent.getStringExtra("ISBN"));
             etStatus.setText("Available");
         }
+
+        scanButton = findViewById(R.id.scanButton);
+        scanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditBookActivity.this, BarcodeScannerActivity.class);
+                startActivityForResult(intent, SCAN_ISBN);
+            }
+        });
 
 
     }
@@ -151,11 +166,12 @@ public class EditBookActivity extends AppCompatActivity {
         String status = etStatus.getText().toString();
         String description = etDescription.getText().toString();
         ImageButton bView = findViewById(R.id.bookPhotoButton);
-        Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setStatus(status);
         book.setDescription(description);
+        book.setISBN(etISBN.getText().toString());
+
         if (book.getUnikey() == null) {
             book.setUnikey(UUID.randomUUID().toString());
         }
@@ -193,6 +209,7 @@ public class EditBookActivity extends AppCompatActivity {
         etStatus = ((TextView)findViewById(R.id.etStatus));
         etDescription = ((EditText)findViewById(R.id.etDescription));
         imageButton = findViewById(R.id.bookPhotoButton);
+        etISBN = findViewById(R.id.etISBN);
     }
 
     /**
@@ -206,6 +223,7 @@ public class EditBookActivity extends AppCompatActivity {
         etAuthor.setText(String.valueOf(book.getAuthor()));
         etDescription.setText(String.valueOf(book.getDescription()));
         etStatus.setText("Available");
+        etISBN.setText(book.getISBN());
         //imageView.setImageBitmap(book.getImage());
         Picasso.get()
                 .load(book.getImageUrl())
@@ -219,6 +237,11 @@ public class EditBookActivity extends AppCompatActivity {
      * @return result of the check
      */
     private boolean isValid(){
+        if (!TextUtils.isEmpty(etISBN.getText().toString()) || validISBN13()){
+
+            Toast.makeText(this,"Invalid ISBN", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (TextUtils.isEmpty(etTitle.getText().toString())){
             return false;
         } else if (TextUtils.isEmpty(etAuthor.getText().toString())){
@@ -236,24 +259,69 @@ public class EditBookActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
+        if (reqCode == BOOK_PHOTO_RESULT) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    ImageButton photo = findViewById(R.id.bookPhotoButton);
+                    //placeholder, change in future
+                    selectedImage = Bitmap.createScaledBitmap(selectedImage, 300, 500, false);
+                    photo.setImageBitmap(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(EditBookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
 
+            } else {
+                Toast.makeText(EditBookActivity.this, "You haven't picked Image", Toast.LENGTH_LONG).show();
+            }
+        } else if (reqCode == SCAN_ISBN) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    etISBN.setText(data.getStringExtra("ISBN"));
+                } catch (Exception e) {
+                    Toast.makeText(EditBookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 
-        if (resultCode == RESULT_OK) {
-            try {
-                imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                ImageButton photo = findViewById(R.id.bookPhotoButton);
-                //placeholder, change in future
-                selectedImage = Bitmap.createScaledBitmap(selectedImage, 300,500,false);
-                photo.setImageBitmap(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(EditBookActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+    // https://www.moreofless.co.uk/validate-isbn-13-java/
+    private boolean validISBN13(){
+        String isbn = etISBN.getText().toString();
+        if ( isbn == null ) {
+            return false;
+        }
+
+        //remove any hyphens
+        isbn = isbn.replaceAll( "-", "" );
+
+        //must be a 13 digit ISBN
+        if ( isbn.length() != 13 ) {
+            return false;
+        }
+
+        try
+        {
+            int tot = 0;
+            for ( int i = 0; i < 12; i++ ) {
+                int digit = Integer.parseInt( isbn.substring( i, i + 1 ) );
+                tot += (i % 2 == 0) ? digit * 1 : digit * 3;
             }
 
-        }else {
-            Toast.makeText(EditBookActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+            //checksum must be 0-9. If calculated as 10 then = 0
+            int checksum = 10 - (tot % 10);
+            if ( checksum == 10 ) {
+                checksum = 0;
+            }
+
+            return checksum == Integer.parseInt( isbn.substring( 12 ) );
+        }
+        catch ( NumberFormatException nfe ) {
+            //to catch invalid ISBNs that have non-numeric characters in them
+            return false;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.bookswap;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +29,8 @@ public class ViewBookActivity extends AppCompatActivity {
     private TextView vAuthor;
     private TextView vDescription;
     private TextView vStatus;
-    private ImageView imageView;
+    private TextView tvISBN;
+    private ImageButton imageButton;
     private static int BOOK_PHOTO_RESULT = 1;
 
     private Book book;
@@ -38,14 +41,23 @@ public class ViewBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_book);
-        ImageView photo = findViewById(R.id.bookCover);
         // TODO: view image as larger size
-        photo.setOnClickListener(new View.OnClickListener(){
+        imageButton = findViewById(R.id.bookCover);
+        imageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, BOOK_PHOTO_RESULT);
+                if (book.getImageUrl() != null) {
+                    final Dialog d = new Dialog(getApplicationContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                    d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    d.setCancelable(true);
+                    d.setContentView(R.layout.fullscreen_image);
+                    ImageView imageView = d.findViewById(R.id.fs_image);
+                    Picasso.get()
+                            .load(book.getImageUrl())
+                            .into(imageView);
+                    d.show();
+                }
+
             }
         });
         Intent intent = getIntent();
@@ -64,7 +76,9 @@ public class ViewBookActivity extends AppCompatActivity {
         vStatus = ((TextView)findViewById(R.id.vStatus));
         vDescription = ((TextView)findViewById(R.id.vdescription));
         vDescription.setMovementMethod(new ScrollingMovementMethod());
-        imageView = ((ImageView)findViewById(R.id.bookCover));
+        imageButton = ((ImageButton)findViewById(R.id.bookCover));
+        tvISBN = findViewById(R.id.tvISBN);
+
     }
 
     /**
@@ -78,11 +92,13 @@ public class ViewBookActivity extends AppCompatActivity {
         vAuthor.setText(String.valueOf(book.getAuthor()));
         vDescription.setText(String.valueOf(book.getDescription()));
         vStatus.setText(String.valueOf(book.getStatus()));
+        String isbnText = "ISBN: " + String.valueOf(book.getISBN());
+        tvISBN.setText(isbnText);
         //imageView.setImageBitmap(book.getImage());
 
         Picasso.get()
                 .load(book.getImageUrl())
-                .into(imageView);
+                .into(imageButton);
 
 
     }

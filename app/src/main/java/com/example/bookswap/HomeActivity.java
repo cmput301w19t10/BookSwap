@@ -38,6 +38,10 @@ public class HomeActivity extends AppCompatActivity {
     private String userName;
     private DataBaseUtil u;
 
+    /**
+     * create all fragments and get current user namd, set notification
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +51,14 @@ public class HomeActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        Intent intent = getIntent();
-        String utilName = intent.getStringExtra("name");
+
+        MyUser myUser = MyUser.getInstance();
         //TODO for test
-        if (utilName == null) {
-            userName = "Bowen";
-            MyUser myUser = MyUser.getInstance();
+        if (myUser.getName() == null) {
             myUser.setName("Bowen");
-        } else {
-            userName = utilName;
         }
+
+        userName = myUser.getName();
         u = new DataBaseUtil(userName);
 
 //        Notifications notifications = new Notifications();
@@ -81,6 +83,9 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * check notification and check if user does not logged in
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -180,6 +185,10 @@ public class HomeActivity extends AppCompatActivity {
         notificationManager.notify(2, notification);
     }
 
+    /**
+     * if there is a user logged in, could get out of app by pressing back button
+     * would not return to login interface
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -192,6 +201,11 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * create a menu for logout and review, edit self profile
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -199,6 +213,11 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * set actions for press different item on menu
+     * @param item item on menu
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -211,20 +230,11 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.edit: {
-                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
-                    @Override
-                    public void getNewUser(User user, List<Review> commentList) {
-                        Intent intent = new Intent(HomeActivity.this, EditProfileActivity.class);
-                        intent.putExtra("user", user);
-                        startActivity(intent);
-                    }
-                });
+                startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
                 return true;
             }
             case R.id.review: {
-                Intent intent = new Intent(HomeActivity.this, SelfRateActivity.class);
-                intent.putExtra("userName", userName);
-                startActivity(intent);
+                startActivity(new Intent(HomeActivity.this, SelfRateActivity.class));
                 return true;
             }
             default:

@@ -55,6 +55,9 @@ public class CommentBorrowerFragment extends Fragment {
         return view;
     }
 
+    /**
+     * refresh all views
+     */
     @Override
     public void onStart() {
         super.onStart();
