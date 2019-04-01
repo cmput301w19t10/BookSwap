@@ -9,6 +9,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+/**
+ * Notification processing
+ */
 public class Notifications extends Application {
     public static final String CHANNEL_1_ID = "new_request";
     public static final String CHANNEL_2_ID = "new_accept";
@@ -20,6 +23,10 @@ public class Notifications extends Application {
 
 
     }
+
+    /**
+     * generation of notifications to users.
+     */
     private void createNotificationChannels(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel1 = new NotificationChannel(

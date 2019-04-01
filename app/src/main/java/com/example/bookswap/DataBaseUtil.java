@@ -233,7 +233,7 @@ public class DataBaseUtil {
         //TODO
 //        FireStorage fStore = new FireStorage();
         //fStore.addImageUri(book, );
-        //BookDatabase.child(BookKey).child("Photo").setValue(image);
+        //BookDatabase.child(BookKey).child("").setValue(image);
     }
 
     /**
@@ -670,10 +670,19 @@ public class DataBaseUtil {
         BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Comment").setValue(swap.getComment());
     }
 
+    /**
+     * adds a time to a swap activity in database
+     * @param book book of swap activity
+     * @param swap swap object
+     */
     private void addTime(Book book, Swap swap){
         BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Time").setValue(swap.getTime());
     }
 
+    /**
+     * adds a meeting location of a swap activity into database
+     * @param swap swap object
+     */
     private void addLocation(Swap swap){
         BookDatabase.child(swap.getBook().getUnikey()).child("Swap").child("Location").setValue(swap.getLocation());
     }
@@ -687,6 +696,11 @@ public class DataBaseUtil {
         void getSwapInfo(Swap swap);
     }
 
+    /**
+     *
+     * @param book book to retrieve swap information for
+     * @param callBack firebase callback
+     */
     public void getSwap(Book book,final getSwapInfo callBack){
         BookDatabase.child(book.getUnikey()).addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
@@ -730,6 +744,11 @@ public class DataBaseUtil {
     }
 
 
+    /**
+     * Checks the status of a book for 2 person confirmation
+     * @param book book to check status of
+     * @param callBack callback object from firebase
+     */
     public void checkSwapStatus(final Book book, final swapStatus callBack){
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -751,10 +770,16 @@ public class DataBaseUtil {
         });
     }
 
+
     public interface returnStatus{
         void getReturnStatus(Boolean value);
     }
 
+    /**
+     * gets the status of a returned book, since the borrower can have the book for extended periods of time
+     * @param book book to check status of
+     * @param callBack firebase callback
+     */
     public void getReturnstatus(final Book book, final returnStatus callBack){
         BookDatabase.child(book.getUnikey()).child("Swap").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -21,6 +21,9 @@ import com.squareup.picasso.Picasso;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+/**
+ * Activity to display information on a singular book
+ */
 public class ViewBookActivity extends AppCompatActivity {
 
     private static final String FILENAME = "AvailableBooks.sav";

@@ -38,7 +38,7 @@ public class BReturnSet extends AppCompatActivity {
     private Book swapingBook;
     private static final int SET_MAP = 1;
     private DataBaseUtil u;
-/*
+/**
 set up the layout when created
  */
     @Override

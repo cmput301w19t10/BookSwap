@@ -18,6 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * Activity to view a meetup location on a map
+ */
 public class MapViewActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private LatLng point;
@@ -38,6 +41,10 @@ public class MapViewActivity extends FragmentActivity implements OnMapReadyCallb
         ;
     }
 
+    /**
+     * on map ready, we can use it and display it
+     * @param map google map object
+     */
     @Override
     public void onMapReady(GoogleMap map){
         final Marker meetup = map.addMarker(new MarkerOptions()

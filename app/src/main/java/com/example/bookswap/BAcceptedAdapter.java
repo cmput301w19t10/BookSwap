@@ -98,9 +98,10 @@ public class BAcceptedAdapter extends ArrayAdapter<Book> {
 
 
         if (element.getImageUrl()!= null){
-                 Picasso.get()
-                         .load(element.getImageUrl())
-                         .into(holder.bookcover);
+            Log.d("img","not null");
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(holder.bookcover);
             }
 
 

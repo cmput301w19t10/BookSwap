@@ -17,6 +17,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * firestorage clase for the storage of images into firebase seperately
+ */
 public class FireStorage {
 
     private StorageReference storageRef;
@@ -25,12 +28,20 @@ public class FireStorage {
 
     public static final String storage_path = "image/";
 
+    /**
+     * constructor, sets up some initial instances needed
+     */
     public FireStorage(){
         storageRef = FirebaseStorage.getInstance().getReference("Photo");
         BookDatabase = FirebaseDatabase.getInstance().getReference("Book");
     }
 
 
+    /**
+     * adds in a image based on image uri
+     * @param book book to add image to
+     * @param uri uri of the image.
+     */
     public void addImageUri(final Book book, Uri uri) {
         storageRef.child(storage_path + book.getUnikey()).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
