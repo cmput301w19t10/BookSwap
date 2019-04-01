@@ -87,7 +87,7 @@ public class BRequestActivity extends AppCompatActivity {
                     public void addNewBorrower(boolean value) {
                         if (value) {
                             Toast.makeText(BRequestActivity.this, "Request Successful", Toast.LENGTH_LONG).show();
-                            u.changeNotificationStatus("Request","True");
+                            u.changeNotificationStatus(book.getOwner(),"Request","True");
                             u.changeStatus(book,"Requested");
                             onBackPressed();
                         } else {

@@ -272,8 +272,8 @@ public class DataBaseUtil {
         UserDatabase.child(user.getName()).child("Address").setValue(user.getAddress());
         UserDatabase.child(user.getName()).child("Email").setValue(user.getEmail());
         UserDatabase.child(user.getName()).child("Phone").setValue(user.getPhone_number());
-        changeNotificationStatus("Borrow","False");
-        changeNotificationStatus("Request","False");
+        changeNotificationStatus(userName,"Borrow","False");
+        changeNotificationStatus(userName,"Request","False");
     }
 
 
@@ -564,8 +564,8 @@ public class DataBaseUtil {
      * @param part
      * @param status
      */
-    public void changeNotificationStatus(String part, String status){
-        UserDatabase.child(userName).child("Notification").child(part).setValue(status);
+    public void changeNotificationStatus(String name,String part, String status){
+        UserDatabase.child(name).child("Notification").child(part).setValue(status);
     }
 
     /**
