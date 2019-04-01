@@ -12,6 +12,8 @@
     <string name="button_c">Requested</string>
     <string name="button_d">Borrowed</string>
     <string name="search_hint">Find a book</string>
+
+    <string name="AVAILABLE">Available</string>
     <string name="accepted">Accepted</string>
 
 
