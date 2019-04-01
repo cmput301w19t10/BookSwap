@@ -75,12 +75,4 @@ public class EditProfileActivity extends AppCompatActivity {
 
         return true;
     }
-
-    /**
-     * when pressing the back button, the edited profile is not saved
-     */
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }
