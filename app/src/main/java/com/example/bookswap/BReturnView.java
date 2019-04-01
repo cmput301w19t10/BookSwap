@@ -19,7 +19,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Calendar;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class BReturnView extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class BReturnView extends AppCompatActivity {
     private Book swapingBook;
     private DataBaseUtil u;
     private Handler handler;
+    private Button locationBut;
 
 
     @Override
@@ -50,6 +55,7 @@ public class BReturnView extends AppCompatActivity {
         TextView tvBookInfo = (TextView) findViewById(R.id.bookInfo);
         comment = (TextView) findViewById(R.id.comment_text) ;
         confirm = (Button) findViewById(R.id.confirm);
+        locationBut = (Button) findViewById(R.id.locationButton);
 
         Intent intent = getIntent();
         swapingBook = intent.getParcelableExtra("book");
@@ -80,6 +86,22 @@ public class BReturnView extends AppCompatActivity {
 
             }
         });
+
+
+        locationBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BReturnView.this, MapViewActivity.class);
+                LatLng point = swapclass.getLocation();
+                if (point == null){
+                    Toast.makeText(getApplicationContext(), "Fatal error, improper location", LENGTH_SHORT).show();
+                } else {
+                    intent.putExtra("point", point);
+                    startActivity(intent);
+                }
+            }
+        });
+
 
 
     }

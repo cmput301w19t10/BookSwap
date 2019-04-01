@@ -49,7 +49,7 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
         TextView tvBookInfo = (TextView) findViewById(R.id.bookInfo);
-        comment = (TextView) findViewById(R.id.comment_text_o) ;
+        comment = (TextView) findViewById(R.id.comment_text) ;
         confirm = (Button) findViewById(R.id.confirm);
         locationBut = (Button) findViewById(R.id.locationButton);
 

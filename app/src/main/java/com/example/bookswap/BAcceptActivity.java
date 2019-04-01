@@ -159,6 +159,7 @@ public class BAcceptActivity extends AppCompatActivity {
                 if (a.getStatus().equals("Accepted")) {
                     accept_list.add(a);
                 }
+                adapter = new BAcceptedAdapter(BAcceptActivity.this, 0, accept_list);
                 display_listview.setAdapter(adapter);
             }
         });
