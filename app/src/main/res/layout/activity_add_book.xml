@@ -117,8 +117,12 @@
         android:id="@+id/bookPhotoButton"
         android:layout_width="88dp"
         android:layout_height="132dp"
+        android:maxWidth="90dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:background="#00000000"
+        android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />

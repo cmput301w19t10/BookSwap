@@ -69,6 +69,8 @@ public class OAvailableAdapter extends ArrayAdapter<Book> {
             Picasso.get()
                     .load(element.getImageUrl())
                     .into(bookcover);
+        } else {
+            bookcover.setImageResource(android.R.color.transparent);
         }
         return convertView;
     }
