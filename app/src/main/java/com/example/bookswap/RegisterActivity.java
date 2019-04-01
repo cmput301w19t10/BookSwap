@@ -100,9 +100,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    u = new DataBaseUtil();
+                    //u = new DataBaseUtil();
 
                     User user = new User(name, "", email, "", Integer.toString(password.hashCode()));
+                    u = new DataBaseUtil(user.getName());
                     u.addNewUser(user);
 
                     StringBuilder sb_email = new StringBuilder();

@@ -268,9 +268,9 @@ public class DataBaseUtil {
      *  addPassword TODO
      */
     public void addNewUser (User user){
-        UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
-        UserDatabase.child(user.getName()).child("address").setValue(user.getAddress());
-        UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
+        UserDatabase.child(user.getName()).child("Password").setValue(user.getPassword());
+        UserDatabase.child(user.getName()).child("Address").setValue(user.getAddress());
+        UserDatabase.child(user.getName()).child("Email").setValue(user.getEmail());
         UserDatabase.child(user.getName()).child("Phone").setValue(user.getPhone_number());
         changeNotificationStatus("Borrow","False");
         changeNotificationStatus("Request","False");
@@ -307,6 +307,8 @@ public class DataBaseUtil {
                         commentList.add(oneReview);
                         callBack.getNewUser(user, commentList);
                     }
+                } else{
+                    callBack.getNewUser(user, commentList);
                 }
                 //callBack.getNewUser(user, commentList);
                 //callBack.getNewUser(user);
@@ -826,6 +828,7 @@ public class DataBaseUtil {
                     book.setISBN(dataSnapshot.child(bookKey.getKey()).child("ISBN").getValue(String.class));
                     book.setImageUrl(dataSnapshot.child(bookKey.getKey()).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child(bookKey.getKey()).child("UniKey").getValue(String.class));
+                    book.setOwner(dataSnapshot.child(bookKey.getKey()).child("Owner").getValue(String.class));
                     if (dataSnapshot.child(bookKey.getKey()).child("Title").getValue(String.class).contains(searchString)){
                         callBack.getNewBook(book);
                     }
@@ -861,7 +864,7 @@ public class DataBaseUtil {
                     matchedUser.setPhone_number(user.child("Phone").getValue(String.class));
                     if (matchedUser.getImage()!=null){
                         matchedUser.setImage(user.child("Photo").getValue(Bitmap.class));
-                    };
+                    }
                     if (matchedUser.getName().contains(searchString)){
                         callBack.getMatchedUser(matchedUser);
                     }

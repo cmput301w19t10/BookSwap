@@ -68,19 +68,22 @@ public class CommentBorrowerFragment extends Fragment {
         u.getOwnerUser("Borrower", new DataBaseUtil.getUserInfo(){
             @Override
             public void getNewUser(User user, List<Review> commentList){
-                adapter = new ReviewAdapter(commentList);
-                recyclerView.setAdapter(adapter);
-                average_rating = 0f;
-                for (int i=0; i<commentList.size(); i++){
-                    Review review = commentList.get(i);
-                    average_rating += Float.parseFloat(review.getRating());
+                if (commentList != null) {
+                    adapter = new ReviewAdapter(commentList);
+                    recyclerView.setAdapter(adapter);
+                    average_rating = 0f;
+                    for (int i = 0; i < commentList.size(); i++) {
+                        Review review = commentList.get(i);
+                        average_rating += Float.parseFloat(review.getRating());
+                    }
+                    average_rating /= commentList.size();
+                    rating.setRating(average_rating);
                 }
-                average_rating /= commentList.size();
-                rating.setRating(average_rating);
 
             }
         });
 
         name.setText(userName);
     }
+
 }

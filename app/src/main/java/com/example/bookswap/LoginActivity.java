@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
 
-
+        //MyUser.destroy();
         mAuth.signInWithEmailAndPassword(name_or_email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -138,7 +138,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void getName(String name) {
                             MyUser.getInstance().setName(name);
+                            Log.d("login22", MyUser.getInstance().getName());
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            Log.d("def in","juedui jin le home");
                         }
                     });
                 } else {
