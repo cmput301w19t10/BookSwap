@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
         userName = MyUser.getInstance().getName();
-        u = new DataBaseUtil(userName);
 
 //        Notifications notifications = new Notifications();
 //        timer.schedule(new notifications.checkNotification(), 0, 5000);
@@ -84,12 +83,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        checkNotification();
-        timer();
+        //checkNotification();
+        //timer();
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null && !userName.equals("Bowen")) {
-            finish();
+        if (user == null) {
+            this.finish();
         }
 
     }

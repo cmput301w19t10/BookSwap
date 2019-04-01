@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_image" />
+        app:srcCompat="@drawable/profile" />
 
     <EditText
         android:id="@+id/edit_phoneNumber"

@@ -10,13 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
 
 /**
  * activity for user to register a new account with email and password
@@ -28,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText user_password;
     private EditText user_confirmpassword;
     private ProgressBar progress_bar;
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mAuth;
     Button button_register;
     private String email;
     private String password;
@@ -55,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         user_confirmpassword = findViewById(R.id.user_confirmpassword);
         progress_bar = findViewById(R.id.progressBar);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -89,10 +92,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         button_register.setVisibility(View.GONE);
         Log.d("register", email);
         Log.d("register", password);
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        if (mAuth.getCurrentUser() != null){
+            mAuth.signOut();
+        }
+
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    u = new DataBaseUtil();
+
                     User user = new User(name, "", email, "", Integer.toString(password.hashCode()));
                     u.addNewUser(user);
 
@@ -106,7 +115,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     u.connectUserAndEmail(sb_email.toString(), name);
 
                     Toast.makeText(RegisterActivity.this, "register successfully", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    MyUser.getInstance().setName(name);
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                 }else{
                     Toast.makeText(RegisterActivity.this, "Could not register. Please try again", Toast.LENGTH_LONG).show();
                 }
