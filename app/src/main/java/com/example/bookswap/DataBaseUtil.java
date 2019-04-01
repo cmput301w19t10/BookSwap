@@ -826,6 +826,7 @@ public class DataBaseUtil {
                     book.setISBN(dataSnapshot.child(bookKey.getKey()).child("ISBN").getValue(String.class));
                     book.setImageUrl(dataSnapshot.child(bookKey.getKey()).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child(bookKey.getKey()).child("UniKey").getValue(String.class));
+                    book.setOwner(dataSnapshot.child(bookKey.getKey()).child("Owner").getValue(String.class));
                     if (dataSnapshot.child(bookKey.getKey()).child("Title").getValue(String.class).contains(searchString)){
                         callBack.getNewBook(book);
                     }
