@@ -24,15 +24,16 @@ public class User implements Parcelable {
     private String password;
     private List<Review> owner_reviews = new ArrayList<>();
     private List<Review> borrower_reviews = new ArrayList<>();
+    //private static volatile User user_instance;
 
 
     /**
-     *
      * @param name name
      * @param phone_number phone number
      * @param email email
      * @param address address
      */
+
     public User(String name, String phone_number, String email, String address, String password){
         this.name = name;
         this.phone_number = phone_number;
@@ -42,9 +43,28 @@ public class User implements Parcelable {
     }
 
     /**
-     *
+     * get singleton instance for user
+     * @return
      */
-    public User(){}
+    /*
+    public static synchronized  User getInstance(){
+        if (user_instance == null){
+            synchronized (User.class) {
+                if (user_instance == null) {
+                    user_instance = new User();
+                }
+            }
+        }
+
+        return user_instance;
+    }
+    */
+    /**
+     * create a user instance
+     */
+    public User(){
+
+    }
 
     /**
      * get name

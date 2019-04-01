@@ -21,11 +21,9 @@ import java.util.List;
 /**
  * User adapter for recycler view
  */
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> implements Filterable {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
     private List<User> userList;
-    private List<User> userListFull;
-
     /**
      * viewholder for all views related to user
      */
@@ -54,7 +52,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
      */
     public UserAdapter(List<User> userList){
         this.userList = userList;
-        this.userListFull = new ArrayList<>(userList);
+    }
+
+    public void addUser(User user){
+        userList.add(user);
     }
 
     /**
@@ -63,6 +64,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
      */
     @Override
     public int getItemCount() {
+        if (userList == null) return 0;
         return userList.size();
     }
 
@@ -79,6 +81,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_item, viewGroup, false);
         final ViewHolder holder = new ViewHolder(view);
         holder.userView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
@@ -107,46 +110,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         holder.userAddress.setText(user.getAddress());
     }
 
-    /**
-     * return a user filter
-     * @return Filter
-     */
-    @Override
-    public Filter getFilter() {
-        return UserFilter;
-    }
 
-    /**
-     * create a user filter
-     * performing filtering by check the typed word to user name
-     * put filtered list to userList
-     */
-    private Filter UserFilter = new Filter() {
-        @Override
-
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<User> filteredList = new ArrayList<>();
-            if (constraint == null || constraint.length() == 0){
-                filteredList.addAll(userListFull);
-            } else{
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (User user: userListFull){
-                    if(user.getName().toLowerCase().contains(filterPattern)){
-                        filteredList.add(user);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            userList.clear();
-            userList.addAll(((List<User>)results.values));
-        }
-    };
 }

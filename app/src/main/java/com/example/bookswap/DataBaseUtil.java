@@ -265,7 +265,7 @@ public class DataBaseUtil {
      *  addPassword TODO
      */
     public void addNewUser (User user){
-        //UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
+        UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
         UserDatabase.child(user.getName()).child("address").setValue(user.getAddress());
         UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
         UserDatabase.child(user.getName()).child("phone").setValue(user.getPhone_number());
@@ -295,13 +295,14 @@ public class DataBaseUtil {
                 getAddress = (String) dataSnapshot.child("Address").getValue(String.class);
                 getPhone = (String) dataSnapshot.child("Phone").getValue(String.class);
                 User user = new User(userName,getPhone,getEmail,getAddress,getPassword);
-
-                for (DataSnapshot review: dataSnapshot.child("Review").child(part).getChildren()){
-                    String rating = review.getValue(String.class);
-                    String comment =  review.getKey();
-                    Review oneReview = new Review(comment,rating);
-                    commentList.add(oneReview);
-                    callBack.getNewUser(user, commentList);
+                if (dataSnapshot.hasChild("Review")) {
+                    for (DataSnapshot review : dataSnapshot.child("Review").child(part).getChildren()) {
+                        String rating = review.getValue(String.class);
+                        String comment = review.getKey();
+                        Review oneReview = new Review(comment, rating);
+                        commentList.add(oneReview);
+                        callBack.getNewUser(user, commentList);
+                    }
                 }
                 //callBack.getNewUser(user, commentList);
                 //callBack.getNewUser(user);
@@ -403,9 +404,6 @@ public class DataBaseUtil {
 
 
 
-
-
-
     /**
      *   this function is for Owner
      *   check all the book which is filter by status
@@ -443,6 +441,8 @@ public class DataBaseUtil {
 
     }
 
+
+    //Yifu part finish
 
     //Yifu part finish
 
@@ -518,8 +518,8 @@ public class DataBaseUtil {
     }
 
     /**
-     * set user Accept to true
-     * add backgroud new Accept notification
+     * set user borrow to true
+     * add backgroud new borrow notification
      * @param user
      */
     public void newBorrowNotification(User user){
@@ -613,6 +613,7 @@ public class DataBaseUtil {
                     book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
                     book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class))  ;
+
                     //book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
                     if (dataSnapshot.child("Book").child(key).child("Photo").hasChildren()) {
@@ -779,7 +780,6 @@ public class DataBaseUtil {
      */
 
 
-
     /**
      * use getNewBook interface
      * pass the search string and return the related book
@@ -809,5 +809,85 @@ public class DataBaseUtil {
                 Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
+    }
+
+
+    //Cao, finish
+
+    /**
+     * Bo, user search
+     */
+    interface getMatchedUser{
+        void getMatchedUser(User user);
+    }
+
+    public void searchUser(final String searchString, final getMatchedUser callBack){
+        UserDatabase.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot user: dataSnapshot.getChildren()){
+                    User matchedUser = new User();
+                    matchedUser.setAddress(user.child("Address").getValue(String.class));
+                    matchedUser.setEmail(user.child("Email").getValue(String.class));
+                    matchedUser.setName(user.getKey());
+                    matchedUser.setPhone_number(user.child("Phone").getValue(String.class));
+                    if (matchedUser.getImage()!=null){
+                        matchedUser.setImage(user.child("Photo").getValue(Bitmap.class));
+                    };
+                    if (matchedUser.getName().contains(searchString)){
+                        callBack.getMatchedUser(matchedUser);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+
+
+    /**
+     * Login part
+     * connect email and user name
+     */
+
+
+
+    public void connectUserAndEmail(String email,String name){
+        ALlData.child("UserEmail").child(email).setValue(name);
+    }
+
+    public interface getName{
+        void getName(String value);
+    }
+
+    public void getNameByEmail(final String email,final getName callBack){
+        ALlData.child("UserEmail").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name;
+                name = dataSnapshot.child(email).getValue(String.class);
+                callBack.getName(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+    }
+    // Login finished
+
+
+    // user Comment
+    public void addOwnerReview(String name, Review review){
+        UserDatabase.child(name).child("Review").child("Owner").child(review.getComment()).setValue(review.getRating());
+    }
+
+    public void addBorrowerReview(String name, Review review){
+        UserDatabase.child(name).child("Review").child("Borrower").child(review.getComment()).setValue(review.getRating());
     }
 }

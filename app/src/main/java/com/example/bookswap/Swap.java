@@ -29,8 +29,6 @@ public class Swap {
         this.location = location;
     }
 
-
-
     public void setTime(String time) {
         this.time = time;
     }
@@ -59,10 +57,9 @@ public class Swap {
         this.ownerPermit = ownerPermit;
     }
 
-    public LatLng getLocation(){
+    public LatLng getLocation() {
         return location;
-        }
-
+    }
     public String getComment(){
         return comment;
     }
@@ -84,6 +81,7 @@ public class Swap {
         return time;
     }
 
+
     public Book getBook(){
         return book;
     }
@@ -101,4 +99,3 @@ public class Swap {
     }
 
 }
-
