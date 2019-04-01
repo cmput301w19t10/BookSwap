@@ -88,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
         timer();
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null && !userName.equals("Bowen")) {
+        if (user == null && !userName.equals(MyUser.getInstance().getName())) {
             finish();
         }
 
@@ -127,22 +127,23 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification() {
-
-        u = new DataBaseUtil(MyUser.getInstance().getName());
-        u.checkNotification("Request", new DataBaseUtil.getStatus() {
-            @Override
-            public void getStatus(String value) {
-                if (value.equals("True")) {
-                    //newNotification = true;
-                    sendOnChannel1();
-                    u.changeNotificationStatus("Request", "False");
+        if (MyUser.getInstance().getName() != null) {
+            u = new DataBaseUtil(MyUser.getInstance().getName());
+            u.checkNotification("Request", new DataBaseUtil.getStatus() {
+                @Override
+                public void getStatus(String value) {
+                    if (value.equals("True")) {
+                        //newNotification = true;
+                        sendOnChannel1();
+                        u.changeNotificationStatus("Request", "False");
 //                    reddot.setVisibility(View.INVISIBLE);
 //                    //notificationcall();
 //                    u.changeNotificationStatus("Borrower","False");
 
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void checkNotification2() {
