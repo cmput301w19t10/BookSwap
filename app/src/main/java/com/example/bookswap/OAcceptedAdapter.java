@@ -19,7 +19,7 @@ public class OAcceptedAdapter extends ArrayAdapter<Book> {
     public OAcceptedAdapter(Context context, ArrayList<Book> acp_books) {
         super(context,R.layout.o_accepted_element , acp_books);
         this.acp_booklist = acp_books;
-        this.book = book;
+        //this.book = book;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -35,7 +35,9 @@ public class OAcceptedAdapter extends ArrayAdapter<Book> {
         } else {
             holder = (OAcceptedAdapter.ViewHolder) convertView.getTag();
         }
-        Book element = acp_booklist.get(position);
+        final Book element = acp_booklist.get(position);
+
+        Log.d("viewbook0",element.getUnikey());
 
         holder.title.setText("Title: "+(String)element.getTitle());
         holder.author.setText("Author: "+(String)element.getAuthor());
@@ -48,8 +50,10 @@ public class OAcceptedAdapter extends ArrayAdapter<Book> {
              */
             @Override
             public void onClick(View v) {
-                Intent goSwap = new Intent(getContext(),ORequestedSwapActivity.class);
-                goSwap.putExtra("book",book);
+                Intent goSwap = new Intent(getContext(),OAcceptedSwap.class);
+                goSwap.putExtra("book",element);
+
+                Log.d("viewbook1",element.getUnikey());
                 getContext().startActivity(goSwap);
             }
         });

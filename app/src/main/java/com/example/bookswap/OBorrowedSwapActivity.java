@@ -26,7 +26,6 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView comment;
     private Button confirm;
-    private Button back;
     private Swap swapclass;
     private Book swapingBook;
     private TextView bookinfo;
@@ -52,7 +51,6 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
         TextView tvBookInfo = (TextView) findViewById(R.id.bookInfo);
         comment = (TextView) findViewById(R.id.comment_text_o) ;
         confirm = (Button) findViewById(R.id.confirm);
-        back = (Button) findViewById(R.id.back);
         locationBut = (Button) findViewById(R.id.locationButton);
 
 
@@ -87,13 +85,6 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
             }
         });
 
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
 
 

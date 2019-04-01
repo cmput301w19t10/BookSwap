@@ -29,7 +29,6 @@ public class BReturnView extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView comment;
     private Button confirm;
-    private Button back;
     private Swap swapclass = new Swap();
     private Book swapingBook;
     private DataBaseUtil u;
@@ -51,7 +50,6 @@ public class BReturnView extends AppCompatActivity {
         TextView tvBookInfo = (TextView) findViewById(R.id.bookInfo);
         comment = (TextView) findViewById(R.id.comment_text) ;
         confirm = (Button) findViewById(R.id.confirm);
-        back = (Button) findViewById(R.id.back);
 
         Intent intent = getIntent();
         swapingBook = intent.getParcelableExtra("book");
@@ -84,12 +82,6 @@ public class BReturnView extends AppCompatActivity {
         });
 
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
 

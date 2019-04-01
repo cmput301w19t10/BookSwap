@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".BAcceptedSwapActivity">
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    >
     <TableLayout
         android:id="@+id/table"
         android:layout_width="match_parent"
@@ -92,39 +94,43 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/comment_text_o"
-                android:layout_width="310dp"
-                android:layout_height="146dp"
+                android:id="@+id/comment_text_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:minLines="5"
+                android:background="@null"
                 android:ems="10"
-
-                android:textSize="20sp">
+                >
 
                 <requestFocus />
             </TextView>
         </TableRow>
 
 
-        <TableRow
-            android:id="@+id/tableRow7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/back"
-                android:text="back" />
-
-            <Button
-                android:id="@+id/confirm"
-                android:text="confirm" />
-        </TableRow>
 
     </TableLayout>
+
     <Button
         android:id="@+id/locationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/table"
         android:layout_centerHorizontal="true"
-        android:text="TEST" />
+        android:layout_marginTop="25dp"
+        android:text="@string/viewLocation" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locationButton"
+        android:layout_alignStart="@+id/locationButton"
+        android:layout_alignEnd="@+id/locationButton"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="0dp"
+        android:text="@string/confirm" />
+
 
 </RelativeLayout>

@@ -2,12 +2,10 @@ package com.example.bookswap;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class BAcceptedSwapActivity extends AppCompatActivity {
+public class OAcceptedSwap extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
     private TextView date;
@@ -34,26 +32,29 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private DataBaseUtil u;
     private Handler handler;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_oaccepted_swap);
+
         /**
          * hwo to change actionbar title
          * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
          */
-        getSupportActionBar().setTitle("Owner Accept Swap");
+        getSupportActionBar().setTitle("Borrower Confirm Accept");
 
-        setContentView(R.layout.activity_baccepted_swap);
+        setContentView(R.layout.activity_oaccepted_swap);
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
         bookinfo = (TextView) findViewById(R.id.bookInfo);
-        comment = (TextView) findViewById(R.id.comment_text_b);
+        comment = (TextView) findViewById(R.id.comment_text);
         confirm = (Button) findViewById(R.id.confirm);
         locationBut = (Button) findViewById(R.id.locationButton);
 
         Intent intent = getIntent();
+//        Log.d("viewbook",)
         swapingBook = intent.getParcelableExtra("book");
+        Log.d("viewbook2",swapingBook.getUnikey());
         String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
         bookinfo.setText(infoDisplay);
@@ -61,7 +62,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
         bookinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BAcceptedSwapActivity.this, ViewBookActivity.class);
+                Intent intent = new Intent(OAcceptedSwap.this, ViewBookActivity.class);
                 intent.putExtra("book", swapingBook);
                 startActivity(intent);
             }
@@ -73,35 +74,30 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
             @Override
             public void getSwapInfo(Swap swap) {
                 swapclass = swap;
-                date.setText(swapclass.getDate());
-                time.setText(swapclass.getTime());
-                Log.d("swapclass-1","hello");
-                Log.d("swapclass0",swapclass.getTime());
-                if (swapclass.getComment() != null) {
-                    comment.setText(swapclass.getComment());
-                }
+                date.setText(swap.getDate());
+                time.setText(swap.getTime());
+                comment.setText(swap.getComment());
             }
         });
 
 
         confirm.setOnClickListener(new View.OnClickListener() {
 
-               @Override
-               public void onClick(View v) {
-                    Log.d("swappingbook",swapingBook.getTitle()+" ");
-                    u.changeSwapStatus(swapingBook,"Borrower",true);
-                    showNormalDialog();
-                    timer();
+            @Override
+            public void onClick(View v) {
+                u.changeSwapStatus(swapingBook,"Borrower",true);
+                showNormalDialog();
+                timer();
 
-               }
-           });
+            }
+        });
 
 
 
         locationBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BAcceptedSwapActivity.this, MapViewActivity.class);
+                Intent intent = new Intent(OAcceptedSwap.this, MapViewActivity.class);
                 LatLng point = swapclass.getLocation();
                 if (point == null){
                     Toast.makeText(getApplicationContext(), "Fatal error, improper location", LENGTH_SHORT).show();
@@ -129,8 +125,8 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
                     public void getStatus(boolean value) {
                         if(value){
                             u.changeStatus(swapingBook,"Borrowed");
-//                            u.deleteSwap(swapingBook);
-//                            u.changeSwapStatus(swapingBook,"Return",false);
+                            u.deleteSwap(swapingBook);
+                            u.changeSwapStatus(swapingBook,"Return",false);
                             handler.removeCallbacksAndMessages(null);
                             finish();
                         }
@@ -153,14 +149,14 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private void showNormalDialog(){
 
         final AlertDialog.Builder normalDialog =
-                new AlertDialog.Builder(BAcceptedSwapActivity.this);
-        normalDialog.setTitle("Wait for Borrower confiem");
+                new AlertDialog.Builder(OAcceptedSwap.this);
+        normalDialog.setTitle("Wait for Owner confiem");
         normalDialog.setMessage("Waiting..");
         normalDialog.setPositiveButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        u.changeSwapStatus(swapingBook,"Owner",false);
+                        u.changeSwapStatus(swapingBook,"Borrower",false);
                         handler.removeCallbacksAndMessages(null);
                     }
                 });

@@ -92,32 +92,38 @@
 
             <EditText
                 android:id="@+id/comment_text_o"
-                android:layout_width="310dp"
-                android:layout_height="146dp"
-                android:textSize="20sp"
-                android:ems="10"
-                android:hint="up to 50 characters">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="up to 50 characters"
+                android:minLines="5"
+                android:background="@null"
+                android:textSize="20sp">
 
                 <requestFocus />
             </EditText>
         </TableRow>
 
     </TableLayout>
+
     <Button
         android:id="@+id/locationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/confirm"
+        android:layout_below="@+id/table"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:text="@string/setLocation" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/confirm"
-        android:layout_below="@+id/table"
-        android:layout_centerHorizontal="true"
-        android:text="@string/confirm"
-    />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locationButton"
+        android:layout_alignStart="@+id/locationButton"
+        android:layout_alignEnd="@+id/locationButton"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="0dp"
+        android:text="@string/confirm" />
 
 </RelativeLayout>

@@ -25,6 +25,8 @@ public class ORequestedUserActivity extends AppCompatActivity {
     private ListView display_listview;
     private ArrayList<String> userList = new ArrayList<>();
     private ORequestedUsersAdapter adapter;
+    private DataBaseUtil u;
+    private Book book;
 
 
 
@@ -50,12 +52,12 @@ public class ORequestedUserActivity extends AppCompatActivity {
          * resource from:https://www.youtube.com/watch?v=WBbsvqSu0is
          */
         Intent intent = getIntent();
-        final Book book = intent.getParcelableExtra("index");
+        book = intent.getParcelableExtra("index");
 
 
         adapter = new ORequestedUsersAdapter(this, book, userList);
 
-        DataBaseUtil u = new DataBaseUtil("Bowen");
+        u = new DataBaseUtil("Bowen");
         u.getBookBorrower(book, new DataBaseUtil.getBorrowerList() {
             /**
              * load database information into the local arraylist
@@ -111,6 +113,25 @@ public class ORequestedUserActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        userList.clear();
+        u = new DataBaseUtil("Bowen");
+        u.getBookBorrower(book, new DataBaseUtil.getBorrowerList() {
+            /**
+             * load database information into the local arraylist
+             *
+             * @param value
+             */
+            @Override
+            public void getBorrower(String value) {
+                userList.add(value);
+            }
+        });
+        adapter = new ORequestedUsersAdapter(ORequestedUserActivity.this, book, userList);
+        display_listview.setAdapter(adapter);
 
+    }
 
 }

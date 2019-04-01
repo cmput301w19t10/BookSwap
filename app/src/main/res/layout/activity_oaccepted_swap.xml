@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".BReturnSet">
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    tools:context=".OAcceptedSwap">
     <TableLayout
         android:id="@+id/table"
         android:layout_width="match_parent"
@@ -70,10 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-
                 android:hint="click to set time"
-                android:textSize="23sp"
-                >
+                android:textSize="23sp">
 
                 <requestFocus />
             </TextView>
@@ -89,24 +89,28 @@
                 android:id="@+id/comment"
                 android:layout_width="88dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="comment"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/comment_text_o"
+            <TextView
+                android:id="@+id/comment_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:ems="10"
                 android:minLines="5"
                 android:background="@null"
-                android:hint="up to 50 characters">
+                android:ems="10"
+                >
 
                 <requestFocus />
-            </EditText>
+            </TextView>
         </TableRow>
 
+
+
     </TableLayout>
+
     <Button
         android:id="@+id/locationButton"
         android:layout_width="wrap_content"
@@ -114,7 +118,7 @@
         android:layout_below="@+id/table"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="@string/setLocation" />
+        android:text="@string/viewLocation" />
 
     <Button
         android:id="@+id/confirm"
