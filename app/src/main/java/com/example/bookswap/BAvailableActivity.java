@@ -91,13 +91,15 @@ public class BAvailableActivity extends AppCompatActivity {
         return true;
     }
 
-
+    /**
+     * when the activity starts
+     * set the arraylist to the adapter
+     */
 
     protected void onStart() {
 
         super.onStart();
 
-        //todo display available book list
 
         ava_book.clear();
 
@@ -108,12 +110,12 @@ public class BAvailableActivity extends AppCompatActivity {
 
         DataBaseUtil u;
         u = new DataBaseUtil("Bowen");
-        Log.d("fragment","noone");
+        //Log.d("fragment","noone");
         u.searchBook("" ,new DataBaseUtil.getNewBook() {
             @Override
             public void getNewBook(Book aBook) {
                 //ava_book.clear();
-                //todo change owner to yourself
+                //todo change owner to yourself need to check owner
                 if (aBook.getStatus()!= null && aBook.getStatus().equals("Available")){
                     ava_book.add(aBook);
                     availableBooks.setAdapter(adapter);
@@ -121,53 +123,18 @@ public class BAvailableActivity extends AppCompatActivity {
                 }
             }
         });
-//        u.getBorrowerBook(new DataBaseUtil.getNewBook() {
-//            @Override
-//            public void getNewBook(Book aBook) {
-//                if (aBook.getStatus().equals("Available")||aBook.getStatus().equals("Requested")){
-//                    ava_book.add(aBook);
-//                    availableBooks.setAdapter(adapter);
-//
-//                    Log.d("fragment","loop");
-//                }
-//            }
-//        });
 
-//        u.getBorrowerBook(new DataBaseUtil.getNewBook(){
-////            @Override
-////            public void getNewBook(Book a){
-////                if(true) {
-////                    ava_book.add(a);
-////                }
-////                availableBooks.setAdapter(adapter);
-////            }
-////        });
-
-
-        //Book abook = new Book("asdfhaskdjfhak", "adsfa", "fasdfasdf", "asdjfhakjdfhlaksdfhlkahjdsfhakldsfhaksdjfhskdajlfhaskdljfhlaskjdfa", "baba");
-        //ava_book.add(abook);
         availableBooks.setAdapter(adapter);
-        //todo: onclick listener: once select a book
 
         availableBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                 Intent intent = new Intent(BAvailableActivity.this, BRequestActivity.class);
-//                Book testing = new Book();
-//                testing = ava_book.get(position);
-//                String message = testing.getTitle();
-//                if (testing.getTitle() == "test2"){
-//                    Log.d("success","good job");
-//                }
-//                else{
-//                    Log.d("fail",message);
-//                }
                 intent.putExtra("book", ava_book.get(position));
                 startActivity(intent);
             }
         });
 
-        //todo: once clicked start activity: list user requested
     }
 }
 

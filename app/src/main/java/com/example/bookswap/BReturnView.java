@@ -25,6 +25,10 @@ import java.util.Calendar;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+/**
+ * the activity for borrower to view a meet up location and time and confirm the
+ * swap of the book
+ */
 public class BReturnView extends AppCompatActivity {
 
     private TextView time;
@@ -39,7 +43,10 @@ public class BReturnView extends AppCompatActivity {
     private Handler handler;
     private Button locationBut;
 
-
+    /**
+     * set up the layout
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
