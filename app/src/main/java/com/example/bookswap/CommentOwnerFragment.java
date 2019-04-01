@@ -60,7 +60,7 @@ public class CommentOwnerFragment extends Fragment {
     }
 
     /**
-     *
+     * refresh all views
      */
     @Override
     public void onStart() {

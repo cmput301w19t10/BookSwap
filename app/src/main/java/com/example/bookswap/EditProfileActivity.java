@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 /**
  * activity for editing self profile
  */
@@ -18,6 +20,7 @@ public class EditProfileActivity extends AppCompatActivity {
     EditText edit_phoneNumber;
     EditText edit_address;
     String name;
+    DataBaseUtil u;
     /**
      * create all views and a save button to save this edited profile
      * @param savedInstanceState saved state to create this activity
@@ -30,12 +33,14 @@ public class EditProfileActivity extends AppCompatActivity {
         edit_phoneNumber = findViewById(R.id.edit_phoneNumber);
         edit_address = findViewById(R.id.edit_address);
 
-
-        Intent intent = getIntent();
-        User user = intent.getExtras().getParcelable("user");
-        edit_phoneNumber.setText(user.getPhone_number());
-        edit_address.setText(user.getAddress());
-        name = user.getName();
+        u = new DataBaseUtil(MyUser.getInstance().getName());
+        u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
+            @Override
+            public void getNewUser(User user, List<Review> commentList) {
+                edit_phoneNumber.setText(user.getPhone_number());
+                edit_address.setText(user.getAddress());
+            }
+        });
 
         Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {

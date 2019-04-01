@@ -46,6 +46,8 @@ public class OtherRateActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         userName = intent.getStringExtra("userName");
+        int reviewType = intent.getIntExtra("review_type", 0);
+
 
         Bundle bundle = new Bundle();
         bundle.putString("userName", userName);
@@ -65,6 +67,20 @@ public class OtherRateActivity extends AppCompatActivity {
             }
         });
 
+        if (adapter.getCurrentFragment() == fragments.get(0)){
+            if (reviewType == 1) {
+                comment.setVisibility(View.VISIBLE);
+            } else {
+                comment.setVisibility(View.GONE);
+            }
+        } else{
+            if (reviewType == 1) {
+                comment.setVisibility(View.GONE);
+            } else {
+                comment.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     /**
@@ -81,10 +97,8 @@ public class OtherRateActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK){
                     review = data.getExtras().getParcelable("review");
                     u.addOwnerReview(userName, review);
-
-
-                    break;
                 }
+                break;
             }case 2:{
                 if (resultCode == RESULT_OK){
                     review = data.getExtras().getParcelable("review");
@@ -95,6 +109,10 @@ public class OtherRateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * set up veiwpager for frgaments
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager){
         adapter = new SectionsPageAdapter(getSupportFragmentManager());
         fragments = new ArrayList<>();

@@ -32,8 +32,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar progress_bar;
     private String name_or_email;
     private String password;
-    private boolean isName;
-    private boolean success;
     private StringBuilder sb_email;
     private Button login_button;
     DataBaseUtil u;
@@ -138,11 +136,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     u.getNameByEmail(sb_email.toString(), new DataBaseUtil.getName() {
                         @Override
                         public void getName(String name) {
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            intent.putExtra("userName", name);
                             MyUser myUser = MyUser.getInstance();
                             myUser.setName(name);
-                            startActivity(intent);
+                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         }
                     });
                 } else {
