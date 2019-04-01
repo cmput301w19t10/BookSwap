@@ -113,7 +113,8 @@ public class BAvailableActivity extends AppCompatActivity {
             @Override
             public void getNewBook(Book aBook) {
                 //ava_book.clear();
-                if (aBook.getStatus()!= null && aBook.getStatus().equals("Available")){
+                //todo change owner to yourself
+                if (aBook.getStatus()!= null && aBook.getStatus().equals("Available")&& aBook.getOwner()!=null && aBook.getOwner()!= "Bowen"){
                     ava_book.add(aBook);
                     availableBooks.setAdapter(adapter);
                     Log.d("fragment","loop");

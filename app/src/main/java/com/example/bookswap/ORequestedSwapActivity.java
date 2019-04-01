@@ -32,6 +32,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private TextView bookinfo;
     private Book swapingBook;
     private static final int SET_MAP = 1;
+    private String borrower;
 
     /**
      * create the activity
@@ -55,6 +56,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         swapingBook = intent.getParcelableExtra("book");
+        borrower = intent.getStringExtra("user");
         swapclass.setBook(swapingBook);
 
         Intent intentbook = getIntent();
@@ -176,6 +178,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     DataBaseUtil u = new DataBaseUtil("Bowen");
                     u.swapInfo(swapingBook,swapclass);
                     u.changeNotificationStatus("Borrow","True");
+                    u.acceptAndDeleteOther(borrower, swapingBook);
                     finish();}
             }
         });
