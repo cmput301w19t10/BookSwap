@@ -612,7 +612,7 @@ public class DataBaseUtil {
                     book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                     book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
-                    book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
+                    book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class))  ;
                     //book.setUnencodedImage(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
                     if (dataSnapshot.child("Book").child(key).child("Photo").hasChildren()) {
