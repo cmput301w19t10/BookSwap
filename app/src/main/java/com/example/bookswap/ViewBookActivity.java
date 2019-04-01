@@ -27,6 +27,7 @@ public class ViewBookActivity extends AppCompatActivity {
     private TextView vAuthor;
     private TextView vDescription;
     private TextView vStatus;
+    private TextView tvISBN;
     private ImageView imageView;
     private static int BOOK_PHOTO_RESULT = 1;
 
@@ -65,6 +66,8 @@ public class ViewBookActivity extends AppCompatActivity {
         vDescription = ((TextView)findViewById(R.id.vdescription));
         vDescription.setMovementMethod(new ScrollingMovementMethod());
         imageView = ((ImageView)findViewById(R.id.bookCover));
+        tvISBN = findViewById(R.id.tvISBN);
+
     }
 
     /**
@@ -78,6 +81,8 @@ public class ViewBookActivity extends AppCompatActivity {
         vAuthor.setText(String.valueOf(book.getAuthor()));
         vDescription.setText(String.valueOf(book.getDescription()));
         vStatus.setText(String.valueOf(book.getStatus()));
+        String isbnText = "ISBN: " + String.valueOf(book.getISBN());
+        tvISBN.setText(isbnText);
         //imageView.setImageBitmap(book.getImage());
 
         Picasso.get()
