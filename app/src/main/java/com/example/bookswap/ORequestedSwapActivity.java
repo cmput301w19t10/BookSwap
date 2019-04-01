@@ -62,9 +62,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
 
         Intent intentbook = getIntent();
         swapingBook = intent.getParcelableExtra("book");
-//        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
-//        TODO remember to put it back
-        String infoDisplay = "testingforinfoDisplay";
+        String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
         bookinfo.setText(infoDisplay);
 
