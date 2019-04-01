@@ -31,6 +31,13 @@ public class CommentBorrowerFragment extends Fragment {
     private DataBaseUtil u;
     private float average_rating;
 
+    /**
+     *  create all views including two buttons
+     * @param inflater inflater to inflate views to this fragment
+     * @param container the view contains this fragment
+     * @param savedInstanceState instance saved to start this fragment
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
