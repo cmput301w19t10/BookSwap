@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
-
+    android:paddingTop="1dp"
+    android:paddingBottom="1dp">
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_margin="5dp"
         app:cardBackgroundColor="#99ffffff"
+
         app:cardCornerRadius="0dp">
 
         <RelativeLayout
@@ -25,10 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-
-                android:layout_marginStart="102dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="137dp"
+                android:layout_marginTop="3dp"
                 android:text="Title"
                 android:textSize="18sp" />
 
@@ -38,14 +35,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="73dp"
+                android:layout_marginStart="137dp"
+                android:layout_marginTop="87dp"
                 android:text="Author" />
 
             <ImageView
                 android:id="@+id/OAB_bookCover_imageview"
-                android:layout_width="83dp"
-                android:layout_height="102dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <Button
@@ -55,9 +52,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="273dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginEnd="14dp"
+                android:layout_marginStart="269dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="18dp"
                 android:text="Swap" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

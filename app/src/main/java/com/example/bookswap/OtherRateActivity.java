@@ -59,7 +59,7 @@ public class OtherRateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OtherRateActivity.this, CommentActivity.class);
-                if (fragments.get(0) == adapter.getCurrentFragment()){
+                if (fragments.get(0) == adapter.getCurrentFragment() ){
                     startActivityForResult(intent, 1);
                 } else{
                     startActivityForResult(intent, 2);
@@ -67,19 +67,6 @@ public class OtherRateActivity extends AppCompatActivity {
             }
         });
 
-        if (adapter.getCurrentFragment() == fragments.get(0)){
-            if (reviewType == 1) {
-                comment.setVisibility(View.VISIBLE);
-            } else {
-                comment.setVisibility(View.GONE);
-            }
-        } else{
-            if (reviewType == 1) {
-                comment.setVisibility(View.GONE);
-            } else {
-                comment.setVisibility(View.VISIBLE);
-            }
-        }
 
     }
 

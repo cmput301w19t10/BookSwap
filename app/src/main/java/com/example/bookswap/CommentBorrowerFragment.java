@@ -80,4 +80,5 @@ public class CommentBorrowerFragment extends Fragment {
 
         name.setText(userName);
     }
+
 }
