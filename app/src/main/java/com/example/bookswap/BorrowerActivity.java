@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 
 /**
- * the main interface for borrower
+ * unused activity, staged for removal
  */
 public class BorrowerActivity extends AppCompatActivity {
 //    private Button accepted;

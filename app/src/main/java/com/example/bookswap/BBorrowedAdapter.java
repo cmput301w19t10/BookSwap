@@ -32,6 +32,12 @@ public class BBorrowedAdapter extends ArrayAdapter<Book> {
 
 //    private Button setBtn;
 
+    /**
+     *
+     * @param context view context
+     * @param bro_books list of borrowed books to display in listview
+     * @param swapList boolean array to identify if a book is ready to be swapped
+     */
     public BBorrowedAdapter(Context context, ArrayList<Book> bro_books, ArrayList<Boolean> swapList) {
         super(context,R.layout.element_bborrowed , bro_books);
         this.bro_booklist = bro_books;

@@ -3,7 +3,10 @@ package com.example.bookswap;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Date;
-//Unimplemented class
+
+/**
+ * swap class used for trading books from one person to another
+ */
 public class Swap {
     private LatLng location;
     private String comment;
@@ -15,36 +18,64 @@ public class Swap {
     private boolean borrowerPermit;
     private boolean ownerPermit;
 
-
+    /**
+     * empty constructor
+     */
     public Swap(){}
 
 
-
+    /**
+     * set up a book for the swap
+     * @param book
+     */
     public void setBook(Book book) {
         this.book = book;
     }
 
-    //TODO find how google maps stores GPS location
+    /**
+     * geo location of the swap
+     * @param location
+     */
     public void setLocation(LatLng location){
         this.location = location;
     }
 
+    /**
+     * set up a time to meet, in string format
+     * @param time
+     */
     public void setTime(String time) {
         this.time = time;
     }
 
+    /**
+     * short comment on meetup
+     * @param Comment
+     */
     public void setComment(String Comment){
         this.comment = Comment;
     }
 
+    /**
+     * set a borrower
+     * @param BorrowerName
+     */
     public void setBorrower(String BorrowerName){
         this.borrowname = BorrowerName;
     }
 
+    /**
+     * set the owner of a book in a swap
+     * @param OwnerName
+     */
     public void setOwner(String OwnerName){
         this.ownername = OwnerName;
     }
 
+    /**
+     * set a date of meetup, as string format
+     * @param Date
+     */
     public void setDate(String Date){
         this.date = Date;
     }

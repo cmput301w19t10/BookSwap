@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * unused activity, staged for removal.
+ */
 public class DummyActivity extends AppCompatActivity {
 
     @Override

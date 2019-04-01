@@ -35,11 +35,15 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     private Handler handler;
 
 
+    /**
+     * on create meathod
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /**
-         * hwo to change actionbar title
+         * how to change actionbar title
          * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
          */
         getSupportActionBar().setTitle("Borrower Accept Swap");
@@ -116,8 +120,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
     }
 
     /**
-     * build timer to make handler can auto
-     * check do swapingbook is swap or not
+     * Use a timer to handle the automated notifications
      */
     public void timer(){
         handler = new Handler();
