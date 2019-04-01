@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class CommentBorrowerFragment extends Fragment {
     private TextView name;
     private RatingBar rating;
     private String userName;
+    private ImageView image;
     private RecyclerView recyclerView;
     private ReviewAdapter adapter;
     private DataBaseUtil u;
@@ -47,6 +49,7 @@ public class CommentBorrowerFragment extends Fragment {
         View include = view.findViewById(R.id.review);
         name = include.findViewById(R.id.name);
         rating = include.findViewById(R.id.ratingBar);
+        image = include.findViewById(R.id.image);
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.recycler_borrower);

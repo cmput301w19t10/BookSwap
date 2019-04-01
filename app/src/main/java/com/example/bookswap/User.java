@@ -42,6 +42,9 @@ public class User implements Parcelable {
         this.password = password;
     }
 
+    public User(String name){
+        this.name = name;
+    }
     /**
      * get singleton instance for user
      * @return

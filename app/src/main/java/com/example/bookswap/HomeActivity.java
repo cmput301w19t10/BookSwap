@@ -51,13 +51,8 @@ public class HomeActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        MyUser myUser = MyUser.getInstance();
-        //TODO for test
-        if (myUser.getName() == null) {
-            myUser.setName("Bowen");
-        }
 
-        userName = myUser.getName();
+        userName = MyUser.getInstance().getName();
         u = new DataBaseUtil(userName);
 
 //        Notifications notifications = new Notifications();
@@ -222,6 +217,8 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.logout: {
                 FirebaseAuth.getInstance().signOut();
+                Log.d("USERTAG", MyUser.getInstance().getName());
+                MyUser.destroy();
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 return true;
             }
@@ -229,7 +226,16 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.edit: {
-                startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
+                u = new DataBaseUtil(MyUser.getInstance().getName());
+                u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
+                    @Override
+                    public void getNewUser(User user, List<Review> commentList) {
+                        Intent intent = new Intent(HomeActivity.this, EditProfileActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+                });
+
                 return true;
             }
             case R.id.review: {

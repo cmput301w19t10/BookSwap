@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText user_confirmpassword;
     private ProgressBar progress_bar;
     private FirebaseAuth firebaseAuth;
+    Button button_register;
     private String email;
     private String password;
     private String name;
@@ -45,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         Button button_tologin = findViewById(R.id.button_toLogin);
         button_tologin.setOnClickListener(this);
-        Button button_register = findViewById(R.id.button_register);
+        button_register = findViewById(R.id.button_register);
         button_register.setOnClickListener(this);
         user_name = findViewById(R.id.user_name);
         user_email = findViewById(R.id.user_email);
@@ -84,6 +86,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
         progress_bar.setVisibility(View.VISIBLE);
+        button_register.setVisibility(View.GONE);
+        Log.d("register", email);
+        Log.d("register", password);
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -105,9 +110,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }else{
                     Toast.makeText(RegisterActivity.this, "Could not register. Please try again", Toast.LENGTH_LONG).show();
                 }
+                progress_bar.setVisibility(View.GONE);
+                button_register.setVisibility(View.VISIBLE);
             }
         });
-        progress_bar.setVisibility(View.GONE);
 
     }
 

@@ -271,7 +271,7 @@ public class DataBaseUtil {
         UserDatabase.child(user.getName()).child("password").setValue(user.getPassword());
         UserDatabase.child(user.getName()).child("address").setValue(user.getAddress());
         UserDatabase.child(user.getName()).child("email").setValue(user.getEmail());
-        UserDatabase.child(user.getName()).child("phone").setValue(user.getPhone_number());
+        UserDatabase.child(user.getName()).child("Phone").setValue(user.getPhone_number());
     }
 
 

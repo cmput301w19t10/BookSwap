@@ -5,9 +5,9 @@ import android.os.Parcelable;
 /**
  * singleton class saving current user name
  */
-public class MyUser extends User{
+public class MyUser{
 
-    private volatile static MyUser instance;
+    private volatile static User instance;
 
     /**
      * private constructor
@@ -16,20 +16,20 @@ public class MyUser extends User{
         super();
     }
 
+
     /**
      * get instance of the only instance
      * @return
      */
-    public static MyUser getInstance() {
+    public static User getInstance() {
         if (instance == null){
-            synchronized (MyUser.class){
-                if (instance == null){
-                    instance = new MyUser();
-                }
-            }
+            instance = new User();
         }
-
         return instance;
+    }
+
+    public static void destroy() {
+        instance = null;
     }
 
 }

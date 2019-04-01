@@ -19,8 +19,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     EditText edit_phoneNumber;
     EditText edit_address;
-    String name;
     DataBaseUtil u;
+    User user;
     /**
      * create all views and a save button to save this edited profile
      * @param savedInstanceState saved state to create this activity
@@ -30,31 +30,31 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+
         edit_phoneNumber = findViewById(R.id.edit_phoneNumber);
         edit_address = findViewById(R.id.edit_address);
 
-        u = new DataBaseUtil(MyUser.getInstance().getName());
-        u.getOwnerUser("Owner", new DataBaseUtil.getUserInfo() {
-            @Override
-            public void getNewUser(User user, List<Review> commentList) {
-                edit_phoneNumber.setText(user.getPhone_number());
-                edit_address.setText(user.getAddress());
-            }
-        });
+        user = getIntent().getExtras().getParcelable("user");
+        edit_phoneNumber.setText(user.getPhone_number());
+        edit_address.setText(user.getAddress());
+
+
 
         Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNumber = edit_phoneNumber.getText().toString().trim();
-                String address = edit_address.getText().toString().trim();
+                final String phoneNumber = edit_phoneNumber.getText().toString().trim();
+                final String address = edit_address.getText().toString().trim();
                 if (check(phoneNumber, address)){
-                    User user = new User(name, phoneNumber, "", address, null);
-                    DataBaseUtil u = new DataBaseUtil();
+                    DataBaseUtil u = new DataBaseUtil(user.getName());
+                    user.setAddress(edit_address.getText().toString());
+                    user.setPhone_number(edit_phoneNumber.getText().toString());
                     u.addNewUser(user);
                     Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+
                 }
             }
         });
