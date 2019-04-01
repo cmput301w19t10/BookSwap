@@ -3,6 +3,8 @@ package com.example.bookswap;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,11 +69,11 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 
         if (position < swapList.size()) {
             if (swapList.get(position)) {
-                holder.confirmBtn.setBackgroundColor(green);
+                //holder.confirmBtn.setBackgroundColor(green);
             }
             else if (!swapList.get(position)) {
                 //holder.confirmBtn.sethe;
-                holder.confirmBtn.setBackgroundColor(red);
+                holder.confirmBtn.getBackground().setColorFilter(red, PorterDuff.Mode.MULTIPLY);
             }
         }
 //        if(swapclass != null){
