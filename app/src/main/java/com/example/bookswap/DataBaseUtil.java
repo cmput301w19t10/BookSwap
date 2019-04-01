@@ -582,7 +582,7 @@ public class DataBaseUtil {
                             book.setStatus(books.child("Status").getValue(String.class));
                             book.setTitle(books.child("Title").getValue(String.class));
                             book.setAuthor(books.child("Author").getValue(String.class));
-                            book.setImageUrl(dataSnapshot.child("Photo").getValue(String.class));
+                            book.setImageUrl(books.child("Photo").getValue(String.class));
                             book.setUnikey(books.child("UniKey").getValue(String.class));
                             callBack.getNewBook(book);
                         }
@@ -616,9 +616,7 @@ public class DataBaseUtil {
                     book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class))  ;
                     book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
-                    if (dataSnapshot.child("Book").child(key).child("Photo").hasChildren()) {
-                        book.setImage(dataSnapshot.child("Photo").getValue(Bitmap.class));
-                    }
+
                     callBack.getNewBook(book);
                 }
             }

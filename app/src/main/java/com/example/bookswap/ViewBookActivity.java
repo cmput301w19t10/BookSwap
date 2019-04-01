@@ -47,7 +47,7 @@ public class ViewBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if (book.getImageUrl() != null) {
-                    final Dialog d = new Dialog(getApplicationContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                    final Dialog d = new Dialog(ViewBookActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
                     d.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     d.setCancelable(true);
                     d.setContentView(R.layout.fullscreen_image);
