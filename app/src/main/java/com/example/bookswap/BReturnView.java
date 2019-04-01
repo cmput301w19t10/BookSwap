@@ -134,6 +134,8 @@ public class BReturnView extends AppCompatActivity {
                             handler.removeCallbacksAndMessages(null);
                             Intent intent = new Intent(BReturnView.this,OtherProfileActivity.class);
                             intent.putExtra("userName", swapclass.getOwner());
+                            //allow to comment on the owner
+                            intent.putExtra("review_type",1);
                             startActivity(intent);
 //                            TODO get borrower and do finish
                         }

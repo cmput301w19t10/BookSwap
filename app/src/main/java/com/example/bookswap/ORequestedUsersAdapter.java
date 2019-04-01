@@ -91,6 +91,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
                 username = userList.get(position);
                 Intent intent = new Intent(getContext(), OtherProfileActivity.class);
                 intent.putExtra("userName", userList.get(position));
+                intent.putExtra("review_type",0);
                 getContext().startActivity(intent);
             }
         };

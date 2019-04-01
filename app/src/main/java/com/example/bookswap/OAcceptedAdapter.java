@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * adapter for the OAcceptedActivity
+ * @see OAcceptedActivity
+ */
 public class OAcceptedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> acp_booklist;
     private Book book;
