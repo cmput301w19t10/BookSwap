@@ -50,7 +50,7 @@ public class OAcceptedAdapter extends ArrayAdapter<Book> {
              */
             @Override
             public void onClick(View v) {
-                Intent goSwap = new Intent(getContext(),OAcceptedSwap.class);
+                Intent goSwap = new Intent(getContext(),OAcceptedSwapActivity.class);
                 goSwap.putExtra("book",element);
 
                 Log.d("viewbook1",element.getUnikey());

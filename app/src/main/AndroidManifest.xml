@@ -98,7 +98,7 @@
             android:name="come.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".OAcceptedSwap"></activity>
+        <activity android:name=".OAcceptedSwapActivity"></activity>
     </application>
 
 </manifest>

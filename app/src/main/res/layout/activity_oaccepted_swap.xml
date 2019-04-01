@@ -7,7 +7,7 @@
     android:background="@drawable/background"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    tools:context=".OAcceptedSwap">
+    tools:context=".OAcceptedSwapActivity">
     <TableLayout
         android:id="@+id/table"
         android:layout_width="match_parent"

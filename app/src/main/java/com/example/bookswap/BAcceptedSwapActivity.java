@@ -42,7 +42,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
          * hwo to change actionbar title
          * resource:https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
          */
-        getSupportActionBar().setTitle("Owner Accept Swap");
+        getSupportActionBar().setTitle("Borrower Accept Swap");
 
         setContentView(R.layout.activity_baccepted_swap);
         time = (TextView) findViewById(R.id.time_text);

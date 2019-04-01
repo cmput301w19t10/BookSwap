@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class OAcceptedSwap extends AppCompatActivity {
+public class OAcceptedSwapActivity extends AppCompatActivity {
     private TextView time;
     private TimePickerDialog.OnTimeSetListener timeSetListener;
     private TextView date;
@@ -62,7 +62,7 @@ public class OAcceptedSwap extends AppCompatActivity {
         bookinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OAcceptedSwap.this, ViewBookActivity.class);
+                Intent intent = new Intent(OAcceptedSwapActivity.this, ViewBookActivity.class);
                 intent.putExtra("book", swapingBook);
                 startActivity(intent);
             }
@@ -85,7 +85,7 @@ public class OAcceptedSwap extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                u.changeSwapStatus(swapingBook,"Borrower",true);
+                u.changeSwapStatus(swapingBook,"Owner",true);
                 showNormalDialog();
                 timer();
 
@@ -97,7 +97,7 @@ public class OAcceptedSwap extends AppCompatActivity {
         locationBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OAcceptedSwap.this, MapViewActivity.class);
+                Intent intent = new Intent(OAcceptedSwapActivity.this, MapViewActivity.class);
                 LatLng point = swapclass.getLocation();
                 if (point == null){
                     Toast.makeText(getApplicationContext(), "Fatal error, improper location", LENGTH_SHORT).show();
@@ -149,7 +149,7 @@ public class OAcceptedSwap extends AppCompatActivity {
     private void showNormalDialog(){
 
         final AlertDialog.Builder normalDialog =
-                new AlertDialog.Builder(OAcceptedSwap.this);
+                new AlertDialog.Builder(OAcceptedSwapActivity.this);
         normalDialog.setTitle("Wait for Owner confiem");
         normalDialog.setMessage("Waiting..");
         normalDialog.setPositiveButton("Cancel",
