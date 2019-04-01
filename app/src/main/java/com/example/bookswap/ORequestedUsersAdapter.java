@@ -26,6 +26,7 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
     private Book book;
     private ArrayList<String> userList;
     private String username;
+    private DataBaseUtil u;
 
     /**
      * constructor
@@ -123,7 +124,8 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
         holder.button_decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBaseUtil u = new DataBaseUtil("Bowen");
+                MyUser myUser = MyUser.getInstance();
+                u = new DataBaseUtil(myUser.getName());
                 u.declineUser(userList.get(position), book);
                 userList.remove(position);
                 notifyDataSetChanged();

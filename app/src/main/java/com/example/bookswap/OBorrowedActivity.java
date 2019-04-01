@@ -39,7 +39,8 @@ public class OBorrowedActivity extends AppCompatActivity {
 
         adapter = new OBorrowedAdapter(this, bro_book, swapList);
 
-        u = new DataBaseUtil("Bowen");
+        MyUser myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         Log.d("fragment","noone");
         u.getOwnerBook(new DataBaseUtil.getNewBook() {
             @Override

@@ -27,6 +27,7 @@ public class BRequestActivity extends AppCompatActivity {
     private TextView description;
     private ImageView bookCover;
     private Book book;
+    private DataBaseUtil u;
 
     /**
      * load and check book status
@@ -70,8 +71,9 @@ public class BRequestActivity extends AppCompatActivity {
             public void onClick(View v){
 
                 //todo: start make request function
-                final DataBaseUtil u;
-                u = new DataBaseUtil("Bowen");
+
+                MyUser myUser = MyUser.getInstance();
+                u = new DataBaseUtil(myUser.getName());
 
                 u.addNewBorrow(book, new DataBaseUtil.addBorrowerSucceed() {
                     @Override

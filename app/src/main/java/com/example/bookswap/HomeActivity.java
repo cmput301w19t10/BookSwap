@@ -132,8 +132,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification() {
-        final DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        MyUser myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.checkNotification("Request", new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {
@@ -151,8 +151,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void checkNotification2() {
-        final DataBaseUtil u;
-        u = new DataBaseUtil("Bowen");
+        MyUser myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.checkNotification("Borrow", new DataBaseUtil.getStatus() {
             @Override
             public void getStatus(String value) {

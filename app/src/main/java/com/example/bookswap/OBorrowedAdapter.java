@@ -22,7 +22,7 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> bro_booklist;
     private ArrayList<Boolean> swapList;
     private int red = Color.GRAY;
-//    private int green = Color.GREEN;
+    private int green = Color.WHITE;
     private Swap swapclass;
     private OBorrowedAdapter.ViewHolder holder = null;
     private DataBaseUtil u;
@@ -54,7 +54,8 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
         }
         final Book element = bro_booklist.get(position);
 
-        u = new DataBaseUtil("Bowen");
+        MyUser myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
         u.getSwap(element,new DataBaseUtil.getSwapInfo(){
             @Override
             public void getSwapInfo(Swap swap) {
@@ -66,9 +67,10 @@ public class OBorrowedAdapter extends ArrayAdapter<Book> {
 
         if (position < swapList.size()) {
             if (swapList.get(position)) {
-//                holder.confirmBtn.setBackgroundColor(green);
+                holder.confirmBtn.setBackgroundColor(green);
             }
             else if (!swapList.get(position)) {
+                //holder.confirmBtn.sethe;
                 holder.confirmBtn.setBackgroundColor(red);
             }
         }

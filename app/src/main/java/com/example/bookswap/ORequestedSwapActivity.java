@@ -33,6 +33,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
     private Book swapingBook;
     private static final int SET_MAP = 1;
     private String borrower;
+    private DataBaseUtil u;
 
     /**
      * create the activity
@@ -175,7 +176,8 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     String stringcomment = comment.getText().toString();
                     if(stringcomment == null){stringcomment = " ";}
                     swapclass.setComment(stringcomment);
-                    DataBaseUtil u = new DataBaseUtil("Bowen");
+                    MyUser myUser = MyUser.getInstance();
+                    u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
                     u.changeNotificationStatus("Borrow","True");
                     u.acceptAndDeleteOther(borrower, swapingBook);

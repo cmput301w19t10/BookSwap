@@ -51,7 +51,8 @@ public class BAcceptActivity extends AppCompatActivity {
 //            Book book = getIntent().getParcelableExtra("Book");
 //            accept_list.add(book);
 //        } else{
-            u = new DataBaseUtil("Bowen");
+        MyUser myUser = MyUser.getInstance();
+        u = new DataBaseUtil(myUser.getName());
             u.getBorrowerBook(new DataBaseUtil.getNewBook() {
                 /**
                  * get the requestedlist from database and then load it into the local listview
