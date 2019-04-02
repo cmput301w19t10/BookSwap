@@ -158,7 +158,7 @@ public class BAcceptedSwapActivity extends AppCompatActivity {
 
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(BAcceptedSwapActivity.this);
-        normalDialog.setTitle("Wait for Borrower confiem");
+        normalDialog.setTitle("Waiting for Owner to confirm");
         normalDialog.setMessage("Waiting..");
         normalDialog.setPositiveButton("Cancel",
                 new DialogInterface.OnClickListener() {
