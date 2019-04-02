@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -177,7 +178,8 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     User myUser = MyUser.getInstance();
                     u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
-                    u.changeNotificationStatus(swapingBook.getOwner(),"Borrow","True");
+                    Log.i("ddddddd","dsadsadsa"+borrower);
+                    u.changeNotificationStatus(borrower,"Borrow","True");
                     u.acceptAndDeleteOther(borrower, swapingBook);
                     finish();}
             }
