@@ -128,6 +128,9 @@ public class ORequestedUsersAdapter extends ArrayAdapter<String> {
                 u = new DataBaseUtil(myUser.getName());
                 u.declineUser(userList.get(position), book);
                 userList.remove(position);
+                if(userList.size()==0);{
+                    u.changeStatus(book,"Available");
+                }
                 notifyDataSetChanged();
 
             }

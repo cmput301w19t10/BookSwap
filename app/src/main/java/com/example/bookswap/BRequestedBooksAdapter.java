@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -55,6 +57,11 @@ class BRequestedBooksAdapter extends ArrayAdapter<Book> {
 //        LayoutInflater inflater = LayoutInflater.from(getContext());
 //        View customView = inflater.inflate(R.layout.requested_book_row, parent, false);
 //
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(holder.bookcover);
+        }
         return convertView;
     }
 

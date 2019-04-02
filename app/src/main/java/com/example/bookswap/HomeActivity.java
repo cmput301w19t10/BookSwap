@@ -135,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (value.equals("True")) {
                         //newNotification = true;
                         sendOnChannel1();
-                        u.changeNotificationStatus("Request", "False");
+                        u.changeNotificationStatus(MyUser.getInstance().getName(),"Request", "False");
 //                    reddot.setVisibility(View.INVISIBLE);
 //                    //notificationcall();
 //                    u.changeNotificationStatus("Borrower","False");
@@ -153,7 +153,7 @@ public class HomeActivity extends AppCompatActivity {
             public void getStatus(String value) {
                 if (value.equals("True")) {
                     sendOnChannel2();
-                    u.changeNotificationStatus("Borrow", "False");
+                    u.changeNotificationStatus(MyUser.getInstance().getName(),"Borrow", "False");
                 }
             }
         });
