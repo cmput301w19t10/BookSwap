@@ -4,65 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CommentActivity">
+    tools:context=".CommentActivity"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="189dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="169dp"
-        android:layout_marginEnd="125dp"
-        android:layout_marginBottom="49dp"
+        android:layout_width="291dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center"
         android:text="Comment"
-        app:layout_constraintBottom_toTopOf="@+id/edit_comment"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edit_comment"
-        android:layout_width="288dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="73dp"
-        android:layout_marginBottom="131dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="138dp"
         android:ems="10"
-        android:hint="Leave a comment"
+        android:hint="Leave a review"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/save_comment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <Button
         android:id="@+id/save_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="146dp"
-        android:layout_marginEnd="177dp"
-        android:layout_marginBottom="266dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_comment"
+        app:layout_constraintVertical_bias="0.721" />
 
-    <EditText
+    <TextView
         android:id="@+id/edit_rating"
         android:layout_width="82dp"
         android:layout_height="35dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="279dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginTop="80dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:hint="rating"
-        app:layout_constraintBottom_toTopOf="@+id/edit_comment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Rating: "
+        app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/edit_rating" />
+
 </android.support.constraint.ConstraintLayout>

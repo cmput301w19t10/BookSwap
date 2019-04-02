@@ -24,21 +24,49 @@ public class User implements Parcelable {
     private String password;
     private List<Review> owner_reviews = new ArrayList<>();
     private List<Review> borrower_reviews = new ArrayList<>();
+    //private static volatile User user_instance;
 
 
     /**
-     *
      * @param name name
      * @param phone_number phone number
      * @param email email
      * @param address address
      */
+
     public User(String name, String phone_number, String email, String address, String password){
         this.name = name;
         this.phone_number = phone_number;
         this.address = address;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String name){
+        this.name = name;
+    }
+    /**
+     * get singleton instance for user
+     * @return
+     */
+    /*
+    public static synchronized  User getInstance(){
+        if (user_instance == null){
+            synchronized (User.class) {
+                if (user_instance == null) {
+                    user_instance = new User();
+                }
+            }
+        }
+
+        return user_instance;
+    }
+    */
+    /**
+     * create a user instance
+     */
+    public User(){
+
     }
 
     /**
@@ -110,15 +138,18 @@ public class User implements Parcelable {
      * @return a Bitmap of image
      */
     public Bitmap getImage() {
-        try {
-            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
-            Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
-                    encodeByte.length);
-            return bmp;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
+        if (image != null) {
+            try {
+                byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
+                        encodeByte.length);
+                return bmp;
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
         }
+        return null;
     }
 
     /**
@@ -173,7 +204,8 @@ public class User implements Parcelable {
      * add a review in borrower reviews
      * @param review a Review
      */
-    public void addBorrower_reviews(Review review) {
+
+    public void addBorrower_review(Review review) {
         this.borrower_reviews.add(review);
     }
 
@@ -181,7 +213,7 @@ public class User implements Parcelable {
      * add a review in owner reviews
      * @param review a Review
      */
-    public void addOwner_reviews(Review review) {
+    public void addOwner_review(Review review) {
         this.owner_reviews.add(review);
     }
 

@@ -2,44 +2,75 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bookswap">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
+        android:name=".Notifications"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity android:name=".BReturnSet" />
+        <activity android:name=".OBorrowedSwapActivity" />
+        <activity android:name=".OBorrowedActivity" />
+        <activity android:name=".OAcceptedActivity" />
+        <activity android:name=".BReturnView" />
+        <activity android:name=".BBorrowedActivity" />
+        <activity
+            android:name=".MapViewActivity"
+            android:label="@string/title_activity_map_view"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".MapSelectActivity" />
+        <activity android:name=".BAvailableActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
 
-        <activity android:name=".CommentActivity"></activity>
-        <activity android:name=".OtherRateActivity" />
-        <activity android:name=".OtherProfileActivity" />
-        <activity android:name=".SelfRateActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".MainActivity">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".BRequestedBooksActivity" />
+        <activity android:name=".BorrowerActivity" />
+        <activity android:name=".HomeActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".CommentActivity" />
+        <activity android:name=".OtherRateActivity"
+            android:theme="@style/noActionBar"
+            android:launchMode="singleTop"/>
+        <activity android:name=".OtherProfileActivity"
+            android:theme="@style/noActionBar"/>
+        <activity android:name=".SelfRateActivity"
+            android:theme="@style/noActionBar"
+            android:launchMode="singleTop"/>
+        <activity android:name=".EditProfileActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/noActionBar"/>
+        <activity android:name=".BAcceptActivity" />
+        <activity android:name=".ORequestedActivity" />
+        <activity android:name=".ORequestedUserActivity" />
+        <activity
+            android:name=".ProfileSearchActivity"
+            android:label="Search person"
+            android:theme="@style/SearchTheme"
+            android:launchMode="singleTask"/>
+        <activity android:name=".DummyActivity" />
+        <activity android:name=".RegisterActivity"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".LoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BAcceptActivity"> </activity>
-        <activity android:name=".ORequestedActivity"> </activity>
-        <activity android:name=".ORequestedUserActivity"> </activity>
-        <activity android:name=".SelfProfileActivity"></activity>
-        <activity android:name=".ProfileSearchActivity"
-            android:theme = "@style/SearchTheme"
-            android:label = "Search person"></activity>
-        <activity android:name=".RegisterActivity" ></activity>
-        <activity
-            android:name=".LoginActivity"
-            android:launchMode="singleTop" />
-
-        <activity android:name=".RequestActivity" />
-        <activity
-            android:name=".OwnerNotificationActivity"
-            android:theme="@style/noActionBar" />
-        <activity android:name=".RequestedBooksActivity" />
-
+        <activity android:name=".BRequestActivity" />
+        <activity android:name=".OwnerNotificationActivity" />
+        <activity android:name=".ORequestedBooksActivity" />
         <activity
             android:name=".OwnerActivity"
             android:parentActivityName=".DummyActivity">
@@ -56,13 +87,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OwnerActivity" />
         </activity>
-        <activity android:name=".EditBookActivity"
+        <activity
+            android:name=".EditBookActivity"
             android:parentActivityName=".OAvailableActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OAvailableActivity" />
         </activity>
+        <activity android:name=".ViewBookActivity" />
+        <activity android:name=".BAcceptedSwapActivity" />
+        <activity android:name=".ORequestedSwapActivity" />
+        <activity android:name=".barcode.BarcodeScannerActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDS-xMf2ijhGjyY_vCYmSEBlx6M3KV9tzs" />
+        <meta-data
+            android:name="come.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity android:name=".OAcceptedSwapActivity"></activity>
     </application>
 
 </manifest>
-

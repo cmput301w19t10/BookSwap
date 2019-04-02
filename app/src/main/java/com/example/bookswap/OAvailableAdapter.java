@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -16,10 +18,11 @@ import java.util.ArrayList;
  * Custom adapter for the listview of available books
  * Handles the view of a singular item in the list
  *
+ * @see OAvailableActivity
+ *
  */
 public class OAvailableAdapter extends ArrayAdapter<Book> {
     private ArrayList<Book> availableList;
-
 
     /**
      * standard constructor from parent
@@ -29,7 +32,6 @@ public class OAvailableAdapter extends ArrayAdapter<Book> {
      */
     public OAvailableAdapter(Context context, int resource, ArrayList<Book> objects) {
         super(context, resource, objects);
-
         this.availableList = objects;
     }
 
@@ -54,13 +56,22 @@ public class OAvailableAdapter extends ArrayAdapter<Book> {
 
         TextView title = (TextView) convertView.findViewById(R.id.listTitle);
         TextView author = (TextView) convertView.findViewById(R.id.listAuthor);
+
         ImageView bookcover = (ImageView)convertView.findViewById(R.id.bookCover);
+
         title.setText(element.getTitle());
         author.setText(element.getAuthor());
-        if (element.getImage() != null) {
+        /*if (element.getImage() != null) {
             bookcover.setImageBitmap(element.getImage());
         }
-
+    */
+        if (element.getImageUrl()!= null){
+            Picasso.get()
+                    .load(element.getImageUrl())
+                    .into(bookcover);
+        } else {
+            bookcover.setImageResource(android.R.color.transparent);
+        }
         return convertView;
     }
 

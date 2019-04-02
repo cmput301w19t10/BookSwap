@@ -4,67 +4,112 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 
+
+/**
+ * Book class contains getters and setters for book details
+ *
+ * @title Title of a book
+ * @author Author of a book
+ * @status unique string to determine what state the book is in, in regads to swap.
+ * @isbn bar code of a book
+ * @description description of a book
+ * @owner owner of books
+ * @image Cover of a book
+ *
+ * Parcelable object code/learning:
+ * https://www.sitepoint.com/transfer-data-between-activities-with-android-parcelable/
+ */
 public class Book implements Parcelable {
     private String title;
     private String author;
     private String status;
     private String isbn;
     private String description;
-    private byte[] image;
-
-
+    private String owner;
+    private String image;
+    private String uniKey;
+    private String mImageUrl;
+  
+    /**
+     * writes the current state of the book information to a parcel for use in other activities
+     *
+     * @param out  parcel object to be outputted for useage
+     * @param flag flags (0/1) for Parcelable
+     */
     public void writeToParcel(Parcel out, int flag){
         out.writeString(title);
         out.writeString(author);
         out.writeString(status);
         out.writeString(isbn);
         out.writeString(description);
-        if (image != null) {
-            out.writeInt(image.length);
-            out.writeByteArray(image);
-        }
+        out.writeString(owner);
+        out.writeString(image);
+        out.writeString(uniKey);
+        out.writeString(mImageUrl);
     }
 
-    //temporary use
-    public Book(String title, String author, String status, String description, Bitmap bmp){
+
+    /**
+     * contructor for book
+     * @param title book title
+     * @param author book author
+     * @param status status a book can be in, for the purpose of the app
+     * @param description description of the book, or its contents
+     * @param bmp depreciated, bitmap image of book
+     * @param owner name of the owner of the book
+     */
+    public Book(String title, String author, String status, String description, Bitmap bmp,String owner){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
+        this.owner =owner;
         setImage(bmp);
     }
-
+/*
     public Book(String title, String author, String status, String description){
         this.title = title;
         this.author = author;
         this.status = status;
         this.description = description;
     }
+    public Book(String title, String author, String status, String description, String owner){
+        this.title = title;
+        this.author = author;
+        this.status = status;
+        this.description = description;
+        this.owner = owner;
+    }
+*/
 
-
+    /**
+     * building from parcel for parcelable implementation
+     * @param parcel
+     */
     public Book(Parcel parcel){
         title = parcel.readString();
         author = parcel.readString();
         status = parcel.readString();
         isbn = parcel.readString();
         description = parcel.readString();
-        this.image = new byte[parcel.readInt()];
-        parcel.readByteArray(this.image);
-
+        owner = parcel.readString();
+        image = parcel.readString();
+        uniKey = parcel.readString();
+        mImageUrl = parcel.readString();
     }
 
     public Book(){}
 
 
     /**
-     * return newly populated object
+     * return newly populated book object
      */
-    public static final Parcelable.Creator<Book> CREATOR
-            = new Parcelable.Creator<Book>() {
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
         @Override
         public Book createFromParcel(Parcel parcel) {
             return new Book(parcel);
@@ -76,59 +121,178 @@ public class Book implements Parcelable {
         }
     };
 
+    /**
+     * getter for title
+     * @return title of book
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * getter for author
+     * @return author of book
+     */
     public String getAuthor() {
         return author;
     }
-
+    /**
+     * getter for status
+     * @return status of book
+     */
     public String getStatus() {
         return status;
     }
 
+  
+    /**
+     * getter for description
+     * @return desceiption of book
+     */
     public String getDescription() {
         return description;
     }
-
+    /**
+     * getter for ISBN
+     * @return ISBN of book
+     */
     public String getISBN() {
         return isbn;
     }
-
+    /**
+     * getter for owner
+     * @return status of owner
+     */
+    public String getOwner() {
+        return owner;
+    }
+    /**
+     * getter for image
+     * @return image of book
+     *
+     * Storing bitmap as String:
+     * https://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
+     *
+     */
     public Bitmap getImage() {
-        Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
-        return bmp;
+        if (image != null) {
+            try {
+                byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(encodeByte, 0,
+                        encodeByte.length);
+                return bmp;
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+        }
+        return null;
+    }
+    /**
+     * getter for book cover used for database
+     * @return status of owner
+     */
+
+    public String getUnencodedImage(){
+        return image;
+    }
+    /**
+     * setter of image for database
+     * @return status of owner
+     */
+    public void setUnencodedImage(String image){
+        this.image = image;
     }
 
+    /**
+     * setter for image
+     * @param bmp book cover owner saved
+     */
     public void setImage(Bitmap bmp){
         if (bmp != null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            image = byteArray;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            this.image = Base64.encodeToString(b, Base64.DEFAULT);
         }
     }
-
+    /**
+     * setter for title
+     * @param title title of the book owner saved
+     */
     public void setTitle(String title){
         this.title = title;
     }
 
+    /**
+     * setter for author
+     * @param author author of the book owner saved in
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    /**
+     * setter for status
+     * @param status the status of the book
+     */
     public void setStatus(String status){
         this.status = status;
 
     }
+    /**
+     * setter for isbn
+     * @param isbn bar code of the book
+     */
 
+    public void setISBN(String isbn) {
+        this.isbn = isbn;
+    }
+
+    /**
+     * setter for description
+     * @param description the description of the book
+     */
     public void setDescription(String description){
         this.description = description;
     }
 
+    /**
+     * setter for owner
+     * @param owner the name of the owner
+     */
+    public void setOwner(String  owner){
+        this.owner = owner;
+    }
+    /**
+     * setter for unikey
+     * @param s Unikey of the book
+     */
 
-    // required for parcelable
-    //return hashcode of object
+    public void setUnikey(String s){
+        this.uniKey = s;
+    }
+
+    /**
+     * getter for unikey
+     * @return Unikey of the book
+     */
+    public String getUnikey(){
+        return uniKey;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+    }
+
+    /**
+     * required for parcelable
+     * @return hashcode of object book
+     */
     public int describeContents() {
         return hashCode();
     }

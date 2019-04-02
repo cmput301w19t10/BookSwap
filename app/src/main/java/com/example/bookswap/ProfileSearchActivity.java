@@ -1,13 +1,16 @@
 package com.example.bookswap;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +21,10 @@ import java.util.List;
  */
 public class ProfileSearchActivity extends AppCompatActivity {
 
-    private List<User> userList = new ArrayList<>();
+    private List<User> userList;
     private UserAdapter adapter;
+    private DataBaseUtil u = new DataBaseUtil();
+    RecyclerView recyclerView;
 
     /**
      * create views and create adapter for the search view
@@ -29,23 +34,10 @@ public class ProfileSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_search);
-        initUsers();
-        RecyclerView recyclerView = findViewById(R.id.user_search);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(manager);
-        adapter = new UserAdapter(userList);
-        recyclerView.setAdapter(adapter);
-    }
 
-    /**
-     * initialize users for testing
-     */
-    private void initUsers(){
-        List<String> example_names = Arrays.asList("Andy", "Bob", "Vincent", "Catherine", "Sherlock", "George");
-        for (int i=0; i<6; i++){
-            User user = new User(example_names.get(i), "586921321", "595542478@qq.com", "xxx-xxx-xxxxx", "123213");
-            userList.add(user);
-        }
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        recyclerView = findViewById(R.id.user_search);
+        recyclerView.setLayoutManager(manager);
     }
 
     /**
@@ -61,6 +53,8 @@ public class ProfileSearchActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.search_person);
         SearchView searchView = (SearchView)searchItem.getActionView();
 
+        //adapter = new UserAdapter(userList);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -69,10 +63,32 @@ public class ProfileSearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                userList = new ArrayList<>();
+                Log.d("wtf", newText);
+                u.searchUser(newText, new DataBaseUtil.getMatchedUser() {
+                    @Override
+                    public void getMatchedUser(User user) {
+                        userList.add(user);
+                        adapter = new UserAdapter(userList);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
                 return false;
             }
         });
         return true;
     }
+
+    /**
+     * for refresh
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (userList != null) {
+            adapter = new UserAdapter(userList);
+            recyclerView.setAdapter(adapter);
+        }
+    }
+
 }

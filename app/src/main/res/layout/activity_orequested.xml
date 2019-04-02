@@ -2,24 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/r_title"
+
+    <android.support.v4.widget.SwipeRefreshLayout
+
+        android:id="@+id/Swipe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="RequestedBook" />
+        android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/main_listview"
-        android:layout_width="match_parent"
-        android:layout_height="464dp" />
+        <ListView
+            android:id="@+id/main_listview"
+            android:divider="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="dialog" />
 
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -11,5 +11,16 @@
     <string name="button_b">Accepted</string>
     <string name="button_c">Requested</string>
     <string name="button_d">Borrowed</string>
+    <string name="search_hint">Find a book</string>
+
+    <string name="AVAILABLE">Available</string>
+    <string name="accepted">Accepted</string>
+
+
+    <string name="confirm">Confirm</string>
+    <string name="setLocation">Set Meetup Location</string>
+    <string name="setLocationShort">Set Meetup</string>
+    <string name="viewLocation">View Meetup</string>
+    <string name="title_activity_map_view">MapViewActivity</string>
 
 </resources>
