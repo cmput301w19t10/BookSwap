@@ -405,8 +405,21 @@ public class DataBaseUtil {
 
     }
 
-    public void declineUser(String BorrowerName,Book book){
+    public void declineUser(String BorrowerName,final Book book){
         BookDatabase.child(book.getUnikey()).child("Borrower").child(BorrowerName).removeValue();
+        BookDatabase.child(book.getUnikey()).child("Borrower").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChildren()){
+                    BookDatabase.child(book.getUnikey()).child("Status").setValue("Available");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
     }
 
 //    public void declineUser(String BorrowerName,Book book){
