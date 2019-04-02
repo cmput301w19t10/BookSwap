@@ -177,7 +177,7 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     User myUser = MyUser.getInstance();
                     u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
-                    u.changeNotificationStatus(swapingBook.getOwner(),"Borrow","True");
+                    u.changeNotificationStatus(borrower,"Borrow","True");
                     u.acceptAndDeleteOther(borrower, swapingBook);
                     finish();}
             }

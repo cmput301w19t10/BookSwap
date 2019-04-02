@@ -487,7 +487,7 @@ public class DataBaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String status = dataSnapshot.child("Status").getValue(String.class);
-                if (status.equals("Available")){
+                if (status.equals("Available")||status.equals("Requested")){
                     BookDatabase.child(book.getUnikey()).child("Borrower").child(userName).setValue(userName);
                     callBack.addNewBorrower(true);
                 } else {
