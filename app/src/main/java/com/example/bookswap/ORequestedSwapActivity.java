@@ -180,7 +180,10 @@ public class ORequestedSwapActivity extends AppCompatActivity {
                     u.swapInfo(swapingBook,swapclass);
                     u.changeNotificationStatus(borrower,"Borrow","True");
                     u.acceptAndDeleteOther(borrower, swapingBook);
-                    finish();}
+                    Intent intent = new Intent(ORequestedSwapActivity.this,HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    }
             }
         });
 

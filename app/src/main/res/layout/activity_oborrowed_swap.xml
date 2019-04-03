@@ -98,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:gravity="center"
                 android:minLines="5"
                 android:background="@null"
                 android:ems="10"

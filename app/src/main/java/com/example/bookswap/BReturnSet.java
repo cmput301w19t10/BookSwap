@@ -181,8 +181,11 @@ set up the layout when created
                     u = new DataBaseUtil(myUser.getName());
                     u.swapInfo(swapingBook,swapclass);
                     u.changeSwapStatus(swapingBook,"Return",true);
+                    Intent intent = new Intent(BReturnSet.this,HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
 
-                    finish();}
+                    }
             }
         });
 

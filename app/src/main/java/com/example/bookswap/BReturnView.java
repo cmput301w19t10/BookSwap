@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -68,6 +69,8 @@ public class BReturnView extends AppCompatActivity {
         swapingBook = intent.getParcelableExtra("book");
         String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
+        TextPaint tp = tvBookInfo.getPaint();
+        tp.setFakeBoldText(true);
         tvBookInfo.setText(infoDisplay);
 
 

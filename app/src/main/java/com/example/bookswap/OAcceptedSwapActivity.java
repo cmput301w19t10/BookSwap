@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +61,8 @@ public class OAcceptedSwapActivity extends AppCompatActivity {
         Log.d("viewbook2",swapingBook.getUnikey());
         String infoDisplay = swapingBook.getTitle() + " by " + swapingBook.getAuthor();
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
+        TextPaint tp = bookinfo.getPaint();
+        tp.setFakeBoldText(true);
         bookinfo.setText(infoDisplay);
 
         bookinfo.setOnClickListener(new View.OnClickListener() {
