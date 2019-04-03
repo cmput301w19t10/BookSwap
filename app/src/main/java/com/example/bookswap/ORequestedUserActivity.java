@@ -130,7 +130,6 @@ public class ORequestedUserActivity extends AppCompatActivity {
             @Override
             public void getBorrower(String value) {
                 userList.add(value);
-                Log.d("Orequestuser",userList.size()+"");
                 display_listview.setAdapter(adapter);
             }
 
