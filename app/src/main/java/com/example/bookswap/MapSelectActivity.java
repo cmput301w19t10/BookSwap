@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,6 +25,7 @@ public class MapSelectActivity extends FragmentActivity implements OnMapReadyCal
 
     private LatLng point = new LatLng(53.5,-113.5);
     private Button setLocation;
+    private Marker meetup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,8 @@ public class MapSelectActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("location", point);
+                intent.putExtra("location", meetup.getPosition());
+                Log.d("LOCATION", meetup.getPosition().toString());
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -51,7 +54,7 @@ public class MapSelectActivity extends FragmentActivity implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap map){
-        final Marker meetup = map.addMarker(new MarkerOptions()
+        meetup = map.addMarker(new MarkerOptions()
         .position(point)
         .title("Place Me at meetup point!")
         .draggable(true));
