@@ -52,7 +52,7 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_oborrowed_swap);
         time = (TextView) findViewById(R.id.time_text);
         date = (TextView) findViewById(R.id.date_text);
-        TextView tvBookInfo = (TextView) findViewById(R.id.bookInfo);
+        bookinfo = (TextView) findViewById(R.id.bookInfo);
         comment = (TextView) findViewById(R.id.comment_text) ;
         confirm = (Button) findViewById(R.id.confirm);
         locationBut = (Button) findViewById(R.id.locationButton);
@@ -64,7 +64,7 @@ public class OBorrowedSwapActivity extends AppCompatActivity {
         infoDisplay = infoDisplay.substring(0, Math.min(infoDisplay.length(), 40));
         TextPaint tp = bookinfo.getPaint();
         tp.setFakeBoldText(true);
-        tvBookInfo.setText(infoDisplay);
+        bookinfo.setText(infoDisplay);
 
 
         User myUser = MyUser.getInstance();

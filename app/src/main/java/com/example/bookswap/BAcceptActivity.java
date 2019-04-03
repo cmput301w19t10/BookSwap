@@ -124,11 +124,13 @@ public class BAcceptActivity extends AppCompatActivity {
                     String barcode = data.getStringExtra("ISBN");
                     boolean flag = false;
                     for (int i = 0 ; i < accept_list.size(); i++) {
-                        if (accept_list.get(i).getISBN().equals(barcode)) {
-                            Intent intent = new Intent(BAcceptActivity.this, ViewBookActivity.class);
-                            intent.putExtra("book", accept_list.get(i));
-                            flag = true;
-                            startActivity(intent);
+                        if (accept_list.get(i).getISBN() != null){
+                            if (accept_list.get(i).getISBN().equals(barcode)) {
+                                Intent intent = new Intent(BAcceptActivity.this, BAcceptedSwapActivity.class);
+                                intent.putExtra("book", accept_list.get(i));
+                                flag = true;
+                                startActivity(intent);
+                            }
                         }
                     }
 

@@ -1,6 +1,7 @@
 package com.example.bookswap;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.bookswap.barcode.BarcodeScannerActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -21,6 +25,7 @@ public class OBorrowedActivity extends AppCompatActivity {
     private ArrayAdapter<Book> adapter;
     private ArrayList<Boolean> swapList = new ArrayList<>();
     private DataBaseUtil u;
+    private final int SCAN = 1;
 
 
 
@@ -109,12 +114,39 @@ public class OBorrowedActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.scan_meun:
-                Toast.makeText(this,"scan!!!",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+                startActivityForResult(intent, SCAN);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SCAN ) {
+            if (resultCode == RESULT_OK){
+                if (data != null) {
+                    String barcode = data.getStringExtra("ISBN");
+                    boolean flag = false;
+                    for (int i = 0 ; i < bro_book.size(); i++) {
+                        if (bro_book.get(i).getISBN() != null){
+                            if (bro_book.get(i).getISBN().equals(barcode)) {
+                                Intent intent = new Intent(OBorrowedActivity.this, BAcceptedSwapActivity.class);
+                                intent.putExtra("book", bro_book.get(i));
+                                flag = true;
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    if (!flag){
+                        Toast.makeText(OBorrowedActivity.this,"No such book ready for swap",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
     }
 
 //    /**

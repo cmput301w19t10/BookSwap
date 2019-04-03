@@ -117,9 +117,7 @@ public class DataBaseUtil {
                     book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                     book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                     book.setOwner(dataSnapshot.child("Book").child(key).child("Owner").getValue(String.class));
-                    if (dataSnapshot.child("Book").child(key).child("ISBN").hasChildren()) {
-                        book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
-                    }
+                    book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
                     book.setAuthor(dataSnapshot.child("Book").child(key).child("Author").getValue(String.class));
                     book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                     book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
@@ -449,9 +447,7 @@ public class DataBaseUtil {
                         book.setStatus(dataSnapshot.child("Book").child(key).child("Status").getValue(String.class));
                         book.setTitle(dataSnapshot.child("Book").child(key).child("Title").getValue(String.class));
                         book.setAuthor(dataSnapshot.child("Book").child(key).child("author").getValue(String.class));
-                        if (dataSnapshot.child("Book").child(key).child("ISBN").hasChildren()) {
-                            book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
-                        }
+                        book.setISBN(dataSnapshot.child("Book").child(key).child("ISBN").getValue(String.class));
                         book.setOwner(dataSnapshot.child("Book").child(key).child("Owner").getValue(String.class));
                         book.setImageUrl(dataSnapshot.child("Book").child(key).child("Photo").getValue(String.class));
                         book.setUnikey(dataSnapshot.child("Book").child(key).child("UniKey").getValue(String.class));
@@ -605,9 +601,7 @@ public class DataBaseUtil {
                             book.setDescription(books.child("Description").getValue(String.class));
                             book.setStatus(books.child("Status").getValue(String.class));
                             book.setTitle(books.child("Title").getValue(String.class));
-                            if (books.child("ISBN").hasChildren()){
-                                book.setISBN(books.child("ISBN").getValue(String.class));
-                            }
+                            book.setISBN(books.child("ISBN").getValue(String.class));
                             book.setOwner(books.child("Owner").getValue(String.class));
                             book.setAuthor(books.child("Author").getValue(String.class));
                             book.setImageUrl(books.child("Photo").getValue(String.class));
