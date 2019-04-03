@@ -67,6 +67,7 @@ public class OtherRateActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(OtherRateActivity.this, "Cannot be reviewed as Owner", Toast.LENGTH_SHORT).show();
                     }
+
                 } else{
                     if (reviewType == 2) {
                         startActivityForResult(intent, 2);

@@ -215,6 +215,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.item1: {
+                Intent intent = new Intent(HomeActivity.this, OtherRateActivity.class);
+                intent.putExtra("userName", "Bowen");
+                intent.putExtra("review_type", 2);
+                startActivity(intent);
+                return true;
+            }
             case R.id.logout: {
                 FirebaseAuth.getInstance().signOut();
                 Log.d("USERTAG", MyUser.getInstance().getName());
